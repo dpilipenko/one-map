@@ -7,6 +7,11 @@ class UrlMappings {
             }
         }
 
+		"/onemap"{
+			controller="oneMap"
+			action="show"
+		}
+		
         "/"(view:"/home")
         "500"(view:'/error')
 	}
