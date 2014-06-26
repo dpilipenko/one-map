@@ -2,18 +2,39 @@ package com.rosetta.onemap
 
 class User {
 
-	String firstName
-	String lastName
-	String level
-	String craft
-	Integer phone
-	String email
-	
-    static constraints = {
-		firstName size: 1..60, blank: false
-		lastName size: 1..60, blank: false
-		level nullable: true
-		craft nullable: true
-		email email: true, blank: false
-    }
+	transient springSecurityService
+
+	String username
+	String password
+	boolean enabled
+	boolean accountExpired
+	boolean accountLocked
+	boolean passwordExpired
+
+	static constraints = {
+		username blank: false, unique: true
+		password blank: false
+	}
+
+	static mapping = {
+		password column: '`password`'
+	}
+
+	Set<Role> getAuthorities() {
+		UserRole.findAllByUser(this).collect { it.role } as Set
+	}
+
+	def beforeInsert() {
+		encodePassword()
+	}
+
+	def beforeUpdate() {
+		if (isDirty('password')) {
+			encodePassword()
+		}
+	}
+
+	protected void encodePassword() {
+		password = springSecurityService.encodePassword(password)
+	}
 }
