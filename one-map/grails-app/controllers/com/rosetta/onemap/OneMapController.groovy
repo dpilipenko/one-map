@@ -133,7 +133,6 @@ class OneMapController {
 			}
 		}
 		for(Room room : roomResults) {
-			HashMap<String, String> roomMap = new HashMap<String,String>();
 			JSONObject roomObject = new JSONObject()
 			roomObject.put("name", room.name);
 			roomObject.put("location", user?.office?.name);

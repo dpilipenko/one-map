@@ -43,8 +43,13 @@
               <input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
 					</g:formRemote>
-  					<a href="#" class="logout">LOGOUT</a>
-  					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+					<sec:ifLoggedIn>
+						<div class="logout">
+							<g:link controller="logout">LOGOUT</g:link>
+						</div>
+	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
+	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+  					</sec:ifLoggedIn>
   				</div>
 
   				<div class="login-dot">
