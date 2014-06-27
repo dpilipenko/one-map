@@ -43,8 +43,13 @@
               <input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
 					</g:formRemote>
-  					<a href="#" class="logout">LOGOUT</a>
-  					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+					<sec:ifLoggedIn>
+						<div class="logout">
+							<g:link controller="logout">LOGOUT</g:link>
+						</div>
+	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
+	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+  					</sec:ifLoggedIn>
   				</div>
 
   				<div class="login-dot">
@@ -54,7 +59,7 @@
   							<div class="login-title">
   								ONE MAP
   							</div>
-  							<label for="username">Username</label>
+  							<label for="username">Email</label>
   							<input class="username" type="text" />
   							<label for="password">Password</label>
   							<input class="password" type="password" />
@@ -150,7 +155,12 @@
         <a href="#" id="backto3d">3D</a>
       </div>
 
-      <div id="popup"></div>
+      <div id="popup">
+        <div class="inner">
+          
+        </div>
+        <div class="notch"></div>
+      </div>
 
     </div> <!-- end offices container -->
 

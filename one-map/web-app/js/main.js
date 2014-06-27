@@ -56,8 +56,8 @@ var RosettaMap = {
     floorplanLayer: null,
     hoverLayer: null,
     popupElement: null,
-    popupWidth: 200,
-    popupHeight: 200,
+    popupWidth: 312,
+    popupHeight: 114,
     stageScale: 1,
     stageWidth: 521,
     stageHeight: 545,
@@ -118,10 +118,8 @@ var RosettaMap = {
         container: id,
         width: $('.showthisfloor').width(), //scope.stageWidth * scope.stageScale,
         height: $('.showthisfloor').height(), //scope.stageHeight * scope.stageScale,
-        draggable: false,
-        fill: "#e2e2e2"
+        draggable: false
       });
-	  //stage.style.background = "#e2e2e2";
 
       var layer = new Kinetic.Layer({
         x: 0,
@@ -197,6 +195,7 @@ var RosettaMap = {
                       this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
                       this.moveTo(topLayer);
                       topLayer.drawScene();
+                      console.log(this.getId());
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -244,6 +243,10 @@ var RosettaMap = {
       //show zoom btns
       $('.zoom-btns').fadeIn();
     },
+    destroyFloorplan: function() {
+    	RosettaMap.mapSetup.stage.destroy();
+    	$('.zoom-btns').fadeOut();
+    }
   },
   mapInteractions: {
     hasPanned: false,
@@ -312,65 +315,35 @@ var RosettaMap = {
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
         },
-        success: function(data) {
-        	console.log(data);
-	    	/* if (true) {
-	            // call ajax and get object
-	            var object = {
-	              type: "room",
-	              name: "The Beatles",
-	              number: "1728",
-	              phone: "216.000.0000",
-	              project: "AHA",
-	              members: [
-	                {
-	                  name: "Dave Fagan",
-	                  craft: "Creative Engineer",
-	                  level: "Senior Associate",
-	                  phone: "216.000.1234",
-	                  email: "dave.fagan@rosetta.com"
-	                },
-	                {
-	                  name: "Liz Judd",
-	                  craft: "Creative Engineer",
-	                  level: "Senior Associate",
-	                  phone: "216.000.1234",
-	                  email: "liz.judd@rosetta.com"
-	                },
-	                {
-	                  name: "Dan Padgett",
-	                  craft: "Software Engineer",
-	                  level: "Senior Associate",
-	                  phone: "216.000.1234",
-	                  email: "dan.padget@rosetta.com",
-	                }
-	              ]
-	            };
-	
-	            
-	            if(!($('#room-template').length > 0)) {
-	              $.get( "/one-map/static/js/template-room.html", function( data ) {
-	            	  $( "body" ).append( data );
-	            	  var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-	            	  $(RosettaMap.mapSetup.popupElement).html(content);
-	            	  
-	            	  if(!($('#user-template').length > 0)) {
-			              $.get( "/one-map/static/js/template-user.html", function( data ) {
-			                $( "body" ).append( data );
-			                var content = '';
-			                for(var i = 0; i < object.members.length; i++) {
-			                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
-			                }
-			                $('#WARmembers').html(content);
-			                
-			              });
-			            }
-	              });
-	            } 
-	           
-	          } else { // not
-	
-	          } */
+        success: function(object) {
+        	console.log(object);
+        	switch(object.type) {
+	        	case "room":
+	        		if(!($('#room-template').length > 0)) {
+	  	              $.get( "/one-map/static/js/template-room.html", function( data ) {
+	  	            	  $( "body" ).append( data );
+	  	            	  var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	  	            	  $(RosettaMap.mapSetup.popupElement).html(content);
+	  	            	  
+	  	            	  if(!($('#user-template').length > 0)) {
+	  			              $.get( "/one-map/static/js/template-user.html", function( data ) {
+	  			                $( "body" ).append( data );
+	  			                var content = '';
+	  			                for(var i = 0; i < object.members.length; i++) {
+	  			                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
+	  			                }
+	  			                $('#WARmembers').html(content);
+	  			              });
+	  			            }
+	  	              });
+	  	            } 
+	        		break;
+	        	case "desk":
+	        		break;
+	        	default:
+	        		alert(data.type);
+	        		break;
+        	}
         } ,
         error: function(jqXHR, textStatus, errorThrown) {
         	alert(errorThrown);
@@ -526,6 +499,12 @@ var RosettaMap = {
   			RosettaMap.search.submit();
   		}
   	});
+  	$(document).on('keypress', '.password', function(e) {
+  		if(e.keyCode == 13) {
+  			e.preventDefault();
+  			RosettaMap.login.submit();
+  		}
+  	});
     $(document).on('click', '.collapse-results', function(e) {
     	e.preventDefault();
     	if($('#results').hasClass('collapsed')) {
@@ -541,13 +520,13 @@ var RosettaMap = {
     });
 
     $(document).on("click", '#backto3d', function(){
-      $(this).parents('.zoom-btns').fadeOut();
         $( '.floorplan' ).each( function( el, i ) {
           $(this).removeClass('flydown').removeClass('flyup');
         });
 
         $( '.ms-wrapper' ).removeClass('showingfloor');
         $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
+    	RosettaMap.mapSetup.destroyFloorplan();
     });
   }
 };

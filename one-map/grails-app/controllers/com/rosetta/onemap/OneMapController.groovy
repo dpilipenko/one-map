@@ -2,8 +2,11 @@ package com.rosetta.onemap
 
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
+
 import grails.converters.JSON
+
 import com.rosetta.onemap.pintypes.Room
+
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
@@ -124,7 +127,7 @@ class OneMapController {
 	def runSearch() {
 		def searchTerm = params.searchquery
 		
-		List<HashMap<String,String>> searchResults = new ArrayList<HashMap<String,String>>();
+		JSONArray searchResults = new JSONArray()
 		
 		def userResults = User.withCriteria {
 			or {
@@ -134,15 +137,36 @@ class OneMapController {
 			}
 		}
 		for(User user : userResults) {
-			HashMap<String, String> userMap = new HashMap<String,String>();
-			userMap.put("name", (user.firstName+" "+user.lastName));
-			if(user?.level != null) {
-				userMap.put("position", user.level);
+			JSONObject userObject = new JSONObject()
+			userObject.put("name", (user.firstName+" "+user.lastName));
+			userObject.put("level", user?.level);
+			userObject.put("craft", user?.office?.name);
+			userObject.put("location", user?.office?.name);
+			
+			String hopstopId = "";
+			String floor = "";
+			
+			def desk = Desk.findByUser(user);
+			if (desk != null) {
+				hopstopId = "h"+desk.getHotspot().id
+				floor = desk.getHotspot().getFloor()
 			}
-			if(user?.office != null) {
-				userMap.put("location", user.office.name);
+			
+			def c = Room.createCriteria()
+			def room = c.get {
+			   users {
+				  idEq(user.id)
+			   }
 			}
-			searchResults.add(userMap);
+			if(room != null) {
+				hopstopId = "h"+room.getHotspot().id
+				floor = room.getHotspot().getFloor()
+			}
+			
+			userObject.put("floor", floor);
+			userObject.put("hotspotId", hopstopId);
+			
+			searchResults.add(userObject);
 		}
 		
 		def roomResults = Room.withCriteria {
@@ -151,11 +175,12 @@ class OneMapController {
 			}
 		}
 		for(Room room : roomResults) {
-			HashMap<String, String> roomMap = new HashMap<String,String>();
-			roomMap.put("name", room.name);
-			searchResults.add(roomMap);
+			JSONObject roomObject = new JSONObject()
+			roomObject.put("name", room.name);
+			roomObject.put("location", user?.office?.name);
+			searchResults.add(roomObject);
 		}
 		
-		render (template:"results-template", model:[searchResults: searchResults])
+		render searchResults as JSON
 	}
 }
