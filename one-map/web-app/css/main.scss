@@ -390,6 +390,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 #results {
 	border: 1px solid #404040;
 
+	display: none;
+
+
 	-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.85);
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.85);
 
@@ -430,7 +433,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 		border: 1px solid #414141;
 
-		 
+		span {
+			@include Satellite;
+			color: $blue;
+			font-size: 28px;
+			text-shadow: 0 1px 1px #000;
+			float: left;
+			margin-top: 16px;
+		}
 
 		.clear-results {
 			float: right;
@@ -472,16 +482,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 		.result-item {
 			opacity: 0.5;
-		}
-
-		.result-item.isLink {
-			opacity: 1;
 			background: url(../images/icon-person.png) no-repeat left center;
 			background-size: 29px 27px;
 			padding: 8px 0px 8px 40px;
 			min-height: 49px;
 			border-bottom: 1px solid #393939;
 			margin: 0px 12px;
+
+			&.isLink {
+				opacity: 1;
+			}
 
 			.name {
 				color: #FFF;
@@ -517,6 +527,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 				border-left:10px solid #bbbbbb; 
 				border-right: none;
 			}
+		}
+	}
+
+	&.cleared {
+		left: -390px;
+
+		.results-header {
+			margin-left: 59px;
 		}
 	}
 

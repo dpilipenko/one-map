@@ -491,7 +491,7 @@ var RosettaMap = {
                 $('#result-list').html(content);
                 
             	// show results tab
-                $('#results').removeClass('cleared').removeClass('collapsed');
+                $('#results').show().removeClass('cleared').removeClass('collapsed');
             	
             	// update map
             	
