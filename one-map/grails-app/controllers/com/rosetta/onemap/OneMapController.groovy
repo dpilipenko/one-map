@@ -31,8 +31,11 @@ class OneMapController {
 	
 	def gethotspotbyid () {
 		def currUser = springSecurityService.currentUser
-		
-		def hotspot = Hotspot.get(params.hotspotID)
+		def hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+			hotspotID = hotspotID.substring(1, hotspotID.length())
+		}
+		def hotspot = Hotspot.get(hotspotID)
 		def p = Pin.findByHotspot(hotspot)
 		JSONObject o = new JSONObject()
 		
