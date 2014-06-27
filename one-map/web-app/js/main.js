@@ -309,6 +309,7 @@ var RosettaMap = {
     	  y = e.evt.clientY;
       } else {
     	  var firstDataPoint = RosettaMap.mapInteractions.activeHotspot.getData().split(' ')[0].replace('M', '').split(',');
+        console.log(firstDataPoint);
     	  x = parseInt(firstDataPoint[0]) + 40 + (RosettaMap.mapSetup.popupWidth/2);
     	  y = firstDataPoint[1];
       }
@@ -667,7 +668,7 @@ var RosettaMap = {
         success: function(object) {
           // TODO: add buttons and interactions
 
-          if($this.hasClass('addme')){
+          if($('#popup .claimHotspot').hasClass('addme')){
               $('#popup .inner').html('Done').delay(500).parent().hide();
               RosettaMap.mapInteractions.unactivateHotspot();
           } else {
