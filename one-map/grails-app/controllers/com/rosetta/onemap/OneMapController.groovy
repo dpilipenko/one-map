@@ -1,11 +1,13 @@
 package com.rosetta.onemap
 
 import grails.converters.JSON
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class OneMapController {
 
 	def springSecurityService
+	def pinService
+	def deskService
+	def roomService
 	
     def show() {
 		def config = SpringSecurityUtils.securityConfig
@@ -14,7 +16,7 @@ class OneMapController {
 	}
 	
 	def gethotspots () {
-		Map<String, List<String>> hotspotMaps = new HashMap<String, String>()
+		Map<String, List<String>> hotspotMaps = new HashMap<String, List<String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
 			List<String> polygons = hotspotMaps.get(h.floor)
 			if (polygons == null) {

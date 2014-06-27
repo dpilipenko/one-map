@@ -1,6 +1,5 @@
 package com.rosetta.onemap
 
-import java.util.Date;
 
 class Pin {
 
