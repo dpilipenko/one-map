@@ -5,6 +5,11 @@ class BootStrap {
 
     def init = { servletContext ->
 		
+		new User(username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
 		
 		new Hotspot( floor: "17", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true);
 		new Hotspot( floor: "17", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true);
@@ -119,9 +124,6 @@ class BootStrap {
 		new Hotspot( floor: "11", polygon: "M316.12,451.72 325.12,489.76 272.08,502.359 259.36,449.56 272.44,446.44 283.24,444.16 285.838,453.939 292.72,452.56z").save(flush: true);
 		new Hotspot( floor: "11", polygon: "M3207.16,460.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239 c0,0-20.6-5.111-21.9-4.2L213.4,458.8L207.16,460.36z").save(flush: true);
 		new Hotspot( floor: "11", polygon: "M219.88,4.96 263.20,4.96 263.20,29.32 219.88,29.32 219.88,4.96z").save(flush: true);
-
-
-	
     }
     def destroy = {
     }
