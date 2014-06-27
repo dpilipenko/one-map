@@ -39,6 +39,10 @@ var phoneSlideshow = (function() {
         classie.add(document.querySelector( '.ms-wrapper' ), 'showingfloor');
         classie.add( this, 'showthisfloor' );
         this.setAttribute("data-showing", "true");
+        
+        
+        
+        RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"));
       }
     }
 
@@ -263,7 +267,6 @@ var RosettaMap = {
       };
     },
   },
-
   mapInteractions: {
     hasPanned: false,
     startDragOffset: {},

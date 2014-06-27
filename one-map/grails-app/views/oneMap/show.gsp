@@ -124,22 +124,22 @@
             
             <div id="floor-plans" class="ms-device">
               <div class="ms-screens">
-                <div class="ms-screen-1 floorplan" data-showing="false">
+                <div id="eleven" class="ms-screen-1 floorplan" data-showing="false" data-imgsrc="floorplan-eleven">
                   <div class="ms-label">Floor 11</div>
                 </div>
-                <div class="ms-screen-2 floorplan" data-showing="false">
+                <div id="twelve" class="ms-screen-2 floorplan" data-showing="false" data-imgsrc="floorplan-twelve">
                   <div class="ms-label">Floor 12</div>
                 </div>
-                <div class="ms-screen-3 floorplan" data-showing="false">
+                <div id="thirteen" class="ms-screen-3 floorplan" data-showing="false" data-imgsrc="floorplan-thirteen">
                   <div class="ms-label">Floor 13</div>
                 </div>
-                <div class="ms-screen-4 floorplan" data-showing="false">
+                <div id="fourteen" class="ms-screen-4 floorplan" data-showing="false" data-imgsrc="floorplan-fourteen">
                   <div class="ms-label">Floor 14</div>
                 </div>
-                <div class="ms-screen-5 floorplan" data-showing="false">
+                <div id="fifteen" class="ms-screen-5 floorplan" data-showing="false" data-imgsrc="floorplan-fifteen">
                   <div class="ms-label">Floor 15</div>
                 </div>
-                <div class="ms-screen-6 floorplan" data-showing="false">
+                <div id="seventeen" class="ms-screen-6 floorplan" data-showing="false" data-imgsrc="floorplan-seventeen">
                   <div class="ms-label">Floor 17</div>
                 </div>
               </div>
