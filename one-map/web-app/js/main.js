@@ -76,8 +76,6 @@ var RosettaMap = {
     	var scope = this,
       		isHorizontal = false;
     	
-    	console.log(typeof floorNumber);
-    	console.log(floorNumber);
     	switch(floorNumber) {
 	    	case "11":
 	    		scope.stageWidth = 550;
@@ -205,7 +203,6 @@ var RosettaMap = {
                       this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
                       this.moveTo(topLayer);
                       topLayer.drawScene();
-                      console.log(this.getId());
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -241,6 +238,8 @@ var RosettaMap = {
                   scope.stage = stage;
                   scope.hoverLayer = topLayer;
                   scope.floorplanLayer = layer;
+                  
+                  $('.zoom-btns').show();
             },
             error: function(errorThrown) {
             	console.log(errorThrown);
@@ -310,14 +309,15 @@ var RosettaMap = {
 
       // import information in wizard based on return for ajax call (todo in future)
       
-	  /* $.ajax({
-        url: '',
+	  $.ajax({
+        url: '/one-map/oneMap/gethotspotbyid',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
         },
-        success: function(data) { */
-	    	if (true) {
+        success: function(data) {
+        	console.log(data);
+	    	/* if (true) {
 	            // call ajax and get object
 	            var object = {
 	              type: "room",
@@ -373,12 +373,12 @@ var RosettaMap = {
 	           
 	          } else { // not
 	
-	          }
-        /*} ,
+	          } */
+        } ,
         error: function(jqXHR, textStatus, errorThrown) {
         	alert(errorThrown);
         }
-      }); */
+      });
 
       popupElement.style.display = 'block';
     },
