@@ -15,7 +15,7 @@
 
 </head>
 
-<body>
+<body class="login">
 
   <div class="main">
 
@@ -25,7 +25,7 @@
   	<div class="header">
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
-	<div class="header login">
+	<div class="header">
 </sec:ifNotLoggedIn>
 
   		<div class="header-bg">
@@ -52,25 +52,27 @@
   					</sec:ifLoggedIn>
   				</div>
 
-  				<div class="login-dot">
-  					<div class="inner">
-  						<div class="login-form">
-
-  							<div class="login-title">
-  								ONE MAP
-  							</div>
-  							<label for="username">Email</label>
-  							<input class="username" type="text" />
-  							<label for="password">Password</label>
-  							<input class="password" type="password" />
-  							<button type="submit" class="submit-login">SUBMIT</button>
-
-  						</div>
-  				  </div>
-
-    			</div>
+  				
   			
     		</div>
+
+        <div class="login-dot">
+            <div class="inner">
+              <div class="login-form">
+
+                <div class="login-title">
+                  ONE MAP
+                </div>
+                <label for="username">Email</label>
+                <input class="username" type="text" />
+                <label for="password">Password</label>
+                <input class="password" type="password" />
+                <button type="submit" class="submit-login">SUBMIT</button>
+
+              </div>
+            </div>
+
+          </div>
 
       </div>
 

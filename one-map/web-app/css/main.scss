@@ -80,6 +80,7 @@ $darkgrey: #424242;
 
 body {
 	background: url(../images/bg-tile.jpg) repeat;
+	margin: 0;
 }
 
 .clearfix:after {
@@ -158,6 +159,26 @@ input {
 /* --- Main
 ------------------------------ */
 
+.login {
+	overflow: hidden;
+
+	.header {
+		height: 100%;
+
+		.divider, .name, .utility {
+			display: none;
+		}
+
+		.login-dot {
+			display: block;
+		}
+
+		.header-bg	{
+			background-position: center bottom;
+		}
+	}
+}
+
 .header {
 	height: 95px;
 	width: 100%;
@@ -174,22 +195,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 
 	-webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);
 	box-shadow: 0 2px 3px 0 rgba(0,0,0,0.5);
-
-	&.login {
-		height: 100%;
-
-		.divider, .name, .utility {
-			display: none;
-		}
-
-		.login-dot {
-			display: block;
-		}
-
-		.header-bg	{
-			background-position: center bottom;
-		}
-	}
 
 	.header-bg {
 		background: url(../images/bg-header.png) no-repeat center 95px;
@@ -298,7 +303,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 	padding: 12px;
 	margin: -255px auto 0;
 	position: relative;
-	top: 50%;
+	top: 40%;
 
 	-webkit-box-shadow: 0 0 13px 0 rgba(0,0,0,0.20);
 	box-shadow: 0 0 13px 0 rgba(0,0,0,0.20);

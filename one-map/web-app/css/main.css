@@ -39,9 +39,10 @@
 /* line 81, main.scss */
 body {
   background: url(../images/bg-tile.jpg) repeat;
+  margin: 0;
 }
 
-/* line 85, main.scss */
+/* line 86, main.scss */
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -51,31 +52,31 @@ body {
   height: 0;
 }
 
-/* line 94, main.scss */
+/* line 95, main.scss */
 form {
   margin: 0 !important;
 }
 
-/* line 98, main.scss */
+/* line 99, main.scss */
 ::-webkit-scrollbar {
   height: 7px;
   width: 7px;
   background: none;
 }
 
-/* line 104, main.scss */
+/* line 105, main.scss */
 ::-webkit-scrollbar-thumb {
   background: #767676;
   -webkit-border-radius: 1ex;
   -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
 }
 
-/* line 110, main.scss */
+/* line 111, main.scss */
 ::-webkit-scrollbar-corner {
   background: none;
 }
 
-/* line 114, main.scss */
+/* line 115, main.scss */
 .main {
   position: absolute;
   top: 0;
@@ -87,21 +88,21 @@ form {
   box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* line 125, main.scss */
+/* line 126, main.scss */
 * {
   outline-color: #00bce4;
 }
 
-/* line 129, main.scss */
+/* line 130, main.scss */
 a {
   text-decoration: underline;
 }
-/* line 132, main.scss */
+/* line 133, main.scss */
 a:hover {
   text-decoration: none !important;
 }
 
-/* line 136, main.scss */
+/* line 137, main.scss */
 input {
   height: 37px;
   line-height: 37px;
@@ -113,12 +114,12 @@ input {
   font-family: 'robotoregular', Arial;
   padding: 0px 10px;
 }
-/* line 147, main.scss */
+/* line 148, main.scss */
 input::-webkit-input-placeholder {
   color: #424242;
   opacity: 0.6;
 }
-/* line 151, main.scss */
+/* line 152, main.scss */
 input::-moz-placeholder {
   color: #424242;
   opacity: 0.6;
@@ -126,7 +127,28 @@ input::-moz-placeholder {
 
 /* --- Main
 ------------------------------ */
-/* line 161, main.scss */
+/* line 162, main.scss */
+.login {
+  overflow: hidden;
+}
+/* line 165, main.scss */
+.login .header {
+  height: 100%;
+}
+/* line 168, main.scss */
+.login .header .divider, .login .header .name, .login .header .utility {
+  display: none;
+}
+/* line 172, main.scss */
+.login .header .login-dot {
+  display: block;
+}
+/* line 176, main.scss */
+.login .header .header-bg {
+  background-position: center bottom;
+}
+
+/* line 182, main.scss */
 .header {
   height: 95px;
   width: 100%;
@@ -149,23 +171,7 @@ input::-moz-placeholder {
   -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 178, main.scss */
-.header.login {
-  height: 100%;
-}
-/* line 181, main.scss */
-.header.login .divider, .header.login .name, .header.login .utility {
-  display: none;
-}
-/* line 185, main.scss */
-.header.login .login-dot {
-  display: block;
-}
-/* line 189, main.scss */
-.header.login .header-bg {
-  background-position: center bottom;
-}
-/* line 194, main.scss */
+/* line 199, main.scss */
 .header .header-bg {
   background: url(../images/bg-header.png) no-repeat center 95px;
   background-size: cover;
@@ -175,13 +181,13 @@ input::-moz-placeholder {
   top: 0;
   left: 0;
 }
-/* line 204, main.scss */
+/* line 209, main.scss */
 .header .inner {
   padding: 20px 2%;
   width: 96%;
   height: 55px;
 }
-/* line 210, main.scss */
+/* line 215, main.scss */
 .header .logo {
   width: 52px;
   height: 52px;
@@ -189,7 +195,7 @@ input::-moz-placeholder {
   float: left;
   margin-right: 20px;
 }
-/* line 218, main.scss */
+/* line 223, main.scss */
 .header .name {
   font-family: 'satelliteregular', Arial;
   color: #00bce4;
@@ -198,18 +204,18 @@ input::-moz-placeholder {
   float: left;
   margin-top: 7px;
 }
-/* line 227, main.scss */
+/* line 232, main.scss */
 .header .utility {
   margin-top: 8px;
 }
-/* line 231, main.scss */
+/* line 236, main.scss */
 .header .searchbar {
   background: url(../images/icon-magnify.png) no-repeat 190px center rgba(181, 181, 181, 0.7);
   width: 220px;
   float: right;
   padding: 0px 38px 0px 10px;
 }
-/* line 239, main.scss */
+/* line 244, main.scss */
 .header .searchbtn {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: medium none;
@@ -222,7 +228,7 @@ input::-moz-placeholder {
   width: 38px;
   z-index: 1;
 }
-/* line 252, main.scss */
+/* line 257, main.scss */
 .header .logout, .header .welcome {
   float: right;
   font-family: 'robotolight', Arial;
@@ -232,12 +238,12 @@ input::-moz-placeholder {
   height: 37px;
   line-height: 37px;
 }
-/* line 262, main.scss */
+/* line 267, main.scss */
 .header .logout {
   margin: 0px 40px 0px 20px;
 }
 
-/* line 268, main.scss */
+/* line 273, main.scss */
 .fractals {
   background: url(../images/fractals.png) no-repeat bottom center;
   background-size: cover;
@@ -249,7 +255,7 @@ input::-moz-placeholder {
   z-index: 0;
 }
 
-/* line 279, main.scss */
+/* line 284, main.scss */
 .divider {
   width: 3px;
   height: 35px;
@@ -262,7 +268,7 @@ input::-moz-placeholder {
 
 /* --- Login
 ------------------------------ */
-/* line 292, main.scss */
+/* line 297, main.scss */
 .login-dot {
   display: none;
   width: 470px;
@@ -271,11 +277,11 @@ input::-moz-placeholder {
   padding: 12px;
   margin: -255px auto 0;
   position: relative;
-  top: 50%;
+  top: 40%;
   -webkit-box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.2);
 }
-/* line 306, main.scss */
+/* line 311, main.scss */
 .login-dot .inner {
   background: #00b4da;
   /* Old browsers */
@@ -299,13 +305,13 @@ input::-moz-placeholder {
   height: 470px;
   padding: 0px;
 }
-/* line 323, main.scss */
+/* line 328, main.scss */
 .login-dot .login-form {
   margin: 0 auto;
   width: 285px;
   padding-top: 65px;
 }
-/* line 329, main.scss */
+/* line 334, main.scss */
 .login-dot .login-title {
   font-size: 40px;
   font-family: 'satelliteregular', Arial;
@@ -313,7 +319,7 @@ input::-moz-placeholder {
   text-align: center;
   margin-bottom: 25px;
 }
-/* line 337, main.scss */
+/* line 342, main.scss */
 .login-dot input {
   background: #ececec;
   -webkit-box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.5);
@@ -322,7 +328,7 @@ input::-moz-placeholder {
   width: 285px;
   height: 37px;
 }
-/* line 347, main.scss */
+/* line 352, main.scss */
 .login-dot label {
   display: block;
   font-size: 18px;
@@ -331,11 +337,11 @@ input::-moz-placeholder {
   padding-left: 10px;
   margin-bottom: 4px;
 }
-/* line 356, main.scss */
+/* line 361, main.scss */
 .login-dot .username {
   margin-bottom: 35px;
 }
-/* line 360, main.scss */
+/* line 365, main.scss */
 .login-dot .submit-login {
   width: 120px;
   height: 45px;
@@ -348,7 +354,7 @@ input::-moz-placeholder {
   background: none;
   cursor: pointer;
 }
-/* line 374, main.scss */
+/* line 379, main.scss */
 .login-dot .submit-login:hover {
   background: rgba(0, 0, 0, 0.08);
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
@@ -357,7 +363,7 @@ input::-moz-placeholder {
 
 /* --- Search Results
 ------------------------------ */
-/* line 385, main.scss */
+/* line 390, main.scss */
 #results {
   border: 1px solid #404040;
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.85);
@@ -385,7 +391,7 @@ input::-moz-placeholder {
   margin-left: -1px;
   padding-top: 70px;
 }
-/* line 408, main.scss */
+/* line 413, main.scss */
 #results .results-header {
   width: 295px;
   height: 70px;
@@ -411,7 +417,7 @@ input::-moz-placeholder {
   /* IE6-9 */
   border: 1px solid #414141;
 }
-/* line 430, main.scss */
+/* line 435, main.scss */
 #results .results-header .clear-results {
   float: right;
   width: 30px;
@@ -421,12 +427,12 @@ input::-moz-placeholder {
   cursor: pointer;
   margin-right: 20px;
 }
-/* line 440, main.scss */
+/* line 445, main.scss */
 #results .results-header .divider {
   float: right;
   margin-top: 16px;
 }
-/* line 445, main.scss */
+/* line 450, main.scss */
 #results .results-header .collapse-results {
   float: right;
   width: 30px;
@@ -434,7 +440,7 @@ input::-moz-placeholder {
   margin-top: 20px;
   cursor: pointer;
 }
-/* line 452, main.scss */
+/* line 457, main.scss */
 #results .results-header .collapse-results div {
   margin: 6px;
   width: 0;
@@ -443,12 +449,12 @@ input::-moz-placeholder {
   border-bottom: 10px solid transparent;
   border-right: 10px solid #bbbbbb;
 }
-/* line 464, main.scss */
+/* line 469, main.scss */
 #results .results-list {
   overflow-y: auto;
   height: 370px;
 }
-/* line 468, main.scss */
+/* line 473, main.scss */
 #results .results-list .result-item {
   background: url(../images/icon-person.png) no-repeat left center;
   background-size: 29px 27px;
@@ -457,28 +463,28 @@ input::-moz-placeholder {
   border-bottom: 1px solid #393939;
   margin: 0px 12px;
 }
-/* line 476, main.scss */
+/* line 481, main.scss */
 #results .results-list .result-item .name {
   color: #FFF;
   font-family: 'robotoregular', Arial;
   font-size: 15px;
 }
-/* line 482, main.scss */
+/* line 487, main.scss */
 #results .results-list .result-item .position, #results .results-list .result-item .location {
   color: #dcdcdc;
   font-family: Arial;
   font-size: 12px;
   margin-top: 2px;
 }
-/* line 492, main.scss */
+/* line 497, main.scss */
 #results.collapsed {
   left: -322px;
 }
-/* line 495, main.scss */
+/* line 500, main.scss */
 #results.collapsed .results-header {
   margin-left: 59px;
 }
-/* line 500, main.scss */
+/* line 505, main.scss */
 #results.collapsed .collapse-results div {
   margin: 6px;
   width: 0;
@@ -489,14 +495,14 @@ input::-moz-placeholder {
   border-right: none;
 }
 
-/* line 516, main.scss */
+/* line 521, main.scss */
 .zoom-btns {
   position: absolute;
   right: 5%;
   top: 55px;
   display: none;
 }
-/* line 522, main.scss */
+/* line 527, main.scss */
 .zoom-btns #plus {
   width: 25px;
   height: 26px;
@@ -506,11 +512,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 531, main.scss */
+/* line 536, main.scss */
 .zoom-btns #plus:hover {
   background-position: 0 -26px;
 }
-/* line 536, main.scss */
+/* line 541, main.scss */
 .zoom-btns #minus {
   width: 25px;
   height: 26px;
@@ -520,11 +526,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 545, main.scss */
+/* line 550, main.scss */
 .zoom-btns #minus:hover {
   background-position: 0 -26px;
 }
-/* line 550, main.scss */
+/* line 555, main.scss */
 .zoom-btns #backto3d {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: 1px solid #424242;
@@ -542,7 +548,7 @@ input::-moz-placeholder {
   text-decoration: none;
   width: 40px;
 }
-/* line 567, main.scss */
+/* line 572, main.scss */
 .zoom-btns #backto3d:hover {
   background: rgba(0, 0, 0, 0.08);
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
@@ -551,27 +557,27 @@ input::-moz-placeholder {
 
 /* --- Offices
 ------------------------------ */
-/* line 578, main.scss */
+/* line 583, main.scss */
 #offices-container {
   z-index: 1;
   position: relative;
 }
 
-/* line 583, main.scss */
+/* line 588, main.scss */
 #offices-slider-control {
   min-height: 60px;
   overflow: hidden;
   position: relative;
   width: 100%;
 }
-/* line 591, main.scss */
+/* line 596, main.scss */
 #offices-slider-control .inner {
   margin: 0 auto;
   min-height: 1px;
   text-align: center;
   width: 188px;
 }
-/* line 598, main.scss */
+/* line 603, main.scss */
 #offices-slider-control #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -582,7 +588,7 @@ input::-moz-placeholder {
   width: 80%;
   z-index: 1;
 }
-/* line 609, main.scss */
+/* line 614, main.scss */
 #offices-slider-control span {
   margin: 0px 25px;
   font-family: 'satelliteregular', Arial;
@@ -593,7 +599,7 @@ input::-moz-placeholder {
   display: block;
   float: left;
 }
-/* line 620, main.scss */
+/* line 625, main.scss */
 #offices-slider-control .right {
   width: 0;
   height: 0;
@@ -605,7 +611,7 @@ input::-moz-placeholder {
   position: relative;
   margin-top: 25px;
 }
-/* line 634, main.scss */
+/* line 639, main.scss */
 #offices-slider-control .right:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -616,7 +622,7 @@ input::-moz-placeholder {
   transform: rotate(45deg);
   width: 10px;
 }
-/* line 645, main.scss */
+/* line 650, main.scss */
 #offices-slider-control .left {
   width: 0;
   height: 0;
@@ -628,7 +634,7 @@ input::-moz-placeholder {
   position: relative;
   margin-top: 25px;
 }
-/* line 659, main.scss */
+/* line 664, main.scss */
 #offices-slider-control .left:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -642,16 +648,16 @@ input::-moz-placeholder {
 
 /* --- Maps
 ------------------------------ */
-/* line 675, main.scss */
+/* line 680, main.scss */
 .kineticjs-content {
   background: #e2e2e2;
 }
-/* line 678, main.scss */
+/* line 683, main.scss */
 .kineticjs-content canvas {
   z-index: 2;
 }
 
-/* line 683, main.scss */
+/* line 688, main.scss */
 #popup {
   border-radius: 10px;
   display: block;
@@ -678,7 +684,7 @@ input::-moz-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 );
   /* IE6-9 */
 }
-/* line 703, main.scss */
+/* line 708, main.scss */
 #popup .inner {
   min-height: 85px;
   padding: 10px;
@@ -688,15 +694,15 @@ input::-moz-placeholder {
   font-family: 'robotolight', Arial;
   line-height: 18px;
 }
-/* line 714, main.scss */
+/* line 719, main.scss */
 #popup.desk .inner {
   background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
 }
-/* line 718, main.scss */
+/* line 723, main.scss */
 #popup.room .inner {
   background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
 }
-/* line 722, main.scss */
+/* line 727, main.scss */
 #popup .close {
   position: absolute;
   top: -13px;
@@ -707,11 +713,11 @@ input::-moz-placeholder {
   cursor: pointer;
   z-index: 1;
 }
-/* line 732, main.scss */
+/* line 737, main.scss */
 #popup .close:hover {
   background-position: 0px -26px;
 }
-/* line 737, main.scss */
+/* line 742, main.scss */
 #popup .notch {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
@@ -723,7 +729,7 @@ input::-moz-placeholder {
   position: absolute;
   width: 0;
 }
-/* line 749, main.scss */
+/* line 754, main.scss */
 #popup .notch:after {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -735,7 +741,7 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 761, main.scss */
+/* line 766, main.scss */
 #popup .notch:before {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -747,18 +753,18 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 773, main.scss */
+/* line 778, main.scss */
 #popup .name {
   font-size: 23px;
   color: #252525;
   font-family: 'robotolight', Arial;
   margin: 3px 0px 8px;
 }
-/* line 780, main.scss */
+/* line 785, main.scss */
 #popup a {
   color: inherit;
 }
-/* line 783, main.scss */
+/* line 788, main.scss */
 #popup a.btn {
   text-decoration: none;
   border: 1px solid #FFF;
@@ -766,11 +772,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 790, main.scss */
+/* line 795, main.scss */
 #popup a.btn:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 796, main.scss */
+/* line 801, main.scss */
 #popup .btns-container {
   margin-top: 10px;
 }
@@ -779,7 +785,7 @@ input::-moz-placeholder {
 ===================================================
 ===================================================
 --- */
-/* line 820, main.scss */
+/* line 825, main.scss */
 .ms-wrapper {
   position: relative;
   margin: 20px auto 0;
@@ -788,7 +794,7 @@ input::-moz-placeholder {
   overflow: hidden;
 }
 
-/* line 828, main.scss */
+/* line 833, main.scss */
 .ms-perspective {
   position: relative;
   margin: 0px auto;
@@ -802,7 +808,7 @@ input::-moz-placeholder {
   perspective-origin: 50% 0%;
 }
 
-/* line 841, main.scss */
+/* line 846, main.scss */
 .ms-device {
   position: absolute;
   width: 100%;
@@ -812,7 +818,7 @@ input::-moz-placeholder {
   transition: transform 0.7s ease-in-out;
 }
 
-/* line 853, main.scss */
+/* line 858, main.scss */
 .ms-device,
 .ms-object,
 .ms-object > div,
@@ -823,14 +829,14 @@ input::-moz-placeholder {
 }
 
 /* Screens */
-/* line 860, main.scss */
+/* line 865, main.scss */
 .ms-screens .floorplan {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* line 866, main.scss */
+/* line 871, main.scss */
 .ms-screens > .floorplan {
   position: absolute;
   width: 100%;
@@ -850,12 +856,12 @@ input::-moz-placeholder {
   transform: translateZ(16px);
 }
 
-/* line 887, main.scss */
+/* line 892, main.scss */
 .floorplan.showthisfloor, .floorplan.flyup, .floorplan.flydown {
   box-shadow: none;
 }
 
-/* line 891, main.scss */
+/* line 896, main.scss */
 .ms-screens > .floorplan::after {
   content: '';
   position: absolute;
@@ -870,7 +876,7 @@ input::-moz-placeholder {
   transition: opacity 0.3s;
 }
 
-/* line 905, main.scss */
+/* line 910, main.scss */
 .ms-label {
   border: 2px solid #00bce4;
   color: #fff;
@@ -890,12 +896,12 @@ input::-moz-placeholder {
   transition: opacity 0.7s, transform 0.7s;
 }
 
-/* line 926, main.scss */
+/* line 931, main.scss */
 .ms-screens > .floorplan:hover .ms-label, .floorplan.showthisfloor .ms-label {
   background: #00bce4;
 }
 
-/* line 930, main.scss */
+/* line 935, main.scss */
 .ms-label::after {
   right: 100%;
   border: solid transparent;
@@ -911,7 +917,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 946, main.scss */
+/* line 951, main.scss */
 .ms-label::after,
 .ms-label::before {
   right: 100%;
@@ -923,7 +929,7 @@ input::-moz-placeholder {
   pointer-events: none;
 }
 
-/* line 956, main.scss */
+/* line 961, main.scss */
 .ms-label::after {
   border-color: transparent;
   border-right-color: #616163;
@@ -932,7 +938,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 964, main.scss */
+/* line 969, main.scss */
 .ms-label::before {
   border-color: transparent;
   border-right-color: #00bce4;
@@ -941,17 +947,17 @@ input::-moz-placeholder {
   margin-top: -10px;
 }
 
-/* line 972, main.scss */
+/* line 977, main.scss */
 .ms-screens > .floorplan:hover .ms-label::before, .floorplan.showthisfloor .ms-label::before {
   border-right-color: #00bce4;
 }
 
-/* line 976, main.scss */
+/* line 981, main.scss */
 .ms-screens > .floorplan:hover .ms-label::after, .floorplan.showthisfloor .ms-label::after {
   border-right-color: #00bce4;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-1 {
   -webkit-transform: translateZ(90px);
   -moz-transform: translateZ(90px);
@@ -962,7 +968,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-2 {
   -webkit-transform: translateZ(165px);
   -moz-transform: translateZ(165px);
@@ -973,7 +979,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-3 {
   -webkit-transform: translateZ(240px);
   -moz-transform: translateZ(240px);
@@ -984,7 +990,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-4 {
   -webkit-transform: translateZ(315px);
   -moz-transform: translateZ(315px);
@@ -995,7 +1001,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-5 {
   -webkit-transform: translateZ(390px);
   -moz-transform: translateZ(390px);
@@ -1006,7 +1012,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 982, main.scss */
+/* line 987, main.scss */
 .ms-view-layers .ms-screens .ms-screen-6 {
   -webkit-transform: translateZ(465px);
   -moz-transform: translateZ(465px);
@@ -1017,12 +1023,12 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 993, main.scss */
+/* line 998, main.scss */
 .ms-view-layers .ms-screens > .floorplan:not(.showthisfloor):hover::after {
   opacity: 1;
 }
 
-/* line 997, main.scss */
+/* line 1002, main.scss */
 .ms-view-layers .ms-label {
   opacity: 1;
   -webkit-transform: rotateX(-90deg);
@@ -1030,56 +1036,56 @@ input::-moz-placeholder {
   transform: rotateX(-90deg);
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-1 .ms-label {
   -webkit-transition-delay: 1.1s;
   -moz-transition-delay: 1.1s;
   transition-delay: 1.1s;
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-2 .ms-label {
   -webkit-transition-delay: 1s;
   -moz-transition-delay: 1s;
   transition-delay: 1s;
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-3 .ms-label {
   -webkit-transition-delay: 0.9s;
   -moz-transition-delay: 0.9s;
   transition-delay: 0.9s;
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-4 .ms-label {
   -webkit-transition-delay: 0.8s;
   -moz-transition-delay: 0.8s;
   transition-delay: 0.8s;
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-5 .ms-label {
   -webkit-transition-delay: 0.7s;
   -moz-transition-delay: 0.7s;
   transition-delay: 0.7s;
 }
 
-/* line 1005, main.scss */
+/* line 1010, main.scss */
 .ms-view-layers .ms-screen-6 .ms-label {
   -webkit-transition-delay: 0.6s;
   -moz-transition-delay: 0.6s;
   transition-delay: 0.6s;
 }
 
-/* line 1013, main.scss */
+/* line 1018, main.scss */
 .ms-effect-3.ms-view-layers .ms-device {
   -webkit-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
   -moz-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
   transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
 }
 
-/* line 1019, main.scss */
+/* line 1024, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .ms-device {
   -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
   -moz-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
@@ -1089,7 +1095,7 @@ input::-moz-placeholder {
   	transform: rotateY(-30deg) rotateX(90deg) translateZ(0);*/
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1100,7 +1106,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1111,7 +1117,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1122,14 +1128,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1140,7 +1146,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1151,7 +1157,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1162,14 +1168,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1180,7 +1186,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1191,7 +1197,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1202,14 +1208,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1220,7 +1226,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1231,7 +1237,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1242,14 +1248,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1260,7 +1266,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1271,7 +1277,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1282,14 +1288,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1029, main.scss */
+/* line 1034, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1300,7 +1306,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1039, main.scss */
+/* line 1044, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1311,7 +1317,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1049, main.scss */
+/* line 1054, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1322,39 +1328,39 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1059, main.scss */
+/* line 1064, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1068, main.scss */
+/* line 1073, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-1 {
   background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1073, main.scss */
+/* line 1078, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-2 {
   background: url(../images/floorplan-twelve.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1078, main.scss */
+/* line 1083, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-3 {
   background: url(../images/floorplan-thirteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1083, main.scss */
+/* line 1088, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-4 {
   background: url(../images/floorplan-fourteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1088, main.scss */
+/* line 1093, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-5 {
   background: url(../images/floorplan-fifteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1093, main.scss */
+/* line 1098, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-6 {
   background: url(../images/floorplan-seventeen.png) no-repeat center center #e2e2e2;
   background-size: contain;
