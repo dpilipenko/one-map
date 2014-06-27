@@ -5,9 +5,11 @@ import java.util.Date;
 class User {
 
 	transient springSecurityService
-
+	
 	String username
 	String password
+	String firstName
+	String lastName
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
@@ -17,6 +19,8 @@ class User {
 
 	static constraints = {
 		username blank: false, unique: true, email: true
+		firstName blank:false
+		lastName blank:false
 		password blank: false
 	}
 

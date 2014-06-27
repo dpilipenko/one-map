@@ -93,7 +93,14 @@ class OneMapController {
 	}
 	
 	def runSearch() {
-		//render (template:"/oneMap/results-template", model:[results: ])
+		def searchTerm = params.searchquery
+		def searchResults = User.withCriteria {
+			or {
+				like('username', '%'+searchTerm+'%')
+				like('firstName', '%'+searchTerm+'%')
+				like('lastName', '%'+searchTerm+'%')
+			}
+		}
+		render (template:"results-template", model:[results: searchResults])
 	}
-	
 }

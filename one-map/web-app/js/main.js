@@ -40,8 +40,10 @@ var phoneSlideshow = (function() {
         classie.add(document.querySelector( '.ms-wrapper' ), 'showingfloor');
         classie.add( this, 'showthisfloor' );
         this.setAttribute("data-showing", "true");
+        
+        var canvas = $(this).children('.canvas')[0];
 
-        RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"), this.getAttribute("data-floor"));
+        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"));
       }
     }
 
@@ -285,56 +287,75 @@ var RosettaMap = {
 
       // import information in wizard based on return for ajax call (todo in future)
       
-      if (true) {
-        // call ajax and get object
-        var object = {
-          type: "room",
-          name: "The Beatles",
-          number: "1728",
-          phone: "216.000.0000",
-          project: "AHA",
-          members: [
-            {
-              name: "Dave Fagan",
-              craft: "Creative Engineer",
-              level: "Senior Associate",
-              phone: "216.000.1234",
-              email: "dave.fagan@rosetta.com"
-            },
-            {
-              name: "Liz Judd",
-              craft: "Creative Engineer",
-              level: "Senior Associate",
-              phone: "216.000.1234",
-              email: "liz.judd@rosetta.com"
-            },
-            {
-              name: "Dan Padgett",
-              craft: "Software Engineer",
-              level: "Senior Associate",
-              phone: "216.000.1234",
-              email: "dan.padget@rosetta.com"
-            }
-          ]
-        };
-
-        if($('#user-template').length <= 0) {
-          $.get( "js/template-user.html", function( data ) {
-            $( "body" ).append( data );
-          });
+	  /* $.ajax({
+        url: '',
+        type: 'GET',
+        data: {
+            hotspotID: RosettaMap.mapInteractions.activeHotspotID,
+        },
+        success: function(data) { */
+	    	if (true) {
+	            // call ajax and get object
+	            var object = {
+	              type: "room",
+	              name: "The Beatles",
+	              number: "1728",
+	              phone: "216.000.0000",
+	              project: "AHA",
+	              members: [
+	                {
+	                  name: "Dave Fagan",
+	                  craft: "Creative Engineer",
+	                  level: "Senior Associate",
+	                  phone: "216.000.1234",
+	                  email: "dave.fagan@rosetta.com"
+	                },
+	                {
+	                  name: "Liz Judd",
+	                  craft: "Creative Engineer",
+	                  level: "Senior Associate",
+	                  phone: "216.000.1234",
+	                  email: "liz.judd@rosetta.com"
+	                },
+	                {
+	                  name: "Dan Padgett",
+	                  craft: "Software Engineer",
+	                  level: "Senior Associate",
+	                  phone: "216.000.1234",
+	                  email: "dan.padget@rosetta.com",
+	                }
+	              ]
+	            };
+	
+	            
+	            if(!($('#room-template').length > 0)) {
+	              $.get( "/one-map/static/js/template-room.html", function( data ) {
+	            	  $( "body" ).append( data );
+	            	  var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	            	  $(RosettaMap.mapSetup.popupElement).html(content);
+	            	  
+	            	  if(!($('#user-template').length > 0)) {
+			              $.get( "/one-map/static/js/template-user.html", function( data ) {
+			                $( "body" ).append( data );
+			                var content = '';
+			                for(var i = 0; i < object.members.length; i++) {
+			                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
+			                }
+			                $('#WARmembers').html(content);
+			                
+			              });
+			            }
+	              });
+	            } 
+	           
+	          } else { // not
+	
+	          }
+        /*} ,
+        error: function(jqXHR, textStatus, errorThrown) {
+        	alert(errorThrown);
         }
-        if($('#room-template').length <= 0) {
-          $.get( "js/template-room.html", function( data ) {
-            $( "body" ).append( data );
-          });
-        }
-		var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-		$(RosettaMap.mapSetup.popupElement).html(content);
-
-
-      } else { // not
-
-      }
+      }); */
 
       popupElement.style.display = 'block';
     },
@@ -452,6 +473,7 @@ var RosettaMap = {
 	  } 
   },
   init: function() {
+	//  alert('page refreshed');
     if(isLoggedIn) {
       setTimeout(function(){
         $('.ms-wrapper').addClass('ms-view-layers');
@@ -467,40 +489,7 @@ var RosettaMap = {
       }
       RosettaMap.mapInteractions.zoomMap(this.id);
     });
-    
-	//  alert('page refreshed');
-    /* // this needs to move to the on click of floor
-    
-    // return to normal init
    
-
-    $(document).on('click', popupElement.id + ' .close', function () {
-        $(popupElement).hide();
-    });
-    $(document).on('click', '#hotspot-wizard input[type="button"]', function () {
-        function loadForm (data) {
-          $('#hotspot-wizard .type').hide();
-          $('#hotspot-wizard .information').html(data);
-          $('#hotspot-wizard .information').show();
-        };
-        switch($('#hotspot-wizard select').val()) {
-          case 'desk':
-            $.get( "js/template-deskForm.html", function( data ) {
-              loadForm(data);                
-            });
-            break;
-          case 'area':
-            $.get( "js/template-deskForm.html", function( data ) {
-              loadForm(data);               
-            });
-            break;
-          case 'meeting':
-            $.get( "js/template-roomForm.html", function( data ) {
-              loadForm(data);                
-            });
-            break;
-        }
-    }); */
 	
 	 // loging in events
     $(document).on('click', '.submit-login', RosettaMap.login.submit);
