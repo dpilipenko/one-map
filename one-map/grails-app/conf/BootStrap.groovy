@@ -178,7 +178,7 @@ class BootStrap {
 		new Hotspot( floor: "14", type: "room", polygon: "M207.64,111.28 245.32,111.28 245.32,115.18 248.44,115 248.44,136.12 212.08,136.6z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M212.08,137.68 248.44,137.68 248.44,158.8 245.32,159.28 245.32,162.28 207.64,163z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36 245.44,211.36 245.44,215.8 207.64,215.8 211.72,189.88z").save(flush: true);
-		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36z").save(flush: true);
+//		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M207.64,216.88 244.84,216.88 245.44,221.32 248.44,221.32 248.2,241.12 212.08,241.6z").save(flush: true);
 		
 		def hp7 = new Hotspot( floor: "14", type: "desk", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush: true);
