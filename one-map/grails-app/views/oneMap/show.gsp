@@ -168,7 +168,12 @@
 
   </div><!-- end main -->
 
-
+	<script type="text/javascript">
+		var isLoggedIn = false;
+		<sec:ifLoggedIn>
+			isLoggedIn = true;
+		</sec:ifLoggedIn>
+	</script>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>

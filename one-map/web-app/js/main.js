@@ -48,7 +48,6 @@ var phoneSlideshow = (function() {
   }
 
   init();
-
 })();
 
 var RosettaMap = { 
@@ -482,8 +481,8 @@ var RosettaMap = {
             success: function(data, textStatus, jqXHR) {
                 $('.header').removeClass('login');
                 setTimeout(function(){
-                    $('.ms-wrapper').addClass('ms-view-layers');
-                  }, 500);
+                  $('.ms-wrapper').addClass('ms-view-layers');
+                }, 500);
             },
             error: function(jqXHR, textStatus, errorThrown) {
             }
@@ -492,6 +491,11 @@ var RosettaMap = {
 	  } 
   },
   init: function() {
+    if(isLoggedIn) {
+      setTimeout(function(){
+        $('.ms-wrapper').addClass('ms-view-layers');
+      }, 500);
+    }
 	//  alert('page refreshed');
     /* // this needs to move to the on click of floor
     var floorplan = $('.floorplan')[0];
