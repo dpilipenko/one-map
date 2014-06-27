@@ -316,7 +316,7 @@ var RosettaMap = {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
         },
         success: function(object) {
-        	console.log(object);
+        	// TODO: add buttons and interactions
         	switch(object.type) {
 	        	case "room":
 	        		if(object.project !== '') { // WAR room
@@ -355,13 +355,12 @@ var RosettaMap = {
 	        		alert(data.type);
 	        		break;
         	}
+        	popupElement.style.display = 'block';
         } ,
         error: function(jqXHR, textStatus, errorThrown) {
-        	alert(errorThrown);
+        	console.log(errorThrown);
         }
       });
-
-      popupElement.style.display = 'block';
     },
     zoomMap: function(zoomType) {
       var scope = this,
