@@ -7,10 +7,18 @@ import com.rosetta.onemap.User
 class Room extends Pin {
 
 	Office office
+	String name
+	String number
+	String phone
+	String project
+
+	static hasMany = [users: User]
 	
     static constraints = {
-    
+    	name blank: false
+		number blank: false
+		phone nullable: true
+		project nullable: true
 	}
 	
-	static hasMany = [users: User]
 }

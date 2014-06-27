@@ -33,21 +33,17 @@ class OneMapController {
 	}
 	
 	def gethotspotbyid () {
-
-		deskService.createDesk("Bob", 1, 1)
-		roomService.createRoom("The Beatles", 2)
-		
 		def currUser = springSecurityService.currentUser
-		
-		def hotspot = Hotspot.get(params.hotspotID)
+		def hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+			hotspotID = hotspotID.substring(1, hotspotID.length())
+		}
+		def hotspot = Hotspot.get(hotspotID)
 		def p = Pin.findByHotspot(hotspot)
-		if (p == null) {
-			// no hotspot
-			JSONObject o = new JSONObject()
-			render o as JSON
-		} else if (p instanceof Desk) {
+		JSONObject o = new JSONObject()
+		
+		if (p instanceof Desk) {
 			// found desk at hotspot
-			JSONObject o = new JSONObject()
 			o.put("type", "desk")
 			if (p.user != null) {
 				o.put("name", p.user.firstName+" "+p.user.lastName)
@@ -55,52 +51,35 @@ class OneMapController {
 				o.put("level", p.user.level)
 				o.put("phone", p.user.phone)
 				o.put("email", p.user.username)
-				if (currUser != null && currUser.id == p.id)
+				if (currUser != null && currUser.id != p.id)
 					o.put("claimed", "true")
 				else
 					o.put("claimed", "false")
 			}
-			render o as JSON
-			
 		} else if (p instanceof Room) {
 			// found room at hotspot
-			JSONObject o = new JSONObject()
 			o.put("type", "room")
-			o.put("name", "The Beatles")
-			o.put("number", "1728")
-			o.put("phone", "216.000.0000")
-			o.put("project", "AHA")
+			o.put("name", p.name)
+			o.put("number", p.number)
+			o.put("phone", p.phone)
+			o.put("project", p.project)
 			
 			JSONArray members = new JSONArray()
-			JSONObject m1 = new JSONObject()
-			m1.put("name", "Dave Fagan")
-			m1.put("craft", "Creative Engineer")
-			m1.put("level", "Senior Associate")
-			m1.put("phone", "216.000.0000")
-			m1.put("email", "dave.fagan@rosetta.com")
-			members.put(m1);
-			JSONObject m2 = new JSONObject()
-			m2.put("name", "Liz Judd")
-			m2.put("craft", "Creative Engineer")
-			m2.put("level", "Senior Associate")
-			m2.put("phone", "216.000.0000")
-			m2.put("email", "liz.judd@rosetta.com")
-			members.put(m2)
-			JSONObject m3 = new JSONObject()
-			m3.put("name", "Dan Padgett")
-			m3.put("craft", "Software Engineer")
-			m3.put("level", "Senior Associate")
-			m3.put("phone", "216.000.0000")
-			m3.put("email", "dan.padget@rosetta.com")
-			members.put(m3)
+			for (User u : p.users) {
+				JSONObject member = new JSONObject()
+				member.put("name", u.firstName+" "+u.lastName)
+				member.put("craft", u.craft)
+				member.put("level", u.level)
+				member.put("phone", u.phone)
+				member.put("email", u.username)
+				members.add(member)
+			}
 			
 			o.put("members", members)
-			render o as JSON
 		} else {
 			// undefined action
-			JSONObject o = new JSONObject()
-			render o as JSON
 		}
+		render o as JSON
 	}
 	
 	def runSearch() {

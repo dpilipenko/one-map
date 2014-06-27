@@ -147,6 +147,7 @@
       <div class="zoom-btns">
         <a href="#" id="plus" class="zoom"></a>
         <a href="#" id="minus" class="zoom"></a>
+        <a href="#" id="backto3d">3D</a>
       </div>
 
       <div id="popup"></div>

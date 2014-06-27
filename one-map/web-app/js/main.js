@@ -14,14 +14,6 @@ var phoneSlideshow = (function() {
       
       if( this.getAttribute("data-showing") == "true" ) {
     	  return true;
-        /* [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
-          classie.remove( el, 'flydown' );
-          classie.remove( el, 'flyup' );
-        });
-
-        classie.remove(document.querySelector( '.ms-wrapper' ), 'showingfloor');
-        classie.remove( this, 'showthisfloor' );
-        this.setAttribute("data-showing", "false"); */
       }
       else {
         classie.add(this, 'tag');
@@ -44,6 +36,8 @@ var phoneSlideshow = (function() {
         var canvas = $(this).children('.canvas')[0];
 
         RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"));
+
+        
       }
     }
 
@@ -56,31 +50,6 @@ var phoneSlideshow = (function() {
 })();
 
 var RosettaMap = { 
-  utilities: {
-    createCookie: function(name,value,days) {
-      if (days) {
-        var date = new Date();
-        date.setTime(date.getTime()+(days*24*60*60*1000));
-        var expires = "; expires="+date.toGMTString();
-      }
-      else var expires = "";
-      document.cookie = name+"="+value+expires+"; path=/";
-    },
-    readCookie: function(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(';');
-      for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-      }
-      return null;
-    },
-    eraseCookie: function(name) {
-      var scope = this;
-      scope.createCookie(name,"",-1);
-    }
-  }, 
   mapSetup: {
     zoomMultiplier: 0.1,
     stage: null,
@@ -98,7 +67,39 @@ var RosettaMap = {
     hotspotHoverOpacity: 1,
 
     initFloorplan: function (id, imgSrc, floorNumber) {
-      var scope = this;
+    	var scope = this,
+      		isHorizontal = false;
+    	
+    	switch(floorNumber) {
+	    	case "11":
+	    		scope.stageWidth = 550;
+	    	    scope.stageHeight = 526;
+	    		break;
+	    	case "12":
+	    		scope.stageWidth = 554;
+	    	    scope.stageHeight = 528;
+	    		break;
+	    	case "13":
+	    		scope.stageWidth = 552;
+	    	    scope.stageHeight = 528;
+	    		break;
+	    	case "14":
+	    		scope.stageWidth = 521;
+	    	    scope.stageHeight = 501;
+	    		break;
+	    	case "15":
+	    		scope.stageWidth = 550;
+	    	    scope.stageHeight = 528;
+	    		break;
+	    	case "17":
+	    		scope.stageWidth = 520;
+	    	    scope.stageHeight = 523;
+	    		break;
+	    	default:
+	    		console.log('not a floor');
+	    		break;
+    	}
+      
       
       scope.stageScaleX = $('.showthisfloor').width()/scope.stageWidth;
       scope.stageScaleY = $('.showthisfloor').height()/scope.stageHeight;
@@ -107,6 +108,7 @@ var RosettaMap = {
       // is container tall or wide
       if(scope.stageScaleX > scope.stageScaleY) {
         scope.stageScale = scope.stageScaleY;
+        isHorizontal = true;
       } else {
         scope.stageScale = scope.stageScaleX;
       }
@@ -114,10 +116,13 @@ var RosettaMap = {
       // set up kinetic stages and layers
       var stage = new Kinetic.Stage({
         container: id,
-        width: scope.stageWidth * scope.stageScale,
-        height: scope.stageHeight * scope.stageScale,
-        draggable: false
+        width: $('.showthisfloor').width(), //scope.stageWidth * scope.stageScale,
+        height: $('.showthisfloor').height(), //scope.stageHeight * scope.stageScale,
+        draggable: false,
+        fill: "#e2e2e2"
       });
+	  //stage.style.background = "#e2e2e2";
+
       var layer = new Kinetic.Layer({
         x: 0,
         y: 0,
@@ -142,14 +147,24 @@ var RosettaMap = {
       var floorplanObj = new Image();
       floorplanObj.src = 'images/'+ imgSrc + '.png';
       
+      var imageWidth = scope.stageWidth * scope.stageScale,
+      	imageHeight = scope.stageHeight * scope.stageScale,
+      	imageX = 0,
+      	imageY = 0;
+      // image centering
+      if(isHorizontal) {
+    	  imageX = (stage.width() - imageWidth)/2;
+      } else {
+    	  imageY = (stage.height() - imageHeight)/2;
+      }
       // display canvas when image is loaded
       floorplanObj.onload = function() {
         var floorplan = new Kinetic.Image({
-          x: 0,
-          y: 0,
+          x: imageX,
+          y: imageY,
           image: floorplanObj,
-          width: stage.width(),
-          height: stage.height(),
+          width: imageWidth,
+          height: imageHeight,
         });
 
         // add the image to the layer
@@ -165,10 +180,10 @@ var RosettaMap = {
             	for(var key in data) {
                     //create hotspot
                     var hotspotPath = new Kinetic.Path({
-                      x: 0,
-                      y: 0,
-                      width: stage.width(),
-                      height: stage.height(),
+                      x: imageX,
+                      y: imageY,
+                      width: imageWidth,
+                      height: imageHeight,
                       id: key,
                       scale: {x: scope.stageScale, y: scope.stageScale},
                       data: data[key],
@@ -182,7 +197,6 @@ var RosettaMap = {
                       this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
                       this.moveTo(topLayer);
                       topLayer.drawScene();
-                      console.log(this.getId());
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -218,12 +232,17 @@ var RosettaMap = {
                   scope.stage = stage;
                   scope.hoverLayer = topLayer;
                   scope.floorplanLayer = layer;
+                  
+                  $('.zoom-btns').show();
             },
             error: function(errorThrown) {
-            	alert(errorThrown);
+            	console.log(errorThrown);
             }
         });        
       };
+
+      //show zoom btns
+      $('.zoom-btns').fadeIn();
     },
   },
   mapInteractions: {
@@ -287,14 +306,15 @@ var RosettaMap = {
 
       // import information in wizard based on return for ajax call (todo in future)
       
-	  /* $.ajax({
-        url: '',
+	  $.ajax({
+        url: '/one-map/oneMap/gethotspotbyid',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
         },
-        success: function(data) { */
-	    	if (true) {
+        success: function(data) {
+        	console.log(data);
+	    	/* if (true) {
 	            // call ajax and get object
 	            var object = {
 	              type: "room",
@@ -350,12 +370,12 @@ var RosettaMap = {
 	           
 	          } else { // not
 	
-	          }
-        /*} ,
+	          } */
+        } ,
         error: function(jqXHR, textStatus, errorThrown) {
         	alert(errorThrown);
         }
-      }); */
+      });
 
       popupElement.style.display = 'block';
     },
@@ -389,6 +409,8 @@ var RosettaMap = {
         offsetY = 0;
         mapObj.floorplanLayer.scale({ x: 1, y: 1 });
         mapObj.floorplanLayer.draggable(false);
+        mapObj.hoverLayer.scale({ x: 1, y: 1 });
+        mapObj.hoverLayer.draggable(false);
         scope.hasPanned = false;
       } else if (scope.hasPanned) {
           offsetX = scope.draggedOffset.x * multiplier;
@@ -516,6 +538,16 @@ var RosettaMap = {
     	e.preventDefault();
     	$('#results').addClass('cleared');
     	$('#results .results-list').html('');
+    });
+
+    $(document).on("click", '#backto3d', function(){
+      $(this).parents('.zoom-btns').fadeOut();
+        $( '.floorplan' ).each( function( el, i ) {
+          $(this).removeClass('flydown').removeClass('flyup');
+        });
+
+        $( '.ms-wrapper' ).removeClass('showingfloor');
+        $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
     });
   }
 };
