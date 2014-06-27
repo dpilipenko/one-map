@@ -182,6 +182,7 @@ class OneMapController {
 	 * GET	/createWarRoom?roomID=#&projectName=STRING 
 	 */
 	def createWarRoom() {
+		JSONObject o = new JSONObject()
 		def hotspotID = params.roomID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
@@ -193,13 +194,16 @@ class OneMapController {
 				def room = roomService.createRoom("room", "123", h.id)
 				room.project = params.projectName
 				room.save(flush:true)
+				o.put("success", true)
 			} else {
 				if(pin instanceof Room) {
 					pin.project = params.projectName
 					pin.save(flush: true)
+					o.put("success", true)
 				}
 			}
 		}
+		render o as JSON
 	}
 	
 	/**
