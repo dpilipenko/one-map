@@ -321,27 +321,30 @@ var RosettaMap = {
 	                  level: "Senior Associate",
 	                  phone: "216.000.1234",
 	                  email: "dan.padget@rosetta.com",
-	                  claimed: true
 	                }
 	              ]
 	            };
 	
-	            if(!($('#user-template').length > 0)) {
-	              $.get( "/one-map/static/js/template-user.html", function( data ) {
-	                $( "body" ).append( data );
-	              });
-	            }
+	            
 	            if(!($('#room-template').length > 0)) {
 	              $.get( "/one-map/static/js/template-room.html", function( data ) {
-	            	  console.log(data);
-	                $( "body" ).append( data );
-	                var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-		    		$(RosettaMap.mapSetup.popupElement).html(content);
+	            	  $( "body" ).append( data );
+	            	  var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	            	  $(RosettaMap.mapSetup.popupElement).html(content);
+	            	  
+	            	  if(!($('#user-template').length > 0)) {
+			              $.get( "/one-map/static/js/template-user.html", function( data ) {
+			                $( "body" ).append( data );
+			                var content = '';
+			                for(var i = 0; i < object.members.length; i++) {
+			                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
+			                }
+			                $('#WARmembers').html(content);
+			                
+			              });
+			            }
 	              });
-	            } else {
-	            	var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-		    		$(RosettaMap.mapSetup.popupElement).html(content);
-	            }
+	            } 
 	           
 	          } else { // not
 	
