@@ -80,7 +80,7 @@ var RosettaMap = {
     	console.log(floorNumber);
     	switch(floorNumber) {
 	    	case "11":
-	    		scope.stageWidth = 550; //
+	    		scope.stageWidth = 550;
 	    	    scope.stageHeight = 526;
 	    		break;
 	    	case "12":
@@ -92,19 +92,19 @@ var RosettaMap = {
 	    	    scope.stageHeight = 528;
 	    		break;
 	    	case "14":
-	    		scope.stageWidth = 521; //
+	    		scope.stageWidth = 521;
 	    	    scope.stageHeight = 501;
 	    		break;
 	    	case "15":
-	    		scope.stageWidth = 550; //
+	    		scope.stageWidth = 550;
 	    	    scope.stageHeight = 528;
 	    		break;
 	    	case "17":
-	    		scope.stageWidth = 520; //
+	    		scope.stageWidth = 520;
 	    	    scope.stageHeight = 523;
 	    		break;
 	    	default:
-	    		alert('not a floor');
+	    		console.log('not a floor');
 	    		break;
     	}
       
@@ -243,7 +243,7 @@ var RosettaMap = {
                   scope.floorplanLayer = layer;
             },
             error: function(errorThrown) {
-            	alert(errorThrown);
+            	console.log(errorThrown);
             }
         });        
       };
@@ -412,6 +412,8 @@ var RosettaMap = {
         offsetY = 0;
         mapObj.floorplanLayer.scale({ x: 1, y: 1 });
         mapObj.floorplanLayer.draggable(false);
+        mapObj.hoverLayer.scale({ x: 1, y: 1 });
+        mapObj.hoverLayer.draggable(false);
         scope.hasPanned = false;
       } else if (scope.hasPanned) {
           offsetX = scope.draggedOffset.x * multiplier;
