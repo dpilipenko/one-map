@@ -578,6 +578,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 }
 
+#popup {
+	position: absolute;
+}
 
 
 /* --- 3D Floor Animation
@@ -594,6 +597,12 @@ $leftscreen: 0;
 $screengap: 75px;
 $depth: 30px;
 $time: 0.7s;
+
+.floorplan canvas {
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
 
 .ms-wrapper {
 	position: relative;
@@ -834,5 +843,37 @@ $time: 0.7s;
 	.ms-effect-3 .ms-screens .ms-screen-#{$i} { 
 		background: url(../images/Cleveland-Floor-#{$i}.jpg) no-repeat center center;
 		background-size: 100% 100%;
+	}
+}
+
+.ms-effect-3 .ms-screens {
+	#eleven {
+		background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
+		background-size: cover;
+	}
+
+	#twelve {
+		background: url(../images/floorplan-twelve.png) no-repeat center center #e2e2e2;
+		background-size: cover;
+	}
+
+	#thirteen {
+		background: url(../images/floorplan-thirteen.png) no-repeat center center #e2e2e2;
+		background-size: cover;
+	}
+
+	#fourteen {
+		background: url(../images/floorplan-fourteen.png) no-repeat center center #e2e2e2;
+		background-size: cover;
+	}
+
+	#fifteen {
+		background: url(../images/floorplan-fifteen.png) no-repeat center center #e2e2e2;
+		background-size: cover;
+	}
+
+	#seventeen {
+		background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
+		background-size: cover;
 	}
 }
