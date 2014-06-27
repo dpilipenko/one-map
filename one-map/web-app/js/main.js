@@ -8,19 +8,7 @@ String.prototype.format = function() {
 var phoneSlideshow = (function() {
 
   function init() {
-    [].slice.call( document.querySelectorAll( '.ms-wrapper' ) ).forEach( function( el, i ) {
-      var open = false;
-      el.querySelector( 'button' ).addEventListener( 'click', changeView, false );
-      function changeView() {
-        if( open ) {
-          classie.remove( el, 'ms-view-layers' );
-        }
-        else {
-          classie.add( el, 'ms-view-layers' );
-        }
-        open = !open;
-      }     
-    } );
+
 
     function showFloor() {
       
@@ -550,11 +538,11 @@ var RosettaMap = {
         }
     }); */
 	
-	// loging in events
+	 // loging in events
     $(document).on('click', '.submit-login', RosettaMap.login.submit);
-	$(document).on('click', '.logout', function() {
-		$('.header').addClass('login');
-	});
+  	$(document).on('click', '.logout', function() {
+  		$('.header').addClass('login');
+  	});
 	  
   	// search click results
   	$(document).on('keypress', '.searchbar', function(e) {
