@@ -202,7 +202,7 @@ var RosettaMap = {
           image: floorplanObj,
           width: stage.width(),
           height: stage.height(),
-        });
+        });//TESTING MERGE
 
         // add the image to the layer
         layer.add(floorplan);
