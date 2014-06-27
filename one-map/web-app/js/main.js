@@ -145,6 +145,10 @@ var RosettaMap = {
       var floorplanObj = new Image();
       floorplanObj.src = 'images/'+ imgSrc + '.png';
       
+      var pinImage = new Image();
+	  pinImage.src = '/one-map/static/images/pin-seat.png';
+		
+      
       var imageWidth = scope.stageWidth * scope.stageScale,
       	imageHeight = scope.stageHeight * scope.stageScale,
       	imageX = 0,
@@ -197,11 +201,13 @@ var RosettaMap = {
 
                     // hotspot mouse events
                     hotspotPath.on('mouseover', function() {
-                      this.setFill(RosettaMap.mapSetup.hotspotHoverFill);
-                      this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
-                      this.moveTo(topLayer);
-                      topLayer.drawScene();
-                      console.log(this.getId());
+	                	if(RosettaMap.mapInteractions.activeHotspot.fill() !== '#00BCE4') {
+	                		this.setFill(RosettaMap.mapSetup.hotspotHoverFill);
+	                        this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
+	                        this.moveTo(topLayer);
+	                        topLayer.drawScene();
+	                        //console.log(this.getId());
+	                     }
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -220,18 +226,21 @@ var RosettaMap = {
 
                       interactionsObj.activeHotspot = this;
                       interactionsObj.activeHotspotID = this.getId();
-                      this.setFill(mapObj.hotspotHoverFill);
-                      this.opacity(mapObj.hotspotHoverOpacity);
-                      this.moveTo(topLayer);
-                      topLayer.drawScene();
-
+                      if(!(this.fill() == '#00BCE4')) {
+                    	  this.setFill(mapObj.hotspotHoverFill);
+                          this.opacity(mapObj.hotspotHoverOpacity);
+                          this.moveTo(topLayer);
+                          topLayer.drawScene();
+                      }
                       interactionsObj.openPopup(e);
                     });
                     
                     if(pins !== null) {
                     	var pinsArray = pins.split(',');
                     	if (pinsArray.indexOf(key) > -1) {
-                    		hotspotPath.setFill('#F00');
+                    		hotspotPath.setFill('#00BCE4');
+                    		//console.log(pinImage);
+                    		//hotspotPath.fillPatternImage(pinImage);
                     		hotspotPath.setOpacity(1);
                     	}
                     }
@@ -331,13 +340,13 @@ var RosettaMap = {
       // check to see the wizard is within the boundries on the y axis
       var topPos = y - (RosettaMap.mapSetup.popupHeight * 2);
 
+      console.log(topPos);
       if (topPos < 20) {
         popupElement.style.top = y +'px'; // display it below it
+        $('#popup').addClass('moveNotch');
       } else {
         popupElement.style.top = topPos +'px'; // display above it
       }
-
-      console.log(RosettaMap.mapInteractions.activeHotspotID);
       
 	  $.ajax({
         url: '/one-map/oneMap/gethotspotbyid',
@@ -537,6 +546,8 @@ var RosettaMap = {
                 	var floor = $(this).data('floor');
                 	var hotspot = $(this).data('hotspot');
                 	var canvas = $('.canvas[data-floor="'+floor+'"]');
+                	var getData = canvas.attr('data-pins') == undefined ? '' : canvas.attr('data-pins');
+                	canvas.attr('data-pins', getData+','+hotspot);
                 	canvas.attr('data-hotspot', hotspot);
                 	$('#results').addClass('collapsed');
                 	canvas.parent('.floorplan').trigger('click');
