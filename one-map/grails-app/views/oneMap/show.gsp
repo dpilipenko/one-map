@@ -51,7 +51,7 @@
 								ONE MAP
 							</div>
 								
-							<form role="form" action='${postUrl}' method='POST' name='loginForm' id='loginForm'>
+							<g:form role="form" name='loginForm' id='loginForm'>
 			            		<div class="form-group text-center">
 				           			<g:if test='${flash.message}'>
 					           			<div class="alert alert-danger fade in">	    					
@@ -65,8 +65,8 @@
 				             	<div class="form-group">
 				              		<input type="password" class="form-control" id="password" name="j_password" placeholder="Password">
 				            	</div>
-				            	<button type="submit" class="submit-login" id="login">SUBMIT</button>
-				          </form>
+				            	<g:submitToRemote url="[controller: 'login', action: 'auth']" class="submit-login" onSuccess="RosettaMap.login();" value="SUBMIT"/>
+				          </g:form>
 						</div>
 					</div>
 				</div>
@@ -121,6 +121,11 @@
   	</div>
 
   </div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+<script src="${resource(dir: 'js', file: 'main.js')}"></script>
 
 </body>
 </html>
