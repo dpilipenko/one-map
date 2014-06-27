@@ -493,44 +493,290 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 }
 
 
-/* --- Conditional Styles
+/* --- 3D Floor Animation
 ===================================================
 ===================================================
 --- */
 
+$height: 800px;
+$width: 1024px;
+$screenwidth: 1024px;
+$screenheight: 800px;
+$topscreen: $height * 0.1437;
+$leftscreen: 0;
+$screengap: 70px;
+$depth: 30px;
+$gap: 30px;
+/* 
+real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
+(could be done using Compass)
+*/
+$cornerheight: 23px;
+/* moves the pseudo elements inside */
+$cornerpush: 7px;
+$radius: 34px;
+$fill: #181818;
+$time: 0.7s;
+$bgcolor: #7c909c;
 
-/* --- IE7 Styles
----------------------------- */
-html.ie7 {
 
-
+.ms-wrapper {
+	position: relative;
+	margin: 0 auto 100px;
+	width: 100%;
+	max-width: 65em;
+	padding: 0 1em;
 }
 
-/* --- end ie7 styles --- */
-
-/* --- IE8 Styles
----------------------------- */
-
-html.ie8 {
-
-
+.ms-perspective {
+	position: relative;
+	margin: 0px auto;
+	width: $width;
+	height: $height;
+	-webkit-perspective: 1200px;
+	-moz-perspective: 1200px;
+	perspective: 1200px;
+	-webkit-perspective-origin: 50% 0%;
+	-moz-perspective-origin: 50% 0%;
+	perspective-origin: 50% 0%;
 }
 
-/* --- end ie8 styles --- */
-
-/* --- IE9 Styles 
----------------------------- */
-
-html.ie9 {
-
-
+.ms-device {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: -webkit-transform $time ease-in-out;
+	-moz-transition: -moz-transform $time ease-in-out;
+	transition: transform $time ease-in-out;
+/*	-webkit-transform: rotateY(17deg) rotateX(10deg);
+	-moz-transform: rotateY(17deg) rotateX(10deg);
+	transform: rotateY(17deg) rotateX(10deg);*/
 }
 
-/* --- end ie9 styles --- */
-
-/* --- Firefox styles --- */
-@-moz-document url-prefix() {
-
+.ms-device,
+.ms-object,
+.ms-object > div,
+.ms-screens .floorplan {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
-/* --- end Firefox styles --- */
 
+
+
+/* Screens */
+.ms-screens .floorplan {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.ms-screens > .floorplan {
+	position: absolute;
+	width: $screenwidth;
+	height: $screenheight;
+	top: $topscreen;
+	left: $leftscreen;
+	outline: none;
+	display: block;
+	cursor: pointer;
+	opacity: 1;
+	-webkit-transition: -webkit-transform 0.7s, opacity 0.4s;
+	transition: -moz-transform 0.7s, opacity 0.4s;
+	transition: transform 0.7s, opacity 0.4s;
+	-webkit-transform: translateZ($depth/2 + 1px);
+	-moz-transform: translateZ($depth/2 + 1px);
+	transform: translateZ($depth/2 + 1px);
+}
+
+.ms-screens > .floorplan::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.3);
+	opacity: 0;
+	-webkit-transition: opacity 0.3s;
+	-moz-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.ms-label {
+	border: 3px solid #fff;
+	color: #fff;
+	position: absolute;
+	left: 100%;
+	margin-left: 18px;
+	width: 90px;
+	padding: 10px;
+	opacity: 0;
+	-webkit-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	transform: rotateX(0deg);
+	-webkit-transition: opacity $time, -webkit-transform $time;
+	-moz-transition: opacity $time, -moz-transform $time;
+	transition: opacity $time, transform $time;
+}
+
+.ms-screens > .floorplan:hover .ms-label {
+	border-color: #687fa7;
+	color: #687fa7;
+}
+
+.ms-label::after {
+	right: 100%;
+	border: solid transparent;
+	content: '';
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: transparent;
+	border-right-color: #d9382e;
+	border-width: 16px;
+	top: 50%;
+	margin-top: -16px;
+}
+
+.ms-label::after, 
+.ms-label::before {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.ms-label::after {
+	border-color: transparent;
+	border-right-color: #d2d1d5;
+	border-width: 12px;
+	top: 50%;
+	margin-top: -12px;
+}
+
+.ms-label::before {
+	border-color: transparent;
+	border-right-color: #fff;
+	border-width: 16px;
+	top: 50%;
+	margin-top: -16px;
+}
+
+.ms-screens > .floorplan:hover .ms-label::before {
+	border-right-color: #687fa7;
+}
+
+.ms-wrapper button {
+	background: transparent;
+	font-weight: 700;
+	font-size: 16px;
+	letter-spacing: 1px;
+	padding: 10px 30px;
+	border: 3px solid #fff;
+	color: #fff;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	text-transform: uppercase;
+	z-index: 999999;
+}
+
+.ms-wrapper button:hover {
+	border-color: #687fa7;
+	color: #687fa7;
+}
+
+// Toggle view (for all effects)
+@for $i from 1 through 6 {
+	.ms-view-layers .ms-screens .ms-screen-#{$i} { 
+		-webkit-transform: translateZ($depth/2 + $screengap * $i);
+		-moz-transform: translateZ($depth/2 + $screengap * $i);
+		transform: translateZ($depth/2 + $screengap * $i);
+		-webkit-transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		-moz-transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		opacity: 0.9;
+	}
+}
+
+.ms-view-layers .ms-screens > .floorplan:not(.showthisfloor):hover::after {
+	opacity: 1;
+}
+
+.ms-view-layers .ms-label {
+	opacity: 1;
+	-webkit-transform: rotateX(-90deg);
+	-moz-transform: rotateX(-90deg);
+	transform: rotateX(-90deg);
+}
+
+@for $i from 1 through 6 {
+	.ms-view-layers .ms-screen-#{$i} .ms-label { 
+		-webkit-transition-delay: ((6-$i) * 0.1s ) + 0.6s;
+		-moz-transition-delay: ((6-$i) * 0.1s ) + 0.6s;
+		transition-delay: ((6-$i) * 0.1s ) + 0.6s;
+	}
+}
+
+// effects
+.ms-effect-3.ms-view-layers .ms-device {
+	-webkit-transform: rotateY(-30deg) rotateX(90deg) translateZ(-$depth/2) translateZ(-$height/4 + $depth);
+	-moz-transform: rotateY(-30deg) rotateX(90deg) translateZ(-$depth/2) translateZ(-$height/4 + $depth);
+	transform: rotateY(-30deg) rotateX(90deg) translateZ(-$depth/2) translateZ(-$height/4 + $depth);
+}
+
+.ms-effect-3.ms-view-layers.showingfloor .ms-device {
+	-webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
+	-moz-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
+	transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
+/*	-webkit-transform: rotateY(-30deg) rotateX(90deg) translateZ(0);
+	-moz-transform: rotateY(-30deg) rotateX(90deg) translateZ(0);
+	transform: rotateY(-30deg) rotateX(90deg) translateZ(0);*/
+}
+
+@for $i from 1 through 6 {
+	.ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup { 
+		-webkit-transform: translateZ(1700px);
+		-moz-transform: translateZ(1700px);
+		transform: translateZ(1700px);
+		-webkit-transition-delay: 0s;
+		-moz-transition-delay: 0s;
+		transition-delay: 0s;
+		opacity: 0;
+	}
+
+	.ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown { 
+		-webkit-transform: translateZ(-700px);
+		-moz-transform: translateZ(-700px);
+		transform: translateZ(-700px);
+		-webkit-transition-delay: 0s;
+		-moz-transition-delay: 0s;
+		transition-delay: 0s;
+		opacity: 0;
+	}
+
+	.ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor { 
+		-webkit-transform: translateZ(0);
+		-moz-transform: translateZ(0);
+		transform: translateZ(0);
+		-webkit-transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		-moz-transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		transition-delay: ((6-$i) * 0.1s ) + 0.2s;
+		opacity: 1;
+	}
+
+	.ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label{
+		opacity: 0;
+	}
+}
+
+
+@for $i from 1 through 6 {
+	.ms-effect-3 .ms-screens .ms-screen-#{$i} { 
+		background: url(../images/Cleveland-Floor-#{$i}.jpg) no-repeat center center;
+		background-size: 100% 100%;
+	}
+}

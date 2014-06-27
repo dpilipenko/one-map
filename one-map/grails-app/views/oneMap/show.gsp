@@ -104,10 +104,74 @@
   		</div>
   	</div>
 
-  </div>
+
+
+    <div id="offices-container">
+      <div id="offices-slider">
+        <div id="offices" class="ms-wrapper ms-effect-3">
+
+          <div id="san-luis-obispo" class="office"></div>
+          <div id="los-angeles" class="office"></div>
+          <div id="san-fransico" class="office"></div>
+          <div id="chicago" class="office"></div>
+          <div id="cleveland" class="office ms-perspective">
+            
+            <div id="floor-plans" class="ms-device">
+              <div class="ms-screens">
+                <div class="ms-screen-1 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 11</div>
+                </div>
+                <div class="ms-screen-2 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 12</div>
+                </div>
+                <div class="ms-screen-3 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 13</div>
+                </div>
+                <div class="ms-screen-4 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 14</div>
+                </div>
+                <div class="ms-screen-5 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 15</div>
+                </div>
+                <div class="ms-screen-6 floorplan" data-showing="false">
+                  <div class="ms-label">Floor 17</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div id="new-york-hudson" class="office"></div>
+          <div id="new-york-fifth" class="office"></div>
+          <div id="princeton" class="office"></div>
+          <div id="london" class="office"></div>
+
+          <button>show floors</button>
+        </div>
+        <div id="offices-slider-control">
+          
+        </div>
+        
+      </div>
+
+      <div class="zoom-btns">
+        <a href="#" id="plus" class="zoom"></a>
+        <a href="#" id="minus" class="zoom"></a>
+      </div>
+
+      <div id="popup"></div>
+
+    </div> <!-- end offices container -->
+
+
+  </div><!-- end main -->
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+
+    <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
+
+    <script src="${resource(dir: 'js', file: 'modernizr.custom.js')}"></script>
+
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
 </body>
 </html>

@@ -5,6 +5,64 @@ String.prototype.format = function() {
 	});
 };
 
+var phoneSlideshow = (function() {
+
+  function init() {
+    [].slice.call( document.querySelectorAll( '.ms-wrapper' ) ).forEach( function( el, i ) {
+      var open = false;
+      el.querySelector( 'button' ).addEventListener( 'click', changeView, false );
+      function changeView() {
+        if( open ) {
+          classie.remove( el, 'ms-view-layers' );
+        }
+        else {
+          classie.add( el, 'ms-view-layers' );
+        }
+        open = !open;
+      }     
+    } );
+
+    function showFloor() {
+      
+      if( this.getAttribute("data-showing") == "true" ) {
+        [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
+          classie.remove( el, 'flydown' );
+          classie.remove( el, 'flyup' );
+        });
+
+        classie.remove(document.querySelector( '.ms-wrapper' ), 'showingfloor');
+        classie.remove( this, 'showthisfloor' );
+        this.setAttribute("data-showing", "false");
+      }
+      else {
+        classie.add(this, 'tag');
+        var found = false;
+        [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
+          if(!classie.hasClass(el, 'tag') && !found) {
+            classie.add( el, 'flydown' );
+          } else if(!classie.hasClass(el, 'tag') && found){
+            classie.add( el, 'flyup' );
+          } else {
+            found = true;
+          }
+        });
+        classie.remove(this, 'tag');
+
+        classie.add(document.querySelector( '.ms-wrapper' ), 'showingfloor');
+        classie.add( this, 'showthisfloor' );
+        this.setAttribute("data-showing", "true");
+      }
+    }
+
+    [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
+      el.addEventListener( 'click', showFloor, false );
+    });
+  }
+
+  init();
+
+})();
+
 var RosettaMap = { 
   utilities: {
     createCookie: function(name,value,days) {
@@ -416,7 +474,7 @@ var RosettaMap = {
     // NOTE: mouse events for hotspots is in set up
   },
   init: function() {
-    // this needs to move to the on click of floor
+    /* // this needs to move to the on click of floor
     var floorplan = $('.floorplan')[0];
     var id = floorplan.getAttribute('id');
     var imgSrc = floorplan.dataset.imgsrc;
@@ -458,8 +516,8 @@ var RosettaMap = {
               loadForm(data);                
             });
             break;
-        }
-    });
+        } 
+    }); */
   }
 };
 RosettaMap.init();
