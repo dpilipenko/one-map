@@ -32,36 +32,38 @@
   			<div class="inner">
   				
   				<div class="logo"></div>
-				<div class="divider"></div>
-				<div class="name">
-					ONE MAP
-				</div>
+				  <div class="divider"></div>
+  				<div class="name">
+  					ONE MAP
+  				</div>
 
-				<div class="utility">
-					<input class="searchbar" type="text" placeholder="Search">
-					<a href="#" class="logout">LOGOUT</a>
-					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>
-				</div>
+  				<div class="utility">
+  					<input class="searchbar" type="text" placeholder="Search">
+  					<a href="#" class="logout">LOGOUT</a>
+  					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+  				</div>
 
-				<div class="login-dot">
-					<div class="inner">
-						<div class="login-form">
+  				<div class="login-dot">
+  					<div class="inner">
+  						<div class="login-form">
 
-							<div class="login-title">
-								ONE MAP
-							</div>
-							<label for="username">Username</label>
-							<input class="username" type="text" />
-							<label for="password">Password</label>
-							<input class="password" type="password" />
-							<button type="submit" class="submit-login">SUBMIT</button>
+  							<div class="login-title">
+  								ONE MAP
+  							</div>
+  							<label for="username">Username</label>
+  							<input class="username" type="text" />
+  							<label for="password">Password</label>
+  							<input class="password" type="password" />
+  							<button type="submit" class="submit-login">SUBMIT</button>
 
-						</div>
-				</div>
+  						</div>
+  				  </div>
 
-  			</div>
+    			</div>
   			
-  		</div>
+    		</div>
+
+      </div>
 
   	</div><!-- end header -->
 

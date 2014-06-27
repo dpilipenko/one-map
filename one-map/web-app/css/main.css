@@ -116,7 +116,7 @@ input::-moz-placeholder {
   height: 95px;
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 100;
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.5) 0%, white 90%, white 100%);
   /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.5)), color-stop(90%, white), color-stop(100%, white));
@@ -472,32 +472,21 @@ input::-moz-placeholder {
 ===================================================
 ===================================================
 --- */
-/* 
-real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
-(could be done using Compass)
-*/
-/* moves the pseudo elements inside */
-/* line 522, main.scss */
-#view-layers {
-  height: 0;
-  visibility: hidden;
-}
-
-/* line 528, main.scss */
+/* line 511, main.scss */
 .ms-wrapper {
   position: relative;
-  margin: 0 auto 100px;
+  margin: 0 auto;
   width: 100%;
-  max-width: 65em;
-  padding: 0 1em;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* line 536, main.scss */
+/* line 519, main.scss */
 .ms-perspective {
   position: relative;
   margin: 0px auto;
-  width: 1024px;
-  height: 800px;
+  width: 90%;
+  height: 100%;
   -webkit-perspective: 1200px;
   -moz-perspective: 1200px;
   perspective: 1200px;
@@ -506,7 +495,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   perspective-origin: 50% 0%;
 }
 
-/* line 549, main.scss */
+/* line 532, main.scss */
 .ms-device {
   position: absolute;
   width: 100%;
@@ -514,12 +503,9 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   -webkit-transition: -webkit-transform 0.7s ease-in-out;
   -moz-transition: -moz-transform 0.7s ease-in-out;
   transition: transform 0.7s ease-in-out;
-  /*	-webkit-transform: rotateY(17deg) rotateX(10deg);
-  	-moz-transform: rotateY(17deg) rotateX(10deg);
-  	transform: rotateY(17deg) rotateX(10deg);*/
 }
 
-/* line 564, main.scss */
+/* line 544, main.scss */
 .ms-device,
 .ms-object,
 .ms-object > div,
@@ -530,14 +516,14 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
 }
 
 /* Screens */
-/* line 573, main.scss */
+/* line 551, main.scss */
 .ms-screens .floorplan {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* line 579, main.scss */
+/* line 557, main.scss */
 .ms-screens > .floorplan {
   position: absolute;
   width: 1024px;
@@ -556,7 +542,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   transform: translateZ(16px);
 }
 
-/* line 597, main.scss */
+/* line 575, main.scss */
 .ms-screens > .floorplan::after {
   content: '';
   position: absolute;
@@ -569,7 +555,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   transition: opacity 0.3s;
 }
 
-/* line 609, main.scss */
+/* line 587, main.scss */
 .ms-label {
   border: 3px solid #fff;
   color: #fff;
@@ -587,13 +573,13 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   transition: opacity 0.7s, transform 0.7s;
 }
 
-/* line 626, main.scss */
+/* line 604, main.scss */
 .ms-screens > .floorplan:hover .ms-label {
   border-color: #687fa7;
   color: #687fa7;
 }
 
-/* line 631, main.scss */
+/* line 609, main.scss */
 .ms-label::after {
   right: 100%;
   border: solid transparent;
@@ -609,7 +595,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   margin-top: -16px;
 }
 
-/* line 647, main.scss */
+/* line 625, main.scss */
 .ms-label::after,
 .ms-label::before {
   right: 100%;
@@ -621,7 +607,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   pointer-events: none;
 }
 
-/* line 657, main.scss */
+/* line 635, main.scss */
 .ms-label::after {
   border-color: transparent;
   border-right-color: #d2d1d5;
@@ -630,7 +616,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   margin-top: -12px;
 }
 
-/* line 665, main.scss */
+/* line 643, main.scss */
 .ms-label::before {
   border-color: transparent;
   border-right-color: #fff;
@@ -639,12 +625,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   margin-top: -16px;
 }
 
-/* line 673, main.scss */
+/* line 651, main.scss */
 .ms-screens > .floorplan:hover .ms-label::before {
   border-right-color: #687fa7;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-1 {
   -webkit-transform: translateZ(85px);
   -moz-transform: translateZ(85px);
@@ -655,7 +641,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-2 {
   -webkit-transform: translateZ(155px);
   -moz-transform: translateZ(155px);
@@ -666,7 +652,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-3 {
   -webkit-transform: translateZ(225px);
   -moz-transform: translateZ(225px);
@@ -677,7 +663,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-4 {
   -webkit-transform: translateZ(295px);
   -moz-transform: translateZ(295px);
@@ -688,7 +674,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-5 {
   -webkit-transform: translateZ(365px);
   -moz-transform: translateZ(365px);
@@ -699,7 +685,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 679, main.scss */
+/* line 657, main.scss */
 .ms-view-layers .ms-screens .ms-screen-6 {
   -webkit-transform: translateZ(435px);
   -moz-transform: translateZ(435px);
@@ -710,12 +696,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0.9;
 }
 
-/* line 690, main.scss */
+/* line 668, main.scss */
 .ms-view-layers .ms-screens > .floorplan:not(.showthisfloor):hover::after {
   opacity: 1;
 }
 
-/* line 694, main.scss */
+/* line 672, main.scss */
 .ms-view-layers .ms-label {
   opacity: 1;
   -webkit-transform: rotateX(-90deg);
@@ -723,56 +709,56 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   transform: rotateX(-90deg);
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-1 .ms-label {
   -webkit-transition-delay: 1.1s;
   -moz-transition-delay: 1.1s;
   transition-delay: 1.1s;
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-2 .ms-label {
   -webkit-transition-delay: 1s;
   -moz-transition-delay: 1s;
   transition-delay: 1s;
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-3 .ms-label {
   -webkit-transition-delay: 0.9s;
   -moz-transition-delay: 0.9s;
   transition-delay: 0.9s;
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-4 .ms-label {
   -webkit-transition-delay: 0.8s;
   -moz-transition-delay: 0.8s;
   transition-delay: 0.8s;
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-5 .ms-label {
   -webkit-transition-delay: 0.7s;
   -moz-transition-delay: 0.7s;
   transition-delay: 0.7s;
 }
 
-/* line 702, main.scss */
+/* line 680, main.scss */
 .ms-view-layers .ms-screen-6 .ms-label {
   -webkit-transition-delay: 0.6s;
   -moz-transition-delay: 0.6s;
   transition-delay: 0.6s;
 }
 
-/* line 710, main.scss */
+/* line 688, main.scss */
 .ms-effect-3.ms-view-layers .ms-device {
   -webkit-transform: rotateY(-30deg) rotateX(90deg) translateZ(-15px) translateZ(-170px);
   -moz-transform: rotateY(-30deg) rotateX(90deg) translateZ(-15px) translateZ(-170px);
   transform: rotateY(-30deg) rotateX(90deg) translateZ(-15px) translateZ(-170px);
 }
 
-/* line 716, main.scss */
+/* line 694, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .ms-device {
   -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
   -moz-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
@@ -782,7 +768,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   	transform: rotateY(-30deg) rotateX(90deg) translateZ(0);*/
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -793,7 +779,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -804,7 +790,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -815,12 +801,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -831,7 +817,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -842,7 +828,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -853,12 +839,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -869,7 +855,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -880,7 +866,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -891,12 +877,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -907,7 +893,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -918,7 +904,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -929,12 +915,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -945,7 +931,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -956,7 +942,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -967,12 +953,12 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 726, main.scss */
+/* line 704, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -983,7 +969,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 736, main.scss */
+/* line 714, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -994,7 +980,7 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 0;
 }
 
-/* line 746, main.scss */
+/* line 724, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1005,42 +991,42 @@ real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
   opacity: 1;
 }
 
-/* line 756, main.scss */
+/* line 734, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   opacity: 0;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-1 {
   background: url(../images/Cleveland-Floor-1.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-2 {
   background: url(../images/Cleveland-Floor-2.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-3 {
   background: url(../images/Cleveland-Floor-3.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-4 {
   background: url(../images/Cleveland-Floor-4.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-5 {
   background: url(../images/Cleveland-Floor-5.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 
-/* line 763, main.scss */
+/* line 741, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-6 {
   background: url(../images/Cleveland-Floor-6.jpg) no-repeat center center;
   background-size: 100% 100%;

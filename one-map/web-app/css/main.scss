@@ -149,7 +149,7 @@ input {
 	height: 95px;
 	width: 100%;
 	position: relative;
-	z-index: 1;
+	z-index: 100;
 
 background: -moz-linear-gradient(top,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.5)), color-stop(90%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
@@ -506,38 +506,21 @@ $topscreen: $height * 0.1437;
 $leftscreen: 0;
 $screengap: 70px;
 $depth: 30px;
-$gap: 30px;
-/* 
-real cornerheight should be ( $gap * sin 45° ) / sin 112.5°
-(could be done using Compass)
-*/
-$cornerheight: 23px;
-/* moves the pseudo elements inside */
-$cornerpush: 7px;
-$radius: 34px;
-$fill: #181818;
 $time: 0.7s;
-$bgcolor: #7c909c;
-
-#view-layers {
-	height: 0;
-	visibility: hidden;
-}
-
 
 .ms-wrapper {
 	position: relative;
-	margin: 0 auto 100px;
+	margin: 0 auto;
 	width: 100%;
-	max-width: 65em;
-	padding: 0 1em;
+	height: 100%;
+	overflow: hidden;
 }
 
 .ms-perspective {
 	position: relative;
 	margin: 0px auto;
-	width: $width;
-	height: $height;
+	width: 90%;
+	height: 100%;
 	-webkit-perspective: 1200px;
 	-moz-perspective: 1200px;
 	perspective: 1200px;
@@ -553,9 +536,6 @@ $bgcolor: #7c909c;
 	-webkit-transition: -webkit-transform $time ease-in-out;
 	-moz-transition: -moz-transform $time ease-in-out;
 	transition: transform $time ease-in-out;
-/*	-webkit-transform: rotateY(17deg) rotateX(10deg);
-	-moz-transform: rotateY(17deg) rotateX(10deg);
-	transform: rotateY(17deg) rotateX(10deg);*/
 }
 
 .ms-device,
@@ -566,8 +546,6 @@ $bgcolor: #7c909c;
 	-moz-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
-
-
 
 /* Screens */
 .ms-screens .floorplan {
