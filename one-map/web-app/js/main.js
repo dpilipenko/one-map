@@ -352,7 +352,7 @@ var RosettaMap = {
                 	
 	        		break;
 	        	default:
-	        		alert(data.type);
+	        		alert(object.type);
 	        		break;
         	}
         	popupElement.style.display = 'block';
