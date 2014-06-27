@@ -284,6 +284,7 @@ class OneMapController {
 		def roomResults = Room.withCriteria {
 			or {
 				ilike('name', '%'+searchTerm+'%');
+				like('number', '%'+searchTerm+'%');
 			}
 		}
 		for(Room room : roomResults) {
