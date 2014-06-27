@@ -46,15 +46,17 @@ class OneMapController {
 			// found desk at hotspot
 			JSONObject o = new JSONObject()
 			o.put("type", "desk")
-			o.put("name", p.user.firstName+" "+p.user.lastName)
-			o.put("craft", p.user.craft)
-			o.put("level", p.user.level)
-			o.put("phone", p.user.phone)
-			o.put("email", p.user.username)
-			if (currUser.id == p.id)
-				o.put("claimed", "true")
-			else
-				o.put("claimed", "false")
+			if (p.user != null) {
+				o.put("name", p.user.firstName+" "+p.user.lastName)
+				o.put("craft", p.user.craft)
+				o.put("level", p.user.level)
+				o.put("phone", p.user.phone)
+				o.put("email", p.user.username)
+				if (currUser != null && currUser.id == p.id)
+					o.put("claimed", "true")
+				else
+					o.put("claimed", "false")
+			}
 			render o as JSON
 			
 		} else if (p instanceof Room) {
