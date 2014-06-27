@@ -118,10 +118,8 @@ var RosettaMap = {
         container: id,
         width: $('.showthisfloor').width(), //scope.stageWidth * scope.stageScale,
         height: $('.showthisfloor').height(), //scope.stageHeight * scope.stageScale,
-        draggable: false,
-        fill: "#e2e2e2"
+        draggable: false
       });
-	  //stage.style.background = "#e2e2e2";
 
       var layer = new Kinetic.Layer({
         x: 0,
@@ -244,6 +242,10 @@ var RosettaMap = {
       //show zoom btns
       $('.zoom-btns').fadeIn();
     },
+    destroyFloorplan: function() {
+    	RosettaMap.mapSetup.stage.destroy();
+    	$('.zoom-btns').fadeOut();
+    }
   },
   mapInteractions: {
     hasPanned: false,
@@ -547,13 +549,13 @@ var RosettaMap = {
     });
 
     $(document).on("click", '#backto3d', function(){
-      $(this).parents('.zoom-btns').fadeOut();
         $( '.floorplan' ).each( function( el, i ) {
           $(this).removeClass('flydown').removeClass('flyup');
         });
 
         $( '.ms-wrapper' ).removeClass('showingfloor');
         $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
+    	RosettaMap.mapSetup.destroyFloorplan();
     });
   }
 };
