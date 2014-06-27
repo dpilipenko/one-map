@@ -201,7 +201,7 @@ var RosettaMap = {
 
                     // hotspot mouse events
                     hotspotPath.on('mouseover', function() {
-	                	if(RosettaMap.mapInteractions.activeHotspot.fill() !== '#00BCE4') {
+	                	if(this.fill() !== '#00BCE4') {
 	                		this.setFill(RosettaMap.mapSetup.hotspotHoverFill);
 	                        this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
 	                        this.moveTo(topLayer);
