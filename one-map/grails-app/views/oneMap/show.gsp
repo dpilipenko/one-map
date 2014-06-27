@@ -15,18 +15,19 @@
 
 </head>
 
-<body class="login">
+<body>
 
-  <div class="main">
+<sec:ifLoggedIn>
+   <div class="main">
+</sec:ifLoggedIn>
+<sec:ifNotLoggedIn>
+  <div class="main login">
+</sec:ifNotLoggedIn>
+  
 
   	<div class="fractals"></div>
 
-<sec:ifLoggedIn>
-  	<div class="header">
-</sec:ifLoggedIn>
-<sec:ifNotLoggedIn>
-	<div class="header">
-</sec:ifNotLoggedIn>
+	   <div class="header">
 
   		<div class="header-bg">
 

@@ -466,7 +466,7 @@ var RosettaMap = {
                 j_password: password
             },
             success: function(data, textStatus, jqXHR) {
-                $('body').removeClass('login');
+                $('.main').removeClass('login');
                 setTimeout(function(){
                   $('.ms-wrapper').addClass('ms-view-layers');
                 }, 500);
