@@ -3,6 +3,7 @@ package com.rosetta.onemap
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
 
+
 import grails.converters.JSON
 
 import com.rosetta.onemap.pintypes.Room
@@ -137,6 +138,18 @@ class OneMapController {
 			// cannot claim if not logged in
 			o.put("success", false);
 		}
+		String phone
+		String level
+		String craft
+		
+		JSONObject userInfo = new JSONObject()
+		userInfo.put("name", (currUser.firstName+" "+currUser.lastName))
+		userInfo.put("level", currUser.level)
+		userInfo.put("craft", currUser.craft)
+		userInfo.put("phone", currUser.phone)
+		userInfo.put("email", currUser.username)
+		o.put("userinformation", userInfo);
+		
 		render o as JSON
 	}
 	
