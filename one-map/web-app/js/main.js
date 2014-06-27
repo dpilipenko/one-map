@@ -341,11 +341,12 @@ var RosettaMap = {
       var topPos = y - (RosettaMap.mapSetup.popupHeight * 2);
 
       console.log(topPos);
-      if (topPos < 20) {
-        popupElement.style.top = y +'px'; // display it below it
+      if (topPos < 0) {
+        popupElement.style.top = y - 90 +'px'; // display it below it
         $('#popup').addClass('moveNotch');
       } else {
         popupElement.style.top = topPos +'px'; // display above it
+        $('#popup').removeClass('moveNotch');
       }
       
 	  $.ajax({
