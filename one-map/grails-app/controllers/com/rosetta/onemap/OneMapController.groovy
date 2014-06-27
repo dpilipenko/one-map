@@ -91,7 +91,10 @@ class OneMapController {
 		for(User user : userResults) {
 			HashMap<String, String> userMap = new HashMap<String,String>();
 			userMap.put("name", (user.firstName+" "+user.lastName));
-			if(user.office != null) {
+			if(user?.level != null) {
+				userMap.put("position", user.level);
+			}
+			if(user?.office != null) {
 				userMap.put("location", user.office.name);
 			}
 			searchResults.add(userMap);
@@ -108,6 +111,6 @@ class OneMapController {
 			searchResults.add(roomMap);
 		}
 		
-		render (template:"results-template", model:[results: searchResults])
+		render (template:"results-template", model:[searchResults: searchResults])
 	}
 }
