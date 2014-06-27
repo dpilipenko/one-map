@@ -450,7 +450,39 @@ var RosettaMap = {
   search: {
 	  submit: function() {
 		 var query = $('.searchbar').val();
-		 alert('call backend for search results for: '+query);
+		 
+		 $.ajax({
+            url: "/one-map/oneMap/runSearch",
+            type: 'GET',
+            data: {
+            	searchquery: query
+            },
+            success: function(results) {
+            	// populate results tab
+            	var content = '';
+                for(var i = 0; i < results.length; i++) {
+                	var isLink = "";
+                	if(results[i].hotspotId !== '') {
+                		isLink = "isLink";
+                	}
+                	content += $('#result-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLink, results[i].floor, results[i].hotspotId);
+                }
+                $('#result-list').html(content);
+                
+            	// show results tab
+                $('#results').removeClass('cleared').removeClass('collapsed');
+            	
+            	// update map
+            	
+            	// on click of active user
+                $(document).on('click', '#results .isLink', function() {
+                	alert('navigate to map');
+                });
+            	
+            },
+            error: function(data) {
+            }
+	  	});
 	  }
   },
   login: {
@@ -485,6 +517,17 @@ var RosettaMap = {
       }, 500);
     }
     
+    // lazy load in JS templates
+    $.get( "/one-map/static/js/template-room.html", function( data ) {
+  	  $( "body" ).append( data );
+	  });
+	  $.get( "/one-map/static/js/template-user.html", function( data ) {
+	  	$( "body" ).append( data );
+	  });
+	  $.get( "/one-map/static/js/template-result.html", function( data ) {
+	  	$( "body" ).append( data );
+	  });
+    
     var popupElement = document.getElementById('popup');
     RosettaMap.mapSetup.popupElement = popupElement;
 
@@ -495,14 +538,7 @@ var RosettaMap = {
       RosettaMap.mapInteractions.zoomMap(this.id);
     });
     
-    $.get( "/one-map/static/js/template-room.html", function( data ) {
-    	  $( "body" ).append( data );
-    });
-    $.get( "/one-map/static/js/template-user.html", function( data ) {
-    	$( "body" ).append( data );
-    });
-	
-	 // loging in events
+    // loging in events
     $(document).on('click', '.submit-login', RosettaMap.login.submit);
   	$(document).on('click', '.logout', function() {
   		$('.header').addClass('login');

@@ -89,7 +89,7 @@
   			<a href="#" class="clear-results"></a>
   		</div>
   		<div id="result-list" class="results-list">
-			 <g:render template="/oneMap/results-template" />
+		
   		</div>
   	</div>
 
