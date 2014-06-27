@@ -91,7 +91,7 @@ class OneMapController {
 	 * GET	/claimHotspot?hotspotID=#
 	 */
 	def claimHotspot() {
-		JSONObject res = new JSONObject()
+		JSONObject o = new JSONObject()
 		def currUser = springSecurityService.currentUser
 		if (currUser != null) {
 			
@@ -113,20 +113,47 @@ class OneMapController {
 			def hotspot = Hotspot.get(params.hotspotID)
 			def pin = Pin.findByHotspot(hotspot)
 			if (pin == null) {
-				res.put("success", false)
+				o.put("success", false)
 			} else {
 				if (pin instanceof Desk) {
 					deskService.addUserToDesk(pin.id, currUser)
 				} else if (pin instanceof Room) {
 					roomService.addUserToRoom(pin.id, currUser)
 				}
-				res.put("success", true)
+				o.put("success", true)
 			}
 		} else {
 			// cannot claim if not logged in
-			res.put("success", false);
+			o.put("success", false);
 		}
-		render res as JSON
+		render o as JSON
+	}
+	
+	/**
+	 * GET	/unclaimHotspot
+	 */
+	def unclaimHotspot () {
+		JSONObject o = new JSONObject()
+		def currUser = springSecurityService.currentUser
+		if (currUser == null) {
+			o.put("success", false)	
+		} else {
+			// find current seat and kick them out
+			for (Desk desk : Desk.findAllByUser(currUser)) {
+				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
+			}
+			def c = Room.createCriteria()
+			def room = c.get {
+			   users {
+				  idEq(currUser.id)
+			   }
+			}
+			if (room != null) {
+				room.removeFromUsers(currUser)
+			}
+			o.put("success", true)
+		}
+		render o as JSON
 	}
 	
 	def runSearch() {
