@@ -254,7 +254,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 	    z-index: 1;
 	}
 
-	.logout, .welcome {
+	.logout a, .welcome {
 		float: right;
 		@include RobotoLight;
 		color: $darkgrey;
@@ -264,7 +264,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 		line-height: 37px;
 	}
 
-	.logout {
+	.logout a {
 		margin: 0px 40px 0px 20px;
 	}
 
@@ -622,56 +622,58 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 	float: left;
     }
 
-    .right {
-		width: 0; 
-		height: 0; 
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent; 
-		
-		border-left:10px solid #bbbbbb; 
+    
 
-		float: left;
-		display: block;
-		position: relative;
-		margin-top: 25px;
-	}
+}
 
-	.right:after {
-		box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
-	    content: "";
-	    height: 15px;
-	    left: -13px;
-	    position: absolute;
-	    top: -5px;
-	    transform: rotate(45deg);
-	    width: 10px;	
-	}
+.arrow-right {
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-left:10px solid #bbbbbb; 
 
-	.left {
-		width: 0; 
-		height: 0; 
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent; 
-		
-		border-right:10px solid #bbbbbb; 
+	float: left;
+	display: block;
+	position: relative;
+	margin-top: 25px;
+}
 
-		float: left;
-		display: block;
-		position: relative;
-		margin-top: 25px;
-	}
+.arrow-right:after {
+	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
+    content: "";
+    height: 15px;
+    left: -13px;
+    position: absolute;
+    top: -5px;
+    transform: rotate(45deg);
+    width: 10px;	
+}
 
-	.left:after {
-		box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
-	    content: "";
-	    height: 15px;
-	    left: 4px;
-	    position: absolute;
-	    top: -5px;
-	    transform: rotate(135deg);
-	    width: 10px;	
-	}
+.arrow-left {
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-right:10px solid #bbbbbb; 
 
+	float: left;
+	display: block;
+	position: relative;
+	margin-top: 25px;
+}
+
+.arrow-left:after {
+	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
+    content: "";
+    height: 15px;
+    left: 4px;
+    position: absolute;
+    top: -5px;
+    transform: rotate(135deg);
+    width: 10px;	
 }
 
 /* --- Maps
@@ -688,7 +690,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 #popup {
     border-radius: 10px;
     display: block;
-    right: 0;
+    right: 10%;
     min-height: 105px;
     position: absolute;
     top: 0;
@@ -802,7 +804,61 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     	margin-top: 10px;
     }
 
+    #members-slider {
+		background: rgba(0,0,0,0.18);
+		-webkit-box-shadow:inset 0 2px 3px 0 rgba(0,0,0,0.20);
+		box-shadow:inset 0 2px 3px 0 rgba(0,0,0,0.20);
+
+		margin: 0 -10px;
+		padding: 10px;
+
+
+    	.members {
+				background: url(../images/icon-person.png) no-repeat left center;
+				background-size: 56px 51px;
+				padding: 8px 0px 8px 65px;
+				min-height: 51px;
+				margin: 0px 12px;
+
+				.name {
+					color: $charcoal;
+					@include RobotoRegular;
+					font-size: 15px;
+					margin: 0 0 5px 0;
+				}
+
+				color: #FFF;
+				font-family: Arial;
+				font-size: 11px;
+				line-height: 14px;
+
+    	}
+    }
+
 }
+/* --- Slider
+-------------------------- */
+
+.lean-slider { 
+    position: relative; 
+    *zoom: 1;
+}
+.lean-slider:before,
+.lean-slider:after {
+    content: " ";
+    display: table;
+}
+.lean-slider:after {
+    clear: both;
+}
+
+.lean-slider-slide { 
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    display: none; 
+}
+.lean-slider-slide.current { display: block; }
 
 
 /* --- 3D Floor Animation

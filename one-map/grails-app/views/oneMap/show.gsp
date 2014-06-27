@@ -44,10 +44,13 @@
               <input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
 					</g:formRemote>
+
+          <div class="logout">
+              <g:link controller="logout">LOGOUT</g:link>
+            </div>
+
 					<sec:ifLoggedIn>
-						<div class="logout">
-							<g:link controller="logout">LOGOUT</g:link>
-						</div>
+						
 	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
 	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;|</div>
   					</sec:ifLoggedIn>
@@ -143,9 +146,9 @@
           <div id="falloff-shadow"></div>
 
           <div class="inner">
-            <a href="#" class="left"></a>
+            <a href="#" class="arrow-left"></a>
             <span>Cleveland</span>
-            <a href="#" class="right"></a>
+            <a href="#" class="arrow-right"></a>
           </div>
 
         </div>
@@ -169,13 +172,20 @@
           <div class="btns-container clearfix">
             <a href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?" class="btn">Request Seat</a>
             <a href="#" class="btn">View Members</a>
-
-            <div id="members-slider">
-              <a href="#" class="left"></a>
-
-              <a href="#" class="right"></a>
-            </div>
           </div>
+
+          <div id="members-slider">
+              <a href="#" class="arrow-left"></a>
+              <div class="members">
+                <div class="member">
+                  <div class="name">Dave Fagan</div>
+                  <div class="position">Senior Associate, Creative Engineer</div>
+                  <div class="phone">216.325.6080</div>
+                  <a class="email" href="mailto:dave.fagan@rosetta.com">dave.fagan@rosetta.com</a>
+                </div>
+              </div>
+              <a href="#" class="arrow-right"></a>
+            </div>
         </div>
         <div class="notch"></div>
       </div>
@@ -197,6 +207,8 @@
     <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
     <script src="${resource(dir: 'js', file: 'modernizr.custom.js')}"></script>
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+
+  <script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 	
 	<script type="text/javascript">
 		RosettaMap.login.submitURL = '${postUrl}';
