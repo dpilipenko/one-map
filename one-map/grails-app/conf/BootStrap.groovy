@@ -2,6 +2,7 @@ import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.User
 import com.rosetta.onemap.Office
 import com.rosetta.onemap.pintypes.Room
+import com.rosetta.onemap.pintypes.Desk
 
 class BootStrap {
 
@@ -17,23 +18,23 @@ class BootStrap {
 		def laoffice = new Office(name: "Los Angeles").save(flush:true);
 		def ldoffice = new Office(name: "London").save(flush:true);
 		
-		new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
+		def dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
 		
-		new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
+		def dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Associate", craft: "Software Engineering").save(flush: true);
 		
-		new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
+		def liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
 		
-		new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
+		def dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
 		
-		new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
+		def becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "CEO").save(flush: true);
 
@@ -45,9 +46,17 @@ class BootStrap {
 		new Room(name: "Johnny Cash", number: "1726", hotspot: hp2).save(flush: true);
 		new Room(name: "Chuck Berry", number: "1723", hotspot: hp3).save(flush: true);
 		new Room(name: "Elvis Presley", number: "1715", hotspot: hp4).save(flush: true);
+		def elvis = new Room(name: "Elvis Presley", number: "1715", hotspot: hp4);
 		
-		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
-		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
+		elvis.addToUsers(dan)
+		
+		def hp5 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
+		new Desk(user:dave, hotspot:hp5)
+		
+		def hp6 = new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
+		new Desk(user:dima, hotspot:hp6)
+
+		
 		new Hotspot( floor: "11", type: "room", polygon: "M189.796,239.403l-0.178-11.133l9.468-5.909 c0,0,3.462,7.974,1.08,11.919C197.784,238.226,189.796,239.403,189.796,239.403z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M189.265,251.08l-9.84,5.399c0,0,3.97,6.72,10.08,6.72 s9.36-6.479,9.36-6.479L189.265,251.08z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M189.265,251.08l-0.12-11.16c0,0-8.345-0.074-11.24,5.307 c-2.896,5.38,1.521,11.253,1.521,11.253L189.265,251.08z").save(flush: true);
@@ -156,7 +165,6 @@ class BootStrap {
 		new Hotspot( floor: "11", type: "room", polygon: "M3207.16,460.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239 c0,0-20.6-5.111-21.9-4.2L213.4,458.8L207.16,460.36z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M219.88,4.96 263.20,4.96 263.20,29.32 219.88,29.32 219.88,4.96z").save(flush: true);
 		
-		
 		new Hotspot( floor: "14", type: "room", polygon: "M7.48,112.42 29.68,112.42 29.68,164.56 7.48,163.533z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M54.82,111.16 77.5,111.279 77.5,147.88 54.82,147.88z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M78.481,111.16 103.24,110.92 102.76,148.12 78.481,147.88z").save(flush: true);
@@ -172,8 +180,13 @@ class BootStrap {
 		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36 245.44,211.36 245.44,215.8 207.64,215.8 211.72,189.88z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M207.64,216.88 244.84,216.88 245.44,221.32 248.44,221.32 248.2,241.12 212.08,241.6z").save(flush: true);
-		new Hotspot( floor: "14", type: "room", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush: true);
-		new Hotspot( floor: "14", type: "room", polygon: "M202.6,268.36 239.56,268.36 239.56,272.8 248.44,272.8 248.44,319.48 193.72,310.36 185.44,309.04 185.02,272.56 202.96,272.8z").save(flush: true);
+		
+		def hp7 = new Hotspot( floor: "14", type: "desk", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush: true);
+		new Desk(user:liz, hotspot:hp7)
+		
+		def hp8 = new Hotspot( floor: "14", type: "desk", polygon: "M202.6,268.36 239.56,268.36 239.56,272.8 248.44,272.8 248.44,319.48 193.72,310.36 185.44,309.04 185.02,272.56 202.96,272.8z").save(flush: true);
+		new Desk(user:becky, hopspot:hp8)
+		
 		new Hotspot( floor: "14", type: "room", polygon: "M283.96,359.44 275.8,323.68 297.52,318.64 306.76,358.6z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M331.08,347.946 322.92,312.186 343.12,307.84 343.96,311.44 347.08,310.72 356.2,347.125 z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M348.76,310.367 351.28,309.76 350.44,306.04 370.72,301.36 379,336.76 357.16,346.373z").save(flush: true);
@@ -244,9 +257,6 @@ class BootStrap {
 		new Hotspot( floor: "14", type: "room", polygon: "M180.077,29.531l-10.585-0.319c0,0-0.488,7.041,4.292,9.841c4.783,2.804,10.789-0.738,10.789-0.738 L180.077,29.531z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M180.077,29.531l5.871-8.722c0,0-6.486-3.885-11.629-1.036c-5.142,2.849-4.828,9.439-4.828,9.439 L180.077,29.531z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M184.573,38.314l-4.496-8.784l5.871-8.722c0,0,6.102,4.877,5.584,9.027 C191.013,33.987,184.573,38.314,184.573,38.314z").save(flush: true);
-
-
-		
     }
     def destroy = {
     }
