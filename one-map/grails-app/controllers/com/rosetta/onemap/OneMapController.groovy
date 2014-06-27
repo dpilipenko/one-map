@@ -1,6 +1,7 @@
 package com.rosetta.onemap
 
 import grails.converters.JSON
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class OneMapController {
 
