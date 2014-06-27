@@ -124,7 +124,14 @@
 
         </div>
         <div id="offices-slider-control">
-          
+          <div id="falloff-shadow"></div>
+
+          <div class="inner">
+            <a href="#" class="left"></a>
+            <span>Cleveland</span>
+            <a href="#" class="right"></a>
+          </div>
+
         </div>
         
       </div>
