@@ -97,22 +97,28 @@
             
             <div id="floor-plans" class="ms-device">
               <div class="ms-screens">
-                <div id="eleven" class="ms-screen-1 floorplan" data-showing="false" data-imgsrc="floorplan-eleven" data-floor="11">
+                <div class="ms-screen-1 floorplan" data-showing="false">
+                	<div id="eleven" class="canvas" data-imgsrc="floorplan-eleven" data-floor="11"></div>
                   <div class="ms-label">Floor 11</div>
                 </div>
-                <div id="twelve" class="ms-screen-2 floorplan" data-showing="false" data-imgsrc="floorplan-twelve" data-floor="12">
+                <div class="ms-screen-2 floorplan" data-showing="false">
+                	<div id="twelve" class="canvas" data-imgsrc="floorplan-twelve" data-floor="12"></div>
                   <div class="ms-label">Floor 12</div>
                 </div>
-                <div id="thirteen" class="ms-screen-3 floorplan" data-showing="false" data-imgsrc="floorplan-thirteen" data-floor="13">
+                <div class="ms-screen-3 floorplan" data-showing="false">
+                	<div id="thirteen" class="canvas" data-imgsrc="floorplan-thirteen" data-floor="13"></div>
                   <div class="ms-label">Floor 13</div>
                 </div>
-                <div id="fourteen" class="ms-screen-4 floorplan" data-showing="false" data-imgsrc="floorplan-fourteen" data-floor="14">
+                <div class="ms-screen-4 floorplan" data-showing="false">
+                	<div id="fourteen" class="canvas" data-imgsrc="floorplan-fourteen" data-floor="14"></div>
                   <div class="ms-label">Floor 14</div>
                 </div>
-                <div id="fifteen" class="ms-screen-5 floorplan" data-showing="false" data-imgsrc="floorplan-fifteen" data-floor="15">
+                <div class="ms-screen-5 floorplan" data-showing="false">
+                	<div id="fifteen" class="canvas" data-imgsrc="floorplan-fifteen" data-floor="15"></div>
                   <div class="ms-label">Floor 15</div>
                 </div>
-                <div id="seventeen" class="ms-screen-6 floorplan" data-showing="false" data-imgsrc="floorplan-seventeen" data-floor="17">
+                <div class="ms-screen-6 floorplan" data-showing="false">
+                	<div id="seventeen" class="canvas" data-imgsrc="floorplan-seventeen" data-floor="17"></div>
                   <div class="ms-label">Floor 17</div>
                 </div>
               </div>

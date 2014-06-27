@@ -40,8 +40,10 @@ var phoneSlideshow = (function() {
         classie.add(document.querySelector( '.ms-wrapper' ), 'showingfloor');
         classie.add( this, 'showthisfloor' );
         this.setAttribute("data-showing", "true");
+        
+        var canvas = $(this).children('.canvas')[0];
 
-        RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"), this.getAttribute("data-floor"));
+        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"));
       }
     }
 
