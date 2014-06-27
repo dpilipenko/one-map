@@ -1,5 +1,1 @@
-/target
-/wrapper
-/grailsw
-/grailsw.bat
-/lib
+target/
