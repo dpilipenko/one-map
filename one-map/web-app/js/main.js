@@ -477,7 +477,10 @@ var RosettaMap = {
 	  submit: function() {
 		 var query = $('.searchbar').val();
 		 alert('call backend for search results for: '+query);
-	  },
+	  }
+  },
+  login: function() {
+	  $('.header').removeClass('login');
   },
   init: function() {
     // this needs to move to the on click of floor
@@ -524,6 +527,12 @@ var RosettaMap = {
             break;
         }
     });
+
+	
+	// loging in events
+	$(document).on('click', '.logout', function() {
+		$('.header').addClass('login');
+	});
 	  
   	// search click results
   	$(document).on('keypress', '.searchbar', function(e) {
