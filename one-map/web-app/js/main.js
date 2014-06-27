@@ -8,19 +8,7 @@ String.prototype.format = function() {
 var phoneSlideshow = (function() {
 
   function init() {
-    [].slice.call( document.querySelectorAll( '.ms-wrapper' ) ).forEach( function( el, i ) {
-      var open = false;
-      el.querySelector( 'button' ).addEventListener( 'click', changeView, false );
-      function changeView() {
-        if( open ) {
-          classie.remove( el, 'ms-view-layers' );
-        }
-        else {
-          classie.add( el, 'ms-view-layers' );
-        }
-        open = !open;
-      }     
-    } );
+
 
     function showFloor() {
       
@@ -481,6 +469,10 @@ var RosettaMap = {
   },
   login: function() {
 	  $('.header').removeClass('login');
+    setTimeout(function(){
+      $('.ms-wrapper').addClass('ms-view-layers');
+    }, 500);
+    
   },
   init: function() {
     // this needs to move to the on click of floor

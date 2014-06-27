@@ -161,7 +161,6 @@
           <div id="princeton" class="office"></div>
           <div id="london" class="office"></div>
 
-          <button>show floors</button>
         </div>
         <div id="offices-slider-control">
           

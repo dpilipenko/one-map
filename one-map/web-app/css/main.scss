@@ -519,6 +519,11 @@ $fill: #181818;
 $time: 0.7s;
 $bgcolor: #7c909c;
 
+#view-layers {
+	height: 0;
+	visibility: hidden;
+}
+
 
 .ms-wrapper {
 	position: relative;
@@ -667,26 +672,6 @@ $bgcolor: #7c909c;
 
 .ms-screens > .floorplan:hover .ms-label::before {
 	border-right-color: #687fa7;
-}
-
-.ms-wrapper button {
-	background: transparent;
-	font-weight: 700;
-	font-size: 16px;
-	letter-spacing: 1px;
-	padding: 10px 30px;
-	border: 3px solid #fff;
-	color: #fff;
-	position: absolute;
-	top: 1em;
-	left: 1em;
-	text-transform: uppercase;
-	z-index: 999999;
-}
-
-.ms-wrapper button:hover {
-	border-color: #687fa7;
-	color: #687fa7;
 }
 
 // Toggle view (for all effects)
