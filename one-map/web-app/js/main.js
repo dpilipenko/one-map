@@ -341,9 +341,9 @@ var RosettaMap = {
         	var innerDiv = $('#popup .inner');
         	switch(object.type) {
 	        	case "room":
+              $('#popup').removeClass('desk').addClass('room');
 	        		if(object.project !== undefined) { // WAR room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-	  	            	content += '<a class="btn editWAR">EDIT</a>';
 	  	            	content += '<a class="btn viewWARmembers">VIEW MEMBERS</a>';
 	  	            	content += '<a class="btn claimHotspot">ADD ME</a>';
 	  	            	innerDiv.html(content);
@@ -363,22 +363,23 @@ var RosettaMap = {
                       });
                     }
 	        		} else { // conference room
+
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
-	  	            	content += '<a class="btn createWAR">THIS MEANS WAR</a>';
+	  	            	content += '<div class="btns-container clearfix"><a class="btn createWAR">THIS MEANS WAR</a></div>';
 	  	            	innerDiv.html(content);
 	  	            } 
 	        		break;
 	        	case "desk":
+              $('#popup').removeClass('room').addClass('desk');
 	        		if (!object.claimed) {
-	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	content += '<a class="btn claimHotspot">CLAIM THIS SEAT</a>';
-	                	innerDiv.html(content);
+	        			var content = '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div>';
+	                	innerDiv.html(content).data("profile", object);
 	        		} else if (object.claimed && object.isMine) { // should be done
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
 	        			innerDiv.html(content);
 	        		} else { // other user claimed seat
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	content += '<a class="btn" href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a>';
+	                	content += '<div class="btns-container clearfix"><a class="btn" href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
 	                	innerDiv.html(content);
 	        		}
                 	
@@ -621,6 +622,58 @@ var RosettaMap = {
     });
     $(document).on("click", '#popup .close', function(){
         $('#popup').hide();
+        RosettaMap.mapInteractions.unactivateHotspot();
+
+    });
+
+    $(document).on("click", '.claimHotspot', function(){
+      $(this).parents('.inner').addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
+
+      $.ajax({
+        url: '/one-map/oneMap/claimHotspot',
+        type: 'GET',
+        data: {
+            hotspotID: RosettaMap.mapInteractions.activeHotspotID,
+        },
+        success: function(object) {
+          // TODO: add buttons and interactions
+          var object = $('#popup .inner').removeClass('loading').data("profile");
+          var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+          $('#popup .inner').html(content);
+        } ,
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+        }
+      });
+    });
+
+    $(document).on("click", '.createWAR', function(){
+      $(this).after('<input class="war-name"><a href="#" class="btn savewarname">SAVE</a>');
+      $(this).hide();
+
+      $(document).on('click', '.savewarname', function(){
+        var name = $('input.war-name').val();
+        $('#popup .btns-container').before('<div>Project: ' + name);
+        $('#popup .btns-container').html('<a class="btn viewWARmembers">VIEW MEMBERS</a><a class="btn claimHotspot">ADD ME</a>');
+
+      });
+
+      /*$.ajax({
+        url: '/one-map/oneMap/claimHotspot',
+        type: 'GET',
+        data: {
+            hotspotID: RosettaMap.mapInteractions.activeHotspotID,
+        },
+        success: function(object) {*/
+          // TODO: add buttons and interactions
+          var object = $('#popup .inner').removeClass('loading').data("profile");
+          var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+          $('#popup .inner').html(content);
+        /*} ,
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+        }
+      });*/
     });
   }
 };

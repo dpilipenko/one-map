@@ -739,6 +739,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	    font-size: 15px;
 	    @include RobotoLight;
 		line-height: 18px;
+
+		&.loading {
+			margin-bottom: -50px;
+		    min-height: 55px;
+		    padding-left: 50px;
+		    padding-top: 40px;
+		    width: 252px;
+		}
 	}
 
 	&.desk .inner {
@@ -816,6 +824,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     		padding: 5px 10px;
     		float: left;
     		margin-right: 10px;
+    		cursor: pointer;
 
     		&:hover {
 				background: rgba(255,255,255,0.2);
