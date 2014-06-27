@@ -410,7 +410,7 @@ var RosettaMap = {
 	        			innerDiv.html(content);
 	        		} else { // other user claimed seat
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	content += '<div class="btns-container clearfix"><a class="btn" href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
+	                	content += '<div class="btns-container clearfix"><a class="btn" href="mailto:'+object.email+'?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
 	                	innerDiv.html(content);
 	        		}
                 	
