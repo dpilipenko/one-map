@@ -166,6 +166,25 @@ class OneMapController {
 		render o as JSON
 	}
 	
+	/**
+	 * GET	/createWarRoom?roomID=#&projectName=STRING 
+	 */
+	def createWarRoom() {
+		JSONObject o = new JSONObject()
+		Room r = Room.get(params.roomID);
+		if (r == null) {
+			o.put("success", true)
+		} else {
+			if (r.project == null || r.project.isEmpty()) {
+				r.project = params.projectName
+				o.put("success", true)
+			} else {
+				o.put("success", false)
+			}
+		}
+		render o as JSON
+	}
+	
 	def runSearch() {
 		def searchTerm = params.searchquery
 		
