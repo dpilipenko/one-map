@@ -167,6 +167,7 @@ var RosettaMap = {
                       y: 0,
                       width: stage.width(),
                       height: stage.height(),
+                      id: key,
                       scale: {x: scope.stageScale, y: scope.stageScale},
                       data: data[key],
                       fill: scope.hotspotFill,
@@ -179,6 +180,7 @@ var RosettaMap = {
                       this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
                       this.moveTo(topLayer);
                       topLayer.drawScene();
+                      console.log(this.getId());
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -196,6 +198,7 @@ var RosettaMap = {
                       var mapObj = RosettaMap.mapSetup;
 
                       interactionsObj.activeHotspot = this;
+                      interactionsObj.activeHotspotID = this.getId();
                       this.setFill(mapObj.hotspotHoverFill);
                       this.opacity(mapObj.hotspotHoverOpacity);
                       this.moveTo(topLayer);
@@ -226,6 +229,7 @@ var RosettaMap = {
     startDragOffset: {},
     draggedOffset: {},
     activeHotspot: null,
+    activeHotspotID: null,
     getHotspot: function(hotspotID) {
       // returns null or {type, info?}
     },
