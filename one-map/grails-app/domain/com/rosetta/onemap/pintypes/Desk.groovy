@@ -8,6 +8,6 @@ class Desk extends Pin {
 	User user
 	
     static constraints = {
-		
+		user nullable:true
     }
 }

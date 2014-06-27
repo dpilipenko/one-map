@@ -13,10 +13,23 @@ class DeskService {
 
     }
 	
-	Desk createDesk(String name, long userId, long hotspotId) {
+	Desk createDesk(String name, long hotspotId) {
 		def d = new Desk()
 		d.name = name
-		d.user = User.get(userId)
+		d.hotspot = Hotspot.get(hotspotId);
+		d.dateCreated = new Date()
+		d.lastUpdated = new Date()
+		d.save()
+		if (d.hasErrors()) {
+			log.info("Got some desk errors on create!")
+		}
+		return d
+	}
+	
+	Desk createDesk(String name, User user, long hotspotId) {
+		def d = new Desk()
+		d.name = name
+		d.user = user
 		d.hotspot = Hotspot.get(hotspotId)
 		d.dateCreated = new Date()
 		d.lastUpdated = new Date()
@@ -27,10 +40,10 @@ class DeskService {
 		return d
 	}
 	
-	Desk updateDesk(long deskId, String name, long userId, long hotspotId) {
+	Desk updateDesk(long deskId, String name, User user, long hotspotId) {
 		def d = Desk.get(id)
 		d.name = name
-		d.user = User.get(userId)
+		d.user = user
 		d.hotspot = Hotspot.get(hotspotId)
 		d.lastUpdated = new Date()
 		d.save()

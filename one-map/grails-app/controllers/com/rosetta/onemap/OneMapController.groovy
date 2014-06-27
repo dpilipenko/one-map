@@ -32,6 +32,9 @@ class OneMapController {
 		render hotspots as JSON
 	}
 	
+	/**
+	 * GET 	/gethotspotbyid?hotspotID=#
+	 */
 	def gethotspotbyid () {
 		def currUser = springSecurityService.currentUser
 		def hotspotID = params.hotspotID
@@ -39,33 +42,36 @@ class OneMapController {
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
 		def hotspot = Hotspot.get(hotspotID)
-		def p = Pin.findByHotspot(hotspot)
+		def pin = Pin.findByHotspot(hotspot)
 		JSONObject o = new JSONObject()
 		
-		if (p instanceof Desk) {
+		if (pin instanceof Desk) {		// Returning details about a Desk
 			// found desk at hotspot
 			o.put("type", "desk")
-			if (p.user != null) {
-				o.put("name", p.user.firstName+" "+p.user.lastName)
-				o.put("craft", p.user.craft)
-				o.put("level", p.user.level)
-				o.put("phone", p.user.phone)
-				o.put("email", p.user.username)
-				if (currUser != null && currUser.id != p.id)
-					o.put("claimed", "true")
+			if (pin.user != null) {
+				o.put("name", pin.user.firstName+" "+pin.user.lastName)
+				o.put("craft", pin.user.craft)
+				o.put("level", pin.user.level)
+				o.put("phone", pin.user.phone)
+				o.put("email", pin.user.username)
+				if (currUser.id == pin.id)
+					o.put("isOwn", true)
 				else
-					o.put("claimed", "false")
+					o.put("isOwn", false)
+				if (currUser != null && currUser.id != pin.id)
+					o.put("claimed", true)
+				else
+					o.put("claimed", false)
 			}
-		} else if (p instanceof Room) {
+		} else if (pin instanceof Room) {		// Returning details about a Room
 			// found room at hotspot
 			o.put("type", "room")
-			o.put("name", p.name)
-			o.put("number", p.number)
-			o.put("phone", p.phone)
-			o.put("project", p.project)
-			
+			o.put("name", pin.name)
+			o.put("number", pin.number)
+			o.put("phone", pin.phone)
+			o.put("project", pin.project)
 			JSONArray members = new JSONArray()
-			for (User u : p.users) {
+			for (User u : pin.users) {
 				JSONObject member = new JSONObject()
 				member.put("name", u.firstName+" "+u.lastName)
 				member.put("craft", u.craft)
@@ -74,12 +80,48 @@ class OneMapController {
 				member.put("email", u.username)
 				members.add(member)
 			}
-			
 			o.put("members", members)
 		} else {
 			// undefined action
 		}
 		render o as JSON
+	}
+	
+	/**
+	 * GET	/claimHotspot?hotspotID=#
+	 */
+	def claimHotspot() {
+		JSONObject res = new JSONObject()
+		def currUser = springSecurityService.currentUser
+		if (currUser != null) {
+			
+			// find current seat and kick them out
+			for (Desk desk : Desk.findAllByUser(currUser)) {
+				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
+			}
+			for (Room room : Room.findAllByUser(currUser)) {
+				// do rooms
+			}
+			
+			
+			// add to hotspot
+			def hotspot = Hotspot.get(params.hotspotID)
+			def pin = Pin.findByHotspot(hotspot)
+			if (pin == null) {
+				res.put("success", false)
+			} else {
+				if (pin.type.equals("desk")) {
+					deskService.updateDesk(pin.id, pin.name, currUser, pin.hotspotId)
+				} else if (pin.type.equals("room")) {
+					roomService.addUserToRoom(pin.id, currUser)
+				}
+				res.put("success", true)
+			}
+		} else {
+			// cannot claim if not logged in
+			res.put("success", false);
+		}
+		render res as JSON
 	}
 	
 	def runSearch() {

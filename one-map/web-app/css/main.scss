@@ -82,6 +82,15 @@ body {
 	background: url(../images/bg-tile.jpg) repeat;
 }
 
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
 form {
 	margin: 0 !important;
 }
@@ -121,7 +130,7 @@ a {
 	text-decoration: underline;
 
 	&:hover {
-		text-decoration: normal;
+		text-decoration: none !important;
 	}
 }
 input {
@@ -195,7 +204,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 	.inner {
 		padding: 20px 2%;
 		width: 96%;
-		height: 100%;
+		height: 55px;
 	}
 
 	.logo {
@@ -674,7 +683,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 #popup {
     border-radius: 10px;
     display: block;
-    left: 0;
+    right: 0;
     min-height: 105px;
     position: absolute;
     top: 0;
@@ -692,9 +701,37 @@ background: linear-gradient(to bottom,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 1
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 ); /* IE6-9 */
 
 	.inner {
-		width: 100%;
-		height: 100%;
-		margin: 10px;
+	    min-height: 85px;
+	    padding: 10px;
+	    width: 292px;
+
+	    color: #FFF;
+	    font-size: 15px;
+	    @include RobotoLight;
+		line-height: 18px;
+	}
+
+	&.desk .inner {
+	    background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	}
+
+	&.room .inner {
+	    background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	}
+
+	.close {
+		position: absolute;
+		top: -13px;
+		right: -12px;
+		width: 25px;
+		height: 26px;
+		background: url(../images/btn-cancel.png) no-repeat 0 0;
+		cursor: pointer;
+		z-index: 1;
+
+		&:hover {
+			background-position: 0px -26px;
+		}
 	}
 
 	.notch {
@@ -732,6 +769,33 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	    width: 21px;
 	    z-index: -1;
 	}
+
+	.name {
+		font-size: 23px;
+		color: $charcoal;
+		@include RobotoLight;
+		margin: 3px 0px 8px;
+	}
+
+	a {
+    	color: inherit;
+
+    	&.btn {
+    		text-decoration: none;
+    		border: 1px solid #FFF;
+    		padding: 5px 10px;
+    		float: left;
+    		margin-right: 10px;
+
+    		&:hover {
+				background: rgba(255,255,255,0.2);
+    		}
+    	}
+    }
+
+    .btns-container {
+    	margin-top: 10px;
+    }
 
 }
 
