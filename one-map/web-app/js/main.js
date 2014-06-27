@@ -35,7 +35,7 @@ var phoneSlideshow = (function() {
         
         var canvas = $(this).children('.canvas')[0];
         
-        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"), canvas.getAttribute("data-hotspot"));
+        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"), canvas.getAttribute("data-hotspot"), canvas.getAttribute("data-pins"));
 
         
       }
@@ -66,7 +66,7 @@ var RosettaMap = {
     hotspotOpacity: 0,
     hotspotHoverOpacity: 0.5,
 
-    initFloorplan: function (id, imgSrc, floorNumber, hotspot) {
+    initFloorplan: function (id, imgSrc, floorNumber, hotspot, pins) {
     	var scope = this,
       		isHorizontal = false;
     	
@@ -227,6 +227,14 @@ var RosettaMap = {
 
                       interactionsObj.openPopup(e);
                     });
+                    
+                    if(pins !== null) {
+                    	var pinsArray = pins.split(',');
+                    	if (pinsArray.indexOf(key) > -1) {
+                    		hotspotPath.setFill('#F00');
+                    		hotspotPath.setOpacity(1);
+                    	}
+                    }
 
                     layer.add(hotspotPath);
                     
@@ -484,6 +492,8 @@ var RosettaMap = {
 	  submit: function() {
 		 var query = $('.searchbar').val();
 		 
+		 $('.canvas').removeAttr('data-pins');
+		 
 		 $.ajax({
             url: "/one-map/oneMap/runSearch",
             type: 'GET',
@@ -499,6 +509,9 @@ var RosettaMap = {
                 	if(results[i].hotspotId !== '') {
                 		isLink = "isLink";
                 		floorArray.push(parseInt(results[i].floor));
+                		var canvas = $('.canvas[data-floor="'+results[i].floor+'"]');
+                		var theData = canvas.attr('data-pins') == undefined ? '' : canvas.attr('data-pins');
+                		canvas.attr('data-pins', theData+results[i].hotspotId+',');
                 	}
                 	content += $('#result-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLink, results[i].floor, results[i].hotspotId);
                 }
@@ -509,14 +522,11 @@ var RosettaMap = {
             	
             	// update map
                 var counts = {};
-
                 for(var i = 0; i< floorArray.length; i++) {
                     var num = floorArray[i];
                     counts[num] = counts[num] ? counts[num]+1 : 1;
                 }
-                
                 for(var key in counts) {
-                	console.log(counts[key]);
                 	var canvas = $('.canvas[data-floor="'+key+'"]');
                 	canvas.parents('.floorplan').prepend('<h1>'+counts[key]+'</h1>');
                 }
@@ -613,6 +623,7 @@ var RosettaMap = {
     	e.preventDefault();
     	if($('#results').hasClass('collapsed')) {
     		$('#results').removeClass('collapsed');
+        	$('#backto3d').trigger('click');
     	} else {
     		$('#results').addClass('collapsed');
     	}
@@ -621,6 +632,8 @@ var RosettaMap = {
     	e.preventDefault();
     	$('#results').addClass('cleared');
     	$('#results .results-list').html('');
+    	$('.canvas').removeAttr('data-pins').siblings('h1').remove();
+    	$('#backto3d').trigger('click');
     });
 
     // map interactions
