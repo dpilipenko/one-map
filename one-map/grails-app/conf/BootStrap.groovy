@@ -53,7 +53,7 @@ class BootStrap {
 		def hp5 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
 		new Desk(user:dave, hotspot:hp5).save(flush:true);
 		
-		def hp6 = new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
+		def hp6 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
 		new Desk(user:dima, hotspot:hp6).save(flush:true);
 
 		
