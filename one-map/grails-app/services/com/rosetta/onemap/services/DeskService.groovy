@@ -52,7 +52,7 @@ class DeskService {
 	}
 	
 	Desk updateDesk(long deskId, String name, User user, long hotspotId) {
-		def d = Desk.get(id)
+		def d = Desk.get(deskId)
 		d.name = name
 		d.user = user
 		d.hotspot = Hotspot.get(hotspotId)

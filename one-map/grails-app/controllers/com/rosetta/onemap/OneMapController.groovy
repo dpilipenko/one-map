@@ -99,11 +99,15 @@ class OneMapController {
 			for (Desk desk : Desk.findAllByUser(currUser)) {
 				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
 			}
-//			for (Room room : Room.findAllByUser(currUser)) {
-//				// do rooms
-//			}
-			deskService.createDesk("desk", 1);
-			roomService.createRoom("chuck", "1", 2);
+			def c = Room.createCriteria()
+			def room = c.get {
+			   users {
+				  idEq(currUser.id)
+			   }
+			}
+			if (room != null) {
+				room.removeFromUsers(currUser)
+			}
 			
 			// add to hotspot
 			def hotspot = Hotspot.get(params.hotspotID)
