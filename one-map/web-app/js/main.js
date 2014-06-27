@@ -35,9 +35,6 @@ var phoneSlideshow = (function() {
         
         var canvas = $(this).children('.canvas')[0];
         
-        console.log(canvas);
-        console.log('before init: '+canvas.getAttribute("data-hotspot"));
-
         RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"), canvas.getAttribute("data-hotspot"));
 
         
@@ -503,9 +500,7 @@ var RosettaMap = {
                 	var floor = $(this).data('floor');
                 	var hotspot = $(this).data('hotspot');
                 	var canvas = $('.canvas[data-floor="'+floor+'"]');
-                	console.log(canvas[0]);
-                	console.log('----------');
-                	$(canvas).data('hotspot', hotspot);
+                	canvas.attr('data-hotspot', hotspot);
                 	canvas.parent('.floorplan').trigger('click');
                 });
             	
