@@ -61,10 +61,10 @@ var RosettaMap = {
     stageScale: 1,
     stageWidth: 521,
     stageHeight: 545,
-    hotspotFill: '#0F0',
-    hotspotHoverFill: '#111',
-    hotspotOpacity: 0.5,
-    hotspotHoverOpacity: 1,
+    hotspotFill: '#a6bf3e',
+    hotspotHoverFill: '#a6bf3e',
+    hotspotOpacity: 0,
+    hotspotHoverOpacity: 0.5,
 
     initFloorplan: function (id, imgSrc, floorNumber) {
     	var scope = this,
@@ -186,7 +186,11 @@ var RosettaMap = {
                       scale: {x: scope.stageScale, y: scope.stageScale},
                       data: data[key],
                       fill: scope.hotspotFill,
-                      opacity: scope.hotspotOpacity
+                      opacity: scope.hotspotOpacity,
+                      shadowColor: "#000",
+                      shadowOffset: {x: 0, y: 3},
+                      shadowOpacity: 0.83,
+                      shadowBlur: 10
                     });
 
                     // hotspot mouse events
@@ -308,6 +312,7 @@ var RosettaMap = {
       }
 
       // import information in wizard based on return for ajax call (todo in future)
+      console.log(RosettaMap.mapInteractions.activeHotspotID);
       
 	  $.ajax({
         url: '/one-map/oneMap/gethotspotbyid',
@@ -571,6 +576,7 @@ var RosettaMap = {
     	$('#results .results-list').html('');
     });
 
+    // map interactions
     $(document).on("click", '#backto3d', function(){
         $( '.floorplan' ).each( function( el, i ) {
           $(this).removeClass('flydown').removeClass('flyup');
@@ -579,6 +585,9 @@ var RosettaMap = {
         $( '.ms-wrapper' ).removeClass('showingfloor');
         $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
     	RosettaMap.mapSetup.destroyFloorplan();
+    });
+    $(document).on("click", '#popup .close', function(){
+        $('#popup').hide();
     });
   }
 };
