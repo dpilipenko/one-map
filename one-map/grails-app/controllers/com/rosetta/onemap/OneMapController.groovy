@@ -17,16 +17,12 @@ class OneMapController {
 	}
 	
 	def gethotspots () {
-		Map<String, List<String>> hotspotMaps = new HashMap<String, List<String>>()
+		
+		Map<String, String> hotspots = new HashMap<String, String>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
-			List<String> polygons = hotspotMaps.get(h.floor)
-			if (polygons == null) {
-				polygons = new ArrayList<String>()
-			}
-			polygons.add(h.polygon)
-			hotspotMaps.put(h.floor, polygons)
-		}
-		render hotspotMaps as JSON
+			hotspots.put("h"+h.id, h.polygon)
+		}		
+		render hotspots as JSON
 	}
 	
 }
