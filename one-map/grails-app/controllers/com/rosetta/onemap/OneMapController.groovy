@@ -63,6 +63,7 @@ class OneMapController {
 				o.put("level", pin.user.level)
 				o.put("phone", pin.user.phone)
 				o.put("email", pin.user.username)
+				o.put("type", "desk")
 				if (currUser.id == pin.id)
 					o.put("isOwn", true)
 				else
@@ -78,6 +79,7 @@ class OneMapController {
 			o.put("number", pin.number)
 			o.put("phone", pin.phone)
 			o.put("project", pin.project)
+			o.put("type", "room")
 			JSONArray members = new JSONArray()
 			for (User u : pin.users) {
 				JSONObject member = new JSONObject()
