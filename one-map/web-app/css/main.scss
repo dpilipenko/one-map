@@ -471,6 +471,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 		height: 370px;
 
 		.result-item {
+			opacity: 0.5;
+		}
+
+		.result-item.isLink {
+			opacity: 1;
 			background: url(../images/icon-person.png) no-repeat left center;
 			background-size: 29px 27px;
 			padding: 8px 0px 8px 40px;
