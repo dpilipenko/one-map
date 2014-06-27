@@ -337,6 +337,16 @@ var RosettaMap = {
 		                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
 		                }
 		                $('#WARmembers').html(content);
+
+                    if(object.members.length > 0){
+                      //init slider
+                      var slider = $('#WARmembers').leanSlider({
+                          directionNav: '#slider-direction-nav',
+                          pauseTime: 0,
+                          prevText: 'Prev',
+                          nextText: 'Next'
+                      });
+                    }
 	        		} else { // conference room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
 	  	            	content += "THIS MEANS WAR";

@@ -175,16 +175,24 @@
           </div>
 
           <div id="members-slider">
-              <a href="#" class="arrow-left"></a>
-              <div class="members">
+              
+              <div class="members" id="WARmembers">
                 <div class="member">
                   <div class="name">Dave Fagan</div>
                   <div class="position">Senior Associate, Creative Engineer</div>
                   <div class="phone">216.325.6080</div>
                   <a class="email" href="mailto:dave.fagan@rosetta.com">dave.fagan@rosetta.com</a>
                 </div>
+                <div class="member">
+                  <div class="name">Brad Fagan</div>
+                  <div class="position">Senior Associate, Creative Engineer</div>
+                  <div class="phone">216.325.6080</div>
+                  <a class="email" href="mailto:dave.fagan@rosetta.com">dave.fagan@rosetta.com</a>
+                </div>
               </div>
-              <a href="#" class="arrow-right"></a>
+
+              <div id="slider-direction-nav"></div>
+
             </div>
         </div>
         <div class="notch"></div>
