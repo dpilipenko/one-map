@@ -1,15 +1,40 @@
 import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.User
+import com.rosetta.onemap.Office
 
 class BootStrap {
 
     def init = { servletContext ->
 		
-		new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		def cloffice = new Office(name: "Cleveland").save(flush:true);
+		def njoffice = new Office(name: "Princeton").save(flush:true);
+		def nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);
+		def ny5office = new Office(name: "New York - 5th Avenue").save(flush:true);
+		def chioffice = new Office(name: "Chicago").save(flush:true);
+		def sfoffice = new Office(name: "San Francisco").save(flush:true);
+		def slooffice = new Office(name: "San Luis Obispo").save(flush:true);
+		def laoffice = new Office(name: "Los Angeles").save(flush:true);
+		def ldoffice = new Office(name: "London").save(flush:true);
+		
+		new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
+		
+		new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Associate", craft: "Software Engineering").save(flush: true);
+		
+		new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+		
+		new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+		
+		new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "CEO").save(flush: true);
 		
 		new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true);
 		new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true);

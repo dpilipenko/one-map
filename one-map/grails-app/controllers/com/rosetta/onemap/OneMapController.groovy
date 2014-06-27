@@ -3,6 +3,7 @@ package com.rosetta.onemap
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
 import grails.converters.JSON
+import com.rosetta.onemap.pintypes.Room
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
@@ -94,13 +95,36 @@ class OneMapController {
 	
 	def runSearch() {
 		def searchTerm = params.searchquery
-		def searchResults = User.withCriteria {
+		
+		List<HashMap<String,String>> searchResults = new ArrayList<HashMap<String,String>>();
+		
+		def userResults = User.withCriteria {
 			or {
 				like('username', '%'+searchTerm+'%')
 				like('firstName', '%'+searchTerm+'%')
 				like('lastName', '%'+searchTerm+'%')
 			}
 		}
+		for(User user : userResults) {
+			HashMap<String, String> userMap = new HashMap<String,String>();
+			userMap.put("name", (user.firstName+" "+user.lastName));
+			if(user.office != null) {
+				userMap.put("location", user.office.name);
+			}
+			searchResults.add(userMap);
+		}
+		
+		def roomResults = Room.withCriteria {
+			or {
+				like('name', '%'+searchTerm+'%');
+			}
+		}
+		for(Room room : roomResults) {
+			HashMap<String, String> roomMap = new HashMap<String,String>();
+			roomMap.put("name", room.name);
+			searchResults.add(roomMap);
+		}
+		
 		render (template:"results-template", model:[results: searchResults])
 	}
 }

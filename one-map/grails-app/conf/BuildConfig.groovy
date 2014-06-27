@@ -43,7 +43,6 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
-		compile("org.compass-project:compass:2.2.0")
     }
 
     plugins {
@@ -56,7 +55,6 @@ grails.project.dependency.resolution = {
 		
 		//spring security plugin
 		compile ":spring-security-core:1.2.7.3"
-		compile ":searchable:0.6.8"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"

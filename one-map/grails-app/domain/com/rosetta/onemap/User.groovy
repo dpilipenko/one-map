@@ -10,6 +10,10 @@ class User {
 	String password
 	String firstName
 	String lastName
+	Office office
+	String phone
+	String level
+	String craft
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
