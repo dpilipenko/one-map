@@ -9,7 +9,8 @@
   <title>ONEMAP - Login</title>
 
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" type="text/css" href="../assets/css/main.css" />
+
+  <link href="${resource(dir: 'css', file: 'main.css')}" rel="stylesheet">
 
 </head>
 
