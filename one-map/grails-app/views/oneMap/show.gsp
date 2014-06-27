@@ -1,3 +1,4 @@
+<%@ page import="com.rosetta.onemap.User" %>
 <!doctype html public>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
@@ -39,7 +40,8 @@
 
   				<div class="utility">
 	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
-	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">	
+	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
+	    				<input type="submit" value="submit" />
 					</g:formRemote>
   					<a href="#" class="logout">LOGOUT</a>
   					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>

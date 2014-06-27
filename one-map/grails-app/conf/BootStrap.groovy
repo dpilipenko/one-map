@@ -5,11 +5,11 @@ class BootStrap {
 
     def init = { servletContext ->
 		
-		new User(username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
-		new User(username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
+		new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, accountExpired: false, accountLocked: false, passwordExpired: false).save(flush: true);
 		
 		new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true);
 		new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true);

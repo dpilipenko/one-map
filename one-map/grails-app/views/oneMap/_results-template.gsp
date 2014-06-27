@@ -1,31 +1,9 @@
-
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
-<div class="result-item">
-	<div class="name">Dave Fagan</div>
-	<div class="position">Senior Associate, Creative Engineer</div>
-	<div class="location">Cleveland</div>
-</div>
+<g:if test="${searchResults != null}">
+	<g:each var="user" in="${searchResults}">
+		<div class="result-item">
+			<div class="name">${user?.firstName} ${user?.lastName}</div>
+			<div class="position">Test</div>
+			<div class="location">Test</div>
+		</div>
+	</g:each>
+</g:if>
