@@ -13,8 +13,10 @@ class BootStrap {
 		
 		new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true);
 		new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true);
-		new Hotspot( floor: "17", type: "room", polygon: "M50.996,300.876 481.295,348.391 429.755,360.516 428.196,365.436 389.076,370.116 368.316,321.516z").save(flush: true);
+		new Hotspot( floor: "17", type: "room", polygon: "M450.996,300.876 481.295,348.391 429.755,360.516 428.196,365.436 389.076,370.116 368.316,321.516z").save(flush: true);
 		new Hotspot( floor: "17", type: "room", polygon: "M264.156,169.956 262.355,225.036 214.956,228.516 182.406,222.367 175.116,219.156 161.979,210.562 165.036,195.876 169.835,172.716 170.315,170.796z").save(flush: true);
+		
+		
 		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M189.796,239.403l-0.178-11.133l9.468-5.909 c0,0,3.462,7.974,1.08,11.919C197.784,238.226,189.796,239.403,189.796,239.403z").save(flush: true);
@@ -124,6 +126,8 @@ class BootStrap {
 		new Hotspot( floor: "11", type: "room", polygon: "M316.12,451.72 325.12,489.76 272.08,502.359 259.36,449.56 272.44,446.44 283.24,444.16 285.838,453.939 292.72,452.56z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M3207.16,460.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239 c0,0-20.6-5.111-21.9-4.2L213.4,458.8L207.16,460.36z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M219.88,4.96 263.20,4.96 263.20,29.32 219.88,29.32 219.88,4.96z").save(flush: true);
+		
+		
 		new Hotspot( floor: "14", type: "room", polygon: "M7.48,112.42 29.68,112.42 29.68,164.56 7.48,163.533z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M54.82,111.16 77.5,111.279 77.5,147.88 54.82,147.88z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M78.481,111.16 103.24,110.92 102.76,148.12 78.481,147.88z").save(flush: true);
