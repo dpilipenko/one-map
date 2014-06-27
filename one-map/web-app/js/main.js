@@ -39,9 +39,7 @@ var phoneSlideshow = (function() {
         classie.add(document.querySelector( '.ms-wrapper' ), 'showingfloor');
         classie.add( this, 'showthisfloor' );
         this.setAttribute("data-showing", "true");
-        
-        
-        
+
         RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"));
       }
     }
@@ -209,61 +207,76 @@ var RosettaMap = {
 
         // add the image to the layer
         layer.add(floorplan);
+        
+        $.ajax({
+            url: "/one-map/oneMap/gethotspots",
+            type: 'GET',
+            data: {
+                floor: 17,
+            },
+            success: function(data) {
+            	console.log(data);
+            	for(var key in data) {
+                    //create hotspot
+                    var hotspotPath = new Kinetic.Path({
+                      x: 0,
+                      y: 283 * (scope.stageScale), // won't need to adjust this once the entire hotspot file is defined.
+                      width: stage.width(),
+                      height: stage.height(),
+                      scale: {x: scope.stageScale, y: scope.stageScale},
+                      data: data[key],
+                      fill: scope.hotspotFill,
+                      opacity: scope.hotspotOpacity
+                    });
+
+                    // hotspot mouse events
+                    hotspotPath.on('mouseover', function() {
+                      this.setFill(RosettaMap.mapSetup.hotspotHoverFill);
+                      this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
+                      this.moveTo(topLayer);
+                      topLayer.drawScene();
+                    });
+                    hotspotPath.on('mouseout', function() {
+                      if(RosettaMap.mapInteractions.activeHotspot !== this) {
+                        this.setFill(RosettaMap.mapSetup.hotspotFill);
+                        this.opacity(RosettaMap.mapSetup.hotspotOpacity);
+                        this.moveTo(layer);
+                        topLayer.draw();
+                      }
+                    });
+                    hotspotPath.on('mousedown', function(e) {
+                      var interactionsObj = RosettaMap.mapInteractions,
+                        mapObj = RosettaMap.mapSetup;
+
+                      interactionsObj.unactivateHotspot();
+                      var mapObj = RosettaMap.mapSetup;
+
+                      interactionsObj.activeHotspot = this;
+                      this.setFill(mapObj.hotspotHoverFill);
+                      this.opacity(mapObj.hotspotHoverOpacity);
+                      this.moveTo(topLayer);
+                      topLayer.drawScene();
+
+                      interactionsObj.openPopup(e);
+                    });
+
+                    layer.add(hotspotPath);
+                  }
+
+                  stage.add(layer);
+                  stage.add(topLayer);
+
+                  scope.stage = stage;
+                  scope.hoverLayer = topLayer;
+                  scope.floorplanLayer = layer;
+            },
+            error: function(errorThrown) {
+            	alert(errorThrown);
+            }
+        });
 
         // TODO get hotspots from a file
-        for(var key in hotspots[id]) {
-          //create hotspot
-          var hotspotPath = new Kinetic.Path({
-            x: 0,
-            y: 283 * (scope.stageScale), // won't need to adjust this once the entire hotspot file is defined.
-            width: stage.width(),
-            height: stage.height(),
-            scale: {x: scope.stageScale, y: scope.stageScale},
-            data: hotspots[id][key],
-            fill: scope.hotspotFill,
-            opacity: scope.hotspotOpacity
-          });
-
-          // hotspot mouse events
-          hotspotPath.on('mouseover', function() {
-            this.setFill(RosettaMap.mapSetup.hotspotHoverFill);
-            this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
-            this.moveTo(topLayer);
-            topLayer.drawScene();
-          });
-          hotspotPath.on('mouseout', function() {
-            if(RosettaMap.mapInteractions.activeHotspot !== this) {
-              this.setFill(RosettaMap.mapSetup.hotspotFill);
-              this.opacity(RosettaMap.mapSetup.hotspotOpacity);
-              this.moveTo(layer);
-              topLayer.draw();
-            }
-          });
-          hotspotPath.on('mousedown', function(e) {
-            var interactionsObj = RosettaMap.mapInteractions,
-              mapObj = RosettaMap.mapSetup;
-
-            interactionsObj.unactivateHotspot();
-            var mapObj = RosettaMap.mapSetup;
-
-            interactionsObj.activeHotspot = this;
-            this.setFill(mapObj.hotspotHoverFill);
-            this.opacity(mapObj.hotspotHoverOpacity);
-            this.moveTo(topLayer);
-            topLayer.drawScene();
-
-            interactionsObj.openPopup(e);
-          });
-
-          layer.add(hotspotPath);
-        }
-
-        stage.add(layer);
-        stage.add(topLayer);
-
-        scope.stage = stage;
-        scope.hoverLayer = topLayer;
-        scope.floorplanLayer = layer;
+        
       };
     },
   },
