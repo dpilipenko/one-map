@@ -144,8 +144,6 @@ var RosettaMap = {
     popupElement: null,
     popupWidth: 200,
     popupHeight: 200,
-    stageScaleX: window.innerWidth/550,
-    stageScaleY: window.innerHeight/526,
     stageScale: 1,
     stageWidth: 521,
     stageHeight: 545,
@@ -156,6 +154,10 @@ var RosettaMap = {
 
     initFloorplan: function (id, imgSrc) {
       var scope = this;
+      
+      scope.stageScaleX = $('.showthisfloor').width()/scope.stageWidth;
+      scope.stageScaleY = $('.showthisfloor').height()/scope.stageHeight;
+      
 
       // is container tall or wide
       if(scope.stageScaleX > scope.stageScaleY) {
@@ -215,12 +217,11 @@ var RosettaMap = {
                 floor: 17,
             },
             success: function(data) {
-            	console.log(data);
             	for(var key in data) {
                     //create hotspot
                     var hotspotPath = new Kinetic.Path({
                       x: 0,
-                      y: 283 * (scope.stageScale), // won't need to adjust this once the entire hotspot file is defined.
+                      y: 0,
                       width: stage.width(),
                       height: stage.height(),
                       scale: {x: scope.stageScale, y: scope.stageScale},
