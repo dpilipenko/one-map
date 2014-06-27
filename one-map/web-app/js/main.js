@@ -272,8 +272,10 @@ var RosettaMap = {
       $('.zoom-btns').fadeIn();
     },
     destroyFloorplan: function() {
-    	RosettaMap.mapSetup.stage.destroy();
-    	$('.zoom-btns').fadeOut();
+    	if (RosettaMap.mapSetup.stage !== null) {
+    		RosettaMap.mapSetup.stage.destroy();
+        	$('.zoom-btns').fadeOut();
+    	}
     }
   },
   mapInteractions: {
@@ -309,46 +311,52 @@ var RosettaMap = {
     },
 
     openPopup: function(e) {
-      var popupElement = RosettaMap.mapSetup.popupElement,
+      var popupElement = $(RosettaMap.mapSetup.popupElement),
         x = 0,
         y = 0;
       
       if(e.evt !== undefined) {
     	  x = e.evt.clientX;
     	  y = e.evt.clientY;
+    	  
+    	  var leftPos = x - (RosettaMap.mapSetup.popupWidth/2),
+          rightPos = x + (RosettaMap.mapSetup.popupWidth/2);
+
+        if (leftPos < 20) {
+          x = 20;
+          popupElement.css('left', x +'px');
+        } else if (rightPos > (window.innerWidth)){
+          x = window.innerWidth - RosettaMap.mapSetup.popupWidth;
+          popupElement.css('left', x +'px');
+        } else {
+          popupElement.css('left', leftPos +'px');
+        }
+
+        // check to see the wizard is within the boundries on the y axis
+        var topPos = y - (RosettaMap.mapSetup.popupHeight * 2);
+
+        if (topPos < 0) {
+          popupElement.css('top', y - 90 +'px'); // display it below the click
+          $('#popup').addClass('moveNotch');
+        } else {
+          popupElement.css('top', topPos +'px'); // display above it
+          $('#popup').removeClass('moveNotch');
+        }
+        $('#popup .notch').show();
+        
       } else {
     	  var firstDataPoint = RosettaMap.mapInteractions.activeHotspot.getData().split(' ')[0].replace('M', '').split(',');
-        console.log(firstDataPoint);
-    	  x = parseInt(firstDataPoint[0]) + 40 + (RosettaMap.mapSetup.popupWidth/2);
-    	  y = firstDataPoint[1];
-      }
-      
-        
-      var leftPos = x - (RosettaMap.mapSetup.popupWidth/2),
-        rightPos = x + (RosettaMap.mapSetup.popupWidth/2);
-
-      if (leftPos < 20) {
-        x = 20;
-        popupElement.style.left = x +'px';
-      } else if (rightPos > (window.innerWidth)){
-        x = window.innerWidth - RosettaMap.mapSetup.popupWidth;
-        popupElement.style.left = x + 'px';
-      } else {
-        popupElement.style.left = leftPos + 'px';
+        //console.log(firstDataPoint);
+    	  x = $('.showthisfloor').width() - RosettaMap.mapSetup.popupWidth + "px"; //parseInt(firstDataPoint[0]) + 40 + (RosettaMap.mapSetup.popupWidth/2);
+    	  y = $('.showthisfloor').height() - RosettaMap.mapSetup.popupHeight - 20 + "px";//firstDataPoint[1];
+    	  console.log(x);
+    	  console.log(y);
+          popupElement.css('left', x);
+          popupElement.css('top', y);
+    	  $('#popup .notch').hide();
+    	  
       }
 
-      // check to see the wizard is within the boundries on the y axis
-      var topPos = y - (RosettaMap.mapSetup.popupHeight * 2);
-
-      console.log(topPos);
-      if (topPos < 0) {
-        popupElement.style.top = y - 90 +'px'; // display it below it
-        $('#popup').addClass('moveNotch');
-      } else {
-        popupElement.style.top = topPos +'px'; // display above it
-        $('#popup').removeClass('moveNotch');
-      }
-      
 	  $.ajax({
         url: '/one-map/oneMap/gethotspotbyid',
         type: 'GET',
@@ -411,7 +419,7 @@ var RosettaMap = {
 	        		alert(object.type);
 	        		break;
         	}
-        	popupElement.style.display = 'block';
+        	popupElement.show();
         } ,
         error: function(jqXHR, textStatus, errorThrown) {
         	console.log(errorThrown);
