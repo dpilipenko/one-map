@@ -289,7 +289,13 @@ class OneMapController {
 		for(Room room : roomResults) {
 			JSONObject roomObject = new JSONObject()
 			roomObject.put("name", room.name);
-			roomObject.put("location", room?.office?.name);
+			roomObject.put("level", "");
+			roomObject.put("craft", "");
+			if(room?.office?.name != null) {
+				roomObject.put("location", room?.office?.name);
+			} else {
+				roomObject.put("location", "");
+			}
 			searchResults.add(roomObject);
 		}
 		
