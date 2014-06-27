@@ -14,14 +14,6 @@ var phoneSlideshow = (function() {
       
       if( this.getAttribute("data-showing") == "true" ) {
     	  return true;
-        /* [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
-          classie.remove( el, 'flydown' );
-          classie.remove( el, 'flyup' );
-        });
-
-        classie.remove(document.querySelector( '.ms-wrapper' ), 'showingfloor');
-        classie.remove( this, 'showthisfloor' );
-        this.setAttribute("data-showing", "false"); */
       }
       else {
         classie.add(this, 'tag');
@@ -44,6 +36,8 @@ var phoneSlideshow = (function() {
         var canvas = $(this).children('.canvas')[0];
 
         RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"));
+
+        
       }
     }
 
@@ -76,8 +70,6 @@ var RosettaMap = {
     	var scope = this,
       		isHorizontal = false;
     	
-    	console.log(typeof floorNumber);
-    	console.log(floorNumber);
     	switch(floorNumber) {
 	    	case "11":
 	    		scope.stageWidth = 550;
@@ -205,7 +197,6 @@ var RosettaMap = {
                       this.opacity(RosettaMap.mapSetup.hotspotHoverOpacity);
                       this.moveTo(topLayer);
                       topLayer.drawScene();
-                      console.log(this.getId());
                     });
                     hotspotPath.on('mouseout', function() {
                       if(RosettaMap.mapInteractions.activeHotspot !== this) {
@@ -241,12 +232,17 @@ var RosettaMap = {
                   scope.stage = stage;
                   scope.hoverLayer = topLayer;
                   scope.floorplanLayer = layer;
+                  
+                  $('.zoom-btns').show();
             },
             error: function(errorThrown) {
             	console.log(errorThrown);
             }
         });        
       };
+
+      //show zoom btns
+      $('.zoom-btns').fadeIn();
     },
   },
   mapInteractions: {
@@ -310,14 +306,15 @@ var RosettaMap = {
 
       // import information in wizard based on return for ajax call (todo in future)
       
-	  /* $.ajax({
-        url: '',
+	  $.ajax({
+        url: '/one-map/oneMap/gethotspotbyid',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
         },
-        success: function(data) { */
-	    	if (true) {
+        success: function(data) {
+        	console.log(data);
+	    	/* if (true) {
 	            // call ajax and get object
 	            var object = {
 	              type: "room",
@@ -373,12 +370,12 @@ var RosettaMap = {
 	           
 	          } else { // not
 	
-	          }
-        /*} ,
+	          } */
+        } ,
         error: function(jqXHR, textStatus, errorThrown) {
         	alert(errorThrown);
         }
-      }); */
+      });
 
       popupElement.style.display = 'block';
     },
@@ -541,6 +538,16 @@ var RosettaMap = {
     	e.preventDefault();
     	$('#results').addClass('cleared');
     	$('#results .results-list').html('');
+    });
+
+    $(document).on("click", '#backto3d', function(){
+      $(this).parents('.zoom-btns').fadeOut();
+        $( '.floorplan' ).each( function( el, i ) {
+          $(this).removeClass('flydown').removeClass('flyup');
+        });
+
+        $( '.ms-wrapper' ).removeClass('showingfloor');
+        $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
     });
   }
 };
