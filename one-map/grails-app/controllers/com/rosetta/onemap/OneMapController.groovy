@@ -289,7 +289,7 @@ class OneMapController {
 		for(Room room : roomResults) {
 			JSONObject roomObject = new JSONObject()
 			roomObject.put("name", room.name);
-			roomObject.put("location", user?.office?.name);
+			roomObject.put("location", room?.office?.name);
 			searchResults.add(roomObject);
 		}
 		
