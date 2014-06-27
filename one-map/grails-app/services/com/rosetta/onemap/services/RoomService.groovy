@@ -13,9 +13,10 @@ class RoomService {
 
     }
 	
-	Room createRoom(String name, long hotspotId) {
+	Room createRoom(String name, String number, long hotspotId) {
 		def r = new Room()
 		r.name = name
+		r.number = number
 		r.hotspot = Hotspot.get(hotspotId)
 		r.dateCreated = new Date()
 		r.lastUpdated = new Date()
