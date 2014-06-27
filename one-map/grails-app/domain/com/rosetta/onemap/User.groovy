@@ -1,5 +1,7 @@
 package com.rosetta.onemap
 
+import java.util.Date;
+
 class User {
 
 	transient springSecurityService
@@ -10,6 +12,8 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	Date dateCreated
+	Date lastUpdated
 
 	static constraints = {
 		username blank: false, unique: true, email: true
