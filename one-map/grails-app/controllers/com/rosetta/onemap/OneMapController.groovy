@@ -30,14 +30,6 @@ class OneMapController {
 	}
 	
 	def gethotspotbyid () {
-		
-		deskService.createDesk("Bob", 1, 1)
-		roomService.createRoom("The Beatles", "1728", 2)
-		roomService.addUserToRoom(2, 1)
-		roomService.addUserToRoom(2, 2)
-		roomService.addUserToRoom(2, 3)
-		roomService.addUserToRoom(2, 4)
-		
 		def currUser = springSecurityService.currentUser
 		
 		def hotspot = Hotspot.get(params.hotspotID)
