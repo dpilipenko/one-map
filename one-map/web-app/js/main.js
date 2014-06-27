@@ -396,8 +396,8 @@ var RosettaMap = {
 	        		} else { // conference room
 
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
-	  	            	content += '<div class="btns-container clearfix"><a class="btn createWAR">THIS MEANS WAR</a></div>';
 	  	            	innerDiv.html(content);
+                    $('#popup .btns-container').html('<a class="btn createWAR">THIS MEANS WAR</a>');
 	  	            } 
 	        		break;
 	        	case "desk":
@@ -700,6 +700,7 @@ var RosettaMap = {
           if($('#popup').data("bool")){
               $('#popup .inner').html('Done');
               setTimeout(function(){ 
+                  $('#popup .inner').removeClass("loading");
                   $('#popup').hide();
                   RosettaMap.mapInteractions.unactivateHotspot();
               },2500);
@@ -722,13 +723,7 @@ var RosettaMap = {
       $('#members-slider').show();
     });
 
-
-    $(document).on("click", '.createWAR', function(){
-      $(this).after('<input class="war-name"><a href="#" class="btn savewarname">SAVE</a>');
-      $(this).hide();
-
-
-      $(document).on('click', '.savewarname', function(){
+    $(document).on('click', '.savewarname', function(){
         var name = $('input.war-name').val();
 
         $.ajax({
@@ -740,8 +735,8 @@ var RosettaMap = {
           },
           success: function(object) {
             // TODO: add buttons and interactions
-            $('#popup .btns-container').before('<div>Project: ' + name);
-            $('#popup .btns-container').html('<a class="btn claimHotspot addme">ADD ME</a>');
+              $('#popup .inner .room .btns-container').before('<div>Project: ' + name + '</div>');
+              $('#popup .inner .room .btns-container').html('<a class="btn claimHotspot addme">ADD ME</a>'); 
           } ,
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -749,6 +744,11 @@ var RosettaMap = {
         });
 
       });
+
+
+    $(document).on("click", '.createWAR', function(){
+      $(this).after('<input class="war-name"><a href="#" class="btn savewarname">SAVE</a>');
+      $(this).hide();
 
     });
   }
