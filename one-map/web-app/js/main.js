@@ -8,19 +8,7 @@ String.prototype.format = function() {
 var phoneSlideshow = (function() {
 
   function init() {
-    [].slice.call( document.querySelectorAll( '.ms-wrapper' ) ).forEach( function( el, i ) {
-      var open = false;
-      el.querySelector( 'button' ).addEventListener( 'click', changeView, false );
-      function changeView() {
-        if( open ) {
-          classie.remove( el, 'ms-view-layers' );
-        }
-        else {
-          classie.add( el, 'ms-view-layers' );
-        }
-        open = !open;
-      }     
-    } );
+
 
     function showFloor() {
       
@@ -479,11 +467,33 @@ var RosettaMap = {
 		 alert('call backend for search results for: '+query);
 	  }
   },
-  login: function() {
-	  $('.header').removeClass('login');
+  login: {
+	  submitURL: null,
+	  submit: function() {
+		  var username = $('.username').val();
+		  var password = $('.password').val();
+		  $.ajax({
+            url: RosettaMap.login.submitURL,
+            type: 'POST',
+            data: {
+                j_username: username,
+                j_password: password
+            },
+            success: function(data, textStatus, jqXHR) {
+                $('.header').removeClass('login');
+                setTimeout(function(){
+                    $('.ms-wrapper').addClass('ms-view-layers');
+                  }, 500);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            }
+        });
+		  
+	  } 
   },
   init: function() {
-    // this needs to move to the on click of floor
+	//  alert('page refreshed');
+    /* // this needs to move to the on click of floor
     var floorplan = $('.floorplan')[0];
     var id = floorplan.getAttribute('id');
     var imgSrc = floorplan.dataset.imgsrc;
@@ -526,13 +536,13 @@ var RosettaMap = {
             });
             break;
         }
-    });
-
+    }); */
 	
-	// loging in events
-	$(document).on('click', '.logout', function() {
-		$('.header').addClass('login');
-	});
+	 // loging in events
+    $(document).on('click', '.submit-login', RosettaMap.login.submit);
+  	$(document).on('click', '.logout', function() {
+  		$('.header').addClass('login');
+  	});
 	  
   	// search click results
   	$(document).on('keypress', '.searchbar', function(e) {

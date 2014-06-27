@@ -46,29 +46,17 @@
 				<div class="login-dot">
 					<div class="inner">
 						<div class="login-form">
-							
+
 							<div class="login-title">
 								ONE MAP
 							</div>
-								
-							<g:form role="form" name='loginForm' id='loginForm'>
-			            		<div class="form-group text-center">
-				           			<g:if test='${flash.message}'>
-					           			<div class="alert alert-danger fade in">	    					
-					    					${flash.message}
-					  					</div>	                	
-				              		</g:if>	
-			            		</div>
-				        		<div class="form-group">
-				        			<input type="email" for="username" id="username" name="j_username" placeholder="Email">
-				           		</div>
-				             	<div class="form-group">
-				              		<input type="password" class="form-control" id="password" name="j_password" placeholder="Password">
-				            	</div>
-				            	<g:submitToRemote url="[controller: 'login', action: 'auth']" class="submit-login" onSuccess="RosettaMap.login();" value="SUBMIT"/>
-				          </g:form>
+							<label for="username">Username</label>
+							<input class="username" type="text" />
+							<label for="password">Password</label>
+							<input class="password" type="password" />
+							<button type="submit" class="submit-login">SUBMIT</button>
+
 						</div>
-					</div>
 				</div>
 
   			</div>
@@ -161,7 +149,6 @@
           <div id="princeton" class="office"></div>
           <div id="london" class="office"></div>
 
-          <button>show floors</button>
         </div>
         <div id="offices-slider-control">
           
@@ -181,19 +168,17 @@
 
   </div><!-- end main -->
 
+
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-
     <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
-
     <script src="${resource(dir: 'js', file: 'modernizr.custom.js')}"></script>
-
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
-
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+	
+	<script type="text/javascript">
+		RosettaMap.login.submitURL = '${postUrl}';
+	</script>
 
 </body>
 </html>
