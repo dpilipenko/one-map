@@ -243,9 +243,9 @@ class OneMapController {
 		
 		def userResults = User.withCriteria {
 			or {
-				like('username', '%'+searchTerm+'%')
-				like('firstName', '%'+searchTerm+'%')
-				like('lastName', '%'+searchTerm+'%')
+				ilike('username', '%'+searchTerm+'%')
+				ilike('firstName', '%'+searchTerm+'%')
+				ilike('lastName', '%'+searchTerm+'%')
 			}
 		}
 		for(User user : userResults) {
@@ -283,7 +283,7 @@ class OneMapController {
 		
 		def roomResults = Room.withCriteria {
 			or {
-				like('name', '%'+searchTerm+'%');
+				ilike('name', '%'+searchTerm+'%');
 			}
 		}
 		for(Room room : roomResults) {
