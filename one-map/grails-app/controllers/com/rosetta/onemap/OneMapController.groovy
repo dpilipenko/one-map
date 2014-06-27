@@ -34,6 +34,8 @@ class OneMapController {
 		deskService.createDesk("Bob", 1, 1)
 		roomService.createRoom("The Beatles", 2)
 		
+		def currUser = springSecurityService.currentUser
+		
 		def hotspot = Hotspot.get(params.hotspotID)
 		def p = Pin.findByHotspot(hotspot)
 		if (p == null) {
@@ -44,12 +46,15 @@ class OneMapController {
 			// found desk at hotspot
 			JSONObject o = new JSONObject()
 			o.put("type", "desk")
-			o.put("name", o.user.firstName+" "+o.user.lastName)
-			o.put("craft", "Software Engineer")
-			o.put("level", "Senior Associate")
-			o.put("phone", "216.000.1234")
-			o.put("email", "dan.padget@rosetta.com")
-			o.put("claimed", "false")
+			o.put("name", p.user.firstName+" "+p.user.lastName)
+			o.put("craft", p.user.craft)
+			o.put("level", p.user.level)
+			o.put("phone", p.user.phone)
+			o.put("email", p.user.username)
+			if (currUser.id == p.id)
+				o.put("claimed", "true")
+			else
+				o.put("claimed", "false")
 			render o as JSON
 			
 		} else if (p instanceof Room) {
