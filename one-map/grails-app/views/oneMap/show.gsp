@@ -40,8 +40,8 @@
 
   				<div class="utility">
 	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
+              <input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
-	    				<input type="submit" value="submit" />
 					</g:formRemote>
   					<a href="#" class="logout">LOGOUT</a>
   					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>

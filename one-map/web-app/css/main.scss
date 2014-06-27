@@ -82,6 +82,10 @@ body {
 	background: url(../images/bg-tile.jpg) repeat;
 }
 
+form {
+	margin: 0 !important;
+}
+
 ::-webkit-scrollbar {
     height: 7px;
     width: 7px;
@@ -221,6 +225,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 
 		float: right;
 		padding: 0px 38px 0px 10px;
+	}
+
+	.searchbtn {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	    border: medium none;
+	    box-shadow: none;
+	    cursor: pointer;
+	    float: right;
+	    margin-left: -38px;
+	    position: relative;
+	    text-indent: -99999px;
+	    width: 38px;
+	    z-index: 1;
 	}
 
 	.logout, .welcome {
@@ -835,32 +852,32 @@ $time: 0.7s;
 }
 
 .ms-effect-3 .ms-screens {
-	#eleven {
+	.ms-screen-1 {
 		background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
 
-	#twelve {
+	.ms-screen-2 {
 		background: url(../images/floorplan-twelve.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
 
-	#thirteen {
+	.ms-screen-3 {
 		background: url(../images/floorplan-thirteen.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
 
-	#fourteen {
+	.ms-screen-4 {
 		background: url(../images/floorplan-fourteen.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
 
-	#fifteen {
+	.ms-screen-5 {
 		background: url(../images/floorplan-fifteen.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
 
-	#seventeen {
+	.ms-screen-6 {
 		background: url(../images/floorplan-seventeen.png) no-repeat center center #e2e2e2;
 		background-size: contain;
 	}
