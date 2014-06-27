@@ -173,13 +173,32 @@ class OneMapController {
 		JSONObject o = new JSONObject()
 		Room r = Room.get(params.roomID);
 		if (r == null) {
-			o.put("success", true)
+			o.put("success", false)
 		} else {
 			if (r.project == null || r.project.isEmpty()) {
 				r.project = params.projectName
 				o.put("success", true)
 			} else {
 				o.put("success", false)
+			}
+		}
+		render o as JSON
+	}
+	
+	/**
+	 * GET	/closeWarRoom?roomID=#
+	 */
+	def closeWarRoom() {
+		JSONObject o = new JSONObject()
+		Room r = Room.get(params.roomID)
+		if (r == null) {
+			o.put("success", false)
+		} else {
+			if (r.project == null || r.project.isEmpty()) {
+				o.put("success", false)
+			} else {
+				r.project = null
+				o.put("success", true)
 			}
 		}
 		render o as JSON
