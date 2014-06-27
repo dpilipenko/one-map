@@ -13,14 +13,15 @@ var phoneSlideshow = (function() {
     function showFloor() {
       
       if( this.getAttribute("data-showing") == "true" ) {
-        [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
+    	  return true;
+        /* [].slice.call(document.querySelectorAll( '.floorplan' ) ).forEach( function( el, i ) {
           classie.remove( el, 'flydown' );
           classie.remove( el, 'flyup' );
         });
 
         classie.remove(document.querySelector( '.ms-wrapper' ), 'showingfloor');
         classie.remove( this, 'showthisfloor' );
-        this.setAttribute("data-showing", "false");
+        this.setAttribute("data-showing", "false"); */
       }
       else {
         classie.add(this, 'tag');
@@ -40,7 +41,7 @@ var phoneSlideshow = (function() {
         classie.add( this, 'showthisfloor' );
         this.setAttribute("data-showing", "true");
 
-        RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"));
+        RosettaMap.mapSetup.initFloorplan(this.id, this.getAttribute("data-imgsrc"), this.getAttribute("data-floor"));
       }
     }
 
@@ -76,65 +77,7 @@ var RosettaMap = {
     eraseCookie: function(name) {
       var scope = this;
       scope.createCookie(name,"",-1);
-    },
-    ajax: function(url, type, callback){
-      if(typeof callback === 'undefined') {
-        callback = function() {
-          return true;
-        }
-      }
-      var xhr;
-         
-          if(typeof XMLHttpRequest !== 'undefined'){
-            xhr = new XMLHttpRequest();
-          } else {
-              var versions = ["MSXML2.XmlHttp.5.0", 
-                              "MSXML2.XmlHttp.4.0",
-                              "MSXML2.XmlHttp.3.0", 
-                              "MSXML2.XmlHttp.2.0",
-                              "Microsoft.XmlHttp"]
-   
-               for(var i = 0, len = versions.length; i < len; i++) {
-                  try {
-                      xhr = new ActiveXObject(versions[i]);
-                      break;
-                  }
-                  catch(e){}
-               }
-          }
-
-          function ensureReadiness() {
-              if(xhr.readyState < 4) {
-                  return;
-              }
-               
-              if(xhr.status !== 200) {
-                  return;
-              }
-   
-              // all is well  
-              if(xhr.readyState === 4) {
-                console.log(xhr.responseText);
-                callback(xhr);
-
-                var pageTitleStart = xhr.responseText.indexOf("<title>") + 7,
-                  pageTitleEnd = xhr.responseText.indexOf("</title>"),
-                  pageTitle = xhr.responseText.substring(pageTitleStart, pageTitleEnd);
-
-                var htmlContent = document.getElementById('htmlContent');
-                htmlContent.innerHTML = response.html;
-            document.title = pageTitle;
-            window.history.pushState({"html":xhr.responseText,"pageTitle": pageTitle},"", url);
-              }           
-          }
-
-          xhr.onreadystatechange = ensureReadiness;
-          
-          xhr.open(type, url, true);
-          xhr.send('');
-
-      /* xhr.send("a=1&b=2&c=3"); -- this was from a post example */
-    } 
+    }
   }, 
   mapSetup: {
     zoomMultiplier: 0.1,
@@ -152,7 +95,7 @@ var RosettaMap = {
     hotspotOpacity: 0.5,
     hotspotHoverOpacity: 1,
 
-    initFloorplan: function (id, imgSrc) {
+    initFloorplan: function (id, imgSrc, floorNumber) {
       var scope = this;
       
       scope.stageScaleX = $('.showthisfloor').width()/scope.stageWidth;
@@ -214,7 +157,7 @@ var RosettaMap = {
             url: "/one-map/oneMap/gethotspots",
             type: 'GET',
             data: {
-                floor: 17,
+                floor: floorNumber,
             },
             success: function(data) {
             	for(var key in data) {
@@ -274,10 +217,7 @@ var RosettaMap = {
             error: function(errorThrown) {
             	alert(errorThrown);
             }
-        });
-
-        // TODO get hotspots from a file
-        
+        });        
       };
     },
   },
@@ -513,23 +453,22 @@ var RosettaMap = {
         $('.ms-wrapper').addClass('ms-view-layers');
       }, 500);
     }
-	//  alert('page refreshed');
-    /* // this needs to move to the on click of floor
-    var floorplan = $('.floorplan')[0];
-    var id = floorplan.getAttribute('id');
-    var imgSrc = floorplan.dataset.imgsrc;
-    RosettaMap.mapSetup.initFloorplan(id, imgSrc);
-
-    // return to normal init
-    var popupElement = document.getElementById('hotspot-wizard');
+    
+    var popupElement = document.getElementById('popup');
     RosettaMap.mapSetup.popupElement = popupElement;
 
-    $(document).on('click', '.zoom-button', function () {
+    $(document).on('click', '.zoom', function () {
       if($(popupElement).css('display') === 'block') {
         $(popupElement).hide();
       }
       RosettaMap.mapInteractions.zoomMap(this.id);
     });
+    
+	//  alert('page refreshed');
+    /* // this needs to move to the on click of floor
+    
+    // return to normal init
+   
 
     $(document).on('click', popupElement.id + ' .close', function () {
         $(popupElement).hide();
