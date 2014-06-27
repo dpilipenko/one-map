@@ -49,12 +49,12 @@ class BootStrap {
 		def elvis = new Room(name: "Elvis Presley", number: "1715", hotspot: hp4);
 		
 		elvis.addToUsers(dan)
-		
+		elvis.save(flush:true);
 		def hp5 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
-		new Desk(user:dave, hotspot:hp5)
+		new Desk(user:dave, hotspot:hp5).save(flush:true);
 		
 		def hp6 = new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
-		new Desk(user:dima, hotspot:hp6)
+		new Desk(user:dima, hotspot:hp6).save(flush:true);
 
 		
 		new Hotspot( floor: "11", type: "room", polygon: "M189.796,239.403l-0.178-11.133l9.468-5.909 c0,0,3.462,7.974,1.08,11.919C197.784,238.226,189.796,239.403,189.796,239.403z").save(flush: true);
@@ -182,10 +182,10 @@ class BootStrap {
 		new Hotspot( floor: "14", type: "room", polygon: "M207.64,216.88 244.84,216.88 245.44,221.32 248.44,221.32 248.2,241.12 212.08,241.6z").save(flush: true);
 		
 		def hp7 = new Hotspot( floor: "14", type: "desk", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush: true);
-		new Desk(user:liz, hotspot:hp7)
+		new Desk(user:liz, hotspot:hp7).save(flush:true);
 		
 		def hp8 = new Hotspot( floor: "14", type: "desk", polygon: "M202.6,268.36 239.56,268.36 239.56,272.8 248.44,272.8 248.44,319.48 193.72,310.36 185.44,309.04 185.02,272.56 202.96,272.8z").save(flush: true);
-		new Desk(user:becky, hopspot:hp8)
+		new Desk(user:becky, hopspot:hp8).save(flush:true);
 		
 		new Hotspot( floor: "14", type: "room", polygon: "M283.96,359.44 275.8,323.68 297.52,318.64 306.76,358.6z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M331.08,347.946 322.92,312.186 343.12,307.84 343.96,311.44 347.08,310.72 356.2,347.125 z").save(flush: true);
