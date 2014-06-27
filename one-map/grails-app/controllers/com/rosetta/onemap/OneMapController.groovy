@@ -1,14 +1,16 @@
 package com.rosetta.onemap
 
 import grails.converters.JSON
-import groovy.json.JsonBuilder;
-
-import com.google.gson.JsonObject;
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class OneMapController {
 
+	def springSecurityService
+	
     def show() {
-		//TODO: implement the one map
+		def config = SpringSecurityUtils.securityConfig
+		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+		[postUrl: postUrl]
 	}
 	
 	def gethotspots () {
@@ -23,4 +25,5 @@ class OneMapController {
 		}
 		render hotspotMaps as JSON
 	}
+	
 }

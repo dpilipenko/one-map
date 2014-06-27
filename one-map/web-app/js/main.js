@@ -473,8 +473,14 @@ var RosettaMap = {
     },
     // NOTE: mouse events for hotspots is in set up
   },
+  search: {
+	  submit: function() {
+		 var query = $('.searchbar').val();
+		 alert('call backend for search results for: '+query);
+	  },
+  },
   init: function() {
-    /* // this needs to move to the on click of floor
+    // this needs to move to the on click of floor
     var floorplan = $('.floorplan')[0];
     var id = floorplan.getAttribute('id');
     var imgSrc = floorplan.dataset.imgsrc;
@@ -516,8 +522,29 @@ var RosettaMap = {
               loadForm(data);                
             });
             break;
-        } 
-    }); */
+        }
+    });
+	  
+  	// search click results
+  	$(document).on('keypress', '.searchbar', function(e) {
+  		if(e.keyCode == 13) {
+  			e.preventDefault();
+  			RosettaMap.search.submit();
+  		}
+  	});
+    $(document).on('click', '.collapse-results', function(e) {
+    	e.preventDefault();
+    	if($('#results').hasClass('collapsed')) {
+    		$('#results').removeClass('collapsed');
+    	} else {
+    		$('#results').addClass('collapsed');
+    	}
+    });
+    $(document).on('click', '.clear-results', function(e) {
+    	e.preventDefault();
+    	$('#results').addClass('cleared');
+    	$('#results .results-list').html('');
+    });
   }
 };
 RosettaMap.init();

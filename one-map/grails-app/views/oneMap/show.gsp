@@ -20,7 +20,12 @@
 
   	<div class="fractals"></div>
 
+<sec:ifLoggedIn>
   	<div class="header">
+</sec:ifLoggedIn>
+<sec:ifNotLoggedIn>
+	<div class="header login">
+</sec:ifNotLoggedIn>
 
   		<div class="header-bg">
 
@@ -45,12 +50,23 @@
 							<div class="login-title">
 								ONE MAP
 							</div>
-							<label for="username">Username</label>
-							<input class="username" type="text">
-							<label for="password">Password</label>
-							<input class="password" type="password">
-							<button type="submit" class="submit-login">SUBMIT</button>
-
+								
+							<form role="form" action='${postUrl}' method='POST' name='loginForm' id='loginForm'>
+			            		<div class="form-group text-center">
+				           			<g:if test='${flash.message}'>
+					           			<div class="alert alert-danger fade in">	    					
+					    					${flash.message}
+					  					</div>	                	
+				              		</g:if>	
+			            		</div>
+				        		<div class="form-group">
+				        			<input type="email" for="username" id="username" name="j_username" placeholder="Email">
+				           		</div>
+				             	<div class="form-group">
+				              		<input type="password" class="form-control" id="password" name="j_password" placeholder="Password">
+				            	</div>
+				            	<button type="submit" class="submit-login" id="login">SUBMIT</button>
+				          </form>
 						</div>
 					</div>
 				</div>
@@ -173,5 +189,6 @@
     <script src="${resource(dir: 'js', file: 'modernizr.custom.js')}"></script>
 
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+
 </body>
 </html>
