@@ -489,8 +489,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 			border-bottom: 1px solid #393939;
 			margin: 0px 12px;
 
+
 			&.isLink {
 				opacity: 1;
+				cursor: pointer;
 			}
 
 			.name {
@@ -1017,6 +1019,10 @@ $time: 0.7s;
 	position: absolute;
 	right: 10px;
 	bottom: -10px;
+	@include RobotoRegular;
+	font-size: 37px;
+	color: $blue;
+	text-shadow: 1px 1px 0px #000,2px 2px 1px #000;
 }
 
 .floorplan.showthisfloor, .floorplan.flyup, .floorplan.flydown {

@@ -474,32 +474,33 @@ input::-moz-placeholder {
   border-bottom: 1px solid #393939;
   margin: 0px 12px;
 }
-/* line 492, main.scss */
+/* line 493, main.scss */
 #results .results-list .result-item.isLink {
   opacity: 1;
+  cursor: pointer;
 }
-/* line 496, main.scss */
+/* line 498, main.scss */
 #results .results-list .result-item .name {
   color: #FFF;
   font-family: 'robotoregular', Arial;
   font-size: 15px;
 }
-/* line 502, main.scss */
+/* line 504, main.scss */
 #results .results-list .result-item .position, #results .results-list .result-item .location {
   color: #dcdcdc;
   font-family: Arial;
   font-size: 12px;
   margin-top: 2px;
 }
-/* line 512, main.scss */
+/* line 514, main.scss */
 #results.collapsed {
   left: -322px;
 }
-/* line 515, main.scss */
+/* line 517, main.scss */
 #results.collapsed .results-header {
   margin-left: 59px;
 }
-/* line 520, main.scss */
+/* line 522, main.scss */
 #results.collapsed .collapse-results div {
   margin: 6px;
   width: 0;
@@ -509,23 +510,23 @@ input::-moz-placeholder {
   border-left: 10px solid #bbbbbb;
   border-right: none;
 }
-/* line 533, main.scss */
+/* line 535, main.scss */
 #results.cleared {
   left: -390px;
 }
-/* line 536, main.scss */
+/* line 538, main.scss */
 #results.cleared .results-header {
   margin-left: 59px;
 }
 
-/* line 544, main.scss */
+/* line 546, main.scss */
 .zoom-btns {
   position: absolute;
   right: 5%;
   top: 55px;
   display: none;
 }
-/* line 550, main.scss */
+/* line 552, main.scss */
 .zoom-btns #plus {
   width: 25px;
   height: 26px;
@@ -535,11 +536,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 559, main.scss */
+/* line 561, main.scss */
 .zoom-btns #plus:hover {
   background-position: 0 -26px;
 }
-/* line 564, main.scss */
+/* line 566, main.scss */
 .zoom-btns #minus {
   width: 25px;
   height: 26px;
@@ -549,11 +550,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 573, main.scss */
+/* line 575, main.scss */
 .zoom-btns #minus:hover {
   background-position: 0 -26px;
 }
-/* line 578, main.scss */
+/* line 580, main.scss */
 .zoom-btns #backto3d {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: 1px solid #424242;
@@ -571,7 +572,7 @@ input::-moz-placeholder {
   text-decoration: none;
   width: 40px;
 }
-/* line 595, main.scss */
+/* line 597, main.scss */
 .zoom-btns #backto3d:hover {
   background: rgba(0, 0, 0, 0.08);
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
@@ -580,27 +581,27 @@ input::-moz-placeholder {
 
 /* --- Offices
 ------------------------------ */
-/* line 606, main.scss */
+/* line 608, main.scss */
 #offices-container {
   z-index: 1;
   position: relative;
 }
 
-/* line 611, main.scss */
+/* line 613, main.scss */
 #offices-slider-control {
   min-height: 60px;
   overflow: hidden;
   position: relative;
   width: 100%;
 }
-/* line 619, main.scss */
+/* line 621, main.scss */
 #offices-slider-control .inner {
   margin: 0 auto;
   min-height: 1px;
   text-align: center;
   width: 188px;
 }
-/* line 626, main.scss */
+/* line 628, main.scss */
 #offices-slider-control #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -611,7 +612,7 @@ input::-moz-placeholder {
   width: 80%;
   z-index: 1;
 }
-/* line 637, main.scss */
+/* line 639, main.scss */
 #offices-slider-control span {
   margin: 0px 25px;
   font-family: 'satelliteregular', Arial;
@@ -623,7 +624,7 @@ input::-moz-placeholder {
   float: left;
 }
 
-/* line 652, main.scss */
+/* line 654, main.scss */
 .arrow-right, .lean-slider-next {
   width: 0;
   height: 0;
@@ -636,7 +637,7 @@ input::-moz-placeholder {
   margin-top: 25px;
 }
 
-/* line 666, main.scss */
+/* line 668, main.scss */
 .arrow-right:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -648,7 +649,7 @@ input::-moz-placeholder {
   width: 10px;
 }
 
-/* line 677, main.scss */
+/* line 679, main.scss */
 .arrow-left, .lean-slider-prev {
   width: 0;
   height: 0;
@@ -661,7 +662,7 @@ input::-moz-placeholder {
   margin-top: 25px;
 }
 
-/* line 691, main.scss */
+/* line 693, main.scss */
 .arrow-left:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -675,16 +676,16 @@ input::-moz-placeholder {
 
 /* --- Maps
 ------------------------------ */
-/* line 705, main.scss */
+/* line 707, main.scss */
 .kineticjs-content {
   background: #e2e2e2;
 }
-/* line 708, main.scss */
+/* line 710, main.scss */
 .kineticjs-content canvas {
   z-index: 2;
 }
 
-/* line 713, main.scss */
+/* line 715, main.scss */
 #popup {
   border-radius: 10px;
   display: none;
@@ -711,7 +712,7 @@ input::-moz-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 );
   /* IE6-9 */
 }
-/* line 733, main.scss */
+/* line 735, main.scss */
 #popup .inner {
   min-height: 85px;
   padding: 10px;
@@ -721,7 +722,7 @@ input::-moz-placeholder {
   font-family: 'robotolight', Arial;
   line-height: 18px;
 }
-/* line 743, main.scss */
+/* line 745, main.scss */
 #popup .inner.loading {
   margin-bottom: -50px;
   min-height: 55px;
@@ -729,21 +730,21 @@ input::-moz-placeholder {
   padding-top: 40px;
   width: 252px;
 }
-/* line 752, main.scss */
+/* line 754, main.scss */
 #popup.desk .inner {
   background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
 }
-/* line 756, main.scss */
+/* line 758, main.scss */
 #popup.room .inner {
   background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
 }
-/* line 760, main.scss */
+/* line 762, main.scss */
 #popup .war-name {
   float: left;
   height: 30px;
   margin-right: 10px;
 }
-/* line 766, main.scss */
+/* line 768, main.scss */
 #popup .close {
   position: absolute;
   top: -13px;
@@ -754,11 +755,11 @@ input::-moz-placeholder {
   cursor: pointer;
   z-index: 1;
 }
-/* line 776, main.scss */
+/* line 778, main.scss */
 #popup .close:hover {
   background-position: 0px -26px;
 }
-/* line 781, main.scss */
+/* line 783, main.scss */
 #popup .notch {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
@@ -770,7 +771,7 @@ input::-moz-placeholder {
   position: absolute;
   width: 0;
 }
-/* line 793, main.scss */
+/* line 795, main.scss */
 #popup .notch:after {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -782,7 +783,7 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 805, main.scss */
+/* line 807, main.scss */
 #popup .notch:before {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -794,18 +795,18 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 817, main.scss */
+/* line 819, main.scss */
 #popup .name {
   font-size: 23px;
   color: #252525;
   font-family: 'robotolight', Arial;
   margin: 3px 0px 8px;
 }
-/* line 824, main.scss */
+/* line 826, main.scss */
 #popup a {
   color: inherit;
 }
-/* line 827, main.scss */
+/* line 829, main.scss */
 #popup a.btn {
   text-decoration: none;
   border: 1px solid #FFF;
@@ -814,15 +815,15 @@ input::-moz-placeholder {
   margin-right: 10px;
   cursor: pointer;
 }
-/* line 835, main.scss */
+/* line 837, main.scss */
 #popup a.btn:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 841, main.scss */
+/* line 843, main.scss */
 #popup .btns-container {
   margin-top: 10px;
 }
-/* line 845, main.scss */
+/* line 847, main.scss */
 #popup #members-slider {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
@@ -832,7 +833,7 @@ input::-moz-placeholder {
   position: relative;
   display: none;
 }
-/* line 856, main.scss */
+/* line 858, main.scss */
 #popup #members-slider .members .member {
   background: url(../images/icon-person.png) no-repeat left center;
   background-size: 56px 51px;
@@ -844,7 +845,7 @@ input::-moz-placeholder {
   font-size: 11px;
   line-height: 14px;
 }
-/* line 863, main.scss */
+/* line 865, main.scss */
 #popup #members-slider .members .member .name {
   color: #252525;
   font-family: 'robotoregular', Arial;
@@ -854,25 +855,25 @@ input::-moz-placeholder {
 
 /* --- Slider
 -------------------------- */
-/* line 883, main.scss */
+/* line 885, main.scss */
 .lean-slider {
   position: relative;
   *zoom: 1;
 }
 
-/* line 888, main.scss */
+/* line 890, main.scss */
 .lean-slider:before,
 .lean-slider:after {
   content: " ";
   display: table;
 }
 
-/* line 892, main.scss */
+/* line 894, main.scss */
 .lean-slider:after {
   clear: both;
 }
 
-/* line 896, main.scss */
+/* line 898, main.scss */
 .lean-slider-slide {
   float: left;
   width: 100%;
@@ -880,12 +881,12 @@ input::-moz-placeholder {
   display: none;
 }
 
-/* line 902, main.scss */
+/* line 904, main.scss */
 .lean-slider-slide.current {
   display: block;
 }
 
-/* line 904, main.scss */
+/* line 906, main.scss */
 .lean-slider-next, .lean-slider-prev {
   text-indent: -9999px;
   border-bottom: 10px solid transparent;
@@ -895,7 +896,7 @@ input::-moz-placeholder {
   margin-top: -9px;
 }
 
-/* line 913, main.scss */
+/* line 915, main.scss */
 .lean-slider-control-nav {
   text-indent: -9999px;
   width: 4px;
@@ -904,18 +905,18 @@ input::-moz-placeholder {
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
-/* line 922, main.scss */
+/* line 924, main.scss */
 .lean-slider-control-nav.active {
   background: white;
 }
 
-/* line 927, main.scss */
+/* line 929, main.scss */
 .lean-slider-next {
   right: 6px;
   border-left: 10px solid #fff;
 }
 
-/* line 929, main.scss */
+/* line 931, main.scss */
 .lean-slider-prev {
   left: 6px;
   border-right: 10px solid #fff;
@@ -925,7 +926,7 @@ input::-moz-placeholder {
 ===================================================
 ===================================================
 --- */
-/* line 949, main.scss */
+/* line 951, main.scss */
 .ms-wrapper {
   position: relative;
   margin: 20px auto 0;
@@ -934,7 +935,7 @@ input::-moz-placeholder {
   overflow: hidden;
 }
 
-/* line 957, main.scss */
+/* line 959, main.scss */
 .ms-perspective {
   position: relative;
   margin: 0px auto;
@@ -948,7 +949,7 @@ input::-moz-placeholder {
   perspective-origin: 50% 0%;
 }
 
-/* line 970, main.scss */
+/* line 972, main.scss */
 .ms-device {
   position: absolute;
   width: 100%;
@@ -958,7 +959,7 @@ input::-moz-placeholder {
   transition: transform 0.7s ease-in-out;
 }
 
-/* line 982, main.scss */
+/* line 984, main.scss */
 .ms-device,
 .ms-object,
 .ms-object > div,
@@ -969,14 +970,14 @@ input::-moz-placeholder {
 }
 
 /* Screens */
-/* line 989, main.scss */
+/* line 991, main.scss */
 .ms-screens .floorplan {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* line 995, main.scss */
+/* line 997, main.scss */
 .ms-screens > .floorplan {
   position: absolute;
   width: 100%;
@@ -996,19 +997,23 @@ input::-moz-placeholder {
   transform: translateZ(16px);
 }
 
-/* line 1016, main.scss */
+/* line 1018, main.scss */
 .floorplan h1 {
   position: absolute;
   right: 10px;
   bottom: -10px;
+  font-family: 'robotoregular', Arial;
+  font-size: 37px;
+  color: #00bce4;
+  text-shadow: 1px 1px 0px #000,2px 2px 1px #000;
 }
 
-/* line 1022, main.scss */
+/* line 1028, main.scss */
 .floorplan.showthisfloor, .floorplan.flyup, .floorplan.flydown {
   box-shadow: none;
 }
 
-/* line 1026, main.scss */
+/* line 1032, main.scss */
 .ms-screens > .floorplan::after {
   content: '';
   position: absolute;
@@ -1023,7 +1028,7 @@ input::-moz-placeholder {
   transition: opacity 0.3s;
 }
 
-/* line 1040, main.scss */
+/* line 1046, main.scss */
 .ms-label {
   border: 2px solid #00bce4;
   color: #fff;
@@ -1043,12 +1048,12 @@ input::-moz-placeholder {
   transition: opacity 0.7s, transform 0.7s;
 }
 
-/* line 1061, main.scss */
+/* line 1067, main.scss */
 .ms-screens > .floorplan:hover .ms-label, .floorplan.showthisfloor .ms-label {
   background: #00bce4;
 }
 
-/* line 1065, main.scss */
+/* line 1071, main.scss */
 .ms-label::after {
   right: 100%;
   border: solid transparent;
@@ -1064,7 +1069,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 1081, main.scss */
+/* line 1087, main.scss */
 .ms-label::after,
 .ms-label::before {
   right: 100%;
@@ -1076,7 +1081,7 @@ input::-moz-placeholder {
   pointer-events: none;
 }
 
-/* line 1091, main.scss */
+/* line 1097, main.scss */
 .ms-label::after {
   border-color: transparent;
   border-right-color: #616163;
@@ -1085,7 +1090,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 1099, main.scss */
+/* line 1105, main.scss */
 .ms-label::before {
   border-color: transparent;
   border-right-color: #00bce4;
@@ -1094,17 +1099,17 @@ input::-moz-placeholder {
   margin-top: -10px;
 }
 
-/* line 1107, main.scss */
+/* line 1113, main.scss */
 .ms-screens > .floorplan:hover .ms-label::before, .floorplan.showthisfloor .ms-label::before {
   border-right-color: #00bce4;
 }
 
-/* line 1111, main.scss */
+/* line 1117, main.scss */
 .ms-screens > .floorplan:hover .ms-label::after, .floorplan.showthisfloor .ms-label::after {
   border-right-color: #00bce4;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-1 {
   -webkit-transform: translateZ(90px);
   -moz-transform: translateZ(90px);
@@ -1115,7 +1120,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-2 {
   -webkit-transform: translateZ(165px);
   -moz-transform: translateZ(165px);
@@ -1126,7 +1131,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-3 {
   -webkit-transform: translateZ(240px);
   -moz-transform: translateZ(240px);
@@ -1137,7 +1142,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-4 {
   -webkit-transform: translateZ(315px);
   -moz-transform: translateZ(315px);
@@ -1148,7 +1153,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-5 {
   -webkit-transform: translateZ(390px);
   -moz-transform: translateZ(390px);
@@ -1159,7 +1164,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1117, main.scss */
+/* line 1123, main.scss */
 .ms-view-layers .ms-screens .ms-screen-6 {
   -webkit-transform: translateZ(465px);
   -moz-transform: translateZ(465px);
@@ -1170,12 +1175,12 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1128, main.scss */
+/* line 1134, main.scss */
 .ms-view-layers .ms-screens > .floorplan:not(.showthisfloor):hover::after {
   opacity: 1;
 }
 
-/* line 1132, main.scss */
+/* line 1138, main.scss */
 .ms-view-layers .ms-label {
   opacity: 1;
   -webkit-transform: rotateX(-90deg);
@@ -1183,56 +1188,56 @@ input::-moz-placeholder {
   transform: rotateX(-90deg);
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-1 .ms-label {
   -webkit-transition-delay: 1.1s;
   -moz-transition-delay: 1.1s;
   transition-delay: 1.1s;
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-2 .ms-label {
   -webkit-transition-delay: 1s;
   -moz-transition-delay: 1s;
   transition-delay: 1s;
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-3 .ms-label {
   -webkit-transition-delay: 0.9s;
   -moz-transition-delay: 0.9s;
   transition-delay: 0.9s;
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-4 .ms-label {
   -webkit-transition-delay: 0.8s;
   -moz-transition-delay: 0.8s;
   transition-delay: 0.8s;
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-5 .ms-label {
   -webkit-transition-delay: 0.7s;
   -moz-transition-delay: 0.7s;
   transition-delay: 0.7s;
 }
 
-/* line 1140, main.scss */
+/* line 1146, main.scss */
 .ms-view-layers .ms-screen-6 .ms-label {
   -webkit-transition-delay: 0.6s;
   -moz-transition-delay: 0.6s;
   transition-delay: 0.6s;
 }
 
-/* line 1148, main.scss */
+/* line 1154, main.scss */
 .ms-effect-3.ms-view-layers .ms-device {
   -webkit-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
   -moz-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
   transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-210px) translateY(-200px) translateX(-300px);
 }
 
-/* line 1154, main.scss */
+/* line 1160, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .ms-device {
   -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
   -moz-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
@@ -1242,7 +1247,7 @@ input::-moz-placeholder {
   	transform: rotateY(-30deg) rotateX(90deg) translateZ(0);*/
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1253,7 +1258,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1264,7 +1269,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1275,14 +1280,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1293,7 +1298,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1304,7 +1309,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1315,14 +1320,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1333,7 +1338,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1344,7 +1349,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1355,14 +1360,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1373,7 +1378,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1384,7 +1389,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1395,14 +1400,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1413,7 +1418,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1424,7 +1429,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1435,14 +1440,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1164, main.scss */
+/* line 1170, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1453,7 +1458,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1174, main.scss */
+/* line 1180, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1464,7 +1469,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1184, main.scss */
+/* line 1190, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1475,39 +1480,39 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1194, main.scss */
+/* line 1200, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1203, main.scss */
+/* line 1209, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-1 {
   background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1208, main.scss */
+/* line 1214, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-2 {
   background: url(../images/floorplan-twelve.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1213, main.scss */
+/* line 1219, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-3 {
   background: url(../images/floorplan-thirteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1218, main.scss */
+/* line 1224, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-4 {
   background: url(../images/floorplan-fourteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1223, main.scss */
+/* line 1229, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-5 {
   background: url(../images/floorplan-fifteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1228, main.scss */
+/* line 1234, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-6 {
   background: url(../images/floorplan-seventeen.png) no-repeat center center #e2e2e2;
   background-size: contain;
