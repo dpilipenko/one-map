@@ -641,7 +641,9 @@ var RosettaMap = {
     });
 
     $(document).on("click", '.claimHotspot', function(){
-      $(this).parents('.inner').addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
+
+      $this = $(this);
+      $this.parents('.inner').addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
 
       $.ajax({
         url: '/one-map/oneMap/claimHotspot',
@@ -651,15 +653,22 @@ var RosettaMap = {
         },
         success: function(object) {
           // TODO: add buttons and interactions
-          var object = $('#popup .inner').removeClass('loading').data("profile");
-          var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-          $('#popup .inner').html(content);
+
+          if($this.hasClass('addme')){
+              $this.parents('.inner').html('Done').delay(500).parent().hide();
+              RosettaMap.mapInteractions.unactivateHotspot();
+          } else {
+            var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+            $('#popup .inner').html(content);
+          }
+          
         } ,
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
         }
       });
     });
+
 
     $(document).on("click", '.createWAR', function(){
       $(this).after('<input class="war-name"><a href="#" class="btn savewarname">SAVE</a>');
@@ -668,7 +677,7 @@ var RosettaMap = {
       $(document).on('click', '.savewarname', function(){
         var name = $('input.war-name').val();
         $('#popup .btns-container').before('<div>Project: ' + name);
-        $('#popup .btns-container').html('<a class="btn viewWARmembers">VIEW MEMBERS</a><a class="btn claimHotspot">ADD ME</a>');
+        $('#popup .btns-container').html('<a class="btn claimHotspot addme">ADD ME</a>');
 
       });
 

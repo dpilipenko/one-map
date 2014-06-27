@@ -757,6 +757,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	    background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
 	}
 
+	.war-name {
+		float: left;
+	    height: 30px;
+	    margin-right: 10px;
+	}
+
 	.close {
 		position: absolute;
 		top: -13px;
@@ -842,6 +848,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     clear: both;
     margin: 10px -10px 0;
     padding: 10px;
+    	position: relative;
+    	display: none;
 
 
     	.members {
@@ -871,9 +879,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 /* --- Slider
 -------------------------- */
 
-#members-slider {
-	position: relative;
-}
 
 .lean-slider { 
     position: relative; 
@@ -1006,6 +1011,12 @@ $time: 0.7s;
 	-webkit-transform: translateZ($depth/2 + 1px);
 	-moz-transform: translateZ($depth/2 + 1px);
 	transform: translateZ($depth/2 + 1px);
+}
+
+.floorplan h1 {
+	position: absolute;
+	right: 10px;
+	bottom: -10px;
 }
 
 .floorplan.showthisfloor, .floorplan.flyup, .floorplan.flydown {
