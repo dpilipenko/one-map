@@ -363,9 +363,12 @@ var RosettaMap = {
               $('#popup').removeClass('desk').addClass('room');
 	        		if(object.project !== undefined) { // WAR room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-	  	            	content += '<a class="btn viewWARmembers">VIEW MEMBERS</a>';
-	  	            	content += '<a class="btn claimHotspot">ADD ME</a>';
 	  	            	innerDiv.html(content);
+
+                    if(object.members.length > 0){
+                      $('.btns-container').html('<a class="btn viewWARmembers">VIEW MEMBERS</a>');
+                    }
+	  	            	
 	  	            	var content = '';
 		                for(var i = 0; i < object.members.length; i++) {
 		                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
@@ -380,6 +383,7 @@ var RosettaMap = {
                           prevText: 'Prev',
                           nextText: 'Next'
                       });
+
                     }
 	        		} else { // conference room
 
@@ -671,6 +675,9 @@ var RosettaMap = {
     $(document).on("click", '.claimHotspot', function(){
 
       $this = $(this);
+
+      var bool = $(this).hasClass('addme') ? true : false;
+      $('#popup').data("bool", bool);
       $this.parents('.inner').addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
 
       $.ajax({
@@ -682,9 +689,12 @@ var RosettaMap = {
         success: function(object) {
           // TODO: add buttons and interactions
 
-          if($('#popup .claimHotspot').hasClass('addme')){
-              $('#popup .inner').html('Done').delay(500).parent().hide();
-              RosettaMap.mapInteractions.unactivateHotspot();
+          if($('#popup').data("bool")){
+              $('#popup .inner').html('Done');
+              setTimeout(function(){ 
+                  $('#popup').hide();
+                  RosettaMap.mapInteractions.unactivateHotspot();
+              },2500);
           } else {
             $('#popup .inner').removeClass('loading');
             object = object.userinformation;
@@ -697,6 +707,11 @@ var RosettaMap = {
           console.log(errorThrown);
         }
       });
+    });
+
+    $(document).on('click', '.viewWARmembers', function(){
+      $(this).hide();
+      $('#members-slider').show();
     });
 
 
