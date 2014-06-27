@@ -141,7 +141,7 @@ class OneMapController {
 			JSONObject userObject = new JSONObject()
 			userObject.put("name", (user.firstName+" "+user.lastName));
 			userObject.put("level", user?.level);
-			userObject.put("craft", user?.office?.name);
+			userObject.put("craft", user?.craft);
 			userObject.put("location", user?.office?.name);
 			
 			String hopstopId = "";
