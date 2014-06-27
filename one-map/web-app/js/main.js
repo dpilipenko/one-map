@@ -227,12 +227,13 @@ var RosettaMap = {
 
                       interactionsObj.openPopup(e);
                     });
-                    
-                    if(hotspot !== null) {
-                    	hotspot.trigger('mousedown');
-                    }
 
                     layer.add(hotspotPath);
+                    
+                    if(hotspot !== null && key == hotspot) {
+                    	hotspotPath.fire('mousedown');
+                    	$('.canvas').removeAttr('data-hotspot');
+                    }
                   }
 
                   stage.add(layer);
@@ -292,8 +293,18 @@ var RosettaMap = {
 
     openPopup: function(e) {
       var popupElement = RosettaMap.mapSetup.popupElement,
-        x = e.evt.clientX,
-        y = e.evt.clientY;
+        x = 0,
+        y = 0;
+      
+      if(e.evt !== undefined) {
+    	  x = e.evt.clientX;
+    	  y = e.evt.clientY;
+      } else {
+    	  var firstDataPoint = RosettaMap.mapInteractions.activeHotspot.getData().split(' ')[0].replace('M', '').split(',');
+    	  x = parseInt(firstDataPoint[0]) + 40 + (RosettaMap.mapSetup.popupWidth/2);
+    	  y = firstDataPoint[1];
+      }
+      
         
       var leftPos = x - (RosettaMap.mapSetup.popupWidth/2),
         rightPos = x + (RosettaMap.mapSetup.popupWidth/2);
@@ -501,6 +512,7 @@ var RosettaMap = {
                 	var hotspot = $(this).data('hotspot');
                 	var canvas = $('.canvas[data-floor="'+floor+'"]');
                 	canvas.attr('data-hotspot', hotspot);
+                	$('#results').addClass('collapsed');
                 	canvas.parent('.floorplan').trigger('click');
                 });
             	
@@ -605,6 +617,7 @@ var RosettaMap = {
         $( '.ms-wrapper' ).removeClass('showingfloor');
         $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
     	RosettaMap.mapSetup.destroyFloorplan();
+    	$('#popup').hide();
     });
     $(document).on("click", '#popup .close', function(){
         $('#popup').hide();
