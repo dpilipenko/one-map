@@ -319,26 +319,37 @@ var RosettaMap = {
         	console.log(object);
         	switch(object.type) {
 	        	case "room":
-	        		if(!($('#room-template').length > 0)) {
-	  	              $.get( "/one-map/static/js/template-room.html", function( data ) {
-	  	            	  $( "body" ).append( data );
-	  	            	  var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-	  	            	  $(RosettaMap.mapSetup.popupElement).html(content);
-	  	            	  
-	  	            	  if(!($('#user-template').length > 0)) {
-	  			              $.get( "/one-map/static/js/template-user.html", function( data ) {
-	  			                $( "body" ).append( data );
-	  			                var content = '';
-	  			                for(var i = 0; i < object.members.length; i++) {
-	  			                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
-	  			                }
-	  			                $('#WARmembers').html(content);
-	  			              });
-	  			            }
-	  	              });
+	        		if(object.project !== '') { // WAR room
+	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	  	            	content += "EDIT<br />";
+	  	            	content += "VIEW MEMBERS <br />";
+	  	            	content += "ADD ME";
+	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	  	            	var content = '';
+		                for(var i = 0; i < object.members.length; i++) {
+		                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
+		                }
+		                $('#WARmembers').html(content);
+	        		} else { // conference room
+	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	  	            	content += "THIS MEANS WAR";
+	        			$(RosettaMap.mapSetup.popupElement).html(content);
 	  	            } 
 	        		break;
 	        	case "desk":
+	        		if (!object.claimed) {
+	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+	                	content += "CLAIM THIS SEAT";
+	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	        		} else if (object.claimed && object.isMine) { // should be done
+	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+	                	$(RosettaMap.mapSetup.popupElement).html(content);
+	        		} else { // other user claimed seat
+	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+	                	content += "REQUEST SEAT";
+	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	        		}
+                	
 	        		break;
 	        	default:
 	        		alert(data.type);
@@ -484,7 +495,13 @@ var RosettaMap = {
       }
       RosettaMap.mapInteractions.zoomMap(this.id);
     });
-   
+    
+    $.get( "/one-map/static/js/template-room.html", function( data ) {
+    	  $( "body" ).append( data );
+    });
+    $.get( "/one-map/static/js/template-user.html", function( data ) {
+    	$( "body" ).append( data );
+    });
 	
 	 // loging in events
     $(document).on('click', '.submit-login', RosettaMap.login.submit);
