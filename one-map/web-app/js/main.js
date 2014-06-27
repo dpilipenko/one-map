@@ -649,15 +649,17 @@ var RosettaMap = {
         url: '/one-map/oneMap/claimHotspot',
         type: 'GET',
         data: {
-            hotspotID: RosettaMap.mapInteractions.activeHotspotID,
+            hotspotID: RosettaMap.mapInteractions.activeHotspotID
         },
         success: function(object) {
           // TODO: add buttons and interactions
 
           if($this.hasClass('addme')){
-              $this.parents('.inner').html('Done').delay(500).parent().hide();
+              $('#popup .inner').html('Done').delay(500).parent().hide();
               RosettaMap.mapInteractions.unactivateHotspot();
           } else {
+            $('#popup .inner').removeClass('loading');
+            object = object.userinformation;
             var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
             $('#popup .inner').html(content);
           }
@@ -674,29 +676,30 @@ var RosettaMap = {
       $(this).after('<input class="war-name"><a href="#" class="btn savewarname">SAVE</a>');
       $(this).hide();
 
+
       $(document).on('click', '.savewarname', function(){
         var name = $('input.war-name').val();
-        $('#popup .btns-container').before('<div>Project: ' + name);
-        $('#popup .btns-container').html('<a class="btn claimHotspot addme">ADD ME</a>');
+        
+
+        $.ajax({
+          url: '/one-map/oneMap/createWarRoom',
+          type: 'GET',
+          data: {
+              roomID: RosettaMap.mapInteractions.activeHotspotID,
+              projectName: name
+          },
+          success: function(object) {
+            // TODO: add buttons and interactions
+            $('#popup .btns-container').before('<div>Project: ' + name);
+            $('#popup .btns-container').html('<a class="btn claimHotspot addme">ADD ME</a>');
+          } ,
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+          }
+        });
 
       });
 
-      /*$.ajax({
-        url: '/one-map/oneMap/claimHotspot',
-        type: 'GET',
-        data: {
-            hotspotID: RosettaMap.mapInteractions.activeHotspotID,
-        },
-        success: function(object) {*/
-          // TODO: add buttons and interactions
-          var object = $('#popup .inner').removeClass('loading').data("profile");
-          var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-          $('#popup .inner').html(content);
-        /*} ,
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log(errorThrown);
-        }
-      });*/
     });
   }
 };
