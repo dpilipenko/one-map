@@ -27,9 +27,9 @@ class RoomService {
 		return r
 	}
 	
-	Room addUserToRoom(long roomId, long userId) {
+	Room addUserToRoom(long roomId, User user) {
 		def r = Room.get(roomId)
-		r.addToUsers(User.get(userId))
+		r.addToUsers(user)
 		r.lastUpdated = new Date()
 		r.save()
 		if (r.hasErrors()) {

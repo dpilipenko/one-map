@@ -19,6 +19,7 @@ class Room extends Pin {
 		number blank: false
 		phone nullable: true
 		project nullable: true
+		office nullable: true
 	}
 	
 }

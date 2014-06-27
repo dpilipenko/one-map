@@ -99,10 +99,11 @@ class OneMapController {
 			for (Desk desk : Desk.findAllByUser(currUser)) {
 				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
 			}
-			for (Room room : Room.findAllByUser(currUser)) {
-				// do rooms
-			}
-			
+//			for (Room room : Room.findAllByUser(currUser)) {
+//				// do rooms
+//			}
+			deskService.createDesk("desk", 1);
+			roomService.createRoom("chuck", "1", 2);
 			
 			// add to hotspot
 			def hotspot = Hotspot.get(params.hotspotID)
@@ -110,9 +111,9 @@ class OneMapController {
 			if (pin == null) {
 				res.put("success", false)
 			} else {
-				if (pin.type.equals("desk")) {
-					deskService.updateDesk(pin.id, pin.name, currUser, pin.hotspotId)
-				} else if (pin.type.equals("room")) {
+				if (pin instanceof Desk) {
+					deskService.addUserToDesk(pin.id, currUser)
+				} else if (pin instanceof Room) {
 					roomService.addUserToRoom(pin.id, currUser)
 				}
 				res.put("success", true)

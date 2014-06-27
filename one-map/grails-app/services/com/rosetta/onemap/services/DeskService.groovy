@@ -40,6 +40,17 @@ class DeskService {
 		return d
 	}
 	
+	Desk addUserToDesk(long deskId, User user) {
+		def d = Desk.get(deskId)
+		d.user = user
+		d.lastUpdated = new Date()
+		d.save()
+		if (d.hasErrors()) {
+			log.info("Got some desk errors on add user!")
+		}
+		return d
+	}
+	
 	Desk updateDesk(long deskId, String name, User user, long hotspotId) {
 		def d = Desk.get(id)
 		d.name = name
