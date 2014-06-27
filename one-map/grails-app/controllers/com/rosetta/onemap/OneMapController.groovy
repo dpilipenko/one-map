@@ -58,7 +58,18 @@ class OneMapController {
 			}
 		} else if (pin instanceof Desk) {		// Returning details about a Desk
 			// found desk at hotspot
-			if (pin.user != null) {
+			if (pin.user == null) {
+				o.put("floor", hotspot.floor)
+				o.put("type", hotspot.type)
+				o.put("claimed", false)
+				if (currUser != null) {
+					o.put("name", currUser.firstName+" "+currUser.lastName)
+					o.put("craft", currUser.craft)
+					o.put("level", currUser.level)
+					o.put("phone", currUser.phone)
+					o.put("email", currUser.username)
+				}
+			} else  if (pin.user != null) {
 				o.put("name", pin.user.firstName+" "+pin.user.lastName)
 				o.put("craft", pin.user.craft)
 				o.put("level", pin.user.level)
