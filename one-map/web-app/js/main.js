@@ -504,6 +504,8 @@ var RosettaMap = {
 		 var query = $('.searchbar').val();
 		 
 		 $('.canvas').removeAttr('data-pins');
+	     $('#backto3d').trigger('click');
+
 		 
 		 $.ajax({
             url: "/one-map/oneMap/runSearch",
