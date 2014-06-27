@@ -390,6 +390,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6212121', e
 	width: 320px;
 	height: 370px;
 	position: absolute;
+	z-index: 2;
 	top: 50%;
 	margin-top: -220px;
 	margin-left: -1px;
@@ -503,8 +504,47 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 }
 
+.zoom-btns {
+	position: absolute;
+    right: 5%;
+    top: 55px;
+
+	#plus {
+		width: 25px;
+		height: 26px;
+		display: block;
+		cursor: pointer;
+		background: url(../images/btn-plus.png) no-repeat 0 0;
+		float: left;
+		margin-right: 10px;
+
+		&:hover {
+			background-position: 0 -26px;
+		}		
+	}
+
+	#minus {
+		width: 25px;
+		height: 26px;
+		display: block;
+		cursor: pointer;
+		background: url(../images/btn-minus.png) no-repeat 0 0;
+		float: left;
+		margin-right: 10px;
+
+		&:hover {
+			background-position: 0 -26px;
+		}
+	}
+}
+
 /* --- Offices
 ------------------------------ */
+
+#offices-container {
+	z-index: 1;
+	position: relative;
+}
 
 #offices-slider-control {
 	min-height: 60px;
@@ -593,6 +633,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 	    width: 10px;	
 	}
 
+}
+
+/* --- Maps
+------------------------------ */
+
+.kineticjs-content {
+	background: #e2e2e2;
 }
 
 #popup {
@@ -698,6 +745,7 @@ $time: 0.7s;
 	color: #fff;
 	position: absolute;
 	left: 100%;
+	top: 0;
 	margin-left: 18px;
 	width: 65px;
 	padding: 10px;
@@ -713,7 +761,7 @@ $time: 0.7s;
 	transition: opacity $time, transform $time;
 }
 
-.ms-screens > .floorplan:hover .ms-label {
+.ms-screens > .floorplan:hover .ms-label, .floorplan.showthisfloor .ms-label {
 	background: $blue;
 }
 
@@ -759,11 +807,11 @@ $time: 0.7s;
 	margin-top: -10px;
 }
 
-.ms-screens > .floorplan:hover .ms-label::before {
+.ms-screens > .floorplan:hover .ms-label::before, .floorplan.showthisfloor .ms-label::before {
 	border-right-color: $blue;
 }
 
-.ms-screens > .floorplan:hover .ms-label::after {
+.ms-screens > .floorplan:hover .ms-label::after, .floorplan.showthisfloor .ms-label::after {
 	border-right-color: $blue;
 }
 
@@ -847,7 +895,10 @@ $time: 0.7s;
 	}
 
 	.ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label{
-		opacity: 0;
+		-webkit-transform: rotateX(0deg) translateX(-106px);
+		-moz-transform: rotateX(0deg) translateX(-106px);
+		transform: rotateX(0deg) translateX(-106px);
+
 	}
 }
 
