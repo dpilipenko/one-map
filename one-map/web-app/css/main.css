@@ -687,7 +687,7 @@ input::-moz-placeholder {
 /* line 713, main.scss */
 #popup {
   border-radius: 10px;
-  display: block;
+  display: none;
   right: 10%;
   min-height: 105px;
   position: absolute;
