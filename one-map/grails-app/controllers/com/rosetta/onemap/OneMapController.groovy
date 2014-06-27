@@ -65,7 +65,7 @@ class OneMapController {
 				o.put("phone", pin.user.phone)
 				o.put("email", pin.user.username)
 				o.put("type", "desk")
-				if (currUser.id == pin.id)
+				if (currUser.id == pin.user.id)
 					o.put("isOwn", true)
 				else
 					o.put("isOwn", false)
