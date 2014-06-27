@@ -303,7 +303,7 @@ var RosettaMap = {
       }
 
       // check to see the wizard is within the boundries on the y axis
-      var topPos = y - (RosettaMap.mapSetup.popupHeight);
+      var topPos = y - (RosettaMap.mapSetup.popupHeight * 2);
 
       if (topPos < 20) {
         popupElement.style.top = y +'px'; // display it below it
@@ -322,37 +322,39 @@ var RosettaMap = {
         },
         success: function(object) {
         	// TODO: add buttons and interactions
+        	var innerDiv = $('#popup .inner');
+        	alert(object.type);
         	switch(object.type) {
 	        	case "room":
-	        		if(object.project !== '') { // WAR room
+	        		if(object.project !== undefined) { // WAR room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
 	  	            	content += "EDIT<br />";
 	  	            	content += "VIEW MEMBERS <br />";
 	  	            	content += "ADD ME";
-	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	  	            	innerDiv.html(content);
 	  	            	var content = '';
 		                for(var i = 0; i < object.members.length; i++) {
 		                	content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
 		                }
 		                $('#WARmembers').html(content);
 	        		} else { // conference room
-	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
 	  	            	content += "THIS MEANS WAR";
-	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	  	            	innerDiv.html(content);
 	  	            } 
 	        		break;
 	        	case "desk":
 	        		if (!object.claimed) {
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
 	                	content += "CLAIM THIS SEAT";
-	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	                	innerDiv.html(content);
 	        		} else if (object.claimed && object.isMine) { // should be done
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	$(RosettaMap.mapSetup.popupElement).html(content);
+	        			innerDiv.html(content);
 	        		} else { // other user claimed seat
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
 	                	content += "REQUEST SEAT";
-	        			$(RosettaMap.mapSetup.popupElement).html(content);
+	                	innerDiv.html(content);
 	        		}
                 	
 	        		break;
