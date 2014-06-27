@@ -296,6 +296,13 @@ class OneMapController {
 			} else {
 				roomObject.put("location", "");
 			}
+			
+			String hopstopId = "h"+room.getHotspot().id;
+			String floor = room.getHotspot().getFloor();
+
+			roomObject.put("floor", floor);
+			roomObject.put("hotspotId", hopstopId);
+			
 			searchResults.add(roomObject);
 		}
 		
