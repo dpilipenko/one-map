@@ -104,43 +104,40 @@ class OneMapController {
 	def claimHotspot() {
 		JSONObject o = new JSONObject()
 		def currUser = springSecurityService.currentUser
-		if (currUser != null) {
 			
-			// find current seat and kick them out
-			for (Desk desk : Desk.findAllByUser(currUser)) {
-				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
-			}
-			def c = Room.createCriteria()
-			def room = c.get {
-			   users {
-				  idEq(currUser.id)
-			   }
-			}
-			if (room != null) {
-				room.removeFromUsers(currUser)
-			}
-			
-			// add to hotspot
-			
-			def hotspot = Hotspot.get(Long.parseLong(params.hotspotID.substring(1, params.hotspotID.length()-1)))
-			def pin = Pin.findByHotspot(hotspot)
-			if (pin == null) {
-				o.put("success", false)
-			} else {
-				if (pin instanceof Desk) {
-					deskService.addUserToDesk(pin.id, currUser)
-				} else if (pin instanceof Room) {
-					roomService.addUserToRoom(pin.id, currUser)
-				}
-				o.put("success", true)
-			}
-		} else {
-			// cannot claim if not logged in
-			o.put("success", false);
+		// find current seat and kick them out
+		for (Desk desk : Desk.findAllByUser(currUser)) {
+			deskService.updateDesk(desk.id, desk.name, null, desk.hotspot.id)
 		}
-		String phone
-		String level
-		String craft
+		
+		def c = Room.createCriteria()
+		def room = c.get {
+		   users {
+			  idEq(currUser.id)
+		   }
+		}
+		if (room != null) {
+			room.removeFromUsers(currUser)
+		}
+		
+		def hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) {
+			hotspotID = hotspotID.substring(1, hotspotID.length())
+		}
+		
+		def hotspot = Hotspot.get(Long.parseLong(hotspotID))
+		def pin = Pin.findByHotspot(hotspot)
+		if (hotspot.type.equals("desk")) {
+			if(pin == null) {
+				pin = deskService.createDesk("desk", hotspot.id);
+			}
+			deskService.addUserToDesk(pin.id, currUser)
+		} else if (hotspot.type.equals("room")) {
+			if(pin == null) {
+				pin = roomService.createRoom("room", "123", hotspot.id);
+			}
+			roomService.addUserToRoom(pin.id, currUser)
+		}
 		
 		JSONObject userInfo = new JSONObject()
 		userInfo.put("name", (currUser.firstName+" "+currUser.lastName))
@@ -174,6 +171,7 @@ class OneMapController {
 			}
 			if (room != null) {
 				room.removeFromUsers(currUser)
+				romm.save(flush:true)
 			}
 			o.put("success", true)
 		}
@@ -185,18 +183,11 @@ class OneMapController {
 	 */
 	def createWarRoom() {
 		JSONObject o = new JSONObject()
-		Room r = Room.get(params.roomID);
-		if (r == null) {
-			o.put("success", false)
-		} else {
-			if (r.project == null || r.project.isEmpty()) {
+		Room r = Room.get(Long.parseLong(params.roomID));
+		if (r?.project == null || r.project.isEmpty()) {
 				r.project = params.projectName
-				o.put("success", true)
-			} else {
-				o.put("success", false)
-			}
+				r.save(flush:true)
 		}
-		render o as JSON
 	}
 	
 	/**
