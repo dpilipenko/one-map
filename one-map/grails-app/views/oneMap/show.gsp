@@ -38,7 +38,9 @@
   				</div>
 
   				<div class="utility">
-  					<input class="searchbar" type="text" placeholder="Search">
+	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
+	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">	
+					</g:formRemote>
   					<a href="#" class="logout">LOGOUT</a>
   					<div class="welcome">Hey Dave&nbsp;&nbsp;&nbsp;&nbsp;|</div>
   				</div>
@@ -76,41 +78,10 @@
   			<div class="divider"></div>
   			<a href="#" class="clear-results"></a>
   		</div>
-  		<div class="results-list">
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
-  			<div class="result-item">
-  				<div class="name">Dave Fagan</div>
-  				<div class="position">Senior Associate, Creative Engineer</div>
-  				<div class="location">Cleveland</div>
-  			</div>
+  		<div id="result-list" class="results-list">
+			<g:render template="/oneMap/results-template" />
   		</div>
   	</div>
-
-
 
     <div id="offices-container">
       <div id="offices-slider">

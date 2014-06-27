@@ -25,4 +25,8 @@ class OneMapController {
 		render hotspots as JSON
 	}
 	
+	def runSearch() {
+		//render (template:"/oneMap/results-template", model:[results: ])
+	}
+	
 }
