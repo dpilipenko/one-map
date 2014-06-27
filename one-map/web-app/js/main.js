@@ -493,10 +493,12 @@ var RosettaMap = {
             success: function(results) {
             	// populate results tab
             	var content = '';
+            	var floorArray = [];
                 for(var i = 0; i < results.length; i++) {
                 	var isLink = "";
                 	if(results[i].hotspotId !== '') {
                 		isLink = "isLink";
+                		floorArray.push(parseInt(results[i].floor));
                 	}
                 	content += $('#result-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLink, results[i].floor, results[i].hotspotId);
                 }
@@ -506,6 +508,18 @@ var RosettaMap = {
                 $('#results').show().removeClass('cleared').removeClass('collapsed');
             	
             	// update map
+                var counts = {};
+
+                for(var i = 0; i< floorArray.length; i++) {
+                    var num = floorArray[i];
+                    counts[num] = counts[num] ? counts[num]+1 : 1;
+                }
+                
+                for(var key in counts) {
+                	console.log(counts[key]);
+                	var canvas = $('.canvas[data-floor="'+key+'"]');
+                	canvas.parents('.floorplan').prepend('<h1>'+counts[key]+'</h1>');
+                }
             	
             	// on click of active user
                 $(document).on('click', '#results .isLink', function() {
