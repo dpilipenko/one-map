@@ -44,10 +44,19 @@ class OneMapController {
 		def hotspot = Hotspot.get(hotspotID)
 		def pin = Pin.findByHotspot(hotspot)
 		JSONObject o = new JSONObject()
-		
-		if (pin instanceof Desk) {		// Returning details about a Desk
+		if (pin == null) {
+			o.put("floor", hotspot.floor)
+			o.put("type", hotspot.type)
+			o.put("claimed", false)
+			if (currUser != null) {
+				o.put("name", currUser.firstName+" "+currUser.lastName)
+				o.put("craft", currUser.craft)
+				o.put("level", currUser.level)
+				o.put("phone", currUser.phone)
+				o.put("email", currUser.username)
+			}
+		} else if (pin instanceof Desk) {		// Returning details about a Desk
 			// found desk at hotspot
-			o.put("type", "desk")
 			if (pin.user != null) {
 				o.put("name", pin.user.firstName+" "+pin.user.lastName)
 				o.put("craft", pin.user.craft)
@@ -65,7 +74,6 @@ class OneMapController {
 			}
 		} else if (pin instanceof Room) {		// Returning details about a Room
 			// found room at hotspot
-			o.put("type", "room")
 			o.put("name", pin.name)
 			o.put("number", pin.number)
 			o.put("phone", pin.phone)
