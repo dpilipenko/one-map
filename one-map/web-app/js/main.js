@@ -692,7 +692,6 @@ var RosettaMap = {
 
       $(document).on('click', '.savewarname', function(){
         var name = $('input.war-name').val();
-        
 
         $.ajax({
           url: '/one-map/oneMap/createWarRoom',
