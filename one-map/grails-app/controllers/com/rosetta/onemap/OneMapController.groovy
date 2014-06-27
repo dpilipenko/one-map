@@ -43,7 +43,7 @@ class OneMapController {
 			// found desk at hotspot
 			JSONObject o = new JSONObject()
 			o.put("type", "desk")
-			o.put("name", "Dan Padget")
+			o.put("name", o.user.firstName+" "+o.user.lastName)
 			o.put("craft", "Software Engineer")
 			o.put("level", "Senior Associate")
 			o.put("phone", "216.000.1234")
