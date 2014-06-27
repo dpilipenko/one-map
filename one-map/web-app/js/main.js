@@ -34,8 +34,11 @@ var phoneSlideshow = (function() {
         this.setAttribute("data-showing", "true");
         
         var canvas = $(this).children('.canvas')[0];
+        
+        console.log(canvas);
+        console.log('before init: '+canvas.getAttribute("data-hotspot"));
 
-        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"));
+        RosettaMap.mapSetup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"), canvas.getAttribute("data-floor"), canvas.getAttribute("data-hotspot"));
 
         
       }
@@ -66,7 +69,7 @@ var RosettaMap = {
     hotspotOpacity: 0,
     hotspotHoverOpacity: 0.5,
 
-    initFloorplan: function (id, imgSrc, floorNumber) {
+    initFloorplan: function (id, imgSrc, floorNumber, hotspot) {
     	var scope = this,
       		isHorizontal = false;
     	
@@ -168,6 +171,8 @@ var RosettaMap = {
         // add the image to the layer
         layer.add(floorplan);
         
+        
+        
         $.ajax({
             url: "/one-map/oneMap/gethotspots",
             type: 'GET',
@@ -225,6 +230,10 @@ var RosettaMap = {
 
                       interactionsObj.openPopup(e);
                     });
+                    
+                    if(hotspot !== null) {
+                    	hotspot.trigger('mousedown');
+                    }
 
                     layer.add(hotspotPath);
                   }
@@ -311,7 +320,6 @@ var RosettaMap = {
         popupElement.style.top = topPos +'px'; // display above it
       }
 
-      // import information in wizard based on return for ajax call (todo in future)
       console.log(RosettaMap.mapInteractions.activeHotspotID);
       
 	  $.ajax({
@@ -323,14 +331,13 @@ var RosettaMap = {
         success: function(object) {
         	// TODO: add buttons and interactions
         	var innerDiv = $('#popup .inner');
-        	alert(object.type);
         	switch(object.type) {
 	        	case "room":
 	        		if(object.project !== undefined) { // WAR room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
-	  	            	content += "EDIT<br />";
-	  	            	content += "VIEW MEMBERS <br />";
-	  	            	content += "ADD ME";
+	  	            	content += '<a class="btn editWAR">EDIT</a>';
+	  	            	content += '<a class="btn viewWARmembers">VIEW MEMBERS</a>';
+	  	            	content += '<a class="btn claimHotspot">ADD ME</a>';
 	  	            	innerDiv.html(content);
 	  	            	var content = '';
 		                for(var i = 0; i < object.members.length; i++) {
@@ -349,21 +356,21 @@ var RosettaMap = {
                     }
 	        		} else { // conference room
 	        			var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
-	  	            	content += "THIS MEANS WAR";
+	  	            	content += '<a class="btn createWAR">THIS MEANS WAR</a>';
 	  	            	innerDiv.html(content);
 	  	            } 
 	        		break;
 	        	case "desk":
 	        		if (!object.claimed) {
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	content += "CLAIM THIS SEAT";
+	                	content += '<a class="btn claimHotspot">CLAIM THIS SEAT</a>';
 	                	innerDiv.html(content);
 	        		} else if (object.claimed && object.isMine) { // should be done
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
 	        			innerDiv.html(content);
 	        		} else { // other user claimed seat
 	        			var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-	                	content += "REQUEST SEAT";
+	                	content += '<a class="btn" href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a>';
 	                	innerDiv.html(content);
 	        		}
                 	
@@ -493,7 +500,13 @@ var RosettaMap = {
             	
             	// on click of active user
                 $(document).on('click', '#results .isLink', function() {
-                	alert('navigate to map');
+                	var floor = $(this).data('floor');
+                	var hotspot = $(this).data('hotspot');
+                	var canvas = $('.canvas[data-floor="'+floor+'"]');
+                	console.log(canvas[0]);
+                	console.log('----------');
+                	$(canvas).data('hotspot', hotspot);
+                	canvas.parent('.floorplan').trigger('click');
                 });
             	
             },
