@@ -1,6 +1,7 @@
 import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.User
 import com.rosetta.onemap.Office
+import com.rosetta.onemap.pintypes.Room
 
 class BootStrap {
 
@@ -35,16 +36,15 @@ class BootStrap {
 		new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "CEO").save(flush: true);
-		
-		// The Beathles 1728
-		new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true);
-		// Johny Cash 1726
-		new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true);
-		// Chuck Berry 1723
-		new Hotspot( floor: "17", type: "room", polygon: "M450.996,300.876 481.295,348.391 429.755,360.516 428.196,365.436 389.076,370.116 368.316,321.516z").save(flush: true);
-		// Elvis Presley 1715
-		new Hotspot( floor: "17", type: "room", polygon: "M264.156,169.956 262.355,225.036 214.956,228.516 182.406,222.367 175.116,219.156 161.979,210.562 165.036,195.876 169.835,172.716 170.315,170.796z").save(flush: true);
-		
+
+		def hp1 = new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true); //1
+		def hp2 = new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true); //2
+		def hp3 = new Hotspot( floor: "17", type: "room", polygon: "M450.996,300.876 481.295,348.391 429.755,360.516 428.196,365.436 389.076,370.116 368.316,321.516z").save(flush: true); //3
+		def hp4 = new Hotspot( floor: "17", type: "room", polygon: "M264.156,169.956 262.355,225.036 214.956,228.516 182.406,222.367 175.116,219.156 161.979,210.562 165.036,195.876 169.835,172.716 170.315,170.796z").save(flush: true); //4
+		new Room(name: "The Beatles", number: "1728", hotspot: hp1);
+		new Room(name: "Johnny Cash", number: "1726", hotspot: hp2);
+		new Room(name: "Chuck Berry", number: "1723", hotspot: hp3);
+		new Room(name: "Elvis Presley", number: "1715", hotspot: hp4);
 		
 		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
 		new Hotspot( floor: "11", type: "room", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);

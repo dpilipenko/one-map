@@ -15,7 +15,7 @@
 
 </head>
 
-<body>
+<body class="login">
 
   <div class="main">
 
@@ -25,7 +25,7 @@
   	<div class="header">
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
-	<div class="header login">
+	<div class="header">
 </sec:ifNotLoggedIn>
 
   		<div class="header-bg">
@@ -52,25 +52,27 @@
   					</sec:ifLoggedIn>
   				</div>
 
-  				<div class="login-dot">
-  					<div class="inner">
-  						<div class="login-form">
-
-  							<div class="login-title">
-  								ONE MAP
-  							</div>
-  							<label for="username">Email</label>
-  							<input class="username" type="text" />
-  							<label for="password">Password</label>
-  							<input class="password" type="password" />
-  							<button type="submit" class="submit-login">SUBMIT</button>
-
-  						</div>
-  				  </div>
-
-    			</div>
+  				
   			
     		</div>
+
+        <div class="login-dot">
+            <div class="inner">
+              <div class="login-form">
+
+                <div class="login-title">
+                  ONE MAP
+                </div>
+                <label for="username">Email</label>
+                <input class="username" type="text" />
+                <label for="password">Password</label>
+                <input class="password" type="password" />
+                <button type="submit" class="submit-login">SUBMIT</button>
+
+              </div>
+            </div>
+
+          </div>
 
       </div>
 
@@ -86,7 +88,7 @@
   			<a href="#" class="clear-results"></a>
   		</div>
   		<div id="result-list" class="results-list">
-			<g:render template="/oneMap/results-template" />
+			 <g:render template="/oneMap/results-template" />
   		</div>
   	</div>
 
@@ -155,9 +157,24 @@
         <a href="#" id="backto3d">3D</a>
       </div>
 
-      <div id="popup">
+      <div id="popup" class="desk">
+        <a href="#" class="close"></a>
+
         <div class="inner">
-          
+          <div class="name">Dave Fagan</div>
+          <div class="position">Senior Associate, Creative Engineer</div>
+          <div class="phone">216.325.6080</div>
+          <div class="email"><a href="mailto:dave.fagan@rosetta.com">dave.fagan@rosetta.com</a></div>
+          <div class="btns-container clearfix">
+            <a href="mailto:dave.fagan@rosetta.com?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?" class="btn">Request Seat</a>
+            <a href="#" class="btn">View Members</a>
+
+            <div id="members-slider">
+              <a href="#" class="left"></a>
+
+              <a href="#" class="right"></a>
+            </div>
+          </div>
         </div>
         <div class="notch"></div>
       </div>
