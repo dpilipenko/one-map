@@ -526,6 +526,12 @@ var RosettaMap = {
   			RosettaMap.search.submit();
   		}
   	});
+  	$(document).on('keypress', '.password', function(e) {
+  		if(e.keyCode == 13) {
+  			e.preventDefault();
+  			RosettaMap.login.submit();
+  		}
+  	});
     $(document).on('click', '.collapse-results', function(e) {
     	e.preventDefault();
     	if($('#results').hasClass('collapsed')) {
