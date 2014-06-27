@@ -120,7 +120,8 @@ class OneMapController {
 			}
 			
 			// add to hotspot
-			def hotspot = Hotspot.get(params.hotspotID)
+			
+			def hotspot = Hotspot.get(Long.parseLong(params.hotspotID.substring(1, params.hotspotID.length()-1)))
 			def pin = Pin.findByHotspot(hotspot)
 			if (pin == null) {
 				o.put("success", false)
