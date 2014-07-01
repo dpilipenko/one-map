@@ -146,7 +146,7 @@ var RosettaMap = {
       floorplanObj.src = 'images/'+ imgSrc + '.png';
       
       var pinImage = new Image();
-	  pinImage.src = '/one-map/static/images/pin-seat.png';
+	  pinImage.src = 'images/pin-seat.png';
 		
       
       var imageWidth = scope.stageWidth * scope.stageScale,
@@ -175,7 +175,7 @@ var RosettaMap = {
         
         
         $.ajax({
-            url: "/one-map/oneMap/gethotspots",
+            url: "oneMap/gethotspots",
             type: 'GET',
             data: {
                 floor: floorNumber,
@@ -358,7 +358,7 @@ var RosettaMap = {
       }
 
 	  $.ajax({
-        url: '/one-map/oneMap/gethotspotbyid',
+        url: 'oneMap/gethotspotbyid',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,
@@ -520,7 +520,7 @@ var RosettaMap = {
 
 		 
 		 $.ajax({
-            url: "/one-map/oneMap/runSearch",
+            url: "oneMap/runSearch",
             type: 'GET',
             data: {
             	searchquery: query
@@ -607,13 +607,13 @@ var RosettaMap = {
     }
     
     // lazy load in JS templates
-    $.get( "/one-map/static/js/template-room.html", function( data ) {
+    $.get( "js/template-room.html", function( data ) {
   	  $( "body" ).append( data );
 	  });
-	  $.get( "/one-map/static/js/template-user.html", function( data ) {
+	  $.get( "js/template-user.html", function( data ) {
 	  	$( "body" ).append( data );
 	  });
-	  $.get( "/one-map/static/js/template-result.html", function( data ) {
+	  $.get( "js/template-result.html", function( data ) {
 	  	$( "body" ).append( data );
 	  });
     
@@ -689,7 +689,7 @@ var RosettaMap = {
       $this.parents('.inner').addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
 
       $.ajax({
-        url: '/one-map/oneMap/claimHotspot',
+        url: 'oneMap/claimHotspot',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID
@@ -732,7 +732,7 @@ var RosettaMap = {
         var name = $('input.war-name').val();
 
         $.ajax({
-          url: '/one-map/oneMap/createWarRoom',
+          url: 'oneMap/createWarRoom',
           type: 'GET',
           data: {
               roomID: RosettaMap.mapInteractions.activeHotspotID,
