@@ -11,7 +11,7 @@ Public API
    		A floor without hotspots:
    			{}
    		A floor with hotspots:
-   			{"h4":String}
+   			{"h#":String}
 
    				
    + [ GET ] /getHotspot?hotspotID=h#
