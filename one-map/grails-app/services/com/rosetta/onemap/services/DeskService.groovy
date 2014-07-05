@@ -13,9 +13,28 @@ class DeskService {
 
     }
 	
-	Desk createDesk(String name, long hotspotId) {
+	/**
+	 * Deletes all Desk pins that belong to user
+	 * @param user Person that owns desk pins
+	 */
+	void unclaimAllForUser(User user) {
+		for (Desk desk : Desk.findAllByUser(user)) {
+			desk.user = null;
+			desk.delete(flush:true) 
+		}
+	}
+	
+	Desk createDeskAtHotspotWithUser(Hotspot hotspot, User user) {
+		Desk desk = new Desk()
+		desk.user = user
+		desk.hotspot = hotspot
+		desk.dateCreated = new Date()
+		desk.lastUpdated = new Date()
+		desk.save(flush:true)
+	}
+	
+	Desk createDesk(long hotspotId) {
 		def d = new Desk()
-		d.name = name
 		d.hotspot = Hotspot.get(hotspotId);
 		d.dateCreated = new Date()
 		d.lastUpdated = new Date()
