@@ -19,6 +19,8 @@ class OneMapController {
 	def deskService
 	def roomService
 	
+	def hotspotService
+	
     def show() {
 		def config = SpringSecurityUtils.securityConfig
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
@@ -31,9 +33,8 @@ class OneMapController {
 	 */
 	def getHotspots () {
 		def floor = params.floor
-		
 		Map<String, String> hotspots = new HashMap<String, String>()
-		for (Hotspot h : Hotspot.findAllByFloor(floor)) {
+		for (Hotspot h : hotspotService.getAllByFloor(floor)) {
 			hotspots.put("h"+h.id, h.polygon)
 		}		
 		render hotspots as JSON
@@ -49,7 +50,7 @@ class OneMapController {
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
 		
-		def hotspot = Hotspot.get(hotspotID)
+		Hotspot hotspot = hotspotService.getByID(hotspotID);
 		def currUser = springSecurityService.currentUser
 		def pin = Pin.findByHotspot(hotspot)
 		JSONObject o = new JSONObject()
@@ -123,7 +124,7 @@ class OneMapController {
 	 */
 	def claimHotspot() {
 		def hotspotID = params.hotspotID
-		if (hotspotID.startsWith("h")) {
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
 		
@@ -208,6 +209,7 @@ class OneMapController {
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
+		
 		JSONObject o = new JSONObject()
 		Hotspot h = Hotspot.get(Long.parseLong(hotspotID))
 		if (h.type.equals("room")) {
@@ -237,6 +239,7 @@ class OneMapController {
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
+		
 		JSONObject o = new JSONObject()
 		Room r = Room.get(Long.parseLong(hotspotID))
 		if (r == null) {
