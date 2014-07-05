@@ -85,14 +85,18 @@ class OneMapController {
 					res.put("phone", pin.user.phone)
 					res.put("email", pin.user.username)
 					res.put("type", "desk")
-					if (currUser.id == pin.user.id)
-						res.put("isOwn", true)
-					else
+					
+					if (currUser == null) {
 						res.put("isOwn", false)
-					if (currUser != null && currUser.id != pin.id)
 						res.put("claimed", true)
-					else
-						res.put("claimed", false)
+					} else {
+						res.put("isOwn", pin.user.id == currUser.id)
+						if (pin.user.id != currUser.id) {
+							res.put("claimed", true)
+						}  else {
+							res.put("claimed", false)
+						}
+					}
 				}
 			} else if (hotspot.pin instanceof Room) {
 				Room pin = hotspot.pin
