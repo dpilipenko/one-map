@@ -25,6 +25,10 @@ class OneMapController {
 		[postUrl: postUrl]
 	}
 	
+	/**
+	 * GET	/gethotspots
+	 * @return
+	 */
 	def gethotspots () {
 		Map<String, String> hotspots = new HashMap<String, String>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
@@ -34,15 +38,16 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET 	/gethotspotbyid?hotspotID=#
+	 * GET 	/gethotspotbyid?hotspotID=h#
+	 * @return
 	 */
 	def gethotspotbyid () {
-		def currUser = springSecurityService.currentUser
 		def hotspotID = params.hotspotID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
 		def hotspot = Hotspot.get(hotspotID)
+		def currUser = springSecurityService.currentUser
 		def pin = Pin.findByHotspot(hotspot)
 		JSONObject o = new JSONObject()
 		if (pin == null) {
@@ -110,9 +115,15 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET	/claimHotspot?hotspotID=#
+	 * GET	/claimHotspot?hotspotID=h#
+	 * @return
 	 */
 	def claimHotspot() {
+		def hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) {
+			hotspotID = hotspotID.substring(1, hotspotID.length())
+		}
+		
 		JSONObject o = new JSONObject()
 		def currUser = springSecurityService.currentUser
 			
@@ -129,11 +140,6 @@ class OneMapController {
 		}
 		if (room != null) {
 			room.removeFromUsers(currUser)
-		}
-		
-		def hotspotID = params.hotspotID
-		if (hotspotID.startsWith("h")) {
-			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
 		
 		def hotspot = Hotspot.get(Long.parseLong(hotspotID))
@@ -163,6 +169,7 @@ class OneMapController {
 	
 	/**
 	 * GET	/unclaimHotspot
+	 * @return
 	 */
 	def unclaimHotspot () {
 		JSONObject o = new JSONObject()
@@ -190,14 +197,15 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET	/createWarRoom?roomID=#&projectName=STRING 
+	 * GET	/createWarRoom?hotspotID=h#&projectName=STRING
+	 * @return 
 	 */
 	def createWarRoom() {
-		JSONObject o = new JSONObject()
-		def hotspotID = params.roomID
+		def hotspotID = params.hotspotID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
+		JSONObject o = new JSONObject()
 		Hotspot h = Hotspot.get(Long.parseLong(hotspotID))
 		if (h.type.equals("room")) {
 			def pin = Pin.findByHotspot(h)
@@ -218,11 +226,16 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET	/closeWarRoom?roomID=#
+	 * GET	/closeWarRoom?hotspotID=h#
+	 * @return
 	 */
 	def closeWarRoom() {
+		def hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+			hotspotID = hotspotID.substring(1, hotspotID.length())
+		}
 		JSONObject o = new JSONObject()
-		Room r = Room.get(params.roomID)
+		Room r = Room.get(Long.parseLong(hotspotID))
 		if (r == null) {
 			o.put("success", false)
 		} else {
@@ -236,6 +249,10 @@ class OneMapController {
 		render o as JSON
 	}
 	
+	/**
+	 * GET	/runSearch?searchquery=STRING
+	 * @return
+	 */
 	def runSearch() {
 		def searchTerm = params.searchquery
 		

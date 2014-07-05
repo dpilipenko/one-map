@@ -730,7 +730,7 @@ var RosettaMap = {
           url: 'oneMap/createWarRoom',
           type: 'GET',
           data: {
-              roomID: RosettaMap.mapInteractions.activeHotspotID,
+              hotspotID: RosettaMap.mapInteractions.activeHotspotID,
               projectName: name
           },
           success: function(object) {

@@ -2,7 +2,7 @@ package com.rosetta.onemap
 
 
 
-import grails.test.mixin.*
+//import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(HotspotController)
@@ -11,7 +11,7 @@ class HotspotControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
+        // xTODO: Populate valid properties like...
         //params["name"] = 'someValidName'
     }
 
