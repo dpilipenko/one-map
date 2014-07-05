@@ -8,10 +8,7 @@ import com.rosetta.onemap.pintypes.Desk
 
 @Transactional
 class DeskService {
-
-    def serviceMethod() {
-
-    }
+    def serviceMethod() { }
 	
 	/**
 	 * Deletes all Desk pins that belong to user
@@ -24,6 +21,12 @@ class DeskService {
 		}
 	}
 	
+	/**
+	 * Creates new Desk pin, and assigns user to desk
+	 * @param hotspot Hotspot where desk pin will be created
+	 * @param user	User which will be assigned at the desk
+	 * @return
+	 */
 	Desk createDeskAtHotspotWithUser(Hotspot hotspot, User user) {
 		Desk desk = new Desk()
 		desk.user = user
@@ -31,64 +34,6 @@ class DeskService {
 		desk.dateCreated = new Date()
 		desk.lastUpdated = new Date()
 		desk.save(flush:true)
-	}
-	
-	Desk createDesk(long hotspotId) {
-		def d = new Desk()
-		d.hotspot = Hotspot.get(hotspotId);
-		d.dateCreated = new Date()
-		d.lastUpdated = new Date()
-		d.save()
-		if (d.hasErrors()) {
-			log.info("Got some desk errors on create!")
-		}
-		return d
-	}
-	
-	Desk createDesk(String name, User user, long hotspotId) {
-		def d = new Desk()
-		d.name = name
-		d.user = user
-		d.hotspot = Hotspot.get(hotspotId)
-		d.dateCreated = new Date()
-		d.lastUpdated = new Date()
-		d.save()
-		if (d.hasErrors()) {
-			log.info("Got some desk errors on create!")
-		}
-		return d
-	}
-	
-	Desk addUserToDesk(long deskId, User user) {
-		def d = Desk.get(deskId)
-		d.user = user
-		d.lastUpdated = new Date()
-		d.save()
-		if (d.hasErrors()) {
-			log.info("Got some desk errors on add user!")
-		}
-		return d
-	}
-	
-	Desk updateDesk(long deskId, String name, User user, long hotspotId) {
-		def d = Desk.get(deskId)
-		d.name = name
-		d.user = user
-		d.hotspot = Hotspot.get(hotspotId)
-		d.lastUpdated = new Date()
-		d.save()
-		if (d.hasErrors()) {
-			log.info("Got some desk errors on update!")
-		}
-		return d
-	}
-	
-	void deleteDesk(long deskId) {
-		def d = Desk.get(id)
-		d.delete(flush: true)
-		if (d.hasErrors()) {
-			log.info("Got some desk errors on delete!!")
-		}
 	}
 	
 }

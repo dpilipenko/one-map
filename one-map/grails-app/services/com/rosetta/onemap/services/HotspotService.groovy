@@ -7,8 +7,5 @@ import com.rosetta.onemap.User
 
 @Transactional
 class HotspotService {
-
     def serviceMethod() { }
-
-		
 }

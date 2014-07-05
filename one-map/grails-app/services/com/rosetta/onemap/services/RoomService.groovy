@@ -8,11 +8,7 @@ import com.rosetta.onemap.User
 
 @Transactional
 class RoomService {
-
-    def serviceMethod() {
-
-    }
-	
+    def serviceMethod() { }
 	
 	/**
 	 * Removes all mentions of User in all Room pins
@@ -25,6 +21,7 @@ class RoomService {
 			romm.save(flush:true)
 		}
 	}
+	
 	/**
 	 * Returns Room that contains the User or NULL if not found
 	 * @param user The user being removed
@@ -39,6 +36,7 @@ class RoomService {
 		}
 		return room
 	}
+	
 	/**
 	 * Adds user to the room and saves to database
 	 * @param room	The room to which the user will be added
@@ -51,6 +49,7 @@ class RoomService {
 		room.save(flush:true)
 		return room
 	}
+	
 	/**
 	 * Resets room as a new project room
 	 * @param room	Room that will be reset
@@ -63,6 +62,7 @@ class RoomService {
 		room.save(flush:true)
 		return room
 	}
+	
 	/**
 	 * Removes project from room
 	 * @param room
@@ -87,25 +87,6 @@ class RoomService {
 			log.info("Got some room errors on create!")
 		}
 		return r
-	}
-	
-	Room addUserToRoom(long roomId, User user) {
-		def r = Room.get(roomId)
-		r.addToUsers(user)
-		r.lastUpdated = new Date()
-		r.save()
-		if (r.hasErrors()) {
-			log.info("Got some room errors on add user!")
-		}
-		return r
-	}
-	
-	Room updateRoom(long roomId, String name, long hotspotId) {
-		def r = Room.get(roomId)
-		r.name = name
-		r.hotspotId = hotspotId
-		r.lastUpdated = new Date()
-		r.save()
 	}
 	
 }

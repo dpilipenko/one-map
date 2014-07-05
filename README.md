@@ -26,7 +26,7 @@ Public API
    			{"name":String, "number":String, "phone":String, "project":String, "type":"room", "members":[{"name":String, "craft":String, "level":String, "phone":String, "email":String}]}
 
    + GET /claimHotspot?hotspotID=h#
-         {"userinformation":{"name":String, "level":String, "craft":String, "phone":String, "email":String}}
+         {"success":boolean, "userinformation":{"name":String, "level":String, "craft":String, "phone":String, "email":String}}
 
    * GET /unclaimHotspot
          {"success":boolean}
