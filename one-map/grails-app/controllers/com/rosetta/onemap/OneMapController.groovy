@@ -144,8 +144,9 @@ class OneMapController {
 				// Attempting to join non-existing room. Do not allow.
 				res.put("success", false)
 			} else {
-				deskService.unclaimAllForUser(currUser)
-				roomService.unclaimAllForUser(currUser)
+			
+				unclaimHotspot()
+				
 				if (hotspot.type.equals("desk") && hotspot.pin == null) {
 					Desk pin = deskService.createDeskAtHotspotWithUser(hotspot, currUser)
 							res.put("success", true)
