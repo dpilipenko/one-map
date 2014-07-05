@@ -175,7 +175,7 @@ var RosettaMap = {
         
         
         $.ajax({
-            url: "oneMap/gethotspots",
+            url: "oneMap/getHotspots",
             type: 'GET',
             data: {
                 floor: floorNumber,
@@ -358,7 +358,7 @@ var RosettaMap = {
       }
 
 	  $.ajax({
-        url: 'oneMap/gethotspotbyid',
+        url: 'oneMap/getHotspot',
         type: 'GET',
         data: {
             hotspotID: RosettaMap.mapInteractions.activeHotspotID,

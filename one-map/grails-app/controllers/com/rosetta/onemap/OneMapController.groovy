@@ -26,26 +26,29 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET	/gethotspots
+	 * GET	/getHotspots?floor=#
 	 * @return
 	 */
-	def gethotspots () {
+	def getHotspots () {
+		def floor = params.floor
+		
 		Map<String, String> hotspots = new HashMap<String, String>()
-		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
+		for (Hotspot h : Hotspot.findAllByFloor(floor)) {
 			hotspots.put("h"+h.id, h.polygon)
 		}		
 		render hotspots as JSON
 	}
 	
 	/**
-	 * GET 	/gethotspotbyid?hotspotID=h#
+	 * GET 	/getHotspot?hotspotID=h#
 	 * @return
 	 */
-	def gethotspotbyid () {
+	def getHotspot () {
 		def hotspotID = params.hotspotID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
+		
 		def hotspot = Hotspot.get(hotspotID)
 		def currUser = springSecurityService.currentUser
 		def pin = Pin.findByHotspot(hotspot)
