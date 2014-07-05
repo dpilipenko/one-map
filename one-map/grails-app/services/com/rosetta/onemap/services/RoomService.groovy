@@ -17,8 +17,8 @@ class RoomService {
 	void unclaimAllForUser(User user) {
 		Room room = getRoomContainingUser(user)
 		if (room != null) {
-			room.removeFromUsers(currUser)
-			romm.save(flush:true)
+			room.removeFromUsers(user)
+			room.save(flush:true)
 		}
 	}
 	
@@ -31,7 +31,7 @@ class RoomService {
 		def c = Room.createCriteria()
 		def room = c.get {
 		   users {
-			  idEq(currUser.id)
+			  idEq(user.id)
 		   }
 		}
 		return room

@@ -22,7 +22,7 @@ class Room extends Pin {
 	}
 	
 	boolean hasProject() {
-		return !project.isEmpty()
+		return (project != null && !project.isEmpty())
 	}
 	
 }

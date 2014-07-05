@@ -160,7 +160,7 @@ class OneMapController {
 			userinformation.put("name", currUser.firstName+" "+currUser.lastName)
 			userinformation.put("level", currUser.level)
 			userinformation.put("craft", currUser.craft)
-			userinformation.put("phone", phone)
+			userinformation.put("phone", currUser.phone)
 			userinformation.put("email", currUser.username)
 			res.put("userinformation", userinformation)
 		}
