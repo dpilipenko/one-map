@@ -27,7 +27,7 @@ class OneMapController {
 	
 	/**
 	 * GET	/getHotspots?floor=#
-	 * @return
+	 * @return { ...,"hID":" SVG Path ",...  }
 	 */
 	def getHotspots () {
 		def floor = params.floor
