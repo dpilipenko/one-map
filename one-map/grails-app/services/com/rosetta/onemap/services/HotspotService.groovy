@@ -3,9 +3,9 @@ package com.rosetta.onemap.services
 import grails.transaction.Transactional
 
 import com.rosetta.onemap.Hotspot
-import com.rosetta.onemap.Pin
+import com.rosetta.onemap.User
 
 @Transactional
-class PinService {
+class HotspotService {
     def serviceMethod() { }
 }

@@ -19,12 +19,18 @@ class OneMapController {
 	def deskService
 	def roomService
 	
+	def hotspotService
+	
     def show() {
 		def config = SpringSecurityUtils.securityConfig
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		[postUrl: postUrl]
 	}
-	
+
+	/**
+	 * GET	/getHotspots?floor=#
+	 * @return { ...,"hID":" SVG Path ",...  }
+	 */
 	def gethotspots () {
 		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
@@ -42,208 +48,214 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET 	/gethotspotbyid?hotspotID=#
+	 * GET 	/getHotspot?hotspotID=h#
+	 * @return
 	 */
-	def gethotspotbyid () {
-		def currUser = springSecurityService.currentUser
-		def hotspotID = params.hotspotID
+	def getHotspot () {
+		String hotspotID = params.hotspotID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
-		def hotspot = Hotspot.get(hotspotID)
-		def pin = Pin.findByHotspot(hotspot)
-		JSONObject o = new JSONObject()
-		if (pin == null) {
-			o.put("floor", hotspot.floor)
-			o.put("type", hotspot.type)
-			o.put("claimed", false)
+		
+		JSONObject res = new JSONObject()
+		User currUser = springSecurityService.currentUser
+		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID));
+		if (hotspot.pin == null) {
+			res.put("floor", hotspot.floor)
+			res.put("type", hotspot.type)
+			res.put("claimed", false)
 			if (currUser != null) {
-				o.put("name", currUser.firstName+" "+currUser.lastName)
-				o.put("craft", currUser.craft)
-				o.put("level", currUser.level)
-				o.put("phone", currUser.phone)
-				o.put("email", currUser.username)
+				res.put("name", currUser.firstName+" "+currUser.lastName)
+				res.put("craft", currUser.craft)
+				res.put("level", currUser.level)
+				res.put("phone", currUser.phone)
+				res.put("email", currUser.username)
 			}
-		} else if (pin instanceof Desk) {		// Returning details about a Desk
-			// found desk at hotspot
-			if (pin.user == null) {
-				o.put("floor", hotspot.floor)
-				o.put("type", hotspot.type)
-				o.put("claimed", false)
-				if (currUser != null) {
-					o.put("name", currUser.firstName+" "+currUser.lastName)
-					o.put("craft", currUser.craft)
-					o.put("level", currUser.level)
-					o.put("phone", currUser.phone)
-					o.put("email", currUser.username)
-				}
-			} else  if (pin.user != null) {
-				o.put("name", pin.user.firstName+" "+pin.user.lastName)
-				o.put("craft", pin.user.craft)
-				o.put("level", pin.user.level)
-				o.put("phone", pin.user.phone)
-				o.put("email", pin.user.username)
-				o.put("type", "desk")
-				if (currUser.id == pin.user.id)
-					o.put("isOwn", true)
-				else
-					o.put("isOwn", false)
-				if (currUser != null && currUser.id != pin.id)
-					o.put("claimed", true)
-				else
-					o.put("claimed", false)
-			}
-		} else if (pin instanceof Room) {		// Returning details about a Room
-			// found room at hotspot
-			o.put("name", pin.name)
-			o.put("number", pin.number)
-			o.put("phone", pin.phone)
-			o.put("project", pin.project)
-			o.put("type", "room")
-			JSONArray members = new JSONArray()
-			for (User u : pin.users) {
-				JSONObject member = new JSONObject()
-				member.put("name", u.firstName+" "+u.lastName)
-				member.put("craft", u.craft)
-				member.put("level", u.level)
-				member.put("phone", u.phone)
-				member.put("email", u.username)
-				members.add(member)
-			}
-			o.put("members", members)
 		} else {
-			// undefined action
+			if (hotspot.pin instanceof Desk) {
+				Desk pin = hotspot.pin
+				if (pin.user == null) {
+					res.put("floor", hotspot.floor)
+					res.put("type", hotspot.type)
+					res.put("claimed", false)
+					if (currUser != null) {
+						res.put("name", currUser.firstName+" "+currUser.lastName)
+						res.put("craft", currUser.craft)
+						res.put("level", currUser.level)
+						res.put("phone", currUser.phone)
+						res.put("email", currUser.username)
+					}
+				} else  if (pin.user != null) {
+					res.put("name", pin.user.firstName+" "+pin.user.lastName)
+					res.put("craft", pin.user.craft)
+					res.put("level", pin.user.level)
+					res.put("phone", pin.user.phone)
+					res.put("email", pin.user.username)
+					res.put("type", "desk")
+					
+					if (currUser == null) {
+						res.put("isOwn", false)
+						res.put("claimed", true)
+					} else {
+						res.put("isOwn", pin.user.id == currUser.id)
+						if (pin.user.id != currUser.id) {
+							res.put("claimed", true)
+						}  else {
+							res.put("claimed", false)
+						}
+					}
+				}
+			} else if (hotspot.pin instanceof Room) {
+				Room pin = hotspot.pin
+				// found room at hotspot
+				res.put("name", pin.name)
+				res.put("number", pin.number)
+				res.put("phone", pin.phone)
+				res.put("project", pin.project)
+				res.put("type", "room")
+				JSONArray members = new JSONArray()
+				for (User u : pin.users) {
+					JSONObject member = new JSONObject()
+					member.put("name", u.firstName+" "+u.lastName)
+					member.put("craft", u.craft)
+					member.put("level", u.level)
+					member.put("phone", u.phone)
+					member.put("email", u.username)
+					members.add(member)
+				}
+				res.put("members", members)
+			}
 		}
-		render o as JSON
+
+		render res as JSON
 	}
 	
 	/**
-	 * GET	/claimHotspot?hotspotID=#
+	 * GET	/claimHotspot?hotspotID=h#
+	 * @return {"success":boolean, "userinformation":{"name":String, "level":String, "craft":String, "phone":String, "email":String}}
 	 */
 	def claimHotspot() {
-		JSONObject o = new JSONObject()
-		def currUser = springSecurityService.currentUser
-			
-		// find current seat and kick them out
-		for (Desk desk : Desk.findAllByUser(currUser)) {
-			deskService.updateDesk(desk.id, desk.name, null, desk.hotspot.id)
-		}
-		
-		def c = Room.createCriteria()
-		def room = c.get {
-		   users {
-			  idEq(currUser.id)
-		   }
-		}
-		if (room != null) {
-			room.removeFromUsers(currUser)
-		}
-		
-		def hotspotID = params.hotspotID
-		if (hotspotID.startsWith("h")) {
+		String hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
-		
-		def hotspot = Hotspot.get(Long.parseLong(hotspotID))
-		def pin = Pin.findByHotspot(hotspot)
-		if (hotspot.type.equals("desk")) {
-			if(pin == null) {
-				pin = deskService.createDesk("desk", hotspot.id);
+		JSONObject res = new JSONObject()
+		User currUser = springSecurityService.currentUser
+		if (currUser != null) {
+			
+			Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
+			if (hotspot.type.equals("desk") && hotspot.pin != null) {
+				// Attempting to claim an already claimed desk. Do not allow.
+				res.put("success", false)
+			} else if (hotspot.type.equals("room") && hotspot.pin == null) {
+				// Attempting to join non-existing room. Do not allow.
+				res.put("success", false)
+			} else {
+			
+				unclaimHotspot()
+				
+				if (hotspot.type.equals("desk") && hotspot.pin == null) {
+					Desk pin = deskService.createDeskAtHotspotWithUser(hotspot, currUser)
+							res.put("success", true)
+				} else if (hotspot.type.equals("room") && hotspot.pin != null) {
+					Room room = hotspot.pin
+							roomService.addUserToRoom(room, currUser)
+							res.put("success", true)
+				} 
 			}
-			deskService.addUserToDesk(pin.id, currUser)
-		} else if (hotspot.type.equals("room")) {
-			if(pin == null) {
-				pin = roomService.createRoom("room", "123", hotspot.id);
-			}
-			roomService.addUserToRoom(pin.id, currUser)
+			
+			JSONObject userinformation = new JSONObject()
+			userinformation.put("name", currUser.firstName+" "+currUser.lastName)
+			userinformation.put("level", currUser.level)
+			userinformation.put("craft", currUser.craft)
+			userinformation.put("phone", currUser.phone)
+			userinformation.put("email", currUser.username)
+			res.put("userinformation", userinformation)
 		}
-		
-		JSONObject userInfo = new JSONObject()
-		userInfo.put("name", (currUser.firstName+" "+currUser.lastName))
-		userInfo.put("level", currUser.level)
-		userInfo.put("craft", currUser.craft)
-		userInfo.put("phone", currUser.phone)
-		userInfo.put("email", currUser.username)
-		o.put("userinformation", userInfo);
-		
-		render o as JSON
+		render res as JSON
 	}
 	
 	/**
 	 * GET	/unclaimHotspot
+	 * @return	{"success":boolean}
 	 */
 	def unclaimHotspot () {
-		JSONObject o = new JSONObject()
-		def currUser = springSecurityService.currentUser
+		JSONObject res = new JSONObject()
+		User currUser = springSecurityService.currentUser
 		if (currUser == null) {
-			o.put("success", false)	
+			res.put("success", false)	
 		} else {
-			// find current seat and kick them out
-			for (Desk desk : Desk.findAllByUser(currUser)) {
-				deskService.updateDesk(desk.id, desk.name, null, desk.hotspotId)
-			}
-			def c = Room.createCriteria()
-			def room = c.get {
-			   users {
-				  idEq(currUser.id)
-			   }
-			}
-			if (room != null) {
-				room.removeFromUsers(currUser)
-				romm.save(flush:true)
-			}
-			o.put("success", true)
+			deskService.unclaimAllForUser(currUser)
+			roomService.unclaimAllForUser(currUser)
+			res.put("success", true)
 		}
-		render o as JSON
+		render res as JSON
 	}
 	
 	/**
-	 * GET	/createWarRoom?roomID=#&projectName=STRING 
+	 * GET	/createWarRoom?hotspotID=h#&projectName=STRING
+	 * @return {"success":boolean}
 	 */
 	def createWarRoom() {
-		JSONObject o = new JSONObject()
-		def hotspotID = params.roomID
+		String hotspotID = params.hotspotID
 		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
 			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
-		Hotspot h = Hotspot.get(Long.parseLong(hotspotID))
-		if (h.type.equals("room")) {
-			def pin = Pin.findByHotspot(h)
-			if (pin == null) {
-				def room = roomService.createRoom("room", "123", h.id)
-				room.project = params.projectName
-				room.save(flush:true)
-				o.put("success", true)
+		String projectName = params.projectName
+		
+		JSONObject res = new JSONObject()
+		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
+		if (hotspot.pin == null) {
+			// hotspot is empty. Do not allow.
+			res.put("success", false)
+		} else if (hotspot.pin != null && hotspot.type.equals("desk")) {
+			// hotspot is desk, not a room. Do not allow.
+			res.put("succes", false)
+		} else if (hotspot.pin != null && hotspot.pin instanceof Room) {
+			Room room = hotspot.pin
+			if (room.hasProject()) {
+				// room is already a war room. Do not allow.
+				res.put("success", false)
 			} else {
-				if(pin instanceof Room) {
-					pin.project = params.projectName
-					pin.save(flush: true)
-					o.put("success", true)
-				}
+			
+				room = roomService.initRoomForProject(room, projectName)
+				res.put("success", true)
 			}
 		}
-		render o as JSON
+		render res as JSON
 	}
 	
 	/**
-	 * GET	/closeWarRoom?roomID=#
+	 * GET	/closeWarRoom?hotspotID=h#
+	 * @return {"success":boolean}
 	 */
 	def closeWarRoom() {
-		JSONObject o = new JSONObject()
-		Room r = Room.get(params.roomID)
-		if (r == null) {
-			o.put("success", false)
-		} else {
-			if (r.project == null || r.project.isEmpty()) {
-				o.put("success", false)
-			} else {
-				r.project = null
-				o.put("success", true)
-			}
+		String hotspotID = params.hotspotID
+		if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+			hotspotID = hotspotID.substring(1, hotspotID.length())
 		}
-		render o as JSON
+		
+		JSONObject res = new JSONObject()
+		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
+		if (hotspot.pin == null) {
+			// hotspot is empty. Do not allow.
+			res.put("success", false)
+		} else if (hotspot.pin != null && hotspot.type.equals("desk")) {
+			// hotspot is desk, not a room. Do not allow.
+			res.put("success", false)
+		} else if (hotspot.pin != null && hotspot.pin instanceof Room) {
+			Room room = hotspot.pin
+			roomService.closeRoomForProject(room);
+			res.put("success", true)
+		}
+		
+		render res as JSON
 	}
 	
+	/**
+	 * GET	/runSearch?searchquery=STRING
+	 * @return
+	 */
 	def runSearch() {
 		def searchTerm = params.searchquery
 		

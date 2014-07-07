@@ -11,7 +11,6 @@ class Room extends Pin {
 	String number
 	String phone
 	String project
-
 	static hasMany = [users: User]
 	
     static constraints = {
@@ -20,6 +19,10 @@ class Room extends Pin {
 		phone nullable: true
 		project nullable: true
 		office nullable: true
+	}
+	
+	boolean hasProject() {
+		return (project != null && !project.isEmpty())
 	}
 	
 }

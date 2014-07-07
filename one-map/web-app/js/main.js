@@ -162,7 +162,7 @@ var Map = {
                 pins = canvas.getAttribute("data-pins");
 
             $.ajax({
-                url: "oneMap/gethotspots",
+                url: "oneMap/getHotspots",
                 type: 'GET',
                 data: {
                     floor: floorNumber,
@@ -293,7 +293,7 @@ var Map = {
 
         getHotspotInfo: function () {
             $.ajax({
-                url: 'oneMap/gethotspotbyid',
+                url: 'oneMap/getHotspot',
                 type: 'GET',
                 data: {
                     hotspotID: Map.interactions.activeHotspotID,
@@ -400,7 +400,7 @@ var Map = {
                 url: 'oneMap/createWarRoom',
                 type: 'GET',
                 data: {
-                    roomID: Map.interactions.activeHotspotID,
+                    hotspotID: Map.interactions.activeHotspotID,
                     projectName: name
                 },
                 success: function (object) {
@@ -741,7 +741,6 @@ var Map = {
             if (e.keyCode == 13) {
                 e.preventDefault();
                 Map.search.submit();
-
             }
         });
         $(document).on('click', '.collapse-results', function (e) {

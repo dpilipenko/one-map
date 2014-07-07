@@ -3,13 +3,12 @@ package com.rosetta.onemap
 
 class Pin {
 
-	String name
+	static belongsTo = [hotspot : Hotspot]
 	Date dateCreated
 	Date lastUpdated
-	Hotspot hotspot
+	
 	
     static constraints = {
-		name(blank: false)
     }
 	
 	static mapping = {
