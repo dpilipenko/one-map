@@ -47,10 +47,10 @@ class BootStrap {
 		////
 		//	17th Floor
 		////
-		def hp1 = new Hotspot( floor: "17", type: "room", polygon: "M327.276,443.556 337.835,489.156 414.755,470.916 403.835,425.436z").save(flush: true); //1
-		def hp2 = new Hotspot( floor: "17", type: "room", polygon: "M435.996,384.636 487.835,372.996 508.317,448.939 453.276,461.907z").save(flush: true); //2
-		def hp3 = new Hotspot( floor: "17", type: "room", polygon: "M450.996,300.876 481.295,348.391 429.755,360.516 428.196,365.436 389.076,370.116 368.316,321.516z").save(flush: true); //3
-		def hp4 = new Hotspot( floor: "17", type: "room", polygon: "M264.156,169.956 262.355,225.036 214.956,228.516 182.406,222.367 175.116,219.156 161.979,210.562 165.036,195.876 169.835,172.716 170.315,170.796z").save(flush: true); //4
+		def hp1 = new Hotspot( floor: "17", type: "room", polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", width: "87", height: "64", x: "388", y: "460").save(flush: true); //1
+		def hp2 = new Hotspot( floor: "17", type: "room", polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", width: "72", height: "89", x: "489", y: "420").save(flush: true); //2
+		def hp3 = new Hotspot( floor: "17", type: "room", polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", width: "113", height: "69", x: "442", y: "338").save(flush: true); //3
+		def hp4 = new Hotspot( floor: "17", type: "room", polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", width: "102", height: "59", x: "230", y: "202").save(flush: true); //4
 		new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", hotspot: hp1, office: cloffice).save(flush: true);
 		new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", hotspot: hp2, office: cloffice).save(flush: true);
 		new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", hotspot: hp3, office: cloffice).save(flush: true);
@@ -63,7 +63,7 @@ class BootStrap {
 		
 		////
 		//	14th Floor
-		////
+		/* 
 		new Hotspot( floor: "14", type: "room", polygon: "M7.48,112.42 29.68,112.42 29.68,164.56 7.48,163.533z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M54.82,111.16 77.5,111.279 77.5,147.88 54.82,147.88z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M78.481,111.16 103.24,110.92 102.76,148.12 78.481,147.88z").save(flush: true);
@@ -274,7 +274,7 @@ class BootStrap {
 		new Hotspot( floor: "11", type: "desk", polygon: "M316.12,451.72 325.12,489.76 272.08,502.359 259.36,449.56 272.44,446.44 283.24,444.16 285.838,453.939 292.72,452.56z").save(flush: true);
 		new Hotspot( floor: "11", type: "desk", polygon: "M3207.16,460.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239 c0,0-20.6-5.111-21.9-4.2L213.4,458.8L207.16,460.36z").save(flush: true);
 		new Hotspot( floor: "11", type: "desk", polygon: "M219.88,4.96 263.20,4.96 263.20,29.32 219.88,29.32 219.88,4.96z").save(flush: true);
-		
+		*/
 		
     }
     def destroy = {

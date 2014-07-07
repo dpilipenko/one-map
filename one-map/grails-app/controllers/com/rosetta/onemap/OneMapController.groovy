@@ -26,9 +26,17 @@ class OneMapController {
 	}
 	
 	def gethotspots () {
-		Map<String, String> hotspots = new HashMap<String, String>()
+		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
-			hotspots.put("h"+h.id, h.polygon)
+			Map<String, String> properties = new HashMap<String, String>()
+			properties.put("path", h.polygon)
+			properties.put("type", h.type)
+			properties.put("width", h.width)
+			properties.put("height", h.height)
+			properties.put("x", h.x)
+			properties.put("y", h.y)
+			
+			hotspots.put("h"+h.id, properties)
 		}		
 		render hotspots as JSON
 	}
