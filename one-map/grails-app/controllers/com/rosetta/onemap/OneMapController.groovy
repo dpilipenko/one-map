@@ -31,7 +31,7 @@ class OneMapController {
 	 * GET	/getHotspots?floor=#
 	 * @return { ...,"hID":" SVG Path ",...  }
 	 */
-	def gethotspots () {
+	def getHotspots () {
 		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
 			Map<String, String> properties = new HashMap<String, String>()
