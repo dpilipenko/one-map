@@ -693,10 +693,15 @@ var Map = {
                     j_password: password
                 },
                 success: function (data, textStatus, jqXHR) {
-                    $('.main').removeClass('login');
-                    setTimeout(function () {
-                        $('.ms-wrapper').addClass('ms-view-layers');
-                    }, 500); // TODO: verify this is the same amount of time for the login slide up animation
+                    //$('.main').removeClass('login');
+                    
+                    //setTimeout(function () {
+                        $('.header').removeClass('login');
+                        setTimeout(function () {
+                            $('.ms-wrapper').addClass('ms-view-layers');
+                        }, 500); // TODO: verify this is the same amount of time for the login slide up animation
+                    //}, 100);
+                    
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(errorThrown);
@@ -734,6 +739,14 @@ var Map = {
         $(document).on('click', '.logout', function () {
             // TODO: add actual call to logout?
             $('.header').addClass('login');
+        });
+
+        $(document).on('click', '.create-zone', function () {
+            $('.zone-panel').addClass('expanded');
+        });
+
+        $(document).on('click', '.zone-panel .cancel-zone', function () {
+            $('.zone-panel').removeClass('expanded');
         });
 
         // ----- search interactions -----

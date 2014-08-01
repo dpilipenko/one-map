@@ -21,15 +21,36 @@
    <div class="main">
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
-  <div class="main login">
+  <div class="main">
 </sec:ifNotLoggedIn>
   
 
   	<div class="fractals"></div>
 
-	   <div class="header">
+	   <div class="header login">
 
   		<div class="header-bg">
+
+          <div class="zone-panel">
+               <div class="form">
+                    <div class="fields">
+                         <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
+                         <input class="zone-name" type="text" placeholder="zone name">
+                         <input type="text" class="zone-color" placeholder="color (e.g. #00bce4)">
+                    </div>
+                    <div class="actions">
+                         <div class="number-selected"><span>2 seats</span> selected</div>
+                         <a href="#" class="save-zone">SAVE</a>
+                         <a href="#" class="cancel-zone">CANCEL</a>
+                    </div>
+               </div>
+               <div class="response">
+                    <span>Your zone was successfully created</span>
+                    <a href="#" class="okay">OK</a>
+               </div>
+               
+               
+          </div>
 
   			<div class="inner">
   				
@@ -43,17 +64,22 @@
 	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
               <input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
-					</g:formRemote>
+					  </g:formRemote>
 
-          <div class="logout">
+            <div class="logout">
               <g:link controller="logout">LOGOUT</g:link>
             </div>
 
-					<sec:ifLoggedIn>
+            <!-- if admin -->
+            
+              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+            <!-- end if admin -->
+
+					  <sec:ifLoggedIn>
 						
 	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
-	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;|</div>
-  					</sec:ifLoggedIn>
+	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+  					 </sec:ifLoggedIn>
   				</div>
 
   				
@@ -82,7 +108,7 @@
 
   	</div><!-- end header -->
 
-  	<div id="results" class="collapsed">
+  	<div id="results" class="cleared collapsed">
   		<div class="results-header">
   			<span>RESULTS</span>
   			<a href="#" class="collapse-results">
