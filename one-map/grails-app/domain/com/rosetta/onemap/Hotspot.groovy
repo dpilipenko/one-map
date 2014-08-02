@@ -9,11 +9,9 @@ class Hotspot {
 	Integer height
 	Integer x
 	Integer y 
-	Pin pin
 	
     static constraints = {
 		polygon blank: false
 		type inList: ["desk", "room"]
-		pin nullable: true, unique: true
     }
 }

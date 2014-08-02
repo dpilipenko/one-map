@@ -15,7 +15,6 @@ import org.codehaus.groovy.grails.web.json.JSONObject
 class OneMapController {
 
 	def springSecurityService
-	def pinService
 	def deskService
 	def roomService
 	
@@ -60,7 +59,61 @@ class OneMapController {
 		JSONObject res = new JSONObject()
 		User currUser = springSecurityService.currentUser
 		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID));
-		if (hotspot.pin == null) {
+		
+		if (hotspot instanceof Desk) {
+			Desk desk = hotspot
+			if (desk.user == null) {
+				res.put("floor", hotspot.floor)
+				res.put("type", hotspot.type)
+				res.put("claimed", false)
+				if (currUser != null) {
+					res.put("name", currUser.firstName+" "+currUser.lastName)
+					res.put("craft", currUser.craft)
+					res.put("level", currUser.level)
+					res.put("phone", currUser.phone)
+					res.put("email", currUser.username)
+				}
+			} else  if (desk.user != null) {
+				res.put("name", desk.user.firstName+" "+desk.user.lastName)
+				res.put("craft", desk.user.craft)
+				res.put("level", desk.user.level)
+				res.put("phone", desk.user.phone)
+				res.put("email", desk.user.username)
+				res.put("type", "desk")
+				
+				if (currUser == null) {
+					res.put("isOwn", false)
+					res.put("claimed", true)
+				} else {
+					res.put("isOwn", desk.user.id == currUser.id)
+					if (desk.user.id != currUser.id) {
+						res.put("claimed", true)
+					}  else {
+						res.put("claimed", false)
+					}
+				}
+			}
+		} else if (hotspot instanceof Room) {
+			Room room = hotspot
+			// found room at hotspot
+			res.put("name", room.name)
+			res.put("number", room.number)
+			res.put("phone", room.phone)
+			res.put("project", room.project)
+			res.put("type", "room")
+			JSONArray members = new JSONArray()
+			for (User u : room.users) {
+				JSONObject member = new JSONObject()
+				member.put("name", u.firstName+" "+u.lastName)
+				member.put("craft", u.craft)
+				member.put("level", u.level)
+				member.put("phone", u.phone)
+				member.put("email", u.username)
+				members.add(member)
+			}
+			res.put("members", members)
+		} else {
+			// unclaimed hotspot
 			res.put("floor", hotspot.floor)
 			res.put("type", hotspot.type)
 			res.put("claimed", false)
@@ -71,62 +124,7 @@ class OneMapController {
 				res.put("phone", currUser.phone)
 				res.put("email", currUser.username)
 			}
-		} else {
-			if (hotspot.pin instanceof Desk) {
-				Desk pin = hotspot.pin
-				if (pin.user == null) {
-					res.put("floor", hotspot.floor)
-					res.put("type", hotspot.type)
-					res.put("claimed", false)
-					if (currUser != null) {
-						res.put("name", currUser.firstName+" "+currUser.lastName)
-						res.put("craft", currUser.craft)
-						res.put("level", currUser.level)
-						res.put("phone", currUser.phone)
-						res.put("email", currUser.username)
-					}
-				} else  if (pin.user != null) {
-					res.put("name", pin.user.firstName+" "+pin.user.lastName)
-					res.put("craft", pin.user.craft)
-					res.put("level", pin.user.level)
-					res.put("phone", pin.user.phone)
-					res.put("email", pin.user.username)
-					res.put("type", "desk")
-					
-					if (currUser == null) {
-						res.put("isOwn", false)
-						res.put("claimed", true)
-					} else {
-						res.put("isOwn", pin.user.id == currUser.id)
-						if (pin.user.id != currUser.id) {
-							res.put("claimed", true)
-						}  else {
-							res.put("claimed", false)
-						}
-					}
-				}
-			} else if (hotspot.pin instanceof Room) {
-				Room pin = hotspot.pin
-				// found room at hotspot
-				res.put("name", pin.name)
-				res.put("number", pin.number)
-				res.put("phone", pin.phone)
-				res.put("project", pin.project)
-				res.put("type", "room")
-				JSONArray members = new JSONArray()
-				for (User u : pin.users) {
-					JSONObject member = new JSONObject()
-					member.put("name", u.firstName+" "+u.lastName)
-					member.put("craft", u.craft)
-					member.put("level", u.level)
-					member.put("phone", u.phone)
-					member.put("email", u.username)
-					members.add(member)
-				}
-				res.put("members", members)
-			}
 		}
-
 		render res as JSON
 	}
 	
@@ -144,26 +142,25 @@ class OneMapController {
 		if (currUser != null) {
 			
 			Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
-			if (hotspot.type.equals("desk") && hotspot.pin != null) {
-				// Attempting to claim an already claimed desk. Do not allow.
-				res.put("success", false)
-			} else if (hotspot.type.equals("room") && hotspot.pin == null) {
-				// Attempting to join non-existing room. Do not allow.
-				res.put("success", false)
-			} else {
-			
+
+			if (hotspot instanceof Room) {
+				Room room = hotspot
 				unclaimHotspot()
-				
-				if (hotspot.type.equals("desk") && hotspot.pin == null) {
-					Desk pin = deskService.createDeskAtHotspotWithUser(hotspot, currUser)
-							res.put("success", true)
-				} else if (hotspot.type.equals("room") && hotspot.pin != null) {
-					Room room = hotspot.pin
-							roomService.addUserToRoom(room, currUser)
-							res.put("success", true)
-				} 
+				room.addUser(currUser)
+				res.put("success", true)
+			} else if (hotspot instanceof Desk){
+				Desk desk = hotspot
+				if (desk.isEmpty()) {
+					unclaimHotspot()
+					desk.claim(currUser);
+					res.put("success", true);
+				} else {
+					res.put("success", false) // Desk is not empty
+				}
+			} else {
+				res.put("success", false) // Hotspot is not claimable
 			}
-			
+						
 			JSONObject userinformation = new JSONObject()
 			userinformation.put("name", currUser.firstName+" "+currUser.lastName)
 			userinformation.put("level", currUser.level)
@@ -205,22 +202,16 @@ class OneMapController {
 		
 		JSONObject res = new JSONObject()
 		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
-		if (hotspot.pin == null) {
-			// hotspot is empty. Do not allow.
-			res.put("success", false)
-		} else if (hotspot.pin != null && hotspot.type.equals("desk")) {
-			// hotspot is desk, not a room. Do not allow.
-			res.put("succes", false)
-		} else if (hotspot.pin != null && hotspot.pin instanceof Room) {
-			Room room = hotspot.pin
-			if (room.hasProject()) {
-				// room is already a war room. Do not allow.
-				res.put("success", false)
-			} else {
-			
-				room = roomService.initRoomForProject(room, projectName)
+		if (hotspot instanceof Room) {
+			Room room = hotspot
+			if ( ! room.hasProject() ) {
+				room.initWarRoom(projectName)
 				res.put("success", true)
+			} else {
+				res.put("success", false) // Room already has a Project
 			}
+		} else {
+			res.put("success", false) // Hotspot is not a Room
 		}
 		render res as JSON
 	}
@@ -237,16 +228,16 @@ class OneMapController {
 		
 		JSONObject res = new JSONObject()
 		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
-		if (hotspot.pin == null) {
-			// hotspot is empty. Do not allow.
-			res.put("success", false)
-		} else if (hotspot.pin != null && hotspot.type.equals("desk")) {
-			// hotspot is desk, not a room. Do not allow.
-			res.put("success", false)
-		} else if (hotspot.pin != null && hotspot.pin instanceof Room) {
-			Room room = hotspot.pin
-			roomService.closeRoomForProject(room);
-			res.put("success", true)
+		if (hotspot instanceof Room) {
+			Room room = hotspot
+			if (room.hasProject()) {
+				room.closeWarRoom()
+				res.put("success", true)
+			} else {
+				res.put("success", false) // Room is not a WarRoom
+			}
+		} else {
+			res.put("success", false) // Hotspot is not a Room
 		}
 		
 		render res as JSON
