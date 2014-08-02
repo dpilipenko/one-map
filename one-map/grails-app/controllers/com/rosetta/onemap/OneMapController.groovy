@@ -28,8 +28,8 @@ class OneMapController {
 
 	/**
 	 * GET	/getHotspots?floor=#
-	 * @return { ...,"hID":" SVG Path ",...  }
 	 */
+//	 * @return { ...,"hID":" SVG Path ",...  }
 	def getHotspots () {
 		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
@@ -271,19 +271,19 @@ class OneMapController {
 			
 			def desk = Desk.findByUser(user);
 			if (desk != null) {
-				hopstopId = "h"+desk.getHotspot().id
-				floor = desk.getHotspot().getFloor()
+				hopstopId = "h"+desk.id
+				floor = desk.getFloor()
 			}
 			
 			def c = Room.createCriteria()
-			def room = c.get {
+			Room room = c.get {
 			   users {
 				  idEq(user.id)
 			   }
 			}
 			if(room != null) {
-				hopstopId = "h"+room.getHotspot().id
-				floor = room.getHotspot().getFloor()
+				hopstopId = "h"+room.id
+				floor = room.getFloor()
 			}
 			
 			userObject.put("floor", floor);
@@ -309,8 +309,8 @@ class OneMapController {
 				roomObject.put("location", "");
 			}
 			
-			String hopstopId = "h"+room.getHotspot().id;
-			String floor = room.getHotspot().getFloor();
+			String hopstopId = "h"+room.id;
+			String floor = room.getFloor();
 
 			roomObject.put("floor", floor);
 			roomObject.put("hotspotId", hopstopId);
