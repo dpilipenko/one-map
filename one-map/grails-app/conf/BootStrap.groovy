@@ -47,13 +47,19 @@ class BootStrap {
 		////
 		//	17th Floor
 		////
-		new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", office: cloffice, floor: "17", polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", width: "87", height: "64", x: "388", y: "460").save(flush: true);
-		new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", office: cloffice, floor: "17", polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", width: "72", height: "89", x: "489", y: "420").save(flush: true);
-		new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", office: cloffice, floor: "17", polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", width: "113", height: "69", x: "442", y: "338").save(flush: true);
-		def elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", office: cloffice, floor: "17", polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", width: "102", height: "59", x: "230", y: "202").save(flush: true);
+		def hp1 = new Hotspot( floor: "17", type: "room", polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", width: "87", height: "64", x: "388", y: "460").save(flush: true); //1
+		def hp2 = new Hotspot( floor: "17", type: "room", polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", width: "72", height: "89", x: "489", y: "420").save(flush: true); //2
+		def hp3 = new Hotspot( floor: "17", type: "room", polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", width: "113", height: "69", x: "442", y: "338").save(flush: true); //3
+		def hp4 = new Hotspot( floor: "17", type: "room", polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", width: "102", height: "59", x: "230", y: "202").save(flush: true); //4
+		new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", hotspot: hp1, office: cloffice).save(flush: true);
+		new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", hotspot: hp2, office: cloffice).save(flush: true);
+		new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", hotspot: hp3, office: cloffice).save(flush: true);
+		def elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", hotspot: hp4, office: cloffice).save(flush: true);
 		
 		elvis.addToUsers(dan)
 		elvis.save(flush:true);
+		
+		
 		
 		////
 		//	14th Floor
@@ -74,8 +80,11 @@ class BootStrap {
 //		new Hotspot( floor: "14", type: "room", polygon: "M206.44,163.48 245.32,164.08 245.32,167.08 248.44,167.08 248.44,211.36z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M207.64,216.88 244.84,216.88 245.44,221.32 248.44,221.32 248.2,241.12 212.08,241.6z").save(flush: true);
 		
-		new Desk(user:liz, hotspot:hp7, name:"Lizs Desk", floor: "14", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush:true);
-		new Desk(user:becky, hotspot:hp8, name:"Beckys Desk", floor: "14", polygon: "M202.6,268.36 239.56,268.36 239.56,272.8 248.44,272.8 248.44,319.48 193.72,310.36 185.44,309.04 185.02,272.56 202.96,272.8z").save(flush:true);
+		def hp7 = new Hotspot( floor: "14", type: "desk", polygon: "M211.36,242.92 248.44,242.68 248.44,264.04 245.68,264.04 245.56,267.28 207.64,267.28z").save(flush: true);
+		new Desk(user:liz, hotspot:hp7, name:"Lizs Desk").save(flush:true);
+		
+		def hp8 = new Hotspot( floor: "14", type: "desk", polygon: "M202.6,268.36 239.56,268.36 239.56,272.8 248.44,272.8 248.44,319.48 193.72,310.36 185.44,309.04 185.02,272.56 202.96,272.8z").save(flush: true);
+		new Desk(user:becky, hotspot:hp8, name:"Beckys Desk").save(flush:true);
 		
 		new Hotspot( floor: "14", type: "room", polygon: "M283.96,359.44 275.8,323.68 297.52,318.64 306.76,358.6z").save(flush: true);
 		new Hotspot( floor: "14", type: "room", polygon: "M331.08,347.946 322.92,312.186 343.12,307.84 343.96,311.44 347.08,310.72 356.2,347.125 z").save(flush: true);
@@ -152,11 +161,13 @@ class BootStrap {
 		////
 		//	11th Floor
 		////
+		def hp5 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush: true);
+		new Desk(user:dave, hotspot:hp5, name:"Daves Desk").save(flush:true);
 		
-		new Desk(user:dave, hotspot:hp5, name:"Daves Desk", floor: "11", polygon: "M189.618,228.271l-9.731-5.594c0,0-3.673,6.887-0.494,12.104 c3.179,5.218,10.403,4.622,10.403,4.622L189.618,228.271z").save(flush:true);
-		new Desk(user:dima, hotspot:hp6, name:"Dimas Desk", floor: "11", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush:true);
+		def hp6 = new Hotspot( floor: "11", type: "desk", polygon: "M189.618,228.271l9.468-5.909c0,0-4.278-7.164-10.38-6.838 c-6.101,0.326-8.819,7.153-8.819,7.153L189.618,228.271z").save(flush: true);
+		new Desk(user:dima, hotspot:hp6, name:"Dimas Desk").save(flush:true);
 
-		new Hotspot( floor: "11", type: "desk", polygon: "M189.796,239.403l-0.178-11.133l9.468-5.909 c0,0,3.462,7.974,1.08,11.919C197.784,238.226,189.796,239.403,189.796,239.403z").save(flush: true);
+				new Hotspot( floor: "11", type: "desk", polygon: "M189.796,239.403l-0.178-11.133l9.468-5.909 c0,0,3.462,7.974,1.08,11.919C197.784,238.226,189.796,239.403,189.796,239.403z").save(flush: true);
 		new Hotspot( floor: "11", type: "desk", polygon: "M189.265,251.08l-9.84,5.399c0,0,3.97,6.72,10.08,6.72 s9.36-6.479,9.36-6.479L189.265,251.08z").save(flush: true);
 		new Hotspot( floor: "11", type: "desk", polygon: "M189.265,251.08l-0.12-11.16c0,0-8.345-0.074-11.24,5.307 c-2.896,5.38,1.521,11.253,1.521,11.253L189.265,251.08z").save(flush: true);
 		new Hotspot( floor: "11", type: "desk", polygon: "M189.435,194.845l0.304-11.221c0,0-7.805,0.037-10.888,5.312 s0.87,11.351,0.87,11.351L189.435,194.845z").save(flush: true);
