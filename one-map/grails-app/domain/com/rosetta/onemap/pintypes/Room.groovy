@@ -1,16 +1,17 @@
 package com.rosetta.onemap.pintypes
 
+import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.Office
-import com.rosetta.onemap.Pin
 import com.rosetta.onemap.User
 
-class Room extends Pin {
-
+class Room extends Hotspot {
+	
 	Office office
 	String name
 	String number
 	String phone
 	String project
+	String type = "room"
 	static hasMany = [users: User]
 	
     static constraints = {
