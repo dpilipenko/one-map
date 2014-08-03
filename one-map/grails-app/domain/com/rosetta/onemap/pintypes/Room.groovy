@@ -5,6 +5,7 @@ import com.rosetta.onemap.Office
 import com.rosetta.onemap.User
 
 class Room extends Hotspot {
+	String assignedSeatId
 	Office office
 	String name
 	String number

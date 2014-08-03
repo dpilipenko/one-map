@@ -34,6 +34,7 @@ class OneMapController {
 		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
 			Map<String, String> properties = new HashMap<String, String>()
+			properties.put("assignedSeatId", h.assignedSeatId)
 			properties.put("path", h.polygon)
 			properties.put("type", h.type)
 			properties.put("width", h.width)
@@ -62,6 +63,7 @@ class OneMapController {
 		
 		if (hotspot instanceof Desk) {
 			Desk desk = hotspot
+			res.put("assignedSeatId", desk.assignedSeatId)
 			if (desk.user == null) {
 				res.put("floor", hotspot.floor)
 				res.put("type", hotspot.type)
@@ -96,6 +98,7 @@ class OneMapController {
 		} else if (hotspot instanceof Room) {
 			Room room = hotspot
 			// found room at hotspot
+			res.put("assignedSeatId", room.assignedSeatId)
 			res.put("name", room.name)
 			res.put("number", room.number)
 			res.put("phone", room.phone)
@@ -296,6 +299,7 @@ class OneMapController {
 			or {
 				ilike('name', '%'+searchTerm+'%');
 				like('number', '%'+searchTerm+'%');
+				ilike('assignedSeatId', '%'+searchTerm+'%');
 			}
 		}
 		for(Room room : roomResults) {

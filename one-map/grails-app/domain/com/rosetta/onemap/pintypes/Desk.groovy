@@ -5,6 +5,7 @@ import com.rosetta.onemap.User
 
 class Desk extends Hotspot {
 	
+	String assignedSeatId
 	User user
 	/* Overriding Variables */
 	String type = "desk"
