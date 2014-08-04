@@ -37,8 +37,6 @@ class OneMapController {
 			properties.put("assignedSeatId", h.assignedSeatId)
 			properties.put("path", h.polygon)
 			properties.put("type", h.type)
-			properties.put("width", h.width)
-			properties.put("height", h.height)
 			properties.put("x", h.x)
 			properties.put("y", h.y)
 			
