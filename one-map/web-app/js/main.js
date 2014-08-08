@@ -5,6 +5,8 @@ String.prototype.format = function () {
     });
 };
 
+//test
+
 var Map = {
     setup: {
         zoomMultiplier: 0.1,
