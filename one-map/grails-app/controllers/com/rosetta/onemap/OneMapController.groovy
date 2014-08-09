@@ -39,7 +39,7 @@ class OneMapController {
 			properties.put("type", h.type)
 			properties.put("x", h.x)
 			properties.put("y", h.y)
-			
+			properties.put("zone", h.zone)
 			hotspots.put("h"+h.id, properties)
 		}		
 		render hotspots as JSON
