@@ -1,5 +1,5 @@
 <%@ page import="com.rosetta.onemap.User" %>
-<!doctype html public>
+<!doctype html>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
@@ -27,7 +27,7 @@
 
   	<div class="fractals"></div>
 
-	   <div class="header login">
+	   <div class="header login"><!-- add login here -->
 
   		<div class="header-bg">
 
@@ -45,8 +45,8 @@
                     </div>
                </div>
                <div class="response">
-                    <span>Your zone was successfully created</span>
                     <a href="#" class="okay">OK</a>
+                    <div>Your zone was successfully created</div>
                </div>
                
                
@@ -72,7 +72,14 @@
 
             <!-- if admin -->
             
-              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+                <div class="generic-popup centered notch-top" id="create-zone-popup">
+                      <div class="inner">
+                        Select a floor first
+                        <div class="notch"></div>
+                      </div>
+                </div>
+              </div>
             <!-- end if admin -->
 
 					  <sec:ifLoggedIn>

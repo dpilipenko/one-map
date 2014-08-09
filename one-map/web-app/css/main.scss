@@ -268,6 +268,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 		.response {
 			display: none;
+			padding-top: 14px;
+
+			div {
+				color: #252525;
+				font-size: 13px;
+				font-family: 'robotolight',Arial;
+				margin: 8px 25px 0 0;
+				float: right;
+			}
+
+			.okay {
+				background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+			    border: 1px solid #fff;
+			    color: #fff;
+			    cursor: pointer;
+			    display: block;
+			    float: right;
+			    font-family: 'satelliteregular',Arial;
+			    font-size: 15px;
+			    height: 28px;
+			    line-height: 30px;
+			    text-align: center;
+			    text-decoration: none;
+			    width: 80px;
+
+				&:hover {
+					background: rgba(255,255,255,0.2);
+				}
+			}
+			
 		}
 
 		.fields {
@@ -292,7 +322,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 			.zone-name {
 				margin-right: 25px;
-			    width: 240px;
+			    width: 220px;
 			}
 
 		}
@@ -404,8 +434,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		line-height: 37px;
 	}
 
-	.create-zone a {
-		color: $darkgrey;
+	.create-zone {
+		position: relative;
+		a {
+			color: $darkgrey;
+		}
 	}
 
 	.logout a {
@@ -884,7 +917,7 @@ transition: margin-left 0.4s;
 	}
 }
 
-#popup {
+#popup, .generic-popup {
     border-radius: 10px;
     display: none;
     right: 10%;
@@ -1050,6 +1083,72 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     }
 
 }
+
+.generic-popup {
+	width: auto;
+	height: auto;
+	min-height: 0;
+	border-radius: 4px;
+
+	.inner {
+		width: auto;
+		height: auto;
+		min-height: 0;
+	}
+
+	&.centered {
+		text-align: center;
+	}
+
+	&.notch-top {
+
+		.notch {
+			bottom: auto;
+			top: -10px;
+			margin-left: -15px;
+			border-bottom: 10px solid #00bce4;
+		    border-left: 14px solid transparent;
+		    border-right: 14px solid transparent;
+		    border-top: none;
+		}
+
+		.notch:after {
+		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
+		    content: "";
+		    height: 9px;
+		    position: absolute;
+		    left: -15px;
+		    top: 10px;
+		    transform: rotate(149deg);
+		    width: 21px;
+		    z-index: -1;
+		}
+
+		.notch:before {
+		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
+		    content: "";
+		    height: 9px;
+		    left: -3px;
+		    position: absolute;
+		    top: 12px;
+		    transform: rotate(-147deg);
+		    width: 21px;
+		    z-index: -1;
+		}	
+	}
+}
+
+#create-zone-popup {
+	box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.5);
+	right: 31px;
+	top: 40px;
+
+	.inner {
+		font-size: 12px;
+		line-height: normal;
+		padding: 7px 10px;
+	}
+}
 /* --- Slider
 -------------------------- */
 
@@ -1108,7 +1207,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 ===================================================
 --- */
 
-$height: 800px;
+$height: 900px;
 $width: 1024px;
 $screenwidth: 1024px;
 $screenheight: 800px;

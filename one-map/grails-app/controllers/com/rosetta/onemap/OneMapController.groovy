@@ -322,4 +322,53 @@ class OneMapController {
 		
 		render searchResults as JSON
 	}
+
+	/**
+	 * GET /getAllZones
+	 */
+	def getAllZones() {
+		JSONArray jsons = new JSONArray()
+		for (Zone zone: Zone.all) {
+			jsons.add(zone.toJSON())
+		}
+		render jsons as JSON
+	}
+	
+	/**
+	 * GET /getFreeZoneSeats?floor=#
+	 */
+	def getFreeZoneSeats() {
+		// TODO Update this with proper logic. This is hard coding values for Liz to work with.
+		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
+		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
+			Map<String, String> properties = new HashMap<String, String>()
+			properties.put("assignedSeatId", h.assignedSeatId)
+			properties.put("path", h.polygon)
+			properties.put("type", h.type)
+			properties.put("zone", h.zone?.toJSON())
+			properties.put("x", h.x)
+			properties.put("y", h.y)
+			hotspots.put("h"+h.id, properties)
+		}
+		render hotspots as JSON
+	}
+	
+	/**
+	 * GET /createZone?zoneName=STRING&color=STRING&seatID=STRING
+	 */
+	def createZone() {
+		JSONObject success = new JSONObject()
+		success.put("success", true)
+		render success as JSON
+	}
+	
+	/**
+	 * GET /updateZone?zoneID=#&seatID=STRING
+	 */
+	def updateZone() {
+		JSONObject success = new JSONObject()
+		success.put("success", true)
+		render success as JSON
+	}
+
 }

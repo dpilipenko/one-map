@@ -1,6 +1,7 @@
 import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.User
 import com.rosetta.onemap.Office
+import com.rosetta.onemap.Zone
 import com.rosetta.onemap.pintypes.Room
 import com.rosetta.onemap.pintypes.Desk
 
@@ -43,6 +44,12 @@ class BootStrap {
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "CEO").save(flush: true);
 
+		////
+		//  Zones
+		////
+		new Zone(name: "Free Zone", color: "#66CCFF").save(flush:true)
+		new Zone(name: "AHA", color: "#880088").save(flush:true)
+		new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
 		
 		////
 		//	17th Floor
