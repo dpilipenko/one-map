@@ -7,7 +7,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-forkConfig = [maxMemory: 2048, minMemory: 64, debug: true, maxPerm: 512]
+forkConfig = [maxMemory: 2048, minMemory: 64, debug: false, maxPerm: 512]
 grails.project.fork = [
   test: forkConfig, // configure settings for the test-app JVM
   run: forkConfig, // configure settings for the run-app JVM
