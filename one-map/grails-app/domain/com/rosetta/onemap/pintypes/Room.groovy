@@ -3,6 +3,7 @@ package com.rosetta.onemap.pintypes
 import com.rosetta.onemap.Hotspot
 import com.rosetta.onemap.Office
 import com.rosetta.onemap.User
+import com.rosetta.onemap.Zone
 
 class Room extends Hotspot {
 	String assignedSeatId
@@ -13,6 +14,8 @@ class Room extends Hotspot {
 	String project
 	/* Overriding Variables */
 	String type = "room"
+	Zone zone
+	
 	static hasMany = [users: User]
 	
     static constraints = {
@@ -21,6 +24,7 @@ class Room extends Hotspot {
 		phone nullable: true
 		project nullable: true
 		office nullable: true
+		zone nullable: true
 	}
 	
 	boolean hasProject() {

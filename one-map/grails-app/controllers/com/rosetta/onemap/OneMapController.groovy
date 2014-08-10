@@ -39,7 +39,7 @@ class OneMapController {
 			properties.put("type", h.type)
 			properties.put("x", h.x)
 			properties.put("y", h.y)
-			
+			properties.put("zone", h.zone)
 			hotspots.put("h"+h.id, properties)
 		}		
 		render hotspots as JSON
@@ -62,6 +62,7 @@ class OneMapController {
 		if (hotspot instanceof Desk) {
 			Desk desk = hotspot
 			res.put("assignedSeatId", desk.assignedSeatId)
+			res.put("zone", desk.zone)
 			if (desk.user == null) {
 				res.put("floor", hotspot.floor)
 				res.put("type", hotspot.type)
@@ -102,6 +103,7 @@ class OneMapController {
 			res.put("phone", room.phone)
 			res.put("project", room.project)
 			res.put("type", "room")
+			res.put("zone", room.zone)
 			JSONArray members = new JSONArray()
 			for (User u : room.users) {
 				JSONObject member = new JSONObject()
@@ -118,6 +120,7 @@ class OneMapController {
 			res.put("floor", hotspot.floor)
 			res.put("type", hotspot.type)
 			res.put("claimed", false)
+			res.put("zone", hotspot.zone)
 			if (currUser != null) {
 				res.put("name", currUser.firstName+" "+currUser.lastName)
 				res.put("craft", currUser.craft)
@@ -338,9 +341,8 @@ class OneMapController {
 	 * GET /getFreeZoneSeats?floor=#
 	 */
 	def getFreeZoneSeats() {
-		// TODO Update this with proper logic. This is hard coding values for Liz to work with.
 		Map<String, Map<String, String>> hotspots = new HashMap<String, HashMap<String, String>>()
-		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
+		for (Hotspot h : Hotspot.findAllByZone(Zone.getFreeZone())) {
 			Map<String, String> properties = new HashMap<String, String>()
 			properties.put("assignedSeatId", h.assignedSeatId)
 			properties.put("path", h.polygon)
@@ -354,21 +356,60 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET /createZone?zoneName=STRING&color=STRING&seatID=STRING
+	 * GET /createZone?zoneName=STRING&color=STRING&hotspotID=STRING
+	 * Warning: `color` should be 808080 not #808080
 	 */
 	def createZone() {
-		JSONObject success = new JSONObject()
-		success.put("success", true)
-		render success as JSON
+		boolean success
+		boolean validInput = (params.zoneName != null && params.color != null && params.hotspotID != null )
+		if (validInput) {
+			Zone zone = new Zone(name: params.zoneName, color: "#"+params.color).save(flush:true)
+			String[] hotspotIDs = params.hotspotID.split(",")
+			for (String hotspotID : hotspotIDs) {
+				if (hotspotID.isNumber()) {
+					Hotspot hotspot = Hotspot.findById(hotspotID)
+					if (hotspot != null) {
+						hotspot.zone = zone
+						hotspot.save(flush:true)
+						println "found one!"
+						success = true
+					} else {
+						println "found none"
+						success = false
+					}
+				}
+			}
+			success = true
+		} else {
+			success = false
+		}
+		JSONObject res = new JSONObject()
+		res.put("success", success)
+		render res as JSON
 	}
 	
 	/**
-	 * GET /updateZone?zoneID=#&seatID=STRING
+	 * GET /updateZone?hotspotID=#&zoneID=&
 	 */
 	def updateZone() {
-		JSONObject success = new JSONObject()
-		success.put("success", true)
-		render success as JSON
+		boolean success
+		boolean validInput = (params.zoneID != null && params.zoneID.isNumber() && params.hotspotID != null && params.hotspotID.isNumber()) 
+		if (validInput) {
+			Zone zone = Zone.findById(params.zoneID)
+			Hotspot hotspot = Hotspot.findById(params.hotspotID)
+			if (hotspot != null && zone != null) {
+				hotspot.zone = zone
+				hotspot.save(flush:true)
+				success = true
+			} else {
+				success = false
+			}
+		} else {
+			success = false
+		}
+		JSONObject res = new JSONObject()
+		res.put("success", success)
+		render res as JSON
 	}
 
 }
