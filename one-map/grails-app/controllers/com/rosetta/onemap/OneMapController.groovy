@@ -89,15 +89,15 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET /createZone?zoneName=STRING&color=STRING&hotspotID=STRING
+	 * GET /createZone?zoneName=STRING&zoneColor=STRING&hotspotIDs=h#
 	 * Warning: `color` should be 808080 not #808080
 	 */
 	JSONObject createZone() {
 		boolean success
-		boolean validInput = (params.zoneName != null && params.color != null && params.hotspotID != null )
+		boolean validInput = (params.zoneName != null && params.zoneColor != null && params.hotspotID != null )
 		if (validInput) {
 			Zone zone = new Zone(name: params.zoneName, color: "#"+params.color).save(flush:true)
-			String[] hotspotIDs = params.hotspotID.split(",")
+			String[] hotspotIDs = params.hotspotIDs.split(",")
 			for (String hotspotID : hotspotIDs) {
 				hotspotID = cleanseHotspotIdFromInput(params)
 				if (hotspotID.isNumber()) {
@@ -126,9 +126,9 @@ class OneMapController {
 	}
 	
 	/**
-	 * GET /getFreeZoneSeats?floor=#
+	 * GET /getFreeZoneHotspots?floor=#
 	 */
-	JSONObject getFreeZoneSeats() {
+	JSONObject getFreeZoneHotspots() {
 		JSONObject hotspots = new JSONObject()
 		for (Hotspot h : Hotspot.findAllByZone(Zone.getFreeZone())) {
 			printHotspot(h, hotspots)
@@ -141,17 +141,14 @@ class OneMapController {
 	 * @return
 	 */
 	JSONObject getHotspot () {
-		String hotspotID = cleanseHotspotIdFromInput(params.hotspotID)
-		JSONObject res = new JSONObject()
 		User currentUser = springSecurityService.currentUser
-		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID));
-		
+		Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)));
+		JSONObject res = new JSONObject()
 		if (hotspot instanceof Desk) {
 			printDeskHotspot((Desk)hotspot, res, currentUser)
 		} else if (hotspot instanceof Room) {
 			printRoomHotspot((Room)hotspot, res)
 		} else {
-			// unclaimed hotspot
 			printUnclaimedHotspot(res, hotspot, currentUser)
 		}
 		render res as JSON
@@ -272,8 +269,7 @@ class OneMapController {
 		boolean success
 		boolean validInput = (params.zoneID != null && params.zoneID.isNumber() && params.hotspotID != null && params.hotspotID.isNumber()) 
 		if (validInput) {
-			String hotspotID = cleanseHotspotIdFromInput(params.hotspotID)
-			Hotspot hotspot = Hotspot.findById(hotspotID)
+			Hotspot hotspot = Hotspot.findById(cleanseHotspotIdFromInput(params.hotspotID))
 			Zone zone = Zone.findById(params.zoneID)
 			if (zone != null && hotspot != null) {
 				success = updateZoneForHotspot(zone, hotspot)
@@ -318,6 +314,7 @@ class OneMapController {
 	}
 	
 	private void printDeskHotspot(Desk desk, JSONObject container, User currentUser) {
+		container.put("zone", desk.zone)
 		container.put("assignedSeatId", desk.assignedSeatId)
 		container.put("zone", desk.zone)
 		if (desk.user == null) {
