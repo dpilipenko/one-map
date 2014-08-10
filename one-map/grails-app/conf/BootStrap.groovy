@@ -25,7 +25,7 @@ class BootStrap {
 		////
 		//	Users
 		////
-		def testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "test", enabled: true,
+		def testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
 			level: "Associate", craft: "Quality Assurance").save(flush:true);
 		def dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
