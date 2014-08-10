@@ -366,6 +366,9 @@ class OneMapController {
 			Zone zone = new Zone(name: params.zoneName, color: "#"+params.color).save(flush:true)
 			String[] hotspotIDs = params.hotspotID.split(",")
 			for (String hotspotID : hotspotIDs) {
+				if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+					hotspotID = hotspotID.substring(1, hotspotID.length())
+				}
 				if (hotspotID.isNumber()) {
 					Hotspot hotspot = Hotspot.findById(hotspotID)
 					if (hotspot != null) {
@@ -395,8 +398,12 @@ class OneMapController {
 		boolean success
 		boolean validInput = (params.zoneID != null && params.zoneID.isNumber() && params.hotspotID != null && params.hotspotID.isNumber()) 
 		if (validInput) {
+			String hotspotID = params.hotspotID
+			if (hotspotID.startsWith("h")) { // we prefix IDs with 'h' in the UI
+				hotspotID = hotspotID.substring(1, hotspotID.length())
+			}
+			Hotspot hotspot = Hotspot.findById(hotspotID)
 			Zone zone = Zone.findById(params.zoneID)
-			Hotspot hotspot = Hotspot.findById(params.hotspotID)
 			if (hotspot != null && zone != null) {
 				hotspot.zone = zone
 				hotspot.save(flush:true)
