@@ -25,6 +25,8 @@ class OneMapController {
 		[postUrl: postUrl]
 	}
 	
+	/* Public API begin */
+	
 	/**
 	 * GET	/claimHotspot?hotspotID=h#
 	 * @return {"success":boolean, "userinformation":{"name":String, "level":String, "craft":String, "phone":String, "email":String}}
@@ -32,6 +34,7 @@ class OneMapController {
 	JSONObject claimHotspot() {
 		boolean success
 		User currentUser = springSecurityService.currentUser
+		JSONObject res = new JSONObject()
 		if (currentUser != null) {
 			Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)))
 			if (hotspot instanceof Room) {
@@ -42,25 +45,21 @@ class OneMapController {
 			} else {
 				success = false // Hotspot is not claimable
 			}
-			res.put("userinformation", printUser(currentUser))
+			JSONObject userInformation = new JSONObject()
+			printUser(userInformation, currentUser)
+			res.put("userinformation", userInformation)
 		}
-		JSONObject res = new JSONObject()
 		res.put("success", success)
 		render res as JSON
 	}
-
-	
-
-	
 	
 	/**
 	 * GET	/closeWarRoom?hotspotID=h#
 	 * @return {"success":boolean}
 	 */
 	JSONObject closeWarRoom() {
-		String hotspotID = cleanseHotspotIdFromInput(params.hotspotID)
 		boolean success
-		Hotspot hotspot = Hotspot.get(Long.parseLong(hotspotID))
+		Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)))
 		if (hotspot instanceof Room) {
 			success = removeProjectFromRoom((Room)hotspot)
 		} else {
@@ -71,16 +70,14 @@ class OneMapController {
 		render res as JSON
 	}
 
-	
-
 	/**
 	 * GET	/createWarRoom?hotspotID=h#&projectName=STRING
 	 * @return {"success":boolean}
 	 */
 	JSONObject createWarRoom() {
+		boolean success
 		String projectName = params.projectName
 		Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)))
-		boolean success
 		if (hotspot instanceof Room) {
 			success = setProjectToRoom((Room)hotspot, projectName)
 		} else {
@@ -90,8 +87,6 @@ class OneMapController {
 		res.put("success", success)
 		render res as JSON
 	}
-
-	
 	
 	/**
 	 * GET /createZone?zoneName=STRING&color=STRING&hotspotID=STRING
@@ -118,8 +113,6 @@ class OneMapController {
 		res.put("success", success)
 		render res as JSON
 	}
-	
-	
 	
 	/**
 	 * GET /getAllZones
@@ -166,10 +159,11 @@ class OneMapController {
 	
 	/**
 	 * GET	/getHotspots?floor=#
+	 * @return { ...,"hID":" SVG Path ",...  }
 	 */
-//	 * @return { ...,"hID":" SVG Path ",...  }
 	JSONObject getHotspots () {
 		JSONObject hotspots = new JSONObject()
+		
 		for (Hotspot h : Hotspot.findAllByFloor(params.floor)) {
 			printHotspot(h, hotspots)
 		}		
@@ -271,10 +265,6 @@ class OneMapController {
 		render res as JSON
 	}
 	
-	
-	
-	
-	
 	/**
 	 * GET /updateZone?hotspotID=#&zoneID=&
 	 */
@@ -297,8 +287,10 @@ class OneMapController {
 		res.put("success", success)
 		render res as JSON
 	}
-
+	/* Public API end */
 	
+	
+	/* Helper Methods begin */
 	
 	/**
 	 * Removes user from all current hotspots. Adds user to room.
@@ -325,43 +317,35 @@ class OneMapController {
 		return hotspotID
 	}
 	
-	private void printDeskHotspot(Desk desk, JSONObject res, User currentUser) {
-		res.put("assignedSeatId", desk.assignedSeatId)
-		res.put("zone", desk.zone)
+	private void printDeskHotspot(Desk desk, JSONObject container, User currentUser) {
+		container.put("assignedSeatId", desk.assignedSeatId)
+		container.put("zone", desk.zone)
 		if (desk.user == null) {
-			res.put("floor", hotspot.floor)
-			res.put("type", hotspot.type)
-			res.put("claimed", false)
+			container.put("floor", hotspot.floor)
+			container.put("type", hotspot.type)
+			container.put("claimed", false)
 			if (currentUser != null) {
-				res.put("name", currentUser.firstName+" "+currentUser.lastName)
-				res.put("craft", currentUser.craft)
-				res.put("level", currentUser.level)
-				res.put("phone", currentUser.phone)
-				res.put("email", currentUser.username)
+				printUser(container, currentUser)
 			}
 		} else  if (desk.user != null) {
-			res.put("name", desk.user.firstName+" "+desk.user.lastName)
-			res.put("craft", desk.user.craft)
-			res.put("level", desk.user.level)
-			res.put("phone", desk.user.phone)
-			res.put("email", desk.user.username)
-			res.put("type", "desk")
+			printUser(container, desk.user)
+			container.put("type", "desk")
 
 			if (currentUser == null) {
-				res.put("isOwn", false)
-				res.put("claimed", true)
+				container.put("isOwn", false)
+				container.put("claimed", true)
 			} else {
-				res.put("isOwn", desk.user.id == currentUser.id)
+				container.put("isOwn", desk.user.id == currentUser.id)
 				if (desk.user.id != currentUser.id) {
-					res.put("claimed", true)
+					container.put("claimed", true)
 				}  else {
-					res.put("claimed", false)
+					container.put("claimed", false)
 				}
 			}
 		}
 	}
 	
-	private void printHotspot(Hotspot hotspot, JSONObject hotspotsJSON) {
+	private void printHotspot(Hotspot hotspot, JSONObject container) {
 		JSONObject properties = new JSONObject()
 		properties.put("assignedSeatId", hotspot.assignedSeatId)
 		properties.put("path", hotspot.polygon)
@@ -369,57 +353,47 @@ class OneMapController {
 		properties.put("x", hotspot.x)
 		properties.put("y", hotspot.y)
 		properties.put("zone", hotspot.zone)
-		hotspotsJSON.put("h"+hotspot.id, properties)
+		container.put("h"+hotspot.id, properties)
 	}
 	
-	private void printRoomHotspot(Room room, JSONObject res) {
-		res.put("assignedSeatId", room.assignedSeatId)
-		res.put("name", room.name)
-		res.put("number", room.number)
-		res.put("phone", room.phone)
-		res.put("project", room.project)
-		res.put("type", "room")
-		res.put("zone", room.zone)
+	private void printRoomHotspot(Room room, JSONObject container) {
+		container.put("assignedSeatId", room.assignedSeatId)
+		container.put("name", room.name)
+		container.put("number", room.number)
+		container.put("phone", room.phone)
+		container.put("project", room.project)
+		container.put("type", "room")
+		container.put("zone", room.zone)
 		JSONArray members = new JSONArray()
 		for (User u : room.users) {
 			JSONObject member = new JSONObject()
-			member.put("name", u.firstName+" "+u.lastName)
-			member.put("craft", u.craft)
-			member.put("level", u.level)
-			member.put("phone", u.phone)
-			member.put("email", u.username)
+			printUser(member, u)
 			members.add(member)
 		}
-		res.put("members", members)
+		container.put("members", members)
 	}
 	
-	private void printUnclaimedHotspot(JSONObject res, Hotspot hotspot, User currentUser) {
-		res.put("floor", hotspot.floor)
-		res.put("type", hotspot.type)
-		res.put("claimed", false)
-		res.put("zone", hotspot.zone)
+	private void printUnclaimedHotspot(JSONObject container, Hotspot hotspot, User currentUser) {
+		container.put("floor", hotspot.floor)
+		container.put("type", hotspot.type)
+		container.put("claimed", false)
+		container.put("zone", hotspot.zone)
 		if (currentUser != null) {
-			res.put("name", currentUser.firstName+" "+currentUser.lastName)
-			res.put("craft", currentUser.craft)
-			res.put("level", currentUser.level)
-			res.put("phone", currentUser.phone)
-			res.put("email", currentUser.username)
+			printUser(container, currentUser)
 		}
 	}
-	
-	private JSONObject printUser(User currentUser) {
-		JSONObject userinformation = new JSONObject()
-		userinformation.put("name", currentUser.firstName+" "+currentUser.lastName)
-		userinformation.put("level", currentUser.level)
-		userinformation.put("craft", currentUser.craft)
-		userinformation.put("phone", currentUser.phone)
-		userinformation.put("email", currentUser.username)
-		return userinformation
+
+	private printUser(JSONObject container, User user) {
+		container.put("name", user.firstName+" "+user.lastName)
+		container.put("level", user.level)
+		container.put("craft", user.craft)
+		container.put("phone", user.phone)
+		container.put("email", user.username)
 	}
 	
 	/**
 	 * Removes project information from room, making the room empty
-	 * @param room The room to which the project informatino is cleared
+	 * @param room The room to which the project information is cleared
 	 * @return True if successfully executed
 	 */
 	private boolean removeProjectFromRoom(Room room) {
@@ -494,4 +468,5 @@ class OneMapController {
 		deskService.unclaimAllForUser(user)
 		roomService.unclaimAllForUser(user)
 	}
+	/* Helper Methods end */
 }
