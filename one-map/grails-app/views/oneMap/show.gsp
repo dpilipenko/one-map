@@ -1,5 +1,5 @@
 <%@ page import="com.rosetta.onemap.User" %>
-<!doctype html public>
+<!doctype html>
 <!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
@@ -48,7 +48,7 @@
 
   	<div class="fractals"></div>
 
-	   <div class="header login">
+	   <div class="header login"><!-- add login here -->
 
   		<div class="header-bg">
 

@@ -710,6 +710,12 @@ var Map = {
         }
     },
     init: function () {
+        //layout setup
+        $('#offices').height($(window).height() - 95 - 20 - 70);
+        $(window).resize(function(){
+            $('#offices').height($(window).height() - 95 - 20 - 70);
+        });
+
         //  alert('page refreshed');
         // ----- set up initial page view -----
         Map.setup.loadPins(Map.setup.pinSrcs);
@@ -740,6 +746,7 @@ var Map = {
             // TODO: add actual call to logout?
             $('.header').addClass('login');
         });
+
 
         // ----- admin events -----
         $(document).on('click', '.create-zone a', function () {
