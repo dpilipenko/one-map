@@ -8,3 +8,23 @@ one-map/.classpath
 *.scssc
 
 *.scssc
+one-map/web-app/css/errors.css
+one-map/web-app/css/main.scss.orig
+one-map/web-app/css/mobile.css
+one-map/web-app/images/apple-touch-icon-retina.png
+one-map/web-app/images/apple-touch-icon.png
+one-map/web-app/images/favicon.ico
+one-map/web-app/images/grails_logo.png
+one-map/web-app/images/spinner.gif
+one-map/web-app/images/springsource.png
+one-map/web-app/images/skin/database_add.png
+one-map/web-app/images/skin/database_delete.png
+one-map/web-app/images/skin/database_edit.png
+one-map/web-app/images/skin/database_save.png
+one-map/web-app/images/skin/database_table.png
+one-map/web-app/images/skin/exclamation.png
+one-map/web-app/images/skin/house.png
+one-map/web-app/images/skin/information.png
+one-map/web-app/images/skin/shadow.jpg
+one-map/web-app/images/skin/sorted_asc.gif
+one-map/web-app/images/skin/sorted_desc.gif
