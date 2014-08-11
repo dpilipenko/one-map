@@ -268,6 +268,36 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 		.response {
 			display: none;
+			padding-top: 14px;
+
+			div {
+				color: #252525;
+				font-size: 13px;
+				font-family: 'robotolight',Arial;
+				margin: 8px 25px 0 0;
+				float: right;
+			}
+
+			.okay {
+				background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+			    border: 1px solid #fff;
+			    color: #fff;
+			    cursor: pointer;
+			    display: block;
+			    float: right;
+			    font-family: 'satelliteregular',Arial;
+			    font-size: 15px;
+			    height: 28px;
+			    line-height: 30px;
+			    text-align: center;
+			    text-decoration: none;
+			    width: 80px;
+
+				&:hover {
+					background: rgba(255,255,255,0.2);
+				}
+			}
+			
 		}
 
 		.fields {
@@ -404,8 +434,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		line-height: 37px;
 	}
 
-	.create-zone a {
-		color: $darkgrey;
+	.create-zone {
+		position: relative;
+		a {
+			color: $darkgrey;
+		}
 	}
 
 	.logout a {
@@ -884,7 +917,7 @@ transition: margin-left 0.4s;
 	}
 }
 
-#popup {
+#popup, .generic-popup {
     border-radius: 10px;
     display: none;
     right: 10%;
@@ -1048,8 +1081,74 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			}
     	}
     }
-
 }
+
+.generic-popup {
+	width: auto;
+	height: auto;
+	min-height: 0;
+	border-radius: 4px;
+
+	.inner {
+		width: auto;
+		height: auto;
+		min-height: 0;
+	}
+
+	&.centered {
+		text-align: center;
+	}
+
+	&.notch-top {
+
+		.notch {
+			bottom: auto;
+			top: -10px;
+			margin-left: -15px;
+			border-bottom: 10px solid #00bce4;
+		    border-left: 14px solid transparent;
+		    border-right: 14px solid transparent;
+		    border-top: none;
+		}
+
+		.notch:after {
+		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
+		    content: "";
+		    height: 9px;
+		    position: absolute;
+		    left: -15px;
+		    top: 10px;
+		    transform: rotate(149deg);
+		    width: 21px;
+		    z-index: -1;
+		}
+
+		.notch:before {
+		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
+		    content: "";
+		    height: 9px;
+		    left: -3px;
+		    position: absolute;
+		    top: 12px;
+		    transform: rotate(-147deg);
+		    width: 21px;
+		    z-index: -1;
+		}	
+	}
+}
+
+#create-zone-popup {
+	box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.5);
+	right: 31px;
+	top: 40px;
+
+	.inner {
+		font-size: 12px;
+		line-height: normal;
+		padding: 7px 10px;
+	}
+}
+
 /* --- Slider
 -------------------------- */
 
@@ -1408,3 +1507,250 @@ $time: 0.7s;
 		background-size: contain;
 	}
 }
+
+/*  ===================================================================
+	CSS Modal Effects
+	=================================================================== */
+
+/* General styles for the modal */
+
+/* 
+Styles for the html/body for special modal where we want 3d effects
+Note that we need a container wrapping all content on the page for the 
+perspective effects (not including the modals and the overlay).
+*/
+
+.md-trigger {
+	position: relative;
+	z-index: 300;
+}
+
+.md-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	max-width: 630px;
+	min-width: 320px;
+	height: auto;
+	z-index: 2000;
+	visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+
+	border-radius: 10px;
+	box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.6);
+
+    background: rgb(0,188,228); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(0,188,228,1) 0%, rgba(0,150,182,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,188,228,1)), color-stop(100%,rgba(0,150,182,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 ); /* IE6-9 */
+
+	&.desk .inner {
+	    background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	}
+
+	&.room .inner {
+	    background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	}
+
+	.war-name {
+		float: left;
+	    height: 30px;
+	    margin-right: 10px;
+	}
+
+	.close {
+		position: absolute;
+		top: -13px;
+		right: -12px;
+		width: 25px;
+		height: 26px;
+		background: url(../images/btn-cancel.png) no-repeat 0 0;
+		cursor: pointer;
+		z-index: 1;
+
+		&:hover {
+			background-position: 0px -26px;
+		}
+	}
+
+	.name {
+		font-size: 23px;
+		color: $charcoal;
+		@include RobotoLight;
+		margin: 3px 0px 8px;
+	}
+
+	a {
+    	color: inherit;
+
+    	&.btn {
+    		text-decoration: none;
+    		border: 1px solid #FFF;
+    		padding: 5px 10px;
+    		float: left;
+    		margin-right: 10px;
+    		cursor: pointer;
+
+    		&:hover {
+				background: rgba(255,255,255,0.2);
+    		}
+    	}
+    }
+
+    .btns-container {
+    	margin-top: 10px;
+    }
+
+    #members-slider {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
+    clear: both;
+    margin: 10px -10px 0;
+    padding: 10px;
+    	position: relative;
+    	display: none;
+
+
+    	.members {
+    		.member {
+				background: url(../images/icon-person.png) no-repeat left center;
+				background-size: 56px 51px;
+				padding: 8px 0px 8px 65px;
+				min-height: 51px;
+				margin: 0px 12px;
+
+				.name {
+					color: $charcoal;
+					@include RobotoRegular;
+					font-size: 15px;
+					margin: 0 0 5px 0;
+				}
+
+				color: #FFF;
+				font-family: Arial;
+				font-size: 11px;
+				line-height: 14px;
+			}
+    	}
+    }
+}
+
+.md-show {
+	visibility: visible;
+}
+
+.md-overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	opacity: 0;
+	// background: rgba(255, 255, 255, 0.7);
+	box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.md-show ~ .md-overlay {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Content styles */
+.md-content {
+	color: #fff;
+	position: relative;
+	margin: 0 auto;
+	padding: 10px;
+
+	color: #FFF;
+    font-size: 15px;
+    @include RobotoLight;
+	line-height: 18px;
+
+	&.loading {
+		margin-bottom: -50px;
+	    min-height: 55px;
+	    padding-left: 50px;
+	    padding-top: 40px;
+	    width: 252px;
+	}
+}
+
+
+
+.md-content h3 {
+	margin: 0;
+	padding: 0.4em;
+	text-align: center;
+	font-size: 2.4em;
+	font-weight: 300;
+	opacity: 0.8;
+	background: rgba(0,0,0,0.1);
+	border-radius: 3px 3px 0 0;
+}
+
+.md-content > div {
+	padding: 15px 40px 30px;
+	margin: 0;
+	font-weight: 300;
+	font-size: 1.15em;
+}
+
+.md-content > div p {
+	margin: 0;
+	padding: 10px 0;
+}
+
+.md-content > div ul {
+	margin: 0;
+	padding: 0 0 30px 20px;
+}
+
+.md-content > div ul li {
+	padding: 5px 0;
+}
+
+.md-content button {
+	display: block;
+	margin: 0 auto;
+	font-size: 0.8em;
+}
+
+/* Individual modal styles with animations/transitions */
+
+/* Effect 1: Fade in and scale up */
+.md-effect-1 .md-content {
+	-webkit-transform: scale(0.7);
+	-moz-transform: scale(0.7);
+	-ms-transform: scale(0.7);
+	transform: scale(0.7);
+	opacity: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.md-show.md-effect-1 .md-content {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+}
+

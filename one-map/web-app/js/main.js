@@ -5,8 +5,6 @@ String.prototype.format = function () {
     });
 };
 
-//test
-
 var Map = {
     setup: {
         zoomMultiplier: 0.1,
@@ -743,12 +741,47 @@ var Map = {
             $('.header').addClass('login');
         });
 
-        $(document).on('click', '.create-zone', function () {
-            $('.zone-panel').addClass('expanded');
+        // ----- admin events -----
+        $(document).on('click', '.create-zone a', function () {
+            if($('.showthisfloor').length > 0){
+                //get all freezone seats
+                //we actually should highlight these somehow, to avoid user 'click to find out'. generic color.
+
+                $('.zone-panel').addClass('expanded');
+                $('#backto3d').fadeOut();
+            }
+        });
+
+        $(document).on('mouseenter', '.create-zone a', function () {
+            if(!$('.showthisfloor').length > 0){
+                $('#create-zone-popup').show();
+            }
+        });
+        $(document).on('mouseleave', '.create-zone a', function () {
+            $('#create-zone-popup').hide();
         });
 
         $(document).on('click', '.zone-panel .cancel-zone', function () {
             $('.zone-panel').removeClass('expanded');
+            $('#backto3d').fadeIn();
+        });
+
+        $(document).on('click', '.zone-panel .save-zone', function () {
+            //ajax call to save zone down to DB
+
+            //animations for after ajax success
+            $('.zone-panel .form').fadeOut(function(){
+                $('.zone-panel .response').fadeIn();
+            });
+        });
+
+        $(document).on('click', '.zone-panel .okay', function () {
+            $('.zone-panel').removeClass('expanded');
+            setTimeout(function () {
+                $('.zone-panel .form').show();
+                $('.zone-panel .response').hide();
+            }, 300);
+            
         });
 
         // ----- search interactions -----

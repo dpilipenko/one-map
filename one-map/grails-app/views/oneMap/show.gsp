@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>ONEMAP - Login</title>
+  <title>ONEMAP</title>
 
   <meta name="viewport" content="width=device-width">
 
@@ -16,6 +16,27 @@
 </head>
 
 <body>
+
+
+
+<div class="md-modal md-effect-1" id="modal-1">
+  <div class="md-content">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a modal window. You can do the following things with it:</p>
+      <ul>
+        <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+        <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li><strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+      <a class="md-close close"></a>
+    </div>
+  </div>
+</div>
+
+<div class="md-overlay"></div>
+
+<button class="md-trigger" data-modal="modal-1">Fade in &amp; Scale</button>
 
 <sec:ifLoggedIn>
    <div class="main">
@@ -45,8 +66,8 @@
                     </div>
                </div>
                <div class="response">
-                    <span>Your zone was successfully created</span>
                     <a href="#" class="okay">OK</a>
+                    <div>Your zone was successfully created</div>
                </div>
                
                
@@ -72,7 +93,14 @@
 
             <!-- if admin -->
             
-              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
+              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+                <div class="generic-popup centered notch-top" id="create-zone-popup">
+                      <div class="inner">
+                        Select a floor first
+                        <div class="notch"></div>
+                      </div>
+                </div>
+              </div>
             <!-- end if admin -->
 
 					  <sec:ifLoggedIn>
@@ -245,6 +273,9 @@
 	<script type="text/javascript">
 		Map.login.submitURL = '${postUrl}';
 	</script>
+
+  <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
+  <script src="${resource(dir: 'js', file: 'modalEffects.js')}"></script>
 
 </body>
 </html>
