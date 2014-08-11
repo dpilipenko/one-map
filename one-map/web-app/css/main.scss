@@ -1137,60 +1137,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	}
 }
 
-.generic-popup {
-	width: auto;
-	height: auto;
-	min-height: 0;
-	border-radius: 4px;
-
-	.inner {
-		width: auto;
-		height: auto;
-		min-height: 0;
-	}
-
-	&.centered {
-		text-align: center;
-	}
-
-	&.notch-top {
-
-		.notch {
-			bottom: auto;
-			top: -10px;
-			margin-left: -15px;
-			border-bottom: 10px solid #00bce4;
-		    border-left: 14px solid transparent;
-		    border-right: 14px solid transparent;
-		    border-top: none;
-		}
-
-		.notch:after {
-		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
-		    content: "";
-		    height: 9px;
-		    position: absolute;
-		    left: -15px;
-		    top: 10px;
-		    transform: rotate(149deg);
-		    width: 21px;
-		    z-index: -1;
-		}
-
-		.notch:before {
-		    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
-		    content: "";
-		    height: 9px;
-		    left: -3px;
-		    position: absolute;
-		    top: 12px;
-		    transform: rotate(-147deg);
-		    width: 21px;
-		    z-index: -1;
-		}	
-	}
-}
-
 #create-zone-popup {
 	box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.5);
 	right: 31px;
