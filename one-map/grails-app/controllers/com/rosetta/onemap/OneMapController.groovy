@@ -212,7 +212,7 @@ class OneMapController {
 			
 			userObject.put("floor", floor);
 			userObject.put("hotspotId", hopstopId);
-			
+			userObject.put("type", "user")
 			searchResults.add(userObject);
 		}
 		
@@ -239,7 +239,7 @@ class OneMapController {
 
 			roomObject.put("floor", floor);
 			roomObject.put("hotspotId", hopstopId);
-			
+			roomObject.put("type", "room")
 			searchResults.add(roomObject);
 		}
 		
