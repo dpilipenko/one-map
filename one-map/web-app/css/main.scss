@@ -120,8 +120,14 @@ form {
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.4);
-	-webkit-box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
-	box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
+	// -webkit-box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
+	box-shadow:inset 0 0 200px 0 rgba(0,0,0,0.5);
+}
+
+@-moz-document url-prefix() { 
+	.main {
+		box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
+	}
 }
 
 * { 
@@ -526,7 +532,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 		background: #ececec;
 		border: none;
 
-		width: 285px;
+		width: 265px;
 		height: 37px;
 	}
 
@@ -1196,10 +1202,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	}
 }
 
-.lean-slider-next { right: 6px;     border-left: 10px solid #fff;
-}
-.lean-slider-prev { left: 6px;     border-right: 10px solid #fff;
- };
+.lean-slider-next { right: 6px;     border-left: 10px solid #fff; }
+.lean-slider-prev { left: 6px;     border-right: 10px solid #fff; }
 
 /* --- 3D Floor Animation
 ===================================================
