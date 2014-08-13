@@ -6,6 +6,10 @@ String.prototype.format = function () {
 };
 
 var Map = {
+    zones: {
+        inCreateZone: false,
+        zoneColor: '#FF0000',
+    },
     setup: {
         zoomMultiplier: 0.1,
         stage: null,
@@ -30,6 +34,8 @@ var Map = {
             'desk': 'images/pin-seat.png'
         },
         pinImages: null,
+
+        /* Loads the actual image files used to mark a hotspot with a pin */
         loadPins: function(sources) {
             var images = {};
             var loadedImages = 0;
@@ -56,10 +62,6 @@ var Map = {
             var canvas = $('#'+id)[0],
                 floorNumber = canvas.getAttribute("data-floor");
             switch (floorNumber) {
-                case "11":
-                    scope.stageWidth = 550;
-                    scope.stageHeight = 526;
-                    break;
                 case "12":
                     scope.stageWidth = 554;
                     scope.stageHeight = 528;
@@ -194,8 +196,6 @@ var Map = {
 
                         // Set custom properties for each hotspot
                         hotspotPath.areaY = hotspotsObj[key].y;
-                        hotspotPath.areaWidth = hotspotsObj[key].width;
-                        hotspotPath.areaHeight = hotspotsObj[key].height;
                         hotspotPath.areaX = hotspotsObj[key].x;
                         hotspotPath.areaType = hotspotsObj[key].type;
 
@@ -415,7 +415,7 @@ var Map = {
         },
 
         hotspotMouseOver: function () {
-            if (!this.isPin) {
+            if (!this.isPin && !Map.zones.inCreateZone) {
                 this.setFill(Map.setup.hotspotHoverFill);
                 this.opacity(Map.setup.hotspotHoverOpacity);
                 this.moveTo(Map.setup.hoverLayer);
@@ -423,7 +423,7 @@ var Map = {
             }
         },
         hotspotMouseOut: function() {
-            if (Map.interactions.activeHotspot !== this) {
+            if (Map.interactions.activeHotspot !== this && !Map.zones.inCreateZone) {
                 this.setFill(Map.setup.hotspotFill);
                 this.opacity(Map.setup.hotspotOpacity);
                 this.moveTo(Map.setup.floorplanLayer);
@@ -433,21 +433,27 @@ var Map = {
         hotspotClick: function() {
             var interactionsObj = Map.interactions,
                 mapObj = Map.setup;
+            if(!Map.zones.inCreateZone) {
+                interactionsObj.unactivateHotspot();
+                interactionsObj.activeHotspot = this;
+                interactionsObj.activeHotspotID = this.getId();
+                interactionsObj.activeHotspotType = this.areaType;
+                interactionsObj.activeHotspotCenter = [this.areaX, this.areaY];
 
-            interactionsObj.unactivateHotspot();
-            interactionsObj.activeHotspot = this;
-            interactionsObj.activeHotspotID = this.getId();
-            interactionsObj.activeHotspotType = this.areaType;
-            interactionsObj.activeHotspotDimensions = [this.areaWidth, this.areaHeight];
-            interactionsObj.activeHotspotCenter = [this.areaX, this.areaY];
-
-            if (!this.isPin) {
-                this.setFill(mapObj.hotspotHoverFill);
+                if (!this.isPin) {
+                    this.setFill(mapObj.hotspotHoverFill);
+                    this.opacity(mapObj.hotspotHoverOpacity);
+                    this.moveTo(Map.setup.hoverLayer);
+                    Map.setup.hoverLayer.drawScene();
+                }
+                interactionsObj.getHotspotInfo(); 
+            } else {
+                this.setFill(Map.zones.zoneColor);
                 this.opacity(mapObj.hotspotHoverOpacity);
                 this.moveTo(Map.setup.hoverLayer);
                 Map.setup.hoverLayer.drawScene();
             }
-            interactionsObj.getHotspotInfo();   
+              
         },
         unactivateHotspot: function () {
             var scope = this,
@@ -753,7 +759,7 @@ var Map = {
             if($('.showthisfloor').length > 0){
                 //get all freezone seats
                 //we actually should highlight these somehow, to avoid user 'click to find out'. generic color.
-
+                Map.zones.inCreateZone = true;
                 $('.zone-panel').addClass('expanded');
                 $('#backto3d').fadeOut();
             }
