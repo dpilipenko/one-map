@@ -12,53 +12,116 @@ class BootStrap {
 		////
 		//	Offices
 		////
-		def cloffice = new Office(name: "Cleveland").save(flush:true);
-		def njoffice = new Office(name: "Princeton").save(flush:true);
-		def nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);
-		def ny5office = new Office(name: "New York - 5th Avenue").save(flush:true);
-		def chioffice = new Office(name: "Chicago").save(flush:true);
-		def sfoffice = new Office(name: "San Francisco").save(flush:true);
-		def slooffice = new Office(name: "San Luis Obispo").save(flush:true);
-		def laoffice = new Office(name: "Los Angeles").save(flush:true);
-		def ldoffice = new Office(name: "London").save(flush:true);
+		
+		def cloffice = Office.findByName("Cleveland")
+		if (cloffice == null) { 
+			cloffice = new Office(name: "Cleveland").save(flush:true);
+		}
+		def njoffice = Office.findByName("Princeton")
+		if (njoffice == null) {
+			njoffice = new Office(name: "Princeton").save(flush:true);
+		}
+		def nyhoffice = Office.findByName("New York - Hudson Street")
+		if (nyhoffice == null) {
+			nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);
+		}
+		def ny5office = Office.findByName("New York - 5th Avenue")
+		if (ny5office == null) {
+			ny5office = new Office(name: "New York - 5th Avenue").save(flush:true);
+		}
+		def chioffice = Office.findByName("Chicago")
+		if (chioffice == null) {
+			chioffice = new Office(name: "Chicago").save(flush:true);
+		}
+		def sfoffice = Office.findByName("San Francisco")
+		if (sfoffice == null) {
+			sfoffice = new Office(name: "San Francisco").save(flush:true);
+		}
+		def slooffice = Office.findByName("San Luis Obispo")
+		if (slooffice == null) {
+			slooffice = new Office(name: "San Luis Obispo").save(flush:true);
+		}
+		def laoffice = Office.findByName("Los Angeles")
+		if (laoffice == null) {
+			laoffice = new Office(name: "Los Angeles").save(flush:true);
+		}
+		def ldoffice = Office.findByName("London")
+		if (ldoffice == null) {
+			ldoffice = new Office(name: "London").save(flush:true);
+		}
 		
 		////
 		//	Users
 		////
-		def testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
+		def testUser = User.findByUsername("test@rosetta.com")
+		if (testUser == null) {
+			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
 			level: "Associate", craft: "Quality Assurance").save(flush:true);
-		def dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
+		}
+		def dan = User.findByUsername("dan.padgett@rosetta.com")
+		if (dan == null) {
+			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
-		def dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
+		}
+		def dima = User.findByUsername("dmitriy.pilipenko@rosetta.com")
+		if (dima == null) {
+			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Associate", craft: "Software Engineering").save(flush: true);
-		def liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
+		}
+		def liz = User.findByUsername("liz.judd@rosetta.com")
+		if (liz == null) {
+			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		def dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
+		}
+		def dave = User.findByUsername("dave.fagan@rosetta.com")
+		if (dave == null) {
+			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		def becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
+		}
+		def becky = User.findByUsername("becky.horvath@rosetta.com") 
+		if (becky == null) {
+			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
 			level: "Senior Associate", craft: "CEO").save(flush: true);
+		}
 
 		////
 		//  Zones
 		////
-		Zone freeZone = Zone.getFreeZone().save(flush:true)
-		Zone ahaZone = new Zone(name: "AHA", color: "#880088").save(flush:true)
-		Zone uidZone = new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
+		Zone freeZone = Zone.findByName("Free Zone")
+		if (freeZone == null) {
+			freeZone = Zone.getFreeZone().save(flush:true)
+		}
+		Zone ahaZone = Zone.findByName("AHA")
+		if (ahaZone == null) {
+			ahaZone = new Zone(name: "AHA", color: "#880088").save(flush:true)
+		}
+		Zone uidZone = Zone.findByName("UID Pod")
+		if (uidZone == null) {
+			uidZone = new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
+		}
 		
 		////
 		//	17th Floor
 		////
-		new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", office: cloffice, floor: "17", assignedSeatId: "soccer", zone: freeZone, polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", x: "388", y: "460").save(flush: true);
-		new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", office: cloffice, floor: "17", assignedSeatId: "baseball", zone: freeZone, polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", x: "489", y: "420").save(flush: true);
-		new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", office: cloffice, floor: "17", assignedSeatId: "football", zone: ahaZone, polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", x: "442", y: "338").save(flush: true);
-		def elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", office: cloffice, floor: "17", assignedSeatId: "tennis", zone:uidZone, polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", x: "230", y: "202").save(flush: true);
-		
+		if (Room.findByName("The Beatles") == null) {
+			new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", office: cloffice, floor: "17", assignedSeatId: "soccer", zone: freeZone, polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", x: "388", y: "460").save(flush: true);
+		}
+		if (Room.findByName("Johnny Cash") == null) {
+			new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", office: cloffice, floor: "17", assignedSeatId: "baseball", zone: freeZone, polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", x: "489", y: "420").save(flush: true);
+		}
+		if (Room.findByName("Chuck Berry") == null) {
+			new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", office: cloffice, floor: "17", assignedSeatId: "football", zone: ahaZone, polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", x: "442", y: "338").save(flush: true);
+		}
+		def elvis = Room.findByName("Elvis Presly")
+		if (elvis == null) {
+			elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", office: cloffice, floor: "17", assignedSeatId: "tennis", zone:uidZone, polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", x: "230", y: "202").save(flush: true);
+		}
 		elvis.addToUsers(dan)
 		elvis.save(flush:true);
 		
