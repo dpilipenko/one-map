@@ -634,10 +634,12 @@ var Map = {
                             floorArray.push(parseInt(results[i].floor));
                             canvas.attr('data-pins', existingHotspots + results[i].hotspotId + ',');
                         }
-                        if (results[i].level !== '') { // is user
+                        if (results[i].type == 'user') { // is user
                             content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
-                        } else { // room
+                        } else if (results[i].type == 'room') { // room
                             content += $('#roomResult-template').html().format(results[i].name, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                        } else if (results[i].type == 'zone') { // zone
+                        	
                         }
                     }
                     $('#result-list').html(content);

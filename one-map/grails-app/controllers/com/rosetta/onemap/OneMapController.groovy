@@ -131,7 +131,8 @@ class OneMapController {
 	JSONObject getFreeZoneHotspots() {
 		JSONObject hotspots = new JSONObject()
 		for (Hotspot h : Hotspot.findAllByZone(Zone.getFreeZone())) {
-			printHotspot(h, hotspots)
+			if (h.floor.equals(params.floor))
+				printHotspot(h, hotspots)
 		}
 		render hotspots as JSON
 	}
@@ -212,7 +213,7 @@ class OneMapController {
 			
 			userObject.put("floor", floor);
 			userObject.put("hotspotId", hopstopId);
-			
+			userObject.put("type", "user")
 			searchResults.add(userObject);
 		}
 		
@@ -239,8 +240,39 @@ class OneMapController {
 
 			roomObject.put("floor", floor);
 			roomObject.put("hotspotId", hopstopId);
-			
+			roomObject.put("type", "room")
 			searchResults.add(roomObject);
+		}
+		
+		def zoneResults = Zone.withCriteria {
+			or {
+				ilike('name', '%'+searchTerm+'%');
+				ilike('color', '%'+searchTerm+'%');
+			}
+		}
+		for (Zone zone : zoneResults) {
+			
+			Map<String, Integer> floorCounts = new HashMap<String, Integer>()
+			// iterate through all associate hotspots and count how many per floor
+			for (Hotspot h: Hotspot.findAllByZone(Zone.getFreeZone())) {
+				Integer fCount = floorCounts.get(h.floor)
+				if (fCount == null) {
+					fCount = new Integer(1)
+				} else {
+					fCount = new Integer(fCount.intValue() + 1)
+				}
+				floorCounts.put(h.floor, fCount) 
+			}
+			for (String floorId : floorCounts.keySet()) {
+				JSONObject zoneObject = new JSONObject()
+				zoneObject.put("type", "zone");
+				zoneObject.put("zoneId", zone.id)
+				zoneObject.put("zoneName", zone.name)
+				zoneObject.put("zoneColor", zone.color)
+				zoneObject.put("floor", floorId)
+				zoneObject.put("floorCount", floorCounts.get(floorId))
+				searchResults.put(zoneObject)
+			}
 		}
 		
 		render searchResults as JSON
