@@ -624,14 +624,27 @@ var Map = {
                 success: function (results) {
                     // populate results tab
                     var content = '';
-                    var floorArray = [];
+                    var cornerIcons = [{"zones": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0} }, {"users": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"rooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"warrooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}];
+                    console.log(results);
                     for (var i = 0; i < results.length; i++) {
                         var isLinkClass = "";
                         if (results[i].hotspotId !== '') {
                             var canvas = $('.canvas[data-floor="' + results[i].floor + '"]'),
                                 existingHotspots = canvas.attr('data-pins') == undefined ? '' : canvas.attr('data-pins')
                             isLinkClass = "isLink";
-                            floorArray.push(parseInt(results[i].floor));
+                            if(results[i].type == "zone"){
+                                var floor = results[i].floor.toString();
+                                cornerIcons[0].zones[floor] = parseInt(cornerIcons[0].zones[floor], 10) + 1;
+                            } else if (results[i].type == "user"){
+                                var floor = results[i].floor.toString();
+                                cornerIcons[1].users[floor] = parseInt(cornerIcons[1].users[floor], 10) + 1;
+                            } else if (results[i].type == "room"){
+                                var floor = results[i].floor.toString();
+                                cornerIcons[2].rooms[floor] = parseInt(cornerIcons[2].rooms[floor], 10) + 1;
+                            } else if (results[i].type == "warroom"){
+                                var floor = results[i].floor.toString();
+                                cornerIcons[3].warrooms[floor] = parseInt(cornerIcons[3].warrooms[floor], 10) + 1;
+                            }
                             canvas.attr('data-pins', existingHotspots + results[i].hotspotId + ',');
                         }
                         if (results[i].type == 'user') { // is user
@@ -649,13 +662,21 @@ var Map = {
 
                     // update map
                     var counts = {};
-                    for (var i = 0; i < floorArray.length; i++) {
-                        var num = floorArray[i];
-                        counts[num] = counts[num] ? counts[num] + 1 : 1;
-                    }
-                    for (var key in counts) {
-                        var canvas = $('.canvas[data-floor="' + key + '"]');
-                        canvas.parents('.floorplan').prepend('<h1>' + counts[key] + '</h1>');
+                    console.log(cornerIcons);
+                    for (var i = 0; i < cornerIcons.length; i++) {
+                        var type = cornerIcons[i];
+                        for (var key in type){
+                         var obj = type[key];
+                         console.log(obj);
+                            for (var floor in obj){
+                                var num = obj[floor];
+                                console.log(floor + " :: " + num);
+                                if(num > 0){
+                                    var canvas = $('.canvas[data-floor="' + floor + '"]');
+                                    canvas.parents('.floorplan').find(".corner-results ." + key).text(num).fadeIn();
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -675,6 +696,12 @@ var Map = {
             $results.addClass('cleared collapsed');
             $results.find('.results-list').html('');
             $('.canvas').removeAttr('data-pins').siblings('h1').remove();
+            $('.corner-results div').each(function(){
+                var $this = $(this);
+                $this.fadeOut(function(){
+                    $this.text("");
+                });
+            });
             Map.interactions.backTo3D();
         },
         clickOnResult: function (self) {
