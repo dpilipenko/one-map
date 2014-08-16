@@ -13,9 +13,9 @@ var OneMap = {
         stageWidth: 554,
         stageHeight: 528,
         floorplanLayer: null,        
-        floorplanX: 0, //imageX: 0,
-        floorplanY: 0, //imageY: 0,
-        interactiveLayer: null, // hoverLayer
+        floorplanX: 0,
+        floorplanY: 0,
+        interactiveLayer: null,
 
         hasPanned: false,
         startDragOffset: {},
@@ -260,6 +260,19 @@ var OneMap = {
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
             OneMap.map.unloadFloor();
             OneMap.hotspots.popupElement.hide();
+        },
+        init: function() {
+            OneMap.hotspots.init();
+
+            $(document).on('click', '.floorplan', OneMap.map.showFloor);
+            $(document).on("click", '#backto3d', OneMap.map.backTo3D);
+            $(document).on('click', '.zoom', function () {
+                // TODO: like to remove this and be able to keep the popup open while zooming
+                if ($(OneMap.hotspots.popupElement).css('display') === 'block') {
+                    $(OneMap.hotspots.popupElement).hide();
+                }
+                OneMap.map.zoom(this.id);
+            });
         }
     },
     hotspots: {
@@ -269,10 +282,10 @@ var OneMap = {
         popupHeight: 114,
         
         // hotspot properties
-        defaultFill: '#a6bf3e', //hotspotFill
-        defaultOpacity: 0, //hotspotOpacity
-        hoverFill: '#a6bf3e', //hotspot*
-        hoverOpacity: 0.5, //hotspot*
+        defaultFill: '#a6bf3e',
+        defaultOpacity: 0,
+        hoverFill: '#a6bf3e',
+        hoverOpacity: 0.5,
 
         active: {
             hotspot: null,
@@ -298,9 +311,7 @@ var OneMap = {
             }
         },
 
-
-
-
+        // TODO: needs to move to modal implementation 
         getInfo: function () {
             $.ajax({
                 url: 'oneMap/getHotspot',
@@ -525,39 +536,11 @@ var OneMap = {
                         hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
                         hotspotPath.on('mousedown', OneMap.hotspots.click);
 
-                        
-                        if (pins !== null) {
-                            var pinsArray = pins.split(',');
-                            if (pinsArray.indexOf(key) > -1) {
-                                switch(hotspotPath.areaType) {
-                                    case 'room':
-                                        pinImage = OneMap.search.pinImages.room;
-                                        break;
-                                    case 'desk':
-                                        pinImage = OneMap.search.pinImages.desk;
-                                        break;                                    
-                                }
-                                var rect = new Kinetic.Rect({
-                                    x: hotspotPath.areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
-                                    y: hotspotPath.areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
-                                    width: OneMap.search.pinWidth,
-                                    height: OneMap.search.pinHeight,
-                                    fillPatternImage: OneMap.search.pinImages.room,
-                                    fillPatternScale: {x:1, y:1}
-                                });
-                                OneMap.map.floorplanLayer.add(rect);
-                                hotspotPath.isPin = true;
-                            }
-                        } else {
-                            hotspotPath.isPin = false;
-                        }
-
                         OneMap.map.floorplanLayer.add(hotspotPath);
+                    }
 
-                        if (hotspot !== null && key == hotspot) {
-                            hotspotPath.fire('mousedown');
-                            $('.canvas').removeAttr('data-hotspot');
-                        }
+                    if(!$.isEmptyObject(OneMap.search.mapPins)) {
+                        OneMap.search.displayPins();
                     }
 
                     OneMap.map.stage.add(OneMap.map.floorplanLayer);
@@ -570,6 +553,26 @@ var OneMap = {
                 }
             });
         },
+        init: function() {
+            // ----- popup interactions -----
+            $(document).on('click', '#popup .close', function () {
+                OneMap.hotspots.popupElement.hide();
+                OneMap.hotspots.unactivate();
+            });
+            $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
+            $(document).on('click', '.createWAR', function () {
+                $(this).after('<input type="text" class="war-name"><a href="#" class="btn savewarname">SAVE</a>').hide();
+            });
+            $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
+            $(document).on('click', '.viewWARmembers', function () {
+                $(this).hide();
+                $('#popup').css({
+                    top: parseInt($('#popup').css('top'))-$('#members-slider').height() + 'px'
+                });
+                $('#members-slider').show();
+
+            });
+        }
     },
     zones: {
         isCreating: false,
@@ -617,6 +620,8 @@ var OneMap = {
             $('#selected-number').html(OneMap.zones.selectedHotspots.length +' '+ seat);
         },
         create: function() {
+            OneMap.hotspots.unactivate();
+
             OneMap.zones.isCreating = true;
             var floorNumber = $('.showthisfloor .canvas').data('floor');
             $.ajax({
@@ -695,6 +700,8 @@ var OneMap = {
             'desk': 'images/pin-seat.png'
         },
         pinImages: null,
+        mapPins: {},
+        activeResult: null,
 
         /* Loads the actual image files used to mark a hotspot with a pin */
         loadPins: function(sources) {
@@ -728,34 +735,56 @@ var OneMap = {
                     // populate results tab
                     var content = '';
                     var cornerIcons = [{"zones": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0} }, {"users": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"rooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"warrooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}];
+                    
                     console.log(results);
+                    
                     for (var i = 0; i < results.length; i++) {
                         var isLinkClass = "";
                         if (results[i].hotspotId !== '') {
-                            var canvas = $('.canvas[data-floor="' + results[i].floor + '"]'),
-                                existingHotspots = canvas.attr('data-pins') == undefined ? '' : canvas.attr('data-pins')
-                            isLinkClass = "isLink";
-                            if(results[i].type == "zone"){
-                                var floor = results[i].floor.toString();
-                                cornerIcons[0].zones[floor] = parseInt(cornerIcons[0].zones[floor], 10) + 1;
-                            } else if (results[i].type == "user"){
-                                var floor = results[i].floor.toString();
-                                cornerIcons[1].users[floor] = parseInt(cornerIcons[1].users[floor], 10) + 1;
-                            } else if (results[i].type == "room"){
-                                var floor = results[i].floor.toString();
-                                cornerIcons[2].rooms[floor] = parseInt(cornerIcons[2].rooms[floor], 10) + 1;
-                            } else if (results[i].type == "warroom"){
-                                var floor = results[i].floor.toString();
-                                cornerIcons[3].warrooms[floor] = parseInt(cornerIcons[3].warrooms[floor], 10) + 1;
+                            var canvas = $('.canvas[data-floor="' + results[i].floor + '"]');
+
+
+                            if(typeof OneMap.search.mapPins[results[i].floor] == 'undefined') {
+                                OneMap.search.mapPins[results[i].floor] = {};
                             }
-                            canvas.attr('data-pins', existingHotspots + results[i].hotspotId + ',');
-                        }
-                        if (results[i].type == 'user') { // is user
-                            content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
-                        } else if (results[i].type == 'room') { // room
-                            content += $('#roomResult-template').html().format(results[i].name, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
-                        } else if (results[i].type == 'zone') { // zone
+
+                            if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
+                                OneMap.search.mapPins[results[i].floor][results[i].type] = [results[i].hotspotId];
+                            } else {
+                                OneMap.search.mapPins[results[i].floor][results[i].type].push(results[i].hotspotId);
+                            }
+
+                            isLinkClass = "isLink";
                             
+                            //@Dave: seems like this could be even more simplified (use .length of mapPins object)?
+                            var floor = results[i].floor.toString();
+                            switch(results[i].type) {
+                                case 'zone':
+                                    cornerIcons[0].zones[floor] = parseInt(cornerIcons[0].zones[floor], 10) + 1;
+                                    break;
+                                case 'user':
+                                    cornerIcons[1].users[floor] = parseInt(cornerIcons[1].users[floor], 10) + 1;
+                                    break;
+                                case 'room':
+                                    cornerIcons[2].rooms[floor] = parseInt(cornerIcons[2].rooms[floor], 10) + 1;
+                                    break;
+                                case 'warroom':
+                                    cornerIcons[3].warrooms[floor] = parseInt(cornerIcons[3].warrooms[floor], 10) + 1;
+                                    break;
+                            }
+                        }
+
+                        switch(results[i].type) {
+                            case 'zone':
+                                break;
+                            case 'user':
+                                content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                                break;
+                            case 'room':
+                                content += $('#roomResult-template').html().format(results[i].name, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                                break;
+                            case 'warroom':
+                                break;
                         }
                     }
                     $('#result-list').html(content);
@@ -798,7 +827,8 @@ var OneMap = {
             var $results = $('#results');
             $results.addClass('cleared collapsed');
             $results.find('.results-list').html('');
-            $('.canvas').removeAttr('data-pins').siblings('h1').remove();
+            OneMap.search.activeResult = null;
+            OneMap.search.mapPins = new Object;
             $('.corner-results div').each(function(){
                 var $this = $(this);
                 $this.fadeOut(function(){
@@ -807,17 +837,52 @@ var OneMap = {
             });
             OneMap.map.backTo3D();
         },
+        //@Dave - what happens when the user clicks on a "zone"
         displayResult: function (self) {
             var floor = $(self).data('floor'),
                 hotspot = $(self).data('hotspot'),
-                canvas = $('.canvas[data-floor="' + floor + '"]'),
-                getData = canvas.attr('data-pins') == undefined ? '' : canvas.attr('data-pins');
-            canvas.attr('data-pins', getData + ',' + hotspot);
-            canvas.attr('data-hotspot', hotspot);
+                canvas = $('.canvas[data-floor="' + floor + '"]');
+            OneMap.search.activeResult =  hotspot;   
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
         },
+        displayPins: function() {
+            var hotspots = OneMap.map.floorplanLayer.children.getChildren();
+            console.log(hotspots);
 
+            for (var i = 1; i < hotspots.length; i++) {
+                console.log(hotspots[i].areaType);
+                switch(hotspots[i].areaType) {
+                    case 'room':
+                        pinImage = OneMap.search.pinImages.room;
+                        break;
+                    case 'desk':
+                        pinImage = OneMap.search.pinImages.desk;
+                        break;                                    
+                }
+
+                console.log(pinImage);
+
+                 var rect = new Kinetic.Rect({
+                    x: hotspots[i].areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
+                    y: hotspots[i].areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
+                    width: OneMap.search.pinWidth,
+                    height: OneMap.search.pinHeight,
+                    fillPatternImage: pinImage,
+                    fillPatternScale: {x:1, y:1}
+                });
+                console.log(rect);
+
+                /* OneMap.map.floorplanLayer.add(rect); -- causing infinite loop? */
+            }
+            OneMap.map.floorplanLayer.drawScene();
+           
+
+            /* if (hotspot !== null && key == hotspot) {
+                hotspotPath.fire('mousedown');
+                $('.canvas').removeAttr('data-hotspot');
+            } */
+        },
         init: function() {
             OneMap.search.loadPins(OneMap.search.pinSrcs);
 
@@ -881,7 +946,10 @@ var OneMap = {
             });
         },
         init: function() {
-            // ----- loging in events -----
+            //TODO: how will this work with AD? Do we need to have them log in every time?
+            if (isLoggedIn) {
+                $('.ms-wrapper').addClass('ms-view-layers');
+            }
             $(document).on('click', '.submit-login', OneMap.login.submit);
             $(document).on('keypress', '.password', function (e) {
                 if (e.keyCode == 13) {
@@ -890,62 +958,22 @@ var OneMap = {
                 }
             });
             $(document).on('click', '.logout', function () {
-                // TODO: add actual call to logout?
+                //TODO: add actual call to logout?
                 $('.header').addClass('login');
             });
         }
     },
     init: function() {
-        OneMap.search.init();
-        OneMap.login.init();
-        OneMap.zones.init();
-
-        //layout setup
+        //layout setup -- @Dave when did this happen?  It broke the responsivness of the canvases
         $('#offices').height($(window).height() - 95 - 20 - 70);
         $(window).resize(function(){
             $('#offices').height($(window).height() - 95 - 20 - 70);
         });
 
-        //  alert('page refreshed');
-        // ----- set up initial page view -----
-        if (isLoggedIn) {
-            $('.ms-wrapper').addClass('ms-view-layers');
-        }
-
-        
-
-
-        // ----- map interactions -----
-        [].slice.call(document.querySelectorAll('.floorplan')).forEach(function (el, i) {
-            el.addEventListener('click', OneMap.map.showFloor, false);
-        });
-        $(document).on("click", '#backto3d', OneMap.map.backTo3D);
-        $(document).on('click', '.zoom', function () {
-            // TODO: like to remove this and be able to keep the popup open while zooming
-            if ($(OneMap.hotspots.popupElement).css('display') === 'block') {
-                $(OneMap.hotspots.popupElement).hide();
-            }
-            OneMap.map.zoom(this.id);
-        });
-
-        // ----- popup interactions -----
-        $(document).on('click', '#popup .close', function () {
-            OneMap.hotspots.popupElement.hide();
-            OneMap.hotspots.unactivate();
-        });
-        $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
-        $(document).on('click', '.createWAR', function () {
-            $(this).after('<input type="text" class="war-name"><a href="#" class="btn savewarname">SAVE</a>').hide();
-        });
-        $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
-        $(document).on('click', '.viewWARmembers', function () {
-            $(this).hide();
-            $('#popup').css({
-                top: parseInt($('#popup').css('top'))-$('#members-slider').height() + 'px'
-            });
-            $('#members-slider').show();
-
-        });
+        OneMap.map.init();
+        OneMap.search.init();
+        OneMap.login.init();
+        OneMap.zones.init();
     }
 };
 
