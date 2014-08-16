@@ -56,11 +56,11 @@
                <div class="form">
                     <div class="fields">
                          <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
-                         <input class="zone-name" type="text" placeholder="zone name">
-                         <input type="text" class="zone-color" placeholder="color (e.g. #00bce4)">
+                         <input id="zone-name" class="zone-name" type="text" placeholder="zone name">
+                         <input id="zone-color" type="text" class="zone-color" placeholder="color (e.g. #00bce4)">
                     </div>
                     <div class="actions">
-                         <div class="number-selected"><span>2 seats</span> selected</div>
+                         <div class="number-selected"><span id="selected-number">0 seats</span> selected</div>
                          <a href="#" class="save-zone">SAVE</a>
                          <a href="#" class="cancel-zone">CANCEL</a>
                     </div>
@@ -307,7 +307,7 @@
   <script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 	
 	<script type="text/javascript">
-		Map.login.submitURL = '${postUrl}';
+		OneMap.login.submitURL = '${postUrl}';
 	</script>
 
   <script src="${resource(dir: 'js', file: 'classie.js')}"></script>

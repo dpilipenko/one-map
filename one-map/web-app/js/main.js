@@ -5,93 +5,182 @@ String.prototype.format = function () {
     });
 };
 
-var Map = {
-    zones: {
-        inCreateZone: false,
-        zoneColor: '#FF0000',
-    },
-    setup: {
-        zoomMultiplier: 0.1,
+var OneMap = {
+    map: {
+        // map properties
         stage: null,
-        floorplanLayer: null,
-        hoverLayer: null,
-        popupElement: $('#popup'),
-        popupWidth: 312,
-        popupHeight: 114,
         stageScale: 1,
         stageWidth: 554,
         stageHeight: 528,
-        hotspotFill: '#a6bf3e',
-        hotspotHoverFill: '#a6bf3e',
-        hotspotOpacity: 0,
-        hotspotHoverOpacity: 0.5,
-        imageX: 0,
-        imageY: 0,
-        pinHeight: 36,
-        pinWidth: 28,
-        pinSrcs: {
-            'room': 'images/pin-room.png',
-            'desk': 'images/pin-seat.png'
-        },
-        pinImages: null,
+        floorplanLayer: null,        
+        floorplanX: 0, //imageX: 0,
+        floorplanY: 0, //imageY: 0,
+        interactiveLayer: null, // hoverLayer
 
-        /* Loads the actual image files used to mark a hotspot with a pin */
-        loadPins: function(sources) {
-            var images = {};
-            var loadedImages = 0;
-            var numImages = 0;
-            // get num of sources
-            for(var src in sources) {
-                numImages++;
+        hasPanned: false,
+        startDragOffset: {},
+        draggedOffset: {},
+        zoomMultiplier: 0.1,
+        zoom: function (zoomType) {
+            OneMap.hotspots.unactivate();
+
+            var multiplier = zoomType === 'plus' ? 1 + OneMap.map.zoomMultiplier : 1 - OneMap.map.zoomMultiplier,
+                offsetX = null,
+                offsetY = null;
+
+            OneMap.map.floorplanLayer.scale({
+                x: OneMap.map.floorplanLayer.scaleX() * multiplier,
+                y: OneMap.map.floorplanLayer.scaleY() * multiplier
+            });
+
+            OneMap.map.interactiveLayer.scale({
+                x: OneMap.map.floorplanLayer.scaleX(),
+                y: OneMap.map.floorplanLayer.scaleY()
+            });
+
+            if (OneMap.map.floorplanLayer.scaleX() > 1) {
+                OneMap.map.floorplanLayer.draggable(true);
             }
-            for(var src in sources) {
-                images[src] = new Image();
-                images[src].onload = function() {
-                    if(++loadedImages >= numImages) {
-                        Map.setup.pinImages = images;
+
+            // determine new offset
+            if (OneMap.map.floorplanLayer.scaleX() < 1) { // map can't be smaller than canvas so reset the floorplan
+                offsetX = 0;
+                offsetY = 0;
+                OneMap.map.floorplanLayer.scale({
+                    x: 1,
+                    y: 1
+                });
+                OneMap.map.floorplanLayer.draggable(false);
+                OneMap.map.interactiveLayer.scale({
+                    x: 1,
+                    y: 1
+                });
+                OneMap.map.interactiveLayer.draggable(false);
+                OneMap.map.hasPanned = false;
+            } else if (OneMap.map.hasPanned) {
+                offsetX = OneMap.map.draggedOffset.x * multiplier;
+                offsetY = OneMap.map.draggedOffset.y * multiplier;
+
+                OneMap.map.draggedOffset.x = offsetX;
+                OneMap.map.draggedOffset.y = offsetY;
+            } else { // user is just zooming in and out so the map stays centered and the image is bigger than the canvas
+                var width = OneMap.map.floorplanLayer.width() * OneMap.map.floorplanLayer.scaleX(),
+                    height = OneMap.map.floorplanLayer.height() * OneMap.map.floorplanLayer.scaleY();
+                offsetX = (width - OneMap.map.stage.width()) / -2;
+                offsetY = (height - OneMap.map.stage.height()) / -2;
+            }
+
+            OneMap.map.floorplanLayer.setAbsolutePosition({
+                x: offsetX,
+                y: offsetY
+            });
+            OneMap.map.floorplanLayer.draw();
+
+            OneMap.map.interactiveLayer.setAbsolutePosition({
+                x: offsetX,
+                y: offsetY
+            });
+            OneMap.map.interactiveLayer.draw();
+        },
+        moveStart: function() {
+            OneMap.map.startDragOffset = {
+                x: this.getX(),
+                y: this.getY()
+            };
+        },
+        move: function() {
+            var topPos = parseInt(OneMap.hotspots.popupElement.css('top')),
+                leftPos = parseInt(OneMap.hotspots.popupElement.css('left'));
+
+            // find better information about hotspot position
+            if (leftPos < 0 || topPos < 0) { // hotspot has moved off the screen
+                OneMap.hotspots.popupElement.hide();
+                OneMap.hotspots.unactivate();
+            } else {
+                var leftDistance = OneMap.map.startDragOffset.x - this.getX();
+                var topDistance = OneMap.map.startDragOffset.y - this.getY();
+
+                OneMap.hotspots.popupElement.css({
+                    'top' : topPos - topDistance + 'px',
+                    'left' : leftPos - leftDistance + 'px'
+                });
+
+                OneMap.map.startDragOffset.x = this.getX();
+                OneMap.map.startDragOffset.y = this.getY();
+            }
+
+            // move the top layer with the bottom layer
+            OneMap.map.interactiveLayer.setAttrs({
+                x: this.getX(),
+                y: this.getY()
+            });
+            OneMap.map.interactiveLayer.draw();
+        },
+        moveEnd: function() {
+            OneMap.map.hasPanned = true;
+            OneMap.map.draggedOffset = OneMap.map.floorplanLayer.getPosition();
+        },
+        showFloor: function () {
+            if (this.getAttribute("data-showing") == "false") {
+                $(this).addClass('tag');
+                var found = false;
+                [].slice.call(document.querySelectorAll('.floorplan')).forEach(function (el, i) {
+                    if (!$(el).hasClass('tag') && !found) {
+                        $(el).addClass('flydown');
+                    } else if (!$(el).hasClass('tag') && found) {
+                        $(el).addClass('flyup');
+                    } else {
+                        found = true;
                     }
-                };
-                images[src].src = sources[src];
+                });
+                $(this).removeClass('tag');
+
+                $('.ms-wrapper').addClass('showingfloor');
+                $(this).addClass('showthisfloor');
+                this.setAttribute("data-showing", "true");
+
+                var canvas = $(this).children('.canvas')[0];
+
+                OneMap.map.loadFloor(canvas.id, canvas.getAttribute("data-imgsrc"));
             }
         },
-        initFloorplan: function (id, imgSrc) {
-            var scope = this,
-                isHorizontal = false;
+        loadFloor: function (id, imgSrc) {
+            var isHorizontal = false;
 
             // TODO: Make all the floorplans the same size so we can use the property defined above (17 is already set up for this)
             var canvas = $('#'+id)[0],
                 floorNumber = canvas.getAttribute("data-floor");
             switch (floorNumber) {
                 case "12":
-                    scope.stageWidth = 554;
-                    scope.stageHeight = 528;
+                    OneMap.map.stageWidth = 554;
+                    OneMap.map.stageHeight = 528;
                     break;
                 case "13":
-                    scope.stageWidth = 552;
-                    scope.stageHeight = 528;
+                    OneMap.map.stageWidth = 552;
+                    OneMap.map.stageHeight = 528;
                     break;
                 case "14":
-                    scope.stageWidth = 521;
-                    scope.stageHeight = 501;
+                    OneMap.map.stageWidth = 521;
+                    OneMap.map.stageHeight = 501;
                     break;
                 case "15":
-                    scope.stageWidth = 550;
-                    scope.stageHeight = 528;
+                    OneMap.map.stageWidth = 550;
+                    OneMap.map.stageHeight = 528;
                     break;
                 default:
                     console.log('not a custom sized floor');
                     break;
             }
-
-            scope.stageScaleX = $('.showthisfloor').width() / scope.stageWidth;
-            scope.stageScaleY = $('.showthisfloor').height() / scope.stageHeight;
+            
+            OneMap.map.stageScaleX = $('.showthisfloor').width() / OneMap.map.stageWidth;
+            OneMap.map.stageScaleY = $('.showthisfloor').height() / OneMap.map.stageHeight;
 
             // is container tall or wide
-            if (scope.stageScaleX > scope.stageScaleY) {
-                scope.stageScale = scope.stageScaleY;
+            if (OneMap.map.stageScaleX > OneMap.map.stageScaleY) {
+                OneMap.map.stageScale = OneMap.map.stageScaleY;
                 isHorizontal = true;
             } else {
-                scope.stageScale = scope.stageScaleX;
+                OneMap.map.stageScale = OneMap.map.stageScaleX;
             }
 
             // set up kinetic stages and layers
@@ -117,186 +206,107 @@ var Map = {
             });
 
             // event setup for zooming if the user has panned the image
-            layer.on('dragstart', Map.interactions.startMove);
-            layer.on('dragmove', Map.interactions.moveMap);
-            layer.on('dragend', Map.interactions.endMove);
+            layer.on('dragstart', OneMap.map.moveStart);
+            layer.on('dragmove', OneMap.map.move);
+            layer.on('dragend', OneMap.map.moveEnd);
 
             // add floorplan png and hotspots - hotspots should be set up after the image is loaded
             var floorplanObj = new Image();
             floorplanObj.src = 'images/' + imgSrc + '.png';
 
-            var imageWidth = scope.stageWidth * scope.stageScale,
-                imageHeight = scope.stageHeight * scope.stageScale;
+            var imageWidth = OneMap.map.stageWidth * OneMap.map.stageScale,
+                imageHeight = OneMap.map.stageHeight * OneMap.map.stageScale;
 
             // image centering
             if (isHorizontal) {
-                scope.imageX = (stage.width() - imageWidth) / 2;
+                OneMap.map.floorplanX = (stage.width() - imageWidth) / 2;
             } else {
-                scope.imageY = (stage.height() - imageHeight) / 2;
+                OneMap.map.floorplanY = (stage.height() - imageHeight) / 2;
             }
 
             // display canvas when image is loaded
             floorplanObj.onload = function () {
                 var floorplan = new Kinetic.Image({
-                    x: scope.imageX,
-                    y: scope.imageY,
+                    x: OneMap.map.floorplanX,
+                    y: OneMap.map.floorplanY,
                     image: floorplanObj,
                     width: imageWidth,
                     height: imageHeight,
                 });
                 layer.add(floorplan);
                 
-                scope.stage = stage;
-                scope.hoverLayer = topLayer;
-                scope.floorplanLayer = layer;
+                OneMap.map.stage = stage;
+                OneMap.map.interactiveLayer = topLayer;
+                OneMap.map.floorplanLayer = layer;
 
-                scope.loadHotspots(imageWidth, imageHeight, id);
+                OneMap.hotspots.load(imageWidth, imageHeight, id);
             };
 
             //show zoom btns
             $('.zoom-btns').fadeIn();
         },
-        loadHotspots: function (imageWidth, imageHeight, canvasID) {
-            var scope = Map.setup,
-                canvas = $('#'+canvasID)[0],
-                floorNumber = canvas.getAttribute("data-floor"), 
-                hotspot = canvas.getAttribute("data-hotspot"), 
-                pins = canvas.getAttribute("data-pins");
-
-            $.ajax({
-                url: "oneMap/getHotspots",
-                type: 'GET',
-                data: {
-                    floor: floorNumber,
-                },
-                success: function (hotspotsObj) {
-                    for (var key in hotspotsObj) {
-                        // create hotspot
-                        var hotspotPath = new Kinetic.Path({
-                            x: scope.imageX,
-                            y: scope.imageY,
-                            width: imageWidth,
-                            height: imageHeight,
-                            id: key,
-                            scale: {
-                                x: scope.stageScale,
-                                y: scope.stageScale
-                            },
-                            data: hotspotsObj[key].path,
-                            fill: scope.hotspotFill,
-                            opacity: scope.hotspotOpacity,
-                            shadowColor: "#000",
-                            shadowOffset: {
-                                x: 0,
-                                y: 3
-                            },
-                            shadowOpacity: 0.83,
-                            shadowBlur: 10
-                        });
-
-                        // Set custom properties for each hotspot
-                        hotspotPath.areaY = hotspotsObj[key].y;
-                        hotspotPath.areaX = hotspotsObj[key].x;
-                        hotspotPath.areaType = hotspotsObj[key].type;
-
-                        // hotspot mouse events
-                        hotspotPath.on('mouseover', Map.interactions.hotspotMouseOver);
-                        hotspotPath.on('mouseout', Map.interactions.hotspotMouseOut);
-                        hotspotPath.on('mousedown', Map.interactions.hotspotClick);
-
-                        
-                        if (pins !== null) {
-                            var pinsArray = pins.split(',');
-                            if (pinsArray.indexOf(key) > -1) {
-                                switch(hotspotPath.areaType) {
-                                    case 'room':
-                                        pinImage = Map.setup.pinImages.room;
-                                        break;
-                                    case 'desk':
-                                        pinImage = Map.setup.pinImages.desk;
-                                        break;                                    
-                                }
-                                var rect = new Kinetic.Rect({
-                                    x: hotspotPath.areaX + scope.imageX + scope.pinWidth/2,
-                                    y: hotspotPath.areaY + scope.imageY - scope.pinHeight/2,
-                                    width: scope.pinWidth,
-                                    height: scope.pinHeight,
-                                    fillPatternImage: Map.setup.pinImages.room,
-                                    fillPatternScale: {x:1, y:1}
-                                });
-                                scope.floorplanLayer.add(rect);
-                                hotspotPath.isPin = true;
-                            }
-                        } else {
-                            hotspotPath.isPin = false;
-                        }
-
-                        scope.floorplanLayer.add(hotspotPath);
-
-                        if (hotspot !== null && key == hotspot) {
-                            hotspotPath.fire('mousedown');
-                            $('.canvas').removeAttr('data-hotspot');
-                        }
-                    }
-
-                    scope.stage.add(scope.floorplanLayer);
-                    scope.stage.add(scope.hoverLayer);
-
-                    $('.zoom-btns').fadeIn();
-                },
-                error: function (errorThrown) {
-                    console.log(errorThrown);
-                }
-            });
-        },
-        destroyFloorplan: function () {
-            if (Map.setup.stage !== null) {
-                Map.setup.stage.destroy();
+        unloadFloor: function () {
+            if (OneMap.map.stage !== null) {
+                OneMap.map.stage.destroy();
                 $('.zoom-btns').fadeOut();
             }
+        },
+        backTo3D: function() {
+            $('.floorplan').each(function (el, i) {
+                $(el).removeClass('flydown').removeClass('flyup');
+            });
+
+            $('.ms-wrapper').removeClass('showingfloor');
+            $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
+            OneMap.map.unloadFloor();
+            OneMap.hotspots.popupElement.hide();
         }
     },
-    interactions: {
-        hasPanned: false,
-        startDragOffset: {},
-        draggedOffset: {},
-        activeHotspot: null,
-        activeHotspotID: null,
-        activeHotspotType: null,
-        activeHotspotDimensions: [],
-        activeHotspotCenter: [],
+    hotspots: {
+        // hotspot information
+        popupElement: $('#popup'),
+        popupWidth: 312,
+        popupHeight: 114,
+        
+        // hotspot properties
+        defaultFill: '#a6bf3e', //hotspotFill
+        defaultOpacity: 0, //hotspotOpacity
+        hoverFill: '#a6bf3e', //hotspot*
+        hoverOpacity: 0.5, //hotspot*
 
-        showFloor: function () {
-            if (this.getAttribute("data-showing") == "false") {
-                $(this).addClass('tag');
-                var found = false;
-                [].slice.call(document.querySelectorAll('.floorplan')).forEach(function (el, i) {
-                    if (!$(el).hasClass('tag') && !found) {
-                        $(el).addClass('flydown');
-                    } else if (!$(el).hasClass('tag') && found) {
-                        $(el).addClass('flyup');
-                    } else {
-                        found = true;
-                    }
-                });
-                $(this).removeClass('tag');
+        active: {
+            hotspot: null,
+            id: null,
+            type: null,
+            center: []
+        },
 
-                $('.ms-wrapper').addClass('showingfloor');
-                $(this).addClass('showthisfloor');
-                this.setAttribute("data-showing", "true");
-
-                var canvas = $(this).children('.canvas')[0];
-
-                Map.setup.initFloorplan(canvas.id, canvas.getAttribute("data-imgsrc"));
+        mouseOver: function () {
+            if (!this.isPin && !OneMap.zones.isCreating) {
+                this.setFill(OneMap.hotspots.hoverFill);
+                this.opacity(OneMap.hotspots.hoverOpacity);
+                this.moveTo(OneMap.map.interactiveLayer);
+                OneMap.map.interactiveLayer.drawScene();
+            }
+        },
+        mouseOut: function() {
+            if (OneMap.hotspots.active.hotspot !== this && !OneMap.zones.isCreating) {
+                this.setFill(OneMap.hotspots.defaultFill);
+                this.opacity(OneMap.hotspots.defaultOpacity);
+                this.moveTo(OneMap.map.floorplanLayer);
+                OneMap.map.interactiveLayer.draw();
             }
         },
 
-        getHotspotInfo: function () {
+
+
+
+        getInfo: function () {
             $.ajax({
                 url: 'oneMap/getHotspot',
                 type: 'GET',
                 data: {
-                    hotspotID: Map.interactions.activeHotspotID,
+                    hotspotID: OneMap.hotspots.active.id,
                 },
                 success: function (object) {
                     var innerDiv = $('#popup .inner');
@@ -353,14 +363,14 @@ var Map = {
                             console.log(object.type);
                             break;
                     }
-                    Map.interactions.openPopup();
+                    OneMap.hotspots.displayInfo();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(errorThrown);
                 }
             });
         },
-        claimHotspot: function () {
+        claim: function () {
             var $this = $('.claimHotspot'),
                 isWARRoom = $this.hasClass('addme') ? true : false,
                 $popupContent = $this.parents('.inner');
@@ -371,15 +381,15 @@ var Map = {
                 url: 'oneMap/claimHotspot',
                 type: 'GET',
                 data: {
-                    hotspotID: Map.interactions.activeHotspotID
+                    hotspotID: OneMap.hotspots.active.id
                 },
                 success: function (object) {
                     if (isWARRoom) {
                         $popupContent.html('Done');
                         setTimeout(function () {
                             $popupContent.removeClass('loading');
-                            Map.setup.popupElement.hide();
-                            Map.interactions.unactivateHotspot();
+                            OneMap.hotspots.popupElement.hide();
+                            OneMap.hotspots.unactivate();
                         }, 1500);
                     } else { // desk
                         $popupContent.removeClass('loading');
@@ -400,7 +410,7 @@ var Map = {
                 url: 'oneMap/createWarRoom',
                 type: 'GET',
                 data: {
-                    hotspotID: Map.interactions.activeHotspotID,
+                    hotspotID: OneMap.hotspots.active.id,
                     projectName: name
                 },
                 success: function (object) {
@@ -413,67 +423,40 @@ var Map = {
                 }
             });
         },
-
-        hotspotMouseOver: function () {
-            if (!this.isPin && !Map.zones.inCreateZone) {
-                this.setFill(Map.setup.hotspotHoverFill);
-                this.opacity(Map.setup.hotspotHoverOpacity);
-                this.moveTo(Map.setup.hoverLayer);
-                Map.setup.hoverLayer.drawScene();
-            }
-        },
-        hotspotMouseOut: function() {
-            if (Map.interactions.activeHotspot !== this && !Map.zones.inCreateZone) {
-                this.setFill(Map.setup.hotspotFill);
-                this.opacity(Map.setup.hotspotOpacity);
-                this.moveTo(Map.setup.floorplanLayer);
-                Map.setup.hoverLayer.draw();
-            }
-        },
-        hotspotClick: function() {
-            var interactionsObj = Map.interactions,
-                mapObj = Map.setup;
-            if(!Map.zones.inCreateZone) {
-                interactionsObj.unactivateHotspot();
-                interactionsObj.activeHotspot = this;
-                interactionsObj.activeHotspotID = this.getId();
-                interactionsObj.activeHotspotType = this.areaType;
-                interactionsObj.activeHotspotCenter = [this.areaX, this.areaY];
+        click: function() {
+            if(!OneMap.zones.isCreating) {
+                OneMap.hotspots.unactivate();
+                OneMap.hotspots.active.hotspot = this;
+                OneMap.hotspots.active.id = this.getId();
+                OneMap.hotspots.active.hotspot.type = this.areaType;
+                OneMap.hotspots.active.hotspot.center = [this.areaX, this.areaY];
 
                 if (!this.isPin) {
-                    this.setFill(mapObj.hotspotHoverFill);
-                    this.opacity(mapObj.hotspotHoverOpacity);
-                    this.moveTo(Map.setup.hoverLayer);
-                    Map.setup.hoverLayer.drawScene();
+                    this.setFill(OneMap.hotspots.hoverFill);
+                    this.opacity(OneMap.hotspots.hoverOpacity);
+                    this.moveTo(OneMap.map.interactiveLayer);
+                    OneMap.map.interactiveLayer.drawScene();
                 }
-                interactionsObj.getHotspotInfo(); 
+                OneMap.hotspots.getInfo(); 
             } else {
-                this.setFill(Map.zones.zoneColor);
-                this.opacity(mapObj.hotspotHoverOpacity);
-                this.moveTo(Map.setup.hoverLayer);
-                Map.setup.hoverLayer.drawScene();
-            }
-              
+                OneMap.zones.toggleSelected(this);
+            }  
         },
-        unactivateHotspot: function () {
-            var scope = this,
-                mapObj = Map.setup;
-
-            if (scope.activeHotspot !== null) { // unhighlight old active hotspot
-                scope.activeHotspot.setFill(mapObj.hotspotFill);
-                scope.activeHotspot.opacity(mapObj.hotspotOpacity);
-                scope.activeHotspot.moveTo(mapObj.floorplanLayer);
-                mapObj.hoverLayer.draw();
-                scope.activeHotspot = null;
+        unactivate: function () {
+            if (OneMap.hotspots.active.hotspot !== null) { // unhighlight old active hotspot
+                OneMap.hotspots.active.hotspot.setFill(OneMap.map.defaultFill);
+                OneMap.hotspots.active.hotspot.opacity(OneMap.map.defaultOpacity);
+                OneMap.hotspots.active.hotspot.moveTo(OneMap.map.floorplanLayer);
+                OneMap.map.interactiveLayer.draw();
+                OneMap.hotspots.active.hotspot = null;
             }
         },
-        openPopup: function () {
-            var setupObj = Map.setup,
-                popupElement = Map.setup.popupElement,
+        displayInfo: function () {
+            var popupElement = OneMap.hotspots.popupElement,
                 popupWidth = popupElement.width(),
                 popupHeight = popupElement.height() + 9, // 9 == height of .notch
-                x = ((Map.interactions.activeHotspotCenter[0] * setupObj.stageScale) + setupObj.imageX + $('.ms-perspective').offset().left) - (popupWidth/2),
-                y = (Map.interactions.activeHotspotCenter[1] * setupObj.stageScale) + setupObj.imageY;
+                x = ((OneMap.hotspots.active.center[0] * OneMap.map.stageScale) + OneMap.map.floorplanX + $('.ms-perspective').offset().left) - (popupWidth/2),
+                y = (OneMap.hotspots.active.center[1] * OneMap.map.stageScale) + OneMap.map.floorplanY;
 
             if (x < 20) { // pass the left edget
                 x = 20;
@@ -482,8 +465,8 @@ var Map = {
             }
             popupElement.css('left', x + 'px');
 
-            if(Map.interactions.activeHotspot.isPin) {
-                y -= setupObj.pinHeight;
+            if(OneMap.hotspots.active.isPin) {
+                y -= OneMap.search.pinHeight;
             }
             if ((y - popupHeight) < 0) {
                 popupElement.css('top', y + 'px'); // display it below the center
@@ -493,128 +476,248 @@ var Map = {
                 popupElement.removeClass('moveNotch');
             }
 
-            Map.setup.popupElement.show();
+            OneMap.hotspots.popupElement.show();
         },
-        
-        zoomMap: function (zoomType) {
-            var scope = this,
-                mapObj = Map.setup;
+        load: function (imageWidth, imageHeight, canvasID) {
+            var canvas = $('#'+canvasID)[0],
+                floorNumber = canvas.getAttribute("data-floor"), 
+                hotspot = canvas.getAttribute("data-hotspot"), 
+                pins = canvas.getAttribute("data-pins");
 
-            scope.unactivateHotspot();
+            $.ajax({
+                url: "oneMap/getHotspots",
+                type: 'GET',
+                data: {
+                    floor: floorNumber,
+                },
+                success: function (hotspotsObj) {
+                    for (var key in hotspotsObj) {
+                        // create hotspot
+                        var hotspotPath = new Kinetic.Path({
+                            x: OneMap.map.floorplanX,
+                            y: OneMap.map.floorplanY,
+                            width: imageWidth,
+                            height: imageHeight,
+                            id: key,
+                            scale: {
+                                x: OneMap.map.stageScale,
+                                y: OneMap.map.stageScale
+                            },
+                            data: hotspotsObj[key].path,
+                            fill: OneMap.map.defaultFill,
+                            opacity: OneMap.map.defaultOpacity,
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                x: 0,
+                                y: 3
+                            },
+                            shadowOpacity: 0.83,
+                            shadowBlur: 10
+                        });
 
-            var multiplier = zoomType === 'plus' ? 1 + mapObj.zoomMultiplier : 1 - mapObj.zoomMultiplier,
-                offsetX = null,
-                offsetY = null;
+                        // Set custom properties for each hotspot
+                        hotspotPath.areaY = hotspotsObj[key].y;
+                        hotspotPath.areaX = hotspotsObj[key].x;
+                        hotspotPath.areaType = hotspotsObj[key].type;
 
-            mapObj.floorplanLayer.scale({
-                x: mapObj.floorplanLayer.scaleX() * multiplier,
-                y: mapObj.floorplanLayer.scaleY() * multiplier
+                        // hotspot mouse events
+                        hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
+                        hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
+                        hotspotPath.on('mousedown', OneMap.hotspots.click);
+
+                        
+                        if (pins !== null) {
+                            var pinsArray = pins.split(',');
+                            if (pinsArray.indexOf(key) > -1) {
+                                switch(hotspotPath.areaType) {
+                                    case 'room':
+                                        pinImage = OneMap.search.pinImages.room;
+                                        break;
+                                    case 'desk':
+                                        pinImage = OneMap.search.pinImages.desk;
+                                        break;                                    
+                                }
+                                var rect = new Kinetic.Rect({
+                                    x: hotspotPath.areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
+                                    y: hotspotPath.areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
+                                    width: OneMap.search.pinWidth,
+                                    height: OneMap.search.pinHeight,
+                                    fillPatternImage: OneMap.search.pinImages.room,
+                                    fillPatternScale: {x:1, y:1}
+                                });
+                                OneMap.map.floorplanLayer.add(rect);
+                                hotspotPath.isPin = true;
+                            }
+                        } else {
+                            hotspotPath.isPin = false;
+                        }
+
+                        OneMap.map.floorplanLayer.add(hotspotPath);
+
+                        if (hotspot !== null && key == hotspot) {
+                            hotspotPath.fire('mousedown');
+                            $('.canvas').removeAttr('data-hotspot');
+                        }
+                    }
+
+                    OneMap.map.stage.add(OneMap.map.floorplanLayer);
+                    OneMap.map.stage.add(OneMap.map.interactiveLayer);
+
+                    $('.zoom-btns').fadeIn();
+                },
+                error: function (errorThrown) {
+                    console.log(errorThrown);
+                }
             });
-
-            mapObj.hoverLayer.scale({
-                x: mapObj.floorplanLayer.scaleX(),
-                y: mapObj.floorplanLayer.scaleY()
-            });
-
-            if (mapObj.floorplanLayer.scaleX() > 1) {
-                mapObj.floorplanLayer.draggable(true);
-            }
-
-            // determine new offset
-            if (mapObj.floorplanLayer.scaleX() < 1) { // map can't be smaller than canvas so reset the floorplan
-                offsetX = 0;
-                offsetY = 0;
-                mapObj.floorplanLayer.scale({
-                    x: 1,
-                    y: 1
-                });
-                mapObj.floorplanLayer.draggable(false);
-                mapObj.hoverLayer.scale({
-                    x: 1,
-                    y: 1
-                });
-                mapObj.hoverLayer.draggable(false);
-                scope.hasPanned = false;
-            } else if (scope.hasPanned) {
-                offsetX = scope.draggedOffset.x * multiplier;
-                offsetY = scope.draggedOffset.y * multiplier;
-
-                scope.draggedOffset.x = offsetX;
-                scope.draggedOffset.y = offsetY;
-            } else { // user is just zooming in and out so the map stays centered and the image is bigger than the canvas
-                var width = mapObj.floorplanLayer.width() * mapObj.floorplanLayer.scaleX(),
-                    height = mapObj.floorplanLayer.height() * mapObj.floorplanLayer.scaleY();
-                offsetX = (width - mapObj.stage.width()) / -2;
-                offsetY = (height - mapObj.stage.height()) / -2;
-            }
-
-            mapObj.floorplanLayer.setAbsolutePosition({
-                x: offsetX,
-                y: offsetY
-            });
-            mapObj.floorplanLayer.draw();
-
-            mapObj.hoverLayer.setAbsolutePosition({
-                x: offsetX,
-                y: offsetY
-            });
-            mapObj.hoverLayer.draw();
         },
-        startMove: function () {
-            Map.interactions.startDragOffset = {
-                x: this.getX(),
-                y: this.getY()
-            };
-        },
-        moveMap: function () {
-            var interactionsObj = Map.interactions,
-                mapObj = Map.setup,
-                topPos = parseInt(Map.setup.popupElement.css('top')),
-                leftPos = parseInt(Map.setup.popupElement.css('left'));
-
-            // find better information about hotspot position
-            if (leftPos < 0 || topPos < 0) { // hotspot has moved off the screen
-                Map.setup.popupElement.hide();
-                Map.interactions.unactivateHotspot();
-            } else {
-                var leftDistance = Map.interactions.startDragOffset.x - this.getX();
-                var topDistance = Map.interactions.startDragOffset.y - this.getY();
-
-                Map.setup.popupElement.css({
-                    'top' : topPos - topDistance + 'px',
-                    'left' : leftPos - leftDistance + 'px'
-                });
-
-                Map.interactions.startDragOffset.x = this.getX();
-                Map.interactions.startDragOffset.y = this.getY();
-            }
-
-            // move the top layer with the bottom layer
-            mapObj.hoverLayer.setAttrs({
-                x: this.getX(),
-                y: this.getY()
-            });
-            mapObj.hoverLayer.draw();
-        },
-        endMove: function () {
-            Map.interactions.hasPanned = true;
-            Map.interactions.draggedOffset = Map.setup.floorplanLayer.getPosition();
-        },        
-        backTo3D: function() {
-            $('.floorplan').each(function (el, i) {
-                $(el).removeClass('flydown').removeClass('flyup');
-            });
-
-            $('.ms-wrapper').removeClass('showingfloor');
-            $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
-            Map.setup.destroyFloorplan();
-            Map.setup.popupElement.hide();
-        }
     },
+    zones: {
+        isCreating: false,
+        defaultColor: '#000000',
+        defaultOpacity: 0.2,
+        selectedOpacity: 1,
+        selectedHotspots: [],
+        cancel: function() {
+            $('.zone-panel').removeClass('expanded');
+            $('#backto3d').fadeIn();
+            OneMap.zones.resetFloor();
+        },
+        save: function () {
+            OneMap.zones.isCreating = false;
+            var name = $('#zone-name').val(),
+                color = $('#zone-color').val().indexOf('#') > -1 ? $('#zone-color').val().replace('#', '') : $('#zone-color').val();
+            $.ajax({
+                url: "oneMap/createZone",
+                type: 'GET',
+                data: {
+                    zoneName: name,
+                    zoneColor: color,
+                    hotspotIDs: OneMap.zones.selectedHotspots.join(',')
+                },
+                success: function(data) {
+                    var wasSaved = data.success ? 'Your zone was successfully created' : 'Please Try again'
+                    $('.zone-panel .response div').html(wasSaved);
+                    $('.zone-panel .form').fadeOut(function(){
+                        $('.zone-panel .response').fadeIn();
+                    });
+                }
+            });
+        },
+        toggleSelected: function (self) {
+            if(self.opacity() != 1) {
+                self.setOpacity(OneMap.zones.selectedOpacity);
+                OneMap.zones.selectedHotspots.push(self.attrs.id);
+            } else {
+                self.setOpacity(OneMap.zones.defaultOpacity);
+                var index = $.inArray(self.attrs.id, OneMap.zones.selectedHotspots);
+                OneMap.zones.selectedHotspots.splice(index, 1);
+            }
+            OneMap.map.interactiveLayer.drawScene();
+            var seat = OneMap.zones.selectedHotspots.length == 1 ? 'seat' : 'seats'; 
+            $('#selected-number').html(OneMap.zones.selectedHotspots.length +' '+ seat);
+        },
+        create: function() {
+            OneMap.zones.isCreating = true;
+            var floorNumber = $('.showthisfloor .canvas').data('floor');
+            $.ajax({
+                url: "oneMap/getFreeZoneHotspots",
+                type: 'GET',
+                data: {
+                    floor: floorNumber
+                },
+                success: function(data) {
+                    console.log(data);
+                    data = [{id: 'h1', isVacant: true}, {id: 'h2', isVacant: false} ];
+                    OneMap.map.floorplanLayer.setOpacity(0.5);
+                    OneMap.map.floorplanLayer.drawScene();
+
+                    var hotspots = OneMap.map.floorplanLayer.children.getChildren();
+                    for (var i = 1; i < hotspots.length; i++) {
+                        for(var j = 0; j < data.length; j++) {
+                            if(hotspots[i].attrs.id == data[j].id) {
+                                hotspots[i].setOpacity(OneMap.zones.defaultOpacity);
+                                if(data[j].isVacant) {
+                                    hotspots[i].setStroke(OneMap.zones.defaultColor);
+                                } else {
+                                    hotspots[i].setFill(OneMap.zones.defaultColor);
+                                }
+                                hotspots[i].moveTo(OneMap.map.interactiveLayer);
+                                break;
+                            }
+                        }
+                    }
+                    OneMap.map.interactiveLayer.drawScene();
+                }
+            });
+            $('.zone-panel').addClass('expanded');
+            $('#backto3d').fadeOut();
+        },
+        resetFloor: function() {
+             OneMap.zones.isCreating = false;
+            // do i just set them back to normal? can creating zones be triggered with search if so do i need to know pins colors, etc.
+        },
+        init: function() {
+            $(document).on('click', '.create-zone a', function () {
+                if($('.showthisfloor').length > 0){
+                    OneMap.zones.create(); 
+                }
+            });
+
+            $(document).on('mouseenter', '.create-zone a', function () {
+                if(!$('.showthisfloor').length > 0){
+                    $('#create-zone-popup').show();
+                }
+            });
+            $(document).on('mouseleave', '.create-zone a', function () {
+                $('#create-zone-popup').hide();
+            });
+
+            $(document).on('click', '.zone-panel .cancel-zone', OneMap.zones.cancel);
+
+            $(document).on('click', '.zone-panel .save-zone', OneMap.zones.save);
+
+            $(document).on('click', '.zone-panel .okay', function () {
+                OneMap.zones.resetFloor();
+                $('.zone-panel').removeClass('expanded');
+                setTimeout(function () {
+                    $('.zone-panel .form').show();
+                    $('.zone-panel .response').hide();
+                }, 300);
+                
+            });
+        }
+    },     
     search: {
+        pinHeight: 36,
+        pinWidth: 28,
+        pinSrcs: {
+            'room': 'images/pin-room.png',
+            'desk': 'images/pin-seat.png'
+        },
+        pinImages: null,
+
+        /* Loads the actual image files used to mark a hotspot with a pin */
+        loadPins: function(sources) {
+            var images = {};
+            var loadedImages = 0;
+            var numImages = 0;
+            // get num of sources
+            for(var src in sources) {
+                numImages++;
+            }
+            for(var src in sources) {
+                images[src] = new Image();
+                images[src].onload = function() {
+                    if(++loadedImages >= numImages) {
+                        OneMap.search.pinImages = images;
+                    }
+                };
+                images[src].src = sources[src];
+            }
+        },
         submit: function () {
             var query = $('.searchbar').val();
-            Map.search.clearResults();
+            OneMap.search.clear();
             $.ajax({
                 url: "oneMap/runSearch",
                 type: 'GET',
@@ -652,13 +755,13 @@ var Map = {
                         } else if (results[i].type == 'room') { // room
                             content += $('#roomResult-template').html().format(results[i].name, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
                         } else if (results[i].type == 'zone') { // zone
-                        	
+                            
                         }
                     }
                     $('#result-list').html(content);
 
                     // show results tab
-                    Map.search.toggleResults();
+                    OneMap.search.toggleDisplay();
 
                     // update map
                     var counts = {};
@@ -681,17 +784,17 @@ var Map = {
                 }
             });
         },
-        toggleResults: function () {
+        toggleDisplay: function () {
             var $results = $('#results');
             $results.removeClass('cleared')
             if($results.hasClass('collapsed')) {
                 $results.removeClass('collapsed');
-                Map.interactions.backTo3D();
+                OneMap.map.backTo3D();
             } else {
                 $results.addClass('collapsed');
             }
         },
-        clearResults: function () {
+        clear: function () {
             var $results = $('#results');
             $results.addClass('cleared collapsed');
             $results.find('.results-list').html('');
@@ -702,9 +805,9 @@ var Map = {
                     $this.text("");
                 });
             });
-            Map.interactions.backTo3D();
+            OneMap.map.backTo3D();
         },
-        clickOnResult: function (self) {
+        displayResult: function (self) {
             var floor = $(self).data('floor'),
                 hotspot = $(self).data('hotspot'),
                 canvas = $('.canvas[data-floor="' + floor + '"]'),
@@ -713,6 +816,40 @@ var Map = {
             canvas.attr('data-hotspot', hotspot);
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
+        },
+
+        init: function() {
+            OneMap.search.loadPins(OneMap.search.pinSrcs);
+
+            // ----- lazy load in JS templates -----
+            $.get("js/template-room.html", function (data) {
+                $("body").append(data);
+            });
+            $.get("js/template-user.html", function (data) {
+                $("body").append(data);
+            });
+            $.get("js/template-result.html", function (data) {
+                $("body").append(data);
+            });
+
+            // ----- search interactions -----
+            $(document).on('keypress', '.searchbar', function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    OneMap.search.submit();
+                }
+            });
+            $(document).on('click', '.collapse-results', function (e) {
+                e.preventDefault();
+                OneMap.search.toggleDisplay();
+            });
+            $(document).on('click', '.clear-results', function (e) {
+                e.preventDefault();
+                OneMap.search.clear();
+            });
+            $(document).on('click', '#results .isLink', function() {
+                OneMap.search.displayResult(this);
+            });
         }
     },
     login: {
@@ -721,7 +858,7 @@ var Map = {
             var username = $('.username').val();
             var password = $('.password').val();
             $.ajax({
-                url: Map.login.submitURL,
+                url: OneMap.login.submitURL,
                 type: 'POST',
                 data: {
                     j_username: username,
@@ -742,9 +879,27 @@ var Map = {
                     console.log(errorThrown);
                 }
             });
+        },
+        init: function() {
+            // ----- loging in events -----
+            $(document).on('click', '.submit-login', OneMap.login.submit);
+            $(document).on('keypress', '.password', function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    OneMap.login.submit();
+                }
+            });
+            $(document).on('click', '.logout', function () {
+                // TODO: add actual call to logout?
+                $('.header').addClass('login');
+            });
         }
     },
-    init: function () {
+    init: function() {
+        OneMap.search.init();
+        OneMap.login.init();
+        OneMap.zones.init();
+
         //layout setup
         $('#offices').height($(window).height() - 95 - 20 - 70);
         $(window).resize(function(){
@@ -753,122 +908,36 @@ var Map = {
 
         //  alert('page refreshed');
         // ----- set up initial page view -----
-        Map.setup.loadPins(Map.setup.pinSrcs);
         if (isLoggedIn) {
             $('.ms-wrapper').addClass('ms-view-layers');
         }
 
-        // ----- lazy load in JS templates -----
-        $.get("js/template-room.html", function (data) {
-            $("body").append(data);
-        });
-        $.get("js/template-user.html", function (data) {
-            $("body").append(data);
-        });
-        $.get("js/template-result.html", function (data) {
-            $("body").append(data);
-        });
-
-        // ----- loging in events -----
-        $(document).on('click', '.submit-login', Map.login.submit);
-        $(document).on('keypress', '.password', function (e) {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-                Map.login.submit();
-            }
-        });
-        $(document).on('click', '.logout', function () {
-            // TODO: add actual call to logout?
-            $('.header').addClass('login');
-        });
-
-
-        // ----- admin events -----
-        $(document).on('click', '.create-zone a', function () {
-            if($('.showthisfloor').length > 0){
-                //get all freezone seats
-                //we actually should highlight these somehow, to avoid user 'click to find out'. generic color.
-                Map.zones.inCreateZone = true;
-                $('.zone-panel').addClass('expanded');
-                $('#backto3d').fadeOut();
-            }
-        });
-
-        $(document).on('mouseenter', '.create-zone a', function () {
-            if(!$('.showthisfloor').length > 0){
-                $('#create-zone-popup').show();
-            }
-        });
-        $(document).on('mouseleave', '.create-zone a', function () {
-            $('#create-zone-popup').hide();
-        });
-
-        $(document).on('click', '.zone-panel .cancel-zone', function () {
-            $('.zone-panel').removeClass('expanded');
-            $('#backto3d').fadeIn();
-        });
-
-        $(document).on('click', '.zone-panel .save-zone', function () {
-            //ajax call to save zone down to DB
-
-            //animations for after ajax success
-            $('.zone-panel .form').fadeOut(function(){
-                $('.zone-panel .response').fadeIn();
-            });
-        });
-
-        $(document).on('click', '.zone-panel .okay', function () {
-            $('.zone-panel').removeClass('expanded');
-            setTimeout(function () {
-                $('.zone-panel .form').show();
-                $('.zone-panel .response').hide();
-            }, 300);
-            
-        });
-
-        // ----- search interactions -----
-        $(document).on('keypress', '.searchbar', function (e) {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-                Map.search.submit();
-            }
-        });
-        $(document).on('click', '.collapse-results', function (e) {
-            e.preventDefault();
-            Map.search.toggleResults();
-        });
-        $(document).on('click', '.clear-results', function (e) {
-            e.preventDefault();
-            Map.search.clearResults();
-        });
-        $(document).on('click', '#results .isLink', function() {
-            Map.search.clickOnResult(this);
-        });
+        
 
 
         // ----- map interactions -----
         [].slice.call(document.querySelectorAll('.floorplan')).forEach(function (el, i) {
-            el.addEventListener('click', Map.interactions.showFloor, false);
+            el.addEventListener('click', OneMap.map.showFloor, false);
         });
-        $(document).on("click", '#backto3d', Map.interactions.backTo3D);
+        $(document).on("click", '#backto3d', OneMap.map.backTo3D);
         $(document).on('click', '.zoom', function () {
             // TODO: like to remove this and be able to keep the popup open while zooming
-            if ($(Map.setup.popupElement).css('display') === 'block') {
-                $(Map.setup.popupElement).hide();
+            if ($(OneMap.hotspots.popupElement).css('display') === 'block') {
+                $(OneMap.hotspots.popupElement).hide();
             }
-            Map.interactions.zoomMap(this.id);
+            OneMap.map.zoom(this.id);
         });
 
         // ----- popup interactions -----
         $(document).on('click', '#popup .close', function () {
-            Map.setup.popupElement.hide();
-            Map.interactions.unactivateHotspot();
+            OneMap.hotspots.popupElement.hide();
+            OneMap.hotspots.unactivate();
         });
-        $(document).on('click', '.claimHotspot', Map.interactions.claimHotspot);
+        $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
         $(document).on('click', '.createWAR', function () {
             $(this).after('<input type="text" class="war-name"><a href="#" class="btn savewarname">SAVE</a>').hide();
         });
-        $(document).on('click', '.savewarname', Map.interactions.createWarRoom);
+        $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
         $(document).on('click', '.viewWARmembers', function () {
             $(this).hide();
             $('#popup').css({
@@ -879,4 +948,5 @@ var Map = {
         });
     }
 };
-Map.init();
+
+OneMap.init();
