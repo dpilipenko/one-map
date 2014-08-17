@@ -11,6 +11,9 @@ class UrlMappings {
 			controller="oneMap"
 			action="show"
 		}
+				
+		"/login/$action?"(controller: "login")
+		"/logout/$action?"(controller: "logout")
 		
         "500"(view:'/error')
 	}
