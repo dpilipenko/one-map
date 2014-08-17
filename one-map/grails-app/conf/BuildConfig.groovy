@@ -7,7 +7,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-forkConfig = [maxMemory: 2048, minMemory: 64, debug: false, maxPerm: 512]
+forkConfig = [maxMemory: 2048, minMemory: 64, debug: true, maxPerm: 512]
 grails.project.fork = [
   test: forkConfig, // configure settings for the test-app JVM
   run: forkConfig, // configure settings for the run-app JVM
@@ -31,39 +31,27 @@ grails.project.dependency.resolution = {
 
         grailsPlugins()
         grailsHome()
+		grailsCentral()
+		
         mavenLocal()
-        grailsCentral()
         mavenCentral()
-        // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
+		mavenRepo 'http://repo.spring.io/milestone'
     }
 
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
     }
 
     plugins {
-        // plugins for the build system only
-        build ":tomcat:7.0.47"
+		build ":tomcat:7.0.47"
 
-        // plugins for the compile step
         compile ":scaffolding:2.0.1"
-        compile ':cache:1.1.1'
+        compile ":cache:1.1.1"
+		compile ":spring-security-ldap:2.0-RC2"
 		
-		//spring security plugin
-		compile ":spring-security-core:1.2.7.3"
-
-        // plugins needed at runtime but not for compilation
-        runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"
+		runtime ":hibernate:3.6.10.6"
         runtime ":database-migration:1.3.8"
         runtime ":jquery:1.10.2.2"
-        //runtime ":resources:1.2.1"
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0.1"
-        //runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
+        runtime ":resources:1.2.1"
     }
 }

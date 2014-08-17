@@ -1,9 +1,7 @@
-import com.rosetta.onemap.Hotspot
-import com.rosetta.onemap.User
 import com.rosetta.onemap.Office
+import com.rosetta.onemap.User
 import com.rosetta.onemap.Zone
 import com.rosetta.onemap.pintypes.Room
-import com.rosetta.onemap.pintypes.Desk
 
 class BootStrap {
 
@@ -12,6 +10,7 @@ class BootStrap {
 		////
 		//	Offices
 		////
+		
 		def cloffice = new Office(name: "Cleveland").save(flush:true);
 		def njoffice = new Office(name: "Princeton").save(flush:true);
 		def nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);

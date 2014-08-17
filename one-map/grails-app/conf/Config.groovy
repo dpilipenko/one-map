@@ -10,6 +10,7 @@
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+import grails.plugin.springsecurity.SecurityConfigType
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
@@ -115,7 +116,19 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+grails.plugin.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugin.springsecurity.interceptUrlMap = [
+	'/**':               ['IS_AUTHENTICATED_ANONYMOUSLY']
+]
+
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.rosetta.onemap.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.rosetta.onemap.UserRole'
-grails.plugins.springsecurity.authority.className = 'com.rosetta.onemap.Role'
+grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
+grails.plugin.springsecurity.ldap.context.managerDn = 'CN=juan,OU=Accounts,DC=JAVAZQUEZ,DC=com'
+grails.plugin.springsecurity.ldap.context.managerPassword = 'pwd'
+grails.plugin.springsecurity.ldap.context.server = 'ldap://javazquez.com:389'
+grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Accounts,dc=javazquez,dc=com'
+grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
+grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
+grails.plugin.springsecurity.ldap.mapper.userDetailsClass = 'person'
+grails.plugin.springsecurity.ldap.search.filter = '(sAMAccountName={0})'
+grails.plugin.springsecurity.ldap.search.base = 'DC=JAVAZQUEZ,DC=JUAN,DC=com'
