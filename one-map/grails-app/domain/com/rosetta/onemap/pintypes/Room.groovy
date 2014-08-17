@@ -27,6 +27,10 @@ class Room extends Hotspot {
 		zone nullable: true
 	}
 	
+	boolean isVacant() {
+		return (project == null || project.isEmpty());
+	}
+	
 	boolean hasProject() {
 		return (project != null && !project.isEmpty())
 	}

@@ -17,12 +17,12 @@ class Desk extends Hotspot {
 		zone nullable:true
     }
 	
-	boolean isEmpty() {
+	boolean isVacant() {
 		return user == null
 	}
 	
 	boolean claim(User user) {
-		if ( ! isEmpty() ) {
+		if ( ! isVacant() ) {
 			this.user = user
 			this.save(flush:true)
 		} else {

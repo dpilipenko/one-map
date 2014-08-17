@@ -382,6 +382,7 @@ class OneMapController {
 		properties.put("x", hotspot.x)
 		properties.put("y", hotspot.y)
 		properties.put("zone", hotspot.zone)
+		properties.put("isVacant", hotspot.isVacant())
 		container.put("h"+hotspot.id, properties)
 	}
 	
@@ -461,7 +462,7 @@ class OneMapController {
 	 */
 	private boolean setUserToDesk(User user, Desk desk) {
 		boolean success
-		if (desk.isEmpty()) {
+		if (desk.isVacant()) {
 			unclaimAllHotspotsForUser(user)
 			desk.claim(user);
 			success = true
