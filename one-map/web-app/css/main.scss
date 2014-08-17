@@ -410,7 +410,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	}
 
 	.searchbar {
-		background: url(../images/icon-magnify.png) no-repeat 190px center rgba(181,181,181,0.7);
+		background: url(../images/icon-magnify.png) no-repeat 237px center rgba(181,181,181,0.7);
 		width: 220px;
 
 		float: right;
@@ -1619,12 +1619,12 @@ background: -ms-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100
 background: linear-gradient(to bottom,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 ); /* IE6-9 */
 
-	&.desk .inner {
-	    background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	&.desk .md-content {
+	    background: url("../images/icon-watermark-person.png") no-repeat scroll 510px 9px rgba(0, 0, 0, 0);
 	}
 
-	&.room .inner {
-	    background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
+	&.room .md-content {
+	    background: url("../images/icon-watermark-room.png") no-repeat scroll 510px 9px rgba(0, 0, 0, 0);
 	}
 
 	.war-name {

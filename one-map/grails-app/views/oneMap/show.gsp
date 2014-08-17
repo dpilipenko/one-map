@@ -164,60 +164,60 @@
               <div class="ms-screens">
                 <div class="ms-screen-1 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="eleven" class="canvas" data-imgsrc="floorplan-eleven" data-floor="11"></div>
                   <div class="ms-label">Floor 11</div>
                 </div>
                 <div class="ms-screen-2 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="twelve" class="canvas" data-imgsrc="floorplan-twelve" data-floor="12"></div>
                   <div class="ms-label">Floor 12</div>
                 </div>
                 <div class="ms-screen-3 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="thirteen" class="canvas" data-imgsrc="floorplan-thirteen" data-floor="13"></div>
                   <div class="ms-label">Floor 13</div>
                 </div>
                 <div class="ms-screen-4 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="fourteen" class="canvas" data-imgsrc="floorplan-fourteen" data-floor="14"></div>
                   <div class="ms-label">Floor 14</div>
                 </div>
                 <div class="ms-screen-5 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="fifteen" class="canvas" data-imgsrc="floorplan-fifteen" data-floor="15"></div>
                   <div class="ms-label">Floor 15</div>
                 </div>
                 <div class="ms-screen-6 floorplan" data-showing="false">
                   <div class="corner-results">                    
-                    <div class="warrooms">2</div>
-                    <div class="rooms">7</div>
-                    <div class="users">14</div>
-                    <div class="zones">1</div>
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
                   </div>
                 	<div id="seventeen" class="canvas" data-imgsrc="floorplan-seventeen" data-floor="17"></div>
                   <div class="ms-label">Floor 17</div>
@@ -311,7 +311,6 @@
 	</script>
 
   <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
-  <script src="${resource(dir: 'js', file: 'modalEffects.js')}"></script>
 
 </body>
 </html>

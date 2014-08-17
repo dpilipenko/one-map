@@ -5,6 +5,10 @@ String.prototype.format = function () {
     });
 };
 
+function closeModal (){
+            $('.md-modal').removeClass('md-show');
+        }
+
 var Map = {
     zones: {
         inCreateZone: false,
@@ -860,6 +864,17 @@ var Map = {
         });
 
         // ----- popup interactions -----
+        $('.md-trigger').click(function(){
+            $('.md-modal').addClass('md-show');
+            $('.md-overlay').off( 'click');
+            $('.md-overlay').on( 'click' , closeModal );
+        });
+
+        $('.md-close').on( 'click', function( ev ) {
+            ev.stopPropagation();
+            closeModal();
+        });
+
         $(document).on('click', '#popup .close', function () {
             Map.setup.popupElement.hide();
             Map.interactions.unactivateHotspot();
