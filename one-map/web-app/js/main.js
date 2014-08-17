@@ -846,42 +846,50 @@ var OneMap = {
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
         },
+        // @Dave - when browsing after search shouldn't all of the hotspots that are part of a zone also display a color and a pin?  or do we not show zones during search unless clicked on it.
         displayPins: function() {
-            var hotspots = OneMap.map.floorplanLayer.children.getChildren();
-            console.log(hotspots);
+            var hotspots = OneMap.map.floorplanLayer.children.getChildren(),
+                hotspotsLength = hotspots.length
+                floorNumber = $('.showthisfloor .canvas').data('floor'),
+                selectedHotspot = null;
 
-            for (var i = 1; i < hotspots.length; i++) {
-                console.log(hotspots[i].areaType);
-                switch(hotspots[i].areaType) {
-                    case 'room':
-                        pinImage = OneMap.search.pinImages.room;
-                        break;
-                    case 'desk':
-                        pinImage = OneMap.search.pinImages.desk;
-                        break;                                    
+            for (var i = 1; i < hotspotsLength; i++) {
+                if($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber][hotspots[i].areaType]) > -1) {
+                    switch(hotspots[i].areaType) {
+                        case 'room':
+                            pinImage = OneMap.search.pinImages.room;
+                            break;
+                        case 'desk':
+                            pinImage = OneMap.search.pinImages.desk;
+                            break;                                    
+                    }
+
+                     var rect = new Kinetic.Rect({
+                        x: hotspots[i].areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
+                        y: hotspots[i].areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
+                        width: OneMap.search.pinWidth,
+                        height: OneMap.search.pinHeight,
+                        fillPatternImage: pinImage,
+                        fillPatternScale: {x:1, y:1}
+                    });
+
+                    hotspots[i].isPin = true;
+
+                    OneMap.map.floorplanLayer.add(rect);
+                    if (OneMap.search.activeResult == hotspots[i].attrs.id) {
+                        selectedHotspot = hotspots[i];
+                        OneMap.search.activeResult = null;
+                    }
+                } else {
+                    hotspots[i].isPin = false;
                 }
-
-                console.log(pinImage);
-
-                 var rect = new Kinetic.Rect({
-                    x: hotspots[i].areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
-                    y: hotspots[i].areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
-                    width: OneMap.search.pinWidth,
-                    height: OneMap.search.pinHeight,
-                    fillPatternImage: pinImage,
-                    fillPatternScale: {x:1, y:1}
-                });
-                console.log(rect);
-
-                /* OneMap.map.floorplanLayer.add(rect); -- causing infinite loop? */
             }
             OneMap.map.floorplanLayer.drawScene();
-           
 
-            /* if (hotspot !== null && key == hotspot) {
-                hotspotPath.fire('mousedown');
-                $('.canvas').removeAttr('data-hotspot');
-            } */
+            if (selectedHotspot !== null) {
+                selectedHotspot.fire('mousedown');
+                selectedHotspot = null;
+            }
         },
         init: function() {
             OneMap.search.loadPins(OneMap.search.pinSrcs);
