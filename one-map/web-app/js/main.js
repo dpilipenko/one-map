@@ -89,25 +89,25 @@ var OneMap = {
             };
         },
         move: function() {
-            var topPos = parseInt(OneMap.hotspots.popupElement.css('top')),
-                leftPos = parseInt(OneMap.hotspots.popupElement.css('left'));
+            //var topPos = parseInt(OneMap.hotspots.modalElement.css('top')),
+            //    leftPos = parseInt(OneMap.hotspots.modalElement.css('left'));
 
             // find better information about hotspot position
-            if (leftPos < 0 || topPos < 0) { // hotspot has moved off the screen
-                OneMap.hotspots.popupElement.hide();
-                OneMap.hotspots.unactivate();
-            } else {
+            //if (leftPos < 0 || topPos < 0) { // hotspot has moved off the screen
+            //    OneMap.hotspots.modalElement.hide();
+            //    OneMap.hotspots.unactivate();
+            //} else {
                 var leftDistance = OneMap.map.startDragOffset.x - this.getX();
                 var topDistance = OneMap.map.startDragOffset.y - this.getY();
 
-                OneMap.hotspots.popupElement.css({
-                    'top' : topPos - topDistance + 'px',
-                    'left' : leftPos - leftDistance + 'px'
-                });
+                // OneMap.hotspots.modalElement.css({
+                //     'top' : topPos - topDistance + 'px',
+                //     'left' : leftPos - leftDistance + 'px'
+                // });
 
                 OneMap.map.startDragOffset.x = this.getX();
                 OneMap.map.startDragOffset.y = this.getY();
-            }
+            //}
 
             // move the top layer with the bottom layer
             OneMap.map.interactiveLayer.setAttrs({
@@ -259,7 +259,7 @@ var OneMap = {
             $('.ms-wrapper').removeClass('showingfloor');
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
             OneMap.map.unloadFloor();
-            OneMap.hotspots.popupElement.hide();
+            //OneMap.hotspots.modalElement.hide();
         },
         init: function() {
             OneMap.hotspots.init();
@@ -268,18 +268,18 @@ var OneMap = {
             $(document).on("click", '#backto3d', OneMap.map.backTo3D);
             $(document).on('click', '.zoom', function () {
                 // TODO: like to remove this and be able to keep the popup open while zooming
-                if ($(OneMap.hotspots.popupElement).css('display') === 'block') {
-                    $(OneMap.hotspots.popupElement).hide();
-                }
+                // if ($(OneMap.hotspots.modalElement).css('display') === 'block') {
+                //     $(OneMap.hotspots.modalElement).hide();
+                // }
                 OneMap.map.zoom(this.id);
             });
         }
     },
     hotspots: {
         // hotspot information
-        popupElement: $('#popup'),
-        popupWidth: 312,
-        popupHeight: 114,
+        modalElement: $('.md-modal'),
+        // popupWidth: 312,
+        // popupHeight: 114,
         
         // hotspot properties
         defaultFill: '#a6bf3e',
@@ -320,11 +320,11 @@ var OneMap = {
                     hotspotID: OneMap.hotspots.active.id,
                 },
                 success: function (object) {
-                    var innerDiv = $('#popup .inner');
+                    var innerDiv = OneMap.hotspots.modalElement.find('.md-content');
                     
                     switch (object.type) {
                         case "room":
-                            $('#popup').removeClass('desk').addClass('room');
+                            OneMap.hotspots.modalElement.removeClass('desk').addClass('room');
                             if (object.project !== undefined) { // WAR room
                                 var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
                                 innerDiv.html(content);
@@ -352,11 +352,11 @@ var OneMap = {
                             } else { // conference room
                                 var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
                                 innerDiv.html(content);
-                                $('#popup .btns-container').html('<a class="btn createWAR">THIS MEANS WAR</a>');
+                                OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">THIS MEANS WAR</a>');
                             }
                             break;
                         case "desk":
-                            $('#popup').removeClass('room').addClass('desk');
+                            OneMap.hotspots.modalElement.removeClass('room').addClass('desk');
                             
                             if (!object.claimed) {
                                 var content = '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div>';
@@ -374,7 +374,7 @@ var OneMap = {
                             console.log(object.type);
                             break;
                     }
-                    OneMap.hotspots.displayInfo();
+                    OneMap.hotspots.showModal();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(errorThrown);
@@ -399,7 +399,7 @@ var OneMap = {
                         $popupContent.html('Done');
                         setTimeout(function () {
                             $popupContent.removeClass('loading');
-                            OneMap.hotspots.popupElement.hide();
+                            OneMap.hotspots.closeModal();
                             OneMap.hotspots.unactivate();
                         }, 1500);
                     } else { // desk
@@ -425,7 +425,7 @@ var OneMap = {
                     projectName: name
                 },
                 success: function (object) {
-                    $('#popup .room .btns-container')
+                    OneMap.hotspots.modalElement.find('.room .btns-container')
                         .before('<div>Project: ' + name + '</div>')
                         .html('<a class="btn claimHotspot addme">ADD ME</a>');
                 },
@@ -463,33 +463,6 @@ var OneMap = {
                 OneMap.map.interactiveLayer.draw();
                 OneMap.hotspots.active.hotspot = null;
             }
-        },
-        displayInfo: function () {
-            var popupElement = OneMap.hotspots.popupElement,
-                popupWidth = popupElement.width(),
-                popupHeight = popupElement.height() + 9, // 9 == height of .notch
-                x = ((OneMap.hotspots.active.center[0] * OneMap.map.stageScale) + OneMap.map.floorplanX + $('.ms-perspective').offset().left) - (popupWidth/2),
-                y = (OneMap.hotspots.active.center[1] * OneMap.map.stageScale) + OneMap.map.floorplanY;
-
-            if (x < 20) { // pass the left edget
-                x = 20;
-            } else if ((x + popupWidth) > (window.innerWidth)) { // pass the right edge
-                x = window.innerWidth - popupWidth;
-            }
-            popupElement.css('left', x + 'px');
-
-            if(OneMap.hotspots.active.isPin) {
-                y -= OneMap.search.pinHeight;
-            }
-            if ((y - popupHeight) < 0) {
-                popupElement.css('top', y + 'px'); // display it below the center
-                popupElement.addClass('moveNotch');
-            } else {
-                popupElement.css('top', (y - popupHeight) + 'px'); // display above the center
-                popupElement.removeClass('moveNotch');
-            }
-
-            OneMap.hotspots.popupElement.show();
         },
         load: function (imageWidth, imageHeight, canvasID) {
             var canvas = $('#'+canvasID)[0],
@@ -556,12 +529,26 @@ var OneMap = {
                 }
             });
         },
+        closeModal: function(){
+            OneMap.hotspots.modalElement.removeClass('md-show');
+            OneMap.hotspots.unactivate();
+        },
+        showModal: function(){
+            OneMap.hotspots.modalElement.addClass('md-show');
+            $('.md-overlay').off( 'click');
+            $('.md-overlay').on( 'click' , OneMap.hotspots.closeModal);
+        },
         init: function() {
             // ----- popup interactions -----
-            $(document).on('click', '#popup .close', function () {
-                OneMap.hotspots.popupElement.hide();
-                OneMap.hotspots.unactivate();
+
+            $('.md-close').on( 'click', function( ev ) {
+                ev.stopPropagation();
+                OneMap.hotspots.closeModal();
             });
+            // $(document).on('click', '#popup .close', function () {
+            //     OneMap.hotspots.modalElement.hide();
+            //     OneMap.hotspots.unactivate();
+            // });
             $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
             $(document).on('click', '.createWAR', function () {
                 $(this).after('<input type="text" class="war-name"><a href="#" class="btn savewarname">SAVE</a>').hide();
@@ -758,6 +745,8 @@ var OneMap = {
                             }
 
                             isLinkClass = "isLink";
+
+                            console.log(OneMap.search.mapPins);
                             
                             //@Dave: seems like this could be even more simplified (use .length of mapPins object)?
                             var floor = results[i].floor.toString();
@@ -796,16 +785,12 @@ var OneMap = {
                     OneMap.search.toggleDisplay();
 
                     // update map
-                    var counts = {};
-                    console.log(cornerIcons);
                     for (var i = 0; i < cornerIcons.length; i++) {
                         var type = cornerIcons[i];
                         for (var key in type){
                          var obj = type[key];
-                         console.log(obj);
                             for (var floor in obj){
                                 var num = obj[floor];
-                                console.log(floor + " :: " + num);
                                 if(num > 0){
                                     var canvas = $('.canvas[data-floor="' + floor + '"]');
                                     canvas.parents('.floorplan').find(".corner-results ." + key).text(num).fadeIn();

@@ -20,6 +20,7 @@
 
 
 <div class="md-modal md-effect-1" id="modal-1">
+  <a class="md-close close"></a>
   <div class="md-content">
     <h3>Modal Dialog</h3>
     <div>
@@ -29,14 +30,12 @@
         <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
         <li><strong>Close:</strong> click on the button below to close the modal.</li>
       </ul>
-      <a class="md-close close"></a>
+      
     </div>
   </div>
 </div>
 
 <div class="md-overlay"></div>
-
-<button class="md-trigger" data-modal="modal-1">Fade in &amp; Scale</button>
 
 <sec:ifLoggedIn>
    <div class="main">
@@ -251,7 +250,7 @@
         <a href="#" id="backto3d">3D</a>
       </div>
 
-      <div id="popup" class="desk">
+      <!-- <div id="popup" class="desk">
         <a href="#" class="close"></a>
 
         <div class="inner">
@@ -287,7 +286,7 @@
         </div>
         <div class="notch"></div>
       </div>
-
+ -->
     </div> <!-- end offices container -->
 
 
@@ -309,8 +308,6 @@
 	<script type="text/javascript">
 		OneMap.login.submitURL = '${postUrl}';
 	</script>
-
-  <script src="${resource(dir: 'js', file: 'classie.js')}"></script>
 
 </body>
 </html>
