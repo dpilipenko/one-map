@@ -435,6 +435,7 @@ var OneMap = {
             });
         },
         click: function() {
+            console.log(this.areaID);
             if(!OneMap.zones.isCreating) {
                 OneMap.hotspots.unactivate();
                 OneMap.hotspots.active.hotspot = this;
@@ -530,6 +531,7 @@ var OneMap = {
                         hotspotPath.areaY = hotspotsObj[key].y;
                         hotspotPath.areaX = hotspotsObj[key].x;
                         hotspotPath.areaType = hotspotsObj[key].type;
+                        hotspotPath.areaID = hotspotsObj[key].assignedSeatId;
 
                         // hotspot mouse events
                         hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
@@ -704,7 +706,7 @@ var OneMap = {
         activeResult: null,
 
         /* Loads the actual image files used to mark a hotspot with a pin */
-        loadPins: function(sources) {
+        loadPinImages: function(sources) {
             var images = {};
             var loadedImages = 0;
             var numImages = 0;
@@ -873,9 +875,13 @@ var OneMap = {
                         fillPatternScale: {x:1, y:1}
                     });
 
-                    hotspots[i].isPin = true;
-
+                    //rect.on('mousedown', function() {
+                    //    hotspots[i].fire('mousedown');
+                    //});
                     OneMap.map.floorplanLayer.add(rect);
+
+                    hotspots[i].isPin = true;
+                    
                     if (OneMap.search.activeResult == hotspots[i].attrs.id) {
                         selectedHotspot = hotspots[i];
                         OneMap.search.activeResult = null;
@@ -892,7 +898,7 @@ var OneMap = {
             }
         },
         init: function() {
-            OneMap.search.loadPins(OneMap.search.pinSrcs);
+            OneMap.search.loadPinImages(OneMap.search.pinSrcs);
 
             // ----- lazy load in JS templates -----
             $.get("js/template-room.html", function (data) {
