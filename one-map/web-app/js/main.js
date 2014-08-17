@@ -297,7 +297,7 @@ var OneMap = {
         mouseOver: function () {
             if (!this.isPin && !OneMap.zones.isCreating) {
                 this.setFill(OneMap.hotspots.hoverFill);
-                this.opacity(OneMap.hotspots.hoverOpacity);
+                this.setOpacity(OneMap.hotspots.hoverOpacity);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
             }
@@ -305,7 +305,7 @@ var OneMap = {
         mouseOut: function() {
             if (OneMap.hotspots.active.hotspot !== this && !OneMap.zones.isCreating) {
                 this.setFill(OneMap.hotspots.defaultFill);
-                this.opacity(OneMap.hotspots.defaultOpacity);
+                this.setOpacity(OneMap.hotspots.defaultOpacity);
                 this.moveTo(OneMap.map.floorplanLayer);
                 OneMap.map.interactiveLayer.draw();
             }
@@ -435,7 +435,7 @@ var OneMap = {
             });
         },
         click: function() {
-            console.log(this.areaID);
+            //console.log(this.areaID);
             if(!OneMap.zones.isCreating) {
                 OneMap.hotspots.unactivate();
                 OneMap.hotspots.active.hotspot = this;
@@ -445,10 +445,11 @@ var OneMap = {
 
                 if (!this.isPin) {
                     this.setFill(OneMap.hotspots.hoverFill);
-                    this.opacity(OneMap.hotspots.hoverOpacity);
+                    this.setOpacity(OneMap.hotspots.hoverOpacity);
                     this.moveTo(OneMap.map.interactiveLayer);
                     OneMap.map.interactiveLayer.drawScene();
                 }
+                
                 OneMap.hotspots.getInfo(); 
             } else {
                 OneMap.zones.toggleSelected(this);
@@ -456,8 +457,8 @@ var OneMap = {
         },
         unactivate: function () {
             if (OneMap.hotspots.active.hotspot !== null) { // unhighlight old active hotspot
-                OneMap.hotspots.active.hotspot.setFill(OneMap.map.defaultFill);
-                OneMap.hotspots.active.hotspot.opacity(OneMap.map.defaultOpacity);
+                OneMap.hotspots.active.hotspot.setFill(OneMap.hotspots.defaultFill);
+                OneMap.hotspots.active.hotspot.setOpacity(OneMap.hotspots.defaultOpacity);
                 OneMap.hotspots.active.hotspot.moveTo(OneMap.map.floorplanLayer);
                 OneMap.map.interactiveLayer.draw();
                 OneMap.hotspots.active.hotspot = null;
@@ -867,17 +868,18 @@ var OneMap = {
                     }
 
                      var rect = new Kinetic.Rect({
-                        x: hotspots[i].areaX + OneMap.map.floorplanX + OneMap.search.pinWidth/2,
-                        y: hotspots[i].areaY + OneMap.map.floorplanY - OneMap.search.pinHeight/2,
+                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - OneMap.search.pinWidth/2,
+                        y: (hotspots[i].areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - OneMap.search.pinHeight,
                         width: OneMap.search.pinWidth,
                         height: OneMap.search.pinHeight,
                         fillPatternImage: pinImage,
                         fillPatternScale: {x:1, y:1}
                     });
+                    rect.hotspot = hotspots[i];
+                    rect.on('mousedown', function() {
+                        this.hotspot.fire('mousedown');
+                    });
 
-                    //rect.on('mousedown', function() {
-                    //    hotspots[i].fire('mousedown');
-                    //});
                     OneMap.map.floorplanLayer.add(rect);
 
                     hotspots[i].isPin = true;
