@@ -22,8 +22,17 @@ environments {
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+//            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            url = "jdbc:mysql://onemapdev.cm4eyezc8vb1.us-east-1.rds.amazonaws.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8"
+			username = "onemapdev"
+			password = "password"
+			pooled = true
+			driverClassName = "com.mysql.jdbc.Driver"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
         }
+		hibernate {
+			show_sql = true
+		}
     }
     production {
         dataSource {
