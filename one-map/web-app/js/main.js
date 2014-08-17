@@ -252,14 +252,14 @@ var OneMap = {
             }
         },
         backTo3D: function() {
-            $('.floorplan').each(function (el, i) {
-                $(el).removeClass('flydown').removeClass('flyup');
-            });
-
             $('.ms-wrapper').removeClass('showingfloor');
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
             OneMap.map.unloadFloor();
-            //OneMap.hotspots.modalElement.hide();
+
+            $('.floorplan').each(function() {
+                $(this).removeClass('flydown');
+                $(this).removeClass('flyup');
+            });
         },
         init: function() {
             OneMap.hotspots.init();
