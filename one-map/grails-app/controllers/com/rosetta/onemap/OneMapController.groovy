@@ -177,6 +177,47 @@ class OneMapController {
 		
 		JSONArray searchResults = new JSONArray()
 		
+		// Search through Desks
+		def deskResults = Desk.withCriteria {
+			or {
+				ilike('assignedSeatId', '%'+searchTerm+'%')
+			}
+		}
+		for (Desk desk : deskResults) {
+			JSONObject deskObject = new JSONObject()
+			printDeskHotspot(desk, deskObject, springSecurityService.currentUser)
+			searchResults.add(deskObject)
+		}
+		
+		// Search through Rooms
+		def roomResults = Room.withCriteria {
+			or {
+				ilike('name', '%'+searchTerm+'%')
+				like('number', '%'+searchTerm+'%')
+				ilike('assignedSeatId', '%'+searchTerm+'%')
+			}
+		}
+		for(Room room : roomResults) {
+			JSONObject roomObject = new JSONObject()
+			roomObject.put("name", room.name);
+			roomObject.put("level", "");
+			roomObject.put("craft", "");
+			if(room?.office?.name != null) {
+				roomObject.put("location", room?.office?.name);
+			} else {
+				roomObject.put("location", "");
+			}
+			
+			String hopstopId = "h"+room.id;
+			String floor = room.getFloor();
+
+			roomObject.put("floor", floor);
+			roomObject.put("hotspotId", hopstopId);
+			roomObject.put("type", "room")
+			searchResults.add(roomObject);
+		}
+		
+		// Search through Users
 		def userResults = User.withCriteria {
 			or {
 				ilike('username', '%'+searchTerm+'%')
@@ -217,33 +258,8 @@ class OneMapController {
 			searchResults.add(userObject);
 		}
 		
-		def roomResults = Room.withCriteria {
-			or {
-				ilike('name', '%'+searchTerm+'%');
-				like('number', '%'+searchTerm+'%');
-				ilike('assignedSeatId', '%'+searchTerm+'%');
-			}
-		}
-		for(Room room : roomResults) {
-			JSONObject roomObject = new JSONObject()
-			roomObject.put("name", room.name);
-			roomObject.put("level", "");
-			roomObject.put("craft", "");
-			if(room?.office?.name != null) {
-				roomObject.put("location", room?.office?.name);
-			} else {
-				roomObject.put("location", "");
-			}
-			
-			String hopstopId = "h"+room.id;
-			String floor = room.getFloor();
-
-			roomObject.put("floor", floor);
-			roomObject.put("hotspotId", hopstopId);
-			roomObject.put("type", "room")
-			searchResults.add(roomObject);
-		}
 		
+		// Search through Zones
 		def zoneResults = Zone.withCriteria {
 			or {
 				ilike('name', '%'+searchTerm+'%');
@@ -349,9 +365,10 @@ class OneMapController {
 		container.put("zone", desk.zone)
 		container.put("assignedSeatId", desk.assignedSeatId)
 		container.put("zone", desk.zone)
+		container.put("type", "desk")
 		if (desk.user == null) {
-			container.put("floor", hotspot.floor)
-			container.put("type", hotspot.type)
+			container.put("floor", desk.floor)
+			container.put("type", desk.type)
 			container.put("claimed", false)
 			if (currentUser != null) {
 				printUser(container, currentUser)
