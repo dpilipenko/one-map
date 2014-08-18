@@ -44,6 +44,8 @@ var OneMap = {
 
             // determine new offset
             if (OneMap.map.floorplanLayer.scaleX() < 1) { // map can't be smaller than canvas so reset the floorplan
+                console.log('zoomed out fully');
+                $('#minus').addClass('disabled');
                 offsetX = 0;
                 offsetY = 0;
                 OneMap.map.floorplanLayer.scale({
@@ -58,6 +60,7 @@ var OneMap = {
                 OneMap.map.interactiveLayer.draggable(false);
                 OneMap.map.hasPanned = false;
             } else if (OneMap.map.hasPanned) {
+                $('#minus').removeClass('disabled');
                 offsetX = OneMap.map.draggedOffset.x * multiplier;
                 offsetY = OneMap.map.draggedOffset.y * multiplier;
 
@@ -68,6 +71,7 @@ var OneMap = {
                     height = OneMap.map.floorplanLayer.height() * OneMap.map.floorplanLayer.scaleY();
                 offsetX = (width - OneMap.map.stage.width()) / -2;
                 offsetY = (height - OneMap.map.stage.height()) / -2;
+                $('#minus').removeClass('disabled');
             }
 
             OneMap.map.floorplanLayer.setAbsolutePosition({
@@ -384,7 +388,7 @@ var OneMap = {
         claim: function () {
             var $this = $('.claimHotspot'),
                 isWARRoom = $this.hasClass('addme') ? true : false,
-                $popupContent = $this.parents('.inner');
+                $popupContent = $this.parents('.md-content');
 
             $popupContent.addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
 
