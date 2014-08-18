@@ -447,7 +447,7 @@ class OneMapController {
 			}
 		}
 		for (Zone zone : zoneResults) {
-
+			Office zoneOffice = null;
 			Map<String, Integer> floorCounts = new HashMap<String, Integer>()
 			// iterate through all associate hotspots and count how many per floor
 			for (Hotspot h: Hotspot.findAllByZone(Zone.getFreeZone())) {
@@ -458,6 +458,7 @@ class OneMapController {
 					fCount = new Integer(fCount.intValue() + 1)
 				}
 				floorCounts.put(h.floor, fCount)
+				zoneOffice = h?.office
 			}
 			for (String floorId : floorCounts.keySet()) {
 				JSONObject zoneObject = new JSONObject()
@@ -467,6 +468,7 @@ class OneMapController {
 				zoneObject.put("zoneColor", zone.color)
 				zoneObject.put("floor", floorId)
 				zoneObject.put("floorCount", floorCounts.get(floorId))
+				zoneObject.put("office", zoneOffice)
 				searchResults.put(zoneObject)
 			}
 		}
