@@ -44,7 +44,6 @@ var OneMap = {
 
             // determine new offset
             if (OneMap.map.floorplanLayer.scaleX() < 1) { // map can't be smaller than canvas so reset the floorplan
-                console.log('zoomed out fully');
                 $('#minus').addClass('disabled');
                 offsetX = 0;
                 offsetY = 0;
@@ -749,8 +748,6 @@ var OneMap = {
                             }
 
                             isLinkClass = "isLink";
-
-                            console.log(OneMap.search.mapPins);
                             
                             //@Dave: seems like this could be even more simplified (use .length of mapPins object)?
                             var floor = results[i].floor.toString();
