@@ -181,133 +181,15 @@ class OneMapController {
 		
 		JSONArray searchResults = new JSONArray()
 		
-		// Search through Desks
-		JSONArray deskSearchResults = new JSONArray()
-		def deskResults = Desk.withCriteria {
-			or {
-				ilike('assignedSeatId', '%'+searchTerm+'%')
-			}
-		}
-		for (Desk desk : deskResults) {
-			JSONObject deskObject = new JSONObject()
-			printDeskHotspot(desk, deskObject, springSecurityService.currentUser)
-			deskObject.put("hotspotId", 'h'+desk.id)
-			deskSearchResults.add(deskObject)
-		}
-		
-		// Search through Rooms
-		JSONArray roomSearchResults = new JSONArray()
-		def roomResults = Room.withCriteria {
-			or {
-				ilike('name', '%'+searchTerm+'%')
-				like('number', '%'+searchTerm+'%')
-				ilike('assignedSeatId', '%'+searchTerm+'%')
-			}
-		}
-		for(Room room : roomResults) {
-			JSONObject roomObject = new JSONObject()
-			roomObject.put("name", room.name);
-			roomObject.put("number", room.number)
-			roomObject.put("zoneColor", room?.zone?.color)
-			if(room?.office?.name != null) {
-				roomObject.put("location", room?.office?.name);
-			} else {
-				roomObject.put("location", "");
-			}
-			
-			String hopstopId = "h"+room.id;
-			String floor = room.getFloor();
-
-			roomObject.put("floor", floor);
-			roomObject.put("hotspotId", hopstopId);
-			roomObject.put("type", room.type)
-			roomSearchResults.add(roomObject);
-		}
-		
-		// Search through Users
-		JSONArray userSearchResults = new JSONArray()
-		def userResults = User.withCriteria {
-			or {
-				ilike('username', '%'+searchTerm+'%')
-				ilike('firstName', '%'+searchTerm+'%')
-				ilike('lastName', '%'+searchTerm+'%')
-			}
-		}
-		for(User user : userResults) {
-			JSONObject userObject = new JSONObject()
-			userObject.put("name", (user.firstName+" "+user.lastName));
-			userObject.put("level", user?.level);
-			userObject.put("craft", user?.craft);
-			userObject.put("location", user?.office?.name);
-			
-			String hopstopId = "";
-			String floor = "";
-			
-			def desk = Desk.findByUser(user);
-			if (desk != null) {
-				hopstopId = "h"+desk.id
-				floor = desk.getFloor()
-			}
-			
-			def c = Room.createCriteria()
-			Room room = c.get {
-			   users {
-				  idEq(user.id)
-			   }
-			}
-			if(room != null) {
-				hopstopId = "h"+room.id
-				floor = room.getFloor()
-			}
-			
-			userObject.put("floor", floor);
-			userObject.put("hotspotId", hopstopId);
-			userObject.put("type", "user")
-			userSearchResults.add(userObject);
-		}
-		
-		
-		// Search through Zones
-		JSONArray zoneSearchResults = new JSONArray()
-		def zoneResults = Zone.withCriteria {
-			or {
-				ilike('name', '%'+searchTerm+'%');
-				ilike('color', '%'+searchTerm+'%');
-			}
-		}
-		for (Zone zone : zoneResults) {
-			
-			Map<String, Integer> floorCounts = new HashMap<String, Integer>()
-			// iterate through all associate hotspots and count how many per floor
-			for (Hotspot h: Hotspot.findAllByZone(Zone.getFreeZone())) {
-				Integer fCount = floorCounts.get(h.floor)
-				if (fCount == null) {
-					fCount = new Integer(1)
-				} else {
-					fCount = new Integer(fCount.intValue() + 1)
-				}
-				floorCounts.put(h.floor, fCount) 
-			}
-			for (String floorId : floorCounts.keySet()) {
-				JSONObject zoneObject = new JSONObject()
-				zoneObject.put("type", "zone");
-				zoneObject.put("zoneId", zone.id)
-				zoneObject.put("zoneName", zone.name)
-				zoneObject.put("zoneColor", zone.color)
-				zoneObject.put("floor", floorId)
-				zoneObject.put("floorCount", floorCounts.get(floorId))
-				zoneSearchResults.put(zoneObject)
-			}
-		}
+		searchTerm = searchZones(searchTerm, searchResults)
+		searchTerm = searchRooms(searchTerm, searchResults)
+		searchTerm = searchUsers(searchTerm, searchResults)
+		searchTerm = searchDesks(searchTerm, searchResults)
 		
 		// Adding search results in particular order
-		searchResults.addAll(zoneSearchResults)
-		searchResults.addAll(roomSearchResults)
-		searchResults.addAll(userSearchResults)
-		searchResults.addAll(deskSearchResults)
 		render searchResults as JSON
 	}
-	
+
 	/**
 	 * GET	/unclaimHotspot
 	 * @return	{"success":boolean}
@@ -467,6 +349,128 @@ class OneMapController {
 			success = false // Room is not a WarRoom
 		}
 		return success
+	}
+	
+	private String searchDesks(String searchTerm, JSONArray searchResults) {
+		def deskResults = Desk.withCriteria {
+			or {
+				ilike('assignedSeatId', '%'+searchTerm+'%')
+			}
+		}
+		for (Desk desk : deskResults) {
+			JSONObject deskObject = new JSONObject()
+			printDeskHotspot(desk, deskObject, springSecurityService.currentUser)
+			deskObject.put("hotspotId", 'h'+desk.id)
+			searchResults.add(deskObject)
+		}
+		return searchTerm
+	}
+	
+	private String searchRooms(String searchTerm, JSONArray searchResults) {
+		def roomResults = Room.withCriteria {
+			or {
+				ilike('name', '%'+searchTerm+'%')
+				like('number', '%'+searchTerm+'%')
+				ilike('assignedSeatId', '%'+searchTerm+'%')
+			}
+		}
+		for(Room room : roomResults) {
+			JSONObject roomObject = new JSONObject()
+			roomObject.put("name", room.name);
+			roomObject.put("number", room.number)
+			roomObject.put("zoneColor", room?.zone?.color)
+			if(room?.office?.name != null) {
+				roomObject.put("location", room?.office?.name);
+			} else {
+				roomObject.put("location", "");
+			}
+
+			String hopstopId = "h"+room.id;
+			String floor = room.getFloor();
+
+			roomObject.put("floor", floor);
+			roomObject.put("hotspotId", hopstopId);
+			roomObject.put("type", room.type)
+			searchResults.add(roomObject);
+		}
+		return searchTerm
+	}
+
+	private String searchUsers(String searchTerm, JSONArray searchResults) {
+		def userResults = User.withCriteria {
+			or {
+				ilike('username', '%'+searchTerm+'%')
+				ilike('firstName', '%'+searchTerm+'%')
+				ilike('lastName', '%'+searchTerm+'%')
+			}
+		}
+		for(User user : userResults) {
+			JSONObject userObject = new JSONObject()
+			userObject.put("name", (user.firstName+" "+user.lastName));
+			userObject.put("level", user?.level);
+			userObject.put("craft", user?.craft);
+			userObject.put("location", user?.office?.name);
+
+			String hopstopId = "";
+			String floor = "";
+
+			def desk = Desk.findByUser(user);
+			if (desk != null) {
+				hopstopId = "h"+desk.id
+				floor = desk.getFloor()
+			}
+
+			def c = Room.createCriteria()
+			Room room = c.get {
+				users {
+					idEq(user.id)
+				}
+			}
+			if(room != null) {
+				hopstopId = "h"+room.id
+				floor = room.getFloor()
+			}
+
+			userObject.put("floor", floor);
+			userObject.put("hotspotId", hopstopId);
+			userObject.put("type", "user")
+			searchResults.add(userObject);
+		}
+		return searchTerm
+	}
+
+	private String searchZones(String searchTerm, JSONArray searchResults) {
+		def zoneResults = Zone.withCriteria {
+			or {
+				ilike('name', '%'+searchTerm+'%');
+				ilike('color', '%'+searchTerm+'%');
+			}
+		}
+		for (Zone zone : zoneResults) {
+
+			Map<String, Integer> floorCounts = new HashMap<String, Integer>()
+			// iterate through all associate hotspots and count how many per floor
+			for (Hotspot h: Hotspot.findAllByZone(Zone.getFreeZone())) {
+				Integer fCount = floorCounts.get(h.floor)
+				if (fCount == null) {
+					fCount = new Integer(1)
+				} else {
+					fCount = new Integer(fCount.intValue() + 1)
+				}
+				floorCounts.put(h.floor, fCount)
+			}
+			for (String floorId : floorCounts.keySet()) {
+				JSONObject zoneObject = new JSONObject()
+				zoneObject.put("type", "zone");
+				zoneObject.put("zoneId", zone.id)
+				zoneObject.put("zoneName", zone.name)
+				zoneObject.put("zoneColor", zone.color)
+				zoneObject.put("floor", floorId)
+				zoneObject.put("floorCount", floorCounts.get(floorId))
+				searchResults.put(zoneObject)
+			}
+		}
+		return searchTerm
 	}
 	
 	/**
