@@ -1062,39 +1062,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     .btns-container {
     	margin-top: 10px;
     }
-
-    #members-slider {
-		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
-    clear: both;
-    margin: 10px -10px 0;
-    padding: 10px;
-    	position: relative;
-    	display: none;
-
-
-    	.members {
-    		.member {
-				background: url(../images/icon-person.png) no-repeat left center;
-				background-size: 56px 51px;
-				padding: 8px 0px 8px 65px;
-				min-height: 51px;
-				margin: 0px 12px;
-
-				.name {
-					color: $charcoal;
-					@include RobotoRegular;
-					font-size: 15px;
-					margin: 0 0 5px 0;
-				}
-
-				color: #FFF;
-				font-family: Arial;
-				font-size: 11px;
-				line-height: 14px;
-			}
-    	}
-    }
 }
 
 .generic-popup {
@@ -1627,14 +1594,63 @@ background: -ms-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100
 background: linear-gradient(to bottom,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 ); /* IE6-9 */
 
-	&.desk .md-content > div {
-	    background: url("../images/icon-watermark-person.png") no-repeat scroll center right rgba(0, 0, 0, 0);
+	&.desk .md-bg {
+	    background: url("../images/icon-watermark-person.png") no-repeat scroll top right rgba(0, 0, 0, 0);
 	    min-height: 80px;
 	}
 
-	&.room .md-content > div {
-	    background: url("../images/icon-watermark-room.png") no-repeat scroll center right rgba(0, 0, 0, 0);
+	&.room .md-bg {
+	    background: url("../images/icon-watermark-room.png") no-repeat scroll top right rgba(0, 0, 0, 0);
 	    min-height: 80px;
+	}
+
+	.md-content {
+		color: #fff;
+		position: relative;
+		margin: 0 auto;
+		padding: 10px;
+		color: #FFF;
+	    font-size: 15px;
+	    @include RobotoLight;
+		line-height: 18px;
+
+		&.loading {
+			margin-bottom: -50px;
+		    min-height: 55px;
+		    padding-left: 50px;
+		    padding-top: 40px;
+		    width: 252px;
+		}
+
+		>div {
+			padding: 15px;
+		}
+
+		.btns-container {
+	    	padding-top: 0px;
+	    }
+
+		.md-bg {
+			.btns-container {
+				margin-top: 10px;
+			}
+		}
+
+		.seat-info {
+			#saveSeatZone {
+				margin-left: 5px;
+				display: none;
+				color: #252525;
+				font-size: 13px;
+				cursor: pointer;
+			}
+		}
+
+		.member {
+			.seat-info {
+				padding-top: 15px;
+			}
+		}
 	}
 
 	.war-name {
@@ -1680,10 +1696,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 				background: rgba(255,255,255,0.2);
     		}
     	}
-    }
-
-    .btns-container {
-    	margin-top: 10px;
     }
 
     #members-slider {
@@ -1744,31 +1756,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	opacity: 1;
 	visibility: visible;
 }
-
-/* Content styles */
-.md-content {
-	color: #fff;
-	position: relative;
-	margin: 0 auto;
-	padding: 10px;
-	color: #FFF;
-    font-size: 15px;
-    @include RobotoLight;
-	line-height: 18px;
-
-	&.loading {
-		margin-bottom: -50px;
-	    min-height: 55px;
-	    padding-left: 50px;
-	    padding-top: 40px;
-	    width: 252px;
-	}
-
-	>div {
-		padding: 15px;
-	}
-}
-
 
 
 // .md-content h3 {

@@ -6,6 +6,8 @@ String.prototype.format = function () {
 };
 
 var OneMap = {
+    userIsAdmin: true,
+
     map: {
         // map properties
         stage: null,
@@ -329,12 +331,14 @@ var OneMap = {
                         case "room":
                             OneMap.hotspots.modalElement.removeClass('desk').addClass('room');
                             if (object.project !== undefined) { // WAR room
-                                var content = $('#room-template').html().format(object.name, object.number, object.phone, object.project);
+                                var content = $('#room-template').html().format(object.name, object.number, object.phone, "Project:&nbsp;" + object.project);
                                 innerDiv.html(content);
 
                                 if (object.members.length > 0) {
                                     $('.btns-container').html('<a class="btn viewWARmembers">VIEW MEMBERS</a>');
                                 }
+
+                                //TODO: figure out if the 'add me' button should be added - <a class="btn claimHotspot addme">ADD ME</a>
 
                                 var content = '';
                                 for (var i = 0; i < object.members.length; i++) {
@@ -355,20 +359,29 @@ var OneMap = {
                             } else { // conference room
                                 var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
                                 innerDiv.html(content);
-                                OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">THIS MEANS WAR</a>');
+                                OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">CONVERT TO WARROOM</a>');
                             }
                             break;
                         case "desk":
                             OneMap.hotspots.modalElement.removeClass('room').addClass('desk');
+
+                            //TODO: discuss with team how to get list of all possible zones
+                            var zoneDisplay;
+                            if(OneMap.userIsAdmin){
+                                zoneDisplay = '<select class="zone-select"><option value="test1">Test 1</option><option value="test2">Test 2</option></select><a id="saveSeatZone" data-value="null">Save</a>';
+                            } else {
+                                zoneDisplay = (object.zone.name.toLowerCase().replace(/ /g,"") === "freezone") ? "None" : object.zone.name;
+                            }
                             
                             if (!object.claimed) {
-                                var content = '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div>';
+                                var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + '1125A' + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
+                                content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
                                 innerDiv.html(content).data("profile", object);
                             } else if (object.claimed && object.isMine) { // should be done
-                                var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+                                var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                                 innerDiv.html(content);
                             } else { // other user claimed seat
-                                var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+                                var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                                 content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
                                 innerDiv.html(content);
                             }
@@ -554,7 +567,7 @@ var OneMap = {
             // });
             $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
             $(document).on('click', '.createWAR', function () {
-                $(this).after('<input type="text" class="war-name"><a href="#" class="btn savewarname">SAVE</a>').hide();
+                $(this).after('<input type="text" class="war-name" placeholder="project name"><a href="#" class="btn savewarname">SAVE</a>').hide();
             });
             $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
             $(document).on('click', '.viewWARmembers', function () {
@@ -653,6 +666,20 @@ var OneMap = {
         resetFloor: function() {
              OneMap.zones.isCreating = false;
             // do i just set them back to normal? can creating zones be triggered with search if so do i need to know pins colors, etc.
+
+            //DF: yes, just set everything the way it was. zones are only created via the create zone workflow
+        },
+        //TODO: hook into AJAX call
+        updateSeatZone: function(event){
+            var $this = $(event.target);
+            $this.html('<img width="13px" height="13px" src="images/loading.gif" style="margin-bottom: -2px; margin-left: 6px;">');
+            setTimeout(function(){
+                $this.html('<img width="16px" height="13px" src="images/icon-checkmark.png" style="margin-bottom: -2px; margin-left: 3px;">');
+
+                setTimeout(function(){
+                    $this.html('Save').hide();
+                }, 1500);
+            }, 1000);
         },
         init: function() {
             $(document).on('click', '.create-zone a', function () {
@@ -660,6 +687,12 @@ var OneMap = {
                     OneMap.zones.create(); 
                 }
             });
+
+            $(document).on('change', '.seat-info select', function(){
+                $(this).parent().find('#saveSeatZone').show();
+            });
+
+            $(document).on('click', '#saveSeatZone', OneMap.zones.updateSeatZone);
 
             $(document).on('mouseenter', '.create-zone a', function () {
                 if(!$('.showthisfloor').length > 0){
@@ -930,14 +963,11 @@ var OneMap = {
                     j_password: password
                 },
                 success: function (data, textStatus, jqXHR) {
-                    //$('.main').removeClass('login');
                     
-                    //setTimeout(function () {
-                        $('.header').removeClass('login');
-                        setTimeout(function () {
-                            $('.ms-wrapper').addClass('ms-view-layers');
-                        }, 500); // TODO: verify this is the same amount of time for the login slide up animation
-                    //}, 100);
+                    $('.header').removeClass('login');
+                    setTimeout(function () {
+                        $('.ms-wrapper').addClass('ms-view-layers');
+                    }, 500);
                     
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
