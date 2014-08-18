@@ -774,7 +774,7 @@ var OneMap = {
                                 content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
                                 break;
                             case 'room':
-                                content += $('#roomResult-template').html().format(results[i].name, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                                content += $('#roomResult-template').html().format(results[i].name, "num", results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
                                 break;
                             case 'warroom':
                                 break;
@@ -804,7 +804,7 @@ var OneMap = {
         },
         toggleDisplay: function () {
             var $results = $('#results');
-            $results.removeClass('cleared')
+            $results.removeClass('cleared');
             if($results.hasClass('collapsed')) {
                 $results.removeClass('collapsed');
                 OneMap.map.backTo3D();
