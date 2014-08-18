@@ -48,8 +48,11 @@ class OneMapController {
 			JSONObject userInformation = new JSONObject()
 			printUser(userInformation, currentUser)
 			res.put("userinformation", userInformation)
+		} else {
+			res.put("userinformation", null)
 		}
 		res.put("success", success)
+		
 		render res as JSON
 	}
 	
@@ -94,12 +97,13 @@ class OneMapController {
 	 */
 	JSONObject createZone() {
 		boolean success
-		boolean validInput = (params.zoneName != null && params.zoneColor != null && params.hotspotID != null )
+		boolean validInput = (params.zoneName != null && params.zoneColor != null 
+			&& !Zone.doesColorAlreadyExist("#"+params.zoneColor) && params.hotspotIDs != null )
 		if (validInput) {
-			Zone zone = new Zone(name: params.zoneName, color: "#"+params.color).save(flush:true)
+			Zone zone = new Zone(name: params.zoneName, color: "#"+params.zoneColor).save(flush:true)
 			String[] hotspotIDs = params.hotspotIDs.split(",")
 			for (String hotspotID : hotspotIDs) {
-				hotspotID = cleanseHotspotIdFromInput(params)
+				hotspotID = cleanseHotspotIdFromInput(hotspotID)
 				if (hotspotID.isNumber()) {
 					Hotspot hotspot = Hotspot.findById(hotspotID)
 					success = updateZoneForHotspot(zone, hotspot)
@@ -178,6 +182,7 @@ class OneMapController {
 		JSONArray searchResults = new JSONArray()
 		
 		// Search through Desks
+		JSONArray deskSearchResults = new JSONArray()
 		def deskResults = Desk.withCriteria {
 			or {
 				ilike('assignedSeatId', '%'+searchTerm+'%')
@@ -186,10 +191,12 @@ class OneMapController {
 		for (Desk desk : deskResults) {
 			JSONObject deskObject = new JSONObject()
 			printDeskHotspot(desk, deskObject, springSecurityService.currentUser)
-			searchResults.add(deskObject)
+			deskObject.put("hotspotId", 'h'+desk.id)
+			deskSearchResults.add(deskObject)
 		}
 		
 		// Search through Rooms
+		JSONArray roomSearchResults = new JSONArray()
 		def roomResults = Room.withCriteria {
 			or {
 				ilike('name', '%'+searchTerm+'%')
@@ -200,8 +207,8 @@ class OneMapController {
 		for(Room room : roomResults) {
 			JSONObject roomObject = new JSONObject()
 			roomObject.put("name", room.name);
-			roomObject.put("level", "");
-			roomObject.put("craft", "");
+			roomObject.put("number", room.number)
+			roomObject.put("zoneColor", room?.zone?.color)
 			if(room?.office?.name != null) {
 				roomObject.put("location", room?.office?.name);
 			} else {
@@ -213,11 +220,12 @@ class OneMapController {
 
 			roomObject.put("floor", floor);
 			roomObject.put("hotspotId", hopstopId);
-			roomObject.put("type", "room")
-			searchResults.add(roomObject);
+			roomObject.put("type", room.type)
+			roomSearchResults.add(roomObject);
 		}
 		
 		// Search through Users
+		JSONArray userSearchResults = new JSONArray()
 		def userResults = User.withCriteria {
 			or {
 				ilike('username', '%'+searchTerm+'%')
@@ -255,11 +263,12 @@ class OneMapController {
 			userObject.put("floor", floor);
 			userObject.put("hotspotId", hopstopId);
 			userObject.put("type", "user")
-			searchResults.add(userObject);
+			userSearchResults.add(userObject);
 		}
 		
 		
 		// Search through Zones
+		JSONArray zoneSearchResults = new JSONArray()
 		def zoneResults = Zone.withCriteria {
 			or {
 				ilike('name', '%'+searchTerm+'%');
@@ -287,10 +296,15 @@ class OneMapController {
 				zoneObject.put("zoneColor", zone.color)
 				zoneObject.put("floor", floorId)
 				zoneObject.put("floorCount", floorCounts.get(floorId))
-				searchResults.put(zoneObject)
+				zoneSearchResults.put(zoneObject)
 			}
 		}
 		
+		// Adding search results in particular order
+		searchResults.addAll(zoneSearchResults)
+		searchResults.addAll(roomSearchResults)
+		searchResults.addAll(userSearchResults)
+		searchResults.addAll(deskSearchResults)
 		render searchResults as JSON
 	}
 	
@@ -365,7 +379,8 @@ class OneMapController {
 		container.put("zone", desk.zone)
 		container.put("assignedSeatId", desk.assignedSeatId)
 		container.put("zone", desk.zone)
-		container.put("type", "desk")
+		container.put("type", desk.type)
+		container.put("location", desk?.office?.name)
 		if (desk.user == null) {
 			container.put("floor", desk.floor)
 			container.put("type", desk.type)

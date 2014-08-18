@@ -10,6 +10,9 @@ public class Zone {
 		}
 		return FREE_ZONE
 	}
+	static boolean doesColorAlreadyExist(String color) {
+		return (Zone.findByColor(color) != null)
+	}
 
 	/* Public Members */
 	String name
