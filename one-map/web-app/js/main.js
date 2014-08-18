@@ -826,7 +826,6 @@ var OneMap = {
             });
             OneMap.map.backTo3D();
         },
-        //@Dave - what happens when the user clicks on a "zone"
         displayResult: function (self) {
             var floor = $(self).data('floor'),
                 hotspot = $(self).data('hotspot'),
@@ -835,7 +834,6 @@ var OneMap = {
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
         },
-        // @Dave - when browsing after search shouldn't all of the hotspots that are part of a zone also display a color and a pin?  or do we not show zones during search unless clicked on it.
         displayPins: function() {
             var hotspots = OneMap.map.floorplanLayer.children.getChildren(),
                 hotspotsLength = hotspots.length
@@ -966,7 +964,6 @@ var OneMap = {
         }
     },
     init: function() {
-        //layout setup -- @Dave when did this happen?  It broke the responsivness of the canvases
         $('#offices').height($(window).height() - 95 - 20 - 70);
         $(window).resize(function(){
             $('#offices').height($(window).height() - 95 - 20 - 70);
