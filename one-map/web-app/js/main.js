@@ -400,9 +400,9 @@ var OneMap = {
         claim: function () {
             var $this = $('.claimHotspot'),
                 isWARRoom = $this.hasClass('addme') ? true : false,
-                $popupContent = $this.parents('.md-content');
+                $modalContent = $this.parents('.md-content');
 
-            $popupContent.addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
+            $modalContent.addClass('loading').html('<img width="13px" height="13px" src="images/loading.gif"> Loading');
 
             $.ajax({
                 url: 'oneMap/claimHotspot',
@@ -412,17 +412,17 @@ var OneMap = {
                 },
                 success: function (object) {
                     if (isWARRoom) {
-                        $popupContent.html('Done');
+                        $modalContent.html('Done');
                         setTimeout(function () {
-                            $popupContent.removeClass('loading');
+                            $modalContent.removeClass('loading');
                             OneMap.hotspots.closeModal();
                             OneMap.hotspots.unactivate();
                         }, 1500);
                     } else { // desk
-                        $popupContent.removeClass('loading');
+                        $modalContent.removeClass('loading');
                         object = object.userinformation;
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
-                        $popupContent.html(content);
+                        $modalContent.html(content);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -572,9 +572,9 @@ var OneMap = {
             $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
             $(document).on('click', '.viewWARmembers', function () {
                 $(this).hide();
-                $('#popup').css({
-                    top: parseInt($('#popup').css('top'))-$('#members-slider').height() + 'px'
-                });
+                // $('#popup').css({
+                //     top: parseInt($('#popup').css('top'))-$('#members-slider').height() + 'px'
+                // });
                 $('#members-slider').show();
 
             });
