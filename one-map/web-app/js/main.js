@@ -174,7 +174,7 @@ var OneMap = {
                     OneMap.map.stageHeight = 528;
                     break;
                 default:
-                    console.log('not a custom sized floor');
+                    //console.log('not a custom sized floor');
                     break;
             }
             
@@ -187,6 +187,7 @@ var OneMap = {
                 isHorizontal = true;
             } else {
                 OneMap.map.stageScale = OneMap.map.stageScaleX;
+                isHorizontal = false;
             }
 
             // set up kinetic stages and layers
@@ -225,8 +226,10 @@ var OneMap = {
 
             // image centering
             if (isHorizontal) {
+                OneMap.map.floorplanY = 0;
                 OneMap.map.floorplanX = (stage.width() - imageWidth) / 2;
             } else {
+                 OneMap.map.floorplanX = 0;
                 OneMap.map.floorplanY = (stage.height() - imageHeight) / 2;
             }
 
@@ -665,8 +668,7 @@ var OneMap = {
                     floor: floorNumber
                 },
                 success: function(data) {
-                    console.log(data);
-                    data = [{id: 'h1', isVacant: true}, {id: 'h2', isVacant: false} ];
+                    //console.log(data);
                     OneMap.map.floorplanLayer.setOpacity(0.5);
                     OneMap.map.floorplanLayer.drawScene();
 
@@ -799,7 +801,7 @@ var OneMap = {
                     var content = '';
                     var cornerIcons = [{"zones": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0} }, {"users": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"rooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"warrooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}];
                     
-                    console.log(results);
+                    //console.log(results);
                     
                     for (var i = 0; i < results.length; i++) {
                         var isLinkClass = "";
@@ -809,13 +811,18 @@ var OneMap = {
 
                             if(typeof OneMap.search.mapPins[results[i].floor] == 'undefined') {
                                 OneMap.search.mapPins[results[i].floor] = {};
+                                OneMap.search.mapPins[results[i].floor].floorIds = [];
                             }
 
+                            // break up hotspots by type
                             if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
                                 OneMap.search.mapPins[results[i].floor][results[i].type] = [results[i].hotspotId];
                             } else {
                                 OneMap.search.mapPins[results[i].floor][results[i].type].push(results[i].hotspotId);
                             }
+                            
+                            // add all ids to floors for when search returns type user
+                            OneMap.search.mapPins[results[i].floor].floorIds.push(results[i].hotspotId);
 
                             isLinkClass = "isLink";
                             
@@ -901,7 +908,7 @@ var OneMap = {
             var floor = $(self).data('floor'),
                 hotspot = $(self).data('hotspot'),
                 canvas = $('.canvas[data-floor="' + floor + '"]');
-            OneMap.search.activeResult =  hotspot;   
+            OneMap.search.activeResult =  hotspot; 
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
         },
@@ -912,7 +919,7 @@ var OneMap = {
                 selectedHotspot = null;
 
             for (var i = 1; i < hotspotsLength; i++) {
-                if($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber][hotspots[i].areaType]) > -1) {
+                if($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
                     switch(hotspots[i].areaType) {
                         case 'room':
                             pinImage = OneMap.search.pinImages.room;
@@ -938,7 +945,7 @@ var OneMap = {
                     OneMap.map.floorplanLayer.add(rect);
 
                     hotspots[i].isPin = true;
-                    
+
                     if (OneMap.search.activeResult == hotspots[i].attrs.id) {
                         selectedHotspot = hotspots[i];
                         OneMap.search.activeResult = null;

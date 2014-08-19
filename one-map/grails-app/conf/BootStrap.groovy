@@ -117,7 +117,7 @@ class BootStrap {
 		if (Room.findByAssignedSeatId("1726") == null) {
 			new Room(name: "Johnny Cash", number: "1726", phone: "216.896.7345", office: cloffice, floor: "17", assignedSeatId: "1726", zone: freeZone, polygon: "M452.818,387.131 504.658,375.492 525.14,451.435 470.099,464.403z", x: "489", y: "420").save(flush: true);
 		}
-		if (Room.findByAssignedSeatId("1726") == null) {
+		if (Room.findByAssignedSeatId("1723") == null) {
 			new Room(name: "Chuck Berry", number: "1723", phone: "216.896.2324", office: cloffice, floor: "17", assignedSeatId: "1723", zone: ahaZone, polygon: "M467.818,303.372 498.118,350.886 446.578,363.011 445.019,367.931 405.898,372.612 385.139,324.011z", x: "442", y: "338").save(flush: true);
 		}
 		Room elvis = Room.findByAssignedSeatId("1715");
