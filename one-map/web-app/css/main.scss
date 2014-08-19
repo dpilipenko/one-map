@@ -684,6 +684,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 		overflow-y: auto;
 		height: 370px;
 
+		.results-group {
+		    background: none repeat scroll 0 0 rgba(255, 255, 255, 0.15);
+		    border-bottom: 1px dotted #999;
+		    border-top: 1px dotted #999;
+		    color: #00bce4;
+		    font-family: 'robotolight',Arial;
+		    font-size: 18px;
+		    padding: 10px;
+		    text-transform: uppercase;
+		}
+
 		.result-item {
 			opacity: 0.5;
 			

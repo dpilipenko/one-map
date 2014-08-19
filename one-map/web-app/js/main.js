@@ -803,8 +803,16 @@ var OneMap = {
                     var cornerIcons = [{"zones": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0} }, {"users": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"rooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"warrooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}];
                     
                     //console.log(results);
+
+                    var currentType = "";
                     
                     for (var i = 0; i < results.length; i++) {
+                        //type headers
+                        if (results[i].type != currentType){
+                            currentType = results[i].type;
+                            content += '<div class="results-group">' + currentType + 's</div>';
+                        }
+
                         var isLinkClass = "";
                         if (results[i].hotspotId !== '') {
                             var canvas = $('.canvas[data-floor="' + results[i].floor + '"]');
