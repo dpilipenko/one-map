@@ -262,6 +262,12 @@ var OneMap = {
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
             OneMap.map.unloadFloor();
 
+            if(!$.isEmptyObject(OneMap.search.mapPinsTemp)){
+                console.info('here');
+                OneMap.search.mapPins = OneMap.search.mapPinsTemp;
+                OneMap.search.mapPinsTemp = new Object;
+            }
+
             $('.floorplan').each(function() {
                 $(this).removeClass('flydown');
                 $(this).removeClass('flyup');
@@ -813,7 +819,6 @@ var OneMap = {
 
                             isLinkClass = "isLink";
                             
-                            console.info(results[i]);
                             //@Dave: seems like this could be even more simplified (use .length of mapPins object)?
                             var floor = results[i].floor.toString();
                             switch(results[i].type) {
@@ -834,13 +839,13 @@ var OneMap = {
 
                         switch(results[i].type) {
                             case 'zone':
-                                content += $('#zoneResult-template').html().format(results[i].zoneName, results[i].office.name, results[i].floor, isLinkClass, results[i].floor, results[i].zoneId);                        
+                                content += $('#zoneResult-template').html().format(results[i].zoneName, results[i].office.name, results[i].floor, isLinkClass, results[i].floor, results[i].zoneId, "zone");                        
                                 break;
                             case 'user':
-                                content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                                content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "desk");
                                 break;
                             case 'room':
-                                content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId);                        
+                                content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "room");                        
                                 break;
                             case 'warroom':
                                 break;
@@ -972,6 +977,8 @@ var OneMap = {
             });
             $(document).on('click', '.collapse-results', function (e) {
                 e.preventDefault();
+                OneMap.search.mapPins = OneMap.search.mapPinsTemp;
+                OneMap.search.mapPinsTemp = new Object;
                 OneMap.search.toggleDisplay();
             });
             $(document).on('click', '.clear-results', function (e) {
@@ -979,6 +986,26 @@ var OneMap = {
                 OneMap.search.clear();
             });
             $(document).on('click', '#results .isLink', function() {
+                
+
+                OneMap.search.activeResult =  $(this).data('hotspot');
+
+                var floor = $(this).data('floor');
+                var hotspot = $(this).data('hotspot');
+                var type = $(this).data('type');
+                OneMap.search.mapPinsTemp = OneMap.search.mapPins;
+                OneMap.search.mapPins = new Object;
+
+                if(typeof OneMap.search.mapPins[floor] == 'undefined') {
+                    OneMap.search.mapPins[floor] = {};
+                }
+
+                if(typeof OneMap.search.mapPins[floor][type] == 'undefined') {
+                    OneMap.search.mapPins[floor][type] = [$(this).data('hotspot')];
+                } else {
+                    OneMap.search.mapPins[floor][type].push($(this).data('hotspot'));
+                }
+
                 OneMap.search.displayResult(this);
             });
         }
