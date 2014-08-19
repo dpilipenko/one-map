@@ -686,12 +686,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 		.result-item {
 			opacity: 0.5;
-			background: url(../images/icon-person.png) no-repeat left center;
-			background-size: 29px 27px;
-			padding: 8px 0px 8px 40px;
-			min-height: 49px;
+			
+			padding: 11px 0px 11px 40px;
+			min-height: 39px;
 			border-bottom: 1px solid #393939;
 			margin: 0px 12px;
+
+			&.user {
+				background: url(../images/icon-person.png) no-repeat left center;
+				background-size: 29px 27px;
+			}
+
+			&.room {
+				background: url(../images/icon-room.png) no-repeat left center;
+				background-size: 29px 28px;
+			}
+
+			&.zone {
+				background: url(../images/icon-zone.png) no-repeat left center;
+				background-size: 33px 26px;
+			}
 
 
 			&.isLink {
