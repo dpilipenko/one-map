@@ -211,7 +211,7 @@ class OneMapController {
 	 */
 	JSONObject updateZone() {
 		boolean success
-		boolean validInput = (params.zoneID != null && params.zoneID.isNumber() && params.hotspotID != null && params.hotspotID.isNumber()) 
+		boolean validInput = (params.zoneID != null && params.zoneID.isNumber() && params.hotspotID != null) 
 		if (validInput) {
 			Hotspot hotspot = Hotspot.findById(cleanseHotspotIdFromInput(params.hotspotID))
 			Zone zone = Zone.findById(params.zoneID)
