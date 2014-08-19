@@ -897,10 +897,7 @@ var OneMap = {
             OneMap.search.activeResult = null;
             OneMap.search.mapPins = new Object;
             $('.corner-results div').each(function(){
-                var $this = $(this);
-                $this.fadeOut(function(){
-                    $this.text("");
-                });
+                $(this).hide().text("");
             });
             OneMap.map.backTo3D();
         },
