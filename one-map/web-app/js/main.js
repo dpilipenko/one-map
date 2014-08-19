@@ -336,7 +336,7 @@ var OneMap = {
                 success: function (object) {
                     if(OneMap.userIsAdmin){
                         $.ajax({
-                            url: 'oneMap/getzones.AllZones',
+                            url: 'oneMap/getAllZones',
                             type: 'GET',
                             success: function (zones) {
                                 OneMap.zones.allZones = zones;
