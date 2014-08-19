@@ -263,17 +263,14 @@ class OneMapController {
 		container.put("zone", desk.zone)
 		container.put("type", desk.type)
 		container.put("location", desk?.office?.name)
+		container.put("floor", desk.floor)
 		if (desk.user == null) {
-			container.put("floor", desk.floor)
-			container.put("type", desk.type)
 			container.put("claimed", false)
 			if (currentUser != null) {
 				printUser(container, currentUser)
 			}
 		} else  if (desk.user != null) {
 			printUser(container, desk.user)
-			container.put("type", "desk")
-
 			if (currentUser == null) {
 				container.put("isOwn", false)
 				container.put("claimed", true)
