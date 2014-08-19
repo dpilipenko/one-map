@@ -187,6 +187,7 @@ var OneMap = {
                 isHorizontal = true;
             } else {
                 OneMap.map.stageScale = OneMap.map.stageScaleX;
+                isHorizontal = false;
             }
 
             // set up kinetic stages and layers
@@ -225,8 +226,10 @@ var OneMap = {
 
             // image centering
             if (isHorizontal) {
+                OneMap.map.floorplanY = 0;
                 OneMap.map.floorplanX = (stage.width() - imageWidth) / 2;
             } else {
+                 OneMap.map.floorplanX = 0;
                 OneMap.map.floorplanY = (stage.height() - imageHeight) / 2;
             }
 
