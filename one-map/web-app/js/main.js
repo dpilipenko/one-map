@@ -7,7 +7,6 @@ String.prototype.format = function () {
 
 var OneMap = {
     userIsAdmin: true,
-    allZones: [],
 
     map: {
         // map properties
@@ -337,10 +336,10 @@ var OneMap = {
                 success: function (object) {
                     if(OneMap.userIsAdmin){
                         $.ajax({
-                            url: 'oneMap/getAllZones',
+                            url: 'oneMap/getzones.AllZones',
                             type: 'GET',
                             success: function (zones) {
-                                OneMap.allZones = zones;
+                                OneMap.zones.allZones = zones;
                                 OneMap.hotspots.populateModal(object);
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
@@ -549,8 +548,8 @@ var OneMap = {
                     var zoneDisplay;
                     if(OneMap.userIsAdmin){
                         zoneDisplay = '<select class="zone-select">';
-                        for (var z = 0; z < OneMap.allZones.length; z++){
-                            zoneDisplay += '<option value="' + OneMap.allZones[z].id + '" ' + ( (object.zone.id == OneMap.allZones[z].id) ? 'selected="selected"' : '') + '>' + ((OneMap.allZones[z].name.toLowerCase().replace(/ /g,"") === "freezone") ? "None" : OneMap.allZones[z].name) + '</option>';
+                        for (var z = 0; z < OneMap.zones.allZones.length; z++){
+                            zoneDisplay += '<option value="' + OneMap.zones.allZones[z].id + '" ' + ( (object.zone.id == OneMap.zones.allZones[z].id) ? 'selected="selected"' : '') + '>' + ((OneMap.zones.allZones[z].name.toLowerCase().replace(/ /g,"") === "freezone") ? "None" : OneMap.zones.allZones[z].name) + '</option>';
                         }
                         zoneDisplay += '</select><a id="saveSeatZone">Save</a>';
                     } else {
@@ -617,6 +616,7 @@ var OneMap = {
         defaultOpacity: 0.2,
         selectedOpacity: 1,
         selectedHotspots: [],
+        allZones: [],
         cancel: function() {
             $('.zone-panel').removeClass('expanded');
             $('#backto3d').fadeIn();
@@ -668,7 +668,7 @@ var OneMap = {
                     floor: floorNumber
                 },
                 success: function(data) {
-                    //console.log(data);
+                    console.log(data);
                     OneMap.map.floorplanLayer.setOpacity(0.5);
                     OneMap.map.floorplanLayer.drawScene();
 
