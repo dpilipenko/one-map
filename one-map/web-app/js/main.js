@@ -266,7 +266,7 @@ var OneMap = {
             OneMap.map.unloadFloor();
 
             if(!$.isEmptyObject(OneMap.search.mapPinsTemp)){
-                console.info('here');
+                console.info('3D mapPins reset');
                 OneMap.search.mapPins = OneMap.search.mapPinsTemp;
                 OneMap.search.mapPinsTemp = new Object;
             }
@@ -984,8 +984,13 @@ var OneMap = {
             });
             $(document).on('click', '.collapse-results', function (e) {
                 e.preventDefault();
-                OneMap.search.mapPins = OneMap.search.mapPinsTemp;
-                OneMap.search.mapPinsTemp = new Object;
+
+                if(!$.isEmptyObject(OneMap.search.mapPinsTemp)){
+                    console.info('collapse results mapPins reset');
+                    OneMap.search.mapPins = OneMap.search.mapPinsTemp;
+                    OneMap.search.mapPinsTemp = new Object;
+                }
+
                 OneMap.search.toggleDisplay();
             });
             $(document).on('click', '.clear-results', function (e) {
