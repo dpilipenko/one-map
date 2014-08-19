@@ -823,6 +823,8 @@ var OneMap = {
                                 OneMap.search.mapPins[results[i].floor].floorIds = [];
                             }
 
+                            console.log(OneMap.search.mapPins);
+
                             // break up hotspots by type
                             if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
                                 OneMap.search.mapPins[results[i].floor][results[i].type] = [results[i].hotspotId];
