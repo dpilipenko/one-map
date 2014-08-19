@@ -1005,6 +1005,7 @@ var OneMap = {
 
                 if(typeof OneMap.search.mapPins[floor] == 'undefined') {
                     OneMap.search.mapPins[floor] = {};
+                    OneMap.search.mapPins[floor].floorIds = [];
                 }
 
                 if(typeof OneMap.search.mapPins[floor][type] == 'undefined') {
@@ -1012,6 +1013,9 @@ var OneMap = {
                 } else {
                     OneMap.search.mapPins[floor][type].push($(this).data('hotspot'));
                 }
+
+                // add all ids to floors for when search returns type user
+                OneMap.search.mapPins[floor].floorIds.push(hotspot);
 
                 OneMap.search.displayResult(this);
             });
