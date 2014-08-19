@@ -542,8 +542,6 @@ var OneMap = {
                     }
                     break;
                 case "desk":
-                    OneMap.hotspots.modalElement.removeClass('room').addClass('desk');
-
                     //TODO: discuss with team how to get list of all possible zones
                     var zoneDisplay;
                     if(OneMap.userIsAdmin){
@@ -557,13 +555,16 @@ var OneMap = {
                     }
                     
                     if (!object.claimed) {
-                        var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + '1125A' + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('user').addClass('desk');
+                        var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + object.assignedSeatId + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
                         content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
                         innerDiv.html(content).data("profile", object);
                     } else if (object.claimed && object.isMine) { // should be done
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                         innerDiv.html(content);
                     } else { // other user claimed seat
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                         content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
                         innerDiv.html(content);
@@ -853,6 +854,9 @@ var OneMap = {
                                 break;
                             case 'room':
                                 content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "room");                        
+                                break;
+                            case 'desk':
+                                content += $('#deskResult-template').html().format(results[i].assignedSeatId, results[i].location, results[i].floor, isLinkClass, results[i].floor, results[i].hotspotId, "desk");                        
                                 break;
                             case 'warroom':
                                 break;
