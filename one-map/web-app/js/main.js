@@ -805,10 +805,12 @@ var OneMap = {
                     //console.log(results);
 
                     var currentType = "";
+                    var typeChangeCount = 0;
                     
                     for (var i = 0; i < results.length; i++) {
                         //type headers
                         if (results[i].type != currentType){
+                            typeChangeCount++;
                             currentType = results[i].type;
                             content += '<div class="results-group">' + currentType + 's</div>';
                         }
@@ -873,6 +875,9 @@ var OneMap = {
                         }
                     }
                     $('#result-list').html(content);
+                    if(typeChangeCount > 1){
+                        $('#result-list').addClass('show-dividers');
+                    }
 
                     // show results tab
                     OneMap.search.toggleDisplay();
