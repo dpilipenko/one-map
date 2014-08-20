@@ -150,28 +150,8 @@ var OneMap = {
             }
         },
         loadFloor: function (id, imgSrc) {
-            var isHorizontal = false;
-
-            // TODO: Make all the floorplans the same size so we can use the property defined above (17 is already set up for this)
-            var canvas = $('#'+id)[0],
-                floorNumber = canvas.getAttribute("data-floor");
-            switch (floorNumber) {
-                case "12":
-                    OneMap.map.stageWidth = 554;
-                    OneMap.map.stageHeight = 528;
-                    break;
-                case "13":
-                    OneMap.map.stageWidth = 552;
-                    OneMap.map.stageHeight = 528;
-                    break;
-                case "15":
-                    OneMap.map.stageWidth = 550;
-                    OneMap.map.stageHeight = 528;
-                    break;
-                default:
-                    //console.log('not a custom sized floor');
-                    break;
-            }
+            var isHorizontal = false,
+                canvas = $('#'+id)[0];
             
             OneMap.map.stageScaleX = $('.showthisfloor').width() / OneMap.map.stageWidth;
             OneMap.map.stageScaleY = $('.showthisfloor').height() / OneMap.map.stageHeight;
