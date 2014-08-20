@@ -164,10 +164,6 @@ var OneMap = {
                     OneMap.map.stageWidth = 552;
                     OneMap.map.stageHeight = 528;
                     break;
-                case "14":
-                    OneMap.map.stageWidth = 521;
-                    OneMap.map.stageHeight = 501;
-                    break;
                 case "15":
                     OneMap.map.stageWidth = 550;
                     OneMap.map.stageHeight = 528;
@@ -325,7 +321,6 @@ var OneMap = {
             }
         },
 
-        // TODO: needs to move to modal implementation 
         getInfo: function () {
             $.ajax({
                 url: 'oneMap/getHotspot',
