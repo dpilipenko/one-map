@@ -626,7 +626,13 @@ var OneMap = {
         save: function () {
             OneMap.zones.isCreating = false;
             var name = $('#zone-name').val(),
-                color = $('#zone-color').val().indexOf('#') > -1 ? $('#zone-color').val().replace('#', '') : $('#zone-color').val();
+                color = $('#zone-color').val().replace(/#/g,""); //.indexOf('#') > -1 ? $('#zone-color').val().replace('#', '') : $('#zone-color').val();
+
+            //if short format hex, convert to long
+            if(color.length == 3){
+                color = color + color;
+            }
+
             $.ajax({
                 url: "oneMap/createZone",
                 type: 'GET',
@@ -669,6 +675,19 @@ var OneMap = {
                     floor: floorNumber
                 },
                 success: function(data) {
+
+                    //get zones for validation
+                    $.ajax({
+                        url: 'oneMap/getAllZones',
+                        type: 'GET',
+                        success: function (zones) {
+                            OneMap.zones.allZones = zones;
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+
                     console.log(data);
                     OneMap.map.floorplanLayer.setOpacity(0.5);
                     OneMap.map.floorplanLayer.drawScene();
@@ -745,7 +764,69 @@ var OneMap = {
 
             $(document).on('click', '.zone-panel .cancel-zone', OneMap.zones.cancel);
 
-            $(document).on('click', '.zone-panel .save-zone', OneMap.zones.save);
+            $(document).on('click', '.zone-panel .save-zone', function(){
+                // do validation, then save
+
+                //reset
+                $('.error-wrapper #zone-name').parent().find('.error-text').remove();
+                $('.error-wrapper #zone-color').parent().find('.error-text').remove();
+                $('.error-wrapper #zone-name').unwrap();
+                $('.error-wrapper #zone-color').unwrap();
+
+                var zonename = $('#zone-name').val().toLowerCase().replace(/ /g,"");
+
+                //we should do everthing with the #, then strip it off right before giving to backend
+                var zonecolor = $('#zone-color').val(); //.replace(/#/g,"");
+
+                var valid = true;
+
+                for (var v = 0; v < OneMap.zones.allZones.length; v++){
+
+                    var nametotest = OneMap.zones.allZones[v].name.toLowerCase().replace(/ /g,"");
+                    var colortotest = OneMap.zones.allZones[v].color; //.replace(/#/g,"");
+
+                    if(zonename == nametotest){
+                        valid = false;
+
+                        $('#zone-name').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
+
+                        break;
+                    }
+                    //expecting #
+                    console.info('about to test format of: ' + zonecolor);
+                    if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
+                        valid = false;
+
+                        $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
+
+                        break;
+                    } else {
+                        //if short format, convert to long for duplicate check
+                        var validformat = zonecolor;
+                        if(zonecolor.length == 4){
+                            validformat = zonecolor.replace(/#/g,"") + zonecolor.replace(/#/g,"");
+                            validformat = '#' + validformat;
+                        }
+                        console.info('about to test duplicate of: ' + validformat + ', converted from:' + zonecolor);
+                        if (validformat == colortotest){
+                            valid = false;
+
+                            $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                            $('#zone-color').parent().append('<div class="error-text">' + 'This zone color already exists' + '</div>');
+
+                            break;
+                        }
+                        console.info('passed format and duplicate checks');
+                    }
+                }
+
+                if(valid){
+                    OneMap.zones.save();
+                }
+                
+            });
 
             $(document).on('click', '.zone-panel .okay', function () {
                 OneMap.zones.resetFloor();

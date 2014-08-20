@@ -124,12 +124,6 @@ form {
 	box-shadow:inset 0 0 200px 0 rgba(0,0,0,0.5);
 }
 
-@-moz-document url-prefix() { 
-	.main {
-		box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
-	}
-}
-
 * { 
     outline-color: $blue;
 }
@@ -161,6 +155,19 @@ input {
 		opacity: 0.6;
 	}
 }
+
+/* --- Errors
+------------------------------ */
+.error-wrapper {
+ 	input {
+ 		box-shadow: 0 0px 0px 1px rgba(212, 29, 29, 0.6) inset, 0 2px 2px 0 rgba(0, 0, 0, 0.6) inset;
+ 	}
+
+ 	.error-text {
+ 		color: #d41d1d;
+ 		font-family: Arial;
+ 	}
+ }
 
 
 /* --- Main
@@ -270,6 +277,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 		&.expanded {
 			right: 0px;
+		}
+
+		.error-wrapper {
+			position: relative;
+			float: left;
+
+			.error-text {
+				position: absolute;
+				top: 33px;
+				left: 0;
+				font-size: 10px;
+			}
 		}
 
 		.response {
@@ -517,7 +536,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 	.login-form {
 		margin: 0 auto;
 		width: 285px;
-		padding-top: 65px;
+		top: 65px;
+		position: relative;
 	}
 
 	.login-title {
@@ -1874,8 +1894,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	left: 0;
 	z-index: 1000;
 	opacity: 0;
-	// background: rgba(255, 255, 255, 0.7);
-	box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
+	box-shadow: 0 0 200px 50px rgba(0, 0, 0, 0.5) inset;
+	background: rgba(0,0,0,0.07);
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
@@ -1886,41 +1906,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	visibility: visible;
 }
 
-
-// .md-content h3 {
-// 	margin: 0;
-// 	padding: 0.4em;
-// 	text-align: center;
-// 	font-size: 2.4em;
-// 	font-weight: 300;
-// 	opacity: 0.8;
-// 	background: rgba(0,0,0,0.1);
-// 	border-radius: 3px 3px 0 0;
-// }
-
-// .md-content > div p {
-// 	margin: 0;
-// 	padding: 10px 0;
-// }
-
-// .md-content > div ul {
-// 	margin: 0;
-// 	padding: 0 0 30px 20px;
-// }
-
-// .md-content > div ul li {
-// 	padding: 5px 0;
-// }
-
-// .md-content button {
-// 	display: block;
-// 	margin: 0 auto;
-// 	font-size: 0.8em;
-// }
-
-/* Individual modal styles with animations/transitions */
-
-/* Effect 1: Fade in and scale up */
 .md-effect-1 .md-content {
 	-webkit-transform: scale(0.7);
 	-moz-transform: scale(0.7);
@@ -1940,3 +1925,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	opacity: 1;
 }
 
+
+/*  ===================================================================
+	Browser Specific
+	=================================================================== */
+
+@-moz-document url-prefix() { 
+	.main {
+		box-shadow:inset 0 0 2000px 0 rgba(0,0,0,0.5);
+	}
+
+	.md-overlay {
+		box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
+		background: none;
+	}
+}
