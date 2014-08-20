@@ -775,50 +775,62 @@ var OneMap = {
 
                 var valid = true;
 
-                for (var v = 0; v < OneMap.zones.allZones.length; v++){
+                if(zonecolor.length > 0 && zonename.length > 0){
 
-                    var nametotest = OneMap.zones.allZones[v].name.toLowerCase().replace(/ /g,"");
-                    var colortotest = OneMap.zones.allZones[v].color; //.replace(/#/g,"");
+                    for (var v = 0; v < OneMap.zones.allZones.length; v++){
 
-                    if(zonename == nametotest){
-                        valid = false;
+                        var nametotest = OneMap.zones.allZones[v].name.toLowerCase().replace(/ /g,"");
+                        var colortotest = OneMap.zones.allZones[v].color; //.replace(/#/g,"");
 
-                        $('#zone-name').wrap('<div class="error-wrapper"></div>');
-                        $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
-
-                        break;
-                    }
-                    //expecting #
-                    console.info('about to test format of: ' + zonecolor);
-                    if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
-                        valid = false;
-
-                        $('#zone-color').wrap('<div class="error-wrapper"></div>');
-                        $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
-
-                        break;
-                    } else {
-                        //if short format, convert to long for duplicate check
-                        var validformat = zonecolor;
-                        if(zonecolor.length == 4){
-                            validformat = zonecolor.replace(/#/g,"") + zonecolor.replace(/#/g,"");
-                            validformat = '#' + validformat;
-                        }
-                        console.info('about to test duplicate of: ' + validformat + ', converted from:' + zonecolor);
-                        if (validformat == colortotest){
+                        if(zonename == nametotest){
                             valid = false;
 
-                            $('#zone-color').wrap('<div class="error-wrapper"></div>');
-                            $('#zone-color').parent().append('<div class="error-text">' + 'This zone color already exists' + '</div>');
+                            $('#zone-name').wrap('<div class="error-wrapper"></div>');
+                            $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
 
                             break;
                         }
-                        console.info('passed format and duplicate checks');
-                    }
-                }
 
-                if(valid){
-                    OneMap.zones.save();
+                        //expecting #
+                        if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
+                            valid = false;
+
+                            $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                            $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
+
+                            break;
+                        } else {
+                            //if short format, convert to long for duplicate check
+                            var validformat = zonecolor;
+                            if(zonecolor.length == 4){
+                                validformat = zonecolor.replace(/#/g,"") + zonecolor.replace(/#/g,"");
+                                validformat = '#' + validformat;
+                            }
+                            if (validformat == colortotest){
+                                valid = false;
+
+                                $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                                $('#zone-color').parent().append('<div class="error-text">' + 'This zone color already exists' + '</div>');
+
+                                break;
+                            }
+                            console.info('passed format and duplicate checks');
+                        }
+                    }
+
+                    if(valid){
+                        OneMap.zones.save();
+                    }
+
+                } else {
+                    if(! zonecolor.length > 0){
+                        $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-color').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+                    }
+                    if(! zonename.length > 0){
+                        $('#zone-name').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-name').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+                    }
                 }
                 
             });
@@ -1123,25 +1135,54 @@ var OneMap = {
         submit: function () {
             var username = $('.username').val();
             var password = $('.password').val();
-            $.ajax({
-                url: OneMap.login.submitURL,
-                type: 'POST',
-                data: {
-                    j_username: username,
-                    j_password: password
-                },
-                success: function (data, textStatus, jqXHR) {
-                    
-                    $('.header').removeClass('login');
-                    setTimeout(function () {
-                        $('.ms-wrapper').addClass('ms-view-layers');
-                    }, 500);
-                    
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
-                }
-            });
+
+            // //reset validation
+            // $('.error-wrapper .username').parent().find('.error-text').remove();
+            // $('.error-wrapper .password').parent().find('.error-text').remove();
+            // $('.error-wrapper .username').unwrap();
+            // $('.error-wrapper .password').unwrap();
+
+            // //validation
+            // if (username.length > 0 && password.length > 0){
+            //     if(!( /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/.test(username) )){
+
+            //         $('.username').wrap('<div class="error-wrapper"></div>');
+            //         $('.username').parent().append('<div class="error-text">' + 'Invalid email format' + '</div>');
+
+            //     } else {
+            //         //all good
+                    $.ajax({
+                        url: OneMap.login.submitURL,
+                        type: 'POST',
+                        data: {
+                            j_username: username,
+                            j_password: password
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            
+                            $('.header').removeClass('login');
+                            setTimeout(function () {
+                                $('.ms-wrapper').addClass('ms-view-layers');
+                            }, 500);
+                            
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+            //     }
+            // } else {
+            //     if(! username.length > 0){
+            //         $('.username').wrap('<div class="error-wrapper"></div>');
+            //         $('.username').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+            //     }
+            //     if(! password.length > 0){
+            //         $('.password').wrap('<div class="error-wrapper"></div>');
+            //         $('.password').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+            //     }
+            // }
+
+            
         },
         init: function() {
             //TODO: how will this work with AD? Do we need to have them log in every time?
