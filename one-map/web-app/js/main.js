@@ -537,8 +537,6 @@ var OneMap = {
                     }
                     break;
                 case "desk":
-                    OneMap.hotspots.modalElement.removeClass('room').addClass('desk');
-
                     //TODO: discuss with team how to get list of all possible zones
                     var zoneDisplay;
                     if(OneMap.userIsAdmin){
@@ -552,13 +550,16 @@ var OneMap = {
                     }
                     
                     if (!object.claimed) {
-                        var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + '1125A' + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('user').addClass('desk');
+                        var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + object.assignedSeatId + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
                         content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
                         innerDiv.html(content).data("profile", object);
                     } else if (object.claimed && object.isMine) { // should be done
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                         innerDiv.html(content);
                     } else { // other user claimed seat
+                        OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
                         content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
                         innerDiv.html(content);
@@ -620,7 +621,13 @@ var OneMap = {
         save: function () {
             OneMap.zones.isCreating = false;
             var name = $('#zone-name').val(),
-                color = $('#zone-color').val().indexOf('#') > -1 ? $('#zone-color').val().replace('#', '') : $('#zone-color').val();
+                color = $('#zone-color').val().replace(/#/g,""); //.indexOf('#') > -1 ? $('#zone-color').val().replace('#', '') : $('#zone-color').val();
+
+            //if short format hex, convert to long
+            if(color.length == 3){
+                color = color + color;
+            }
+
             $.ajax({
                 url: "oneMap/createZone",
                 type: 'GET',
@@ -663,6 +670,19 @@ var OneMap = {
                     floor: floorNumber
                 },
                 success: function(data) {
+
+                    //get zones for validation
+                    $.ajax({
+                        url: 'oneMap/getAllZones',
+                        type: 'GET',
+                        success: function (zones) {
+                            OneMap.zones.allZones = zones;
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+
                     console.log(data);
                     OneMap.map.floorplanLayer.setOpacity(0.5);
                     OneMap.map.floorplanLayer.drawScene();
@@ -739,7 +759,69 @@ var OneMap = {
 
             $(document).on('click', '.zone-panel .cancel-zone', OneMap.zones.cancel);
 
-            $(document).on('click', '.zone-panel .save-zone', OneMap.zones.save);
+            $(document).on('click', '.zone-panel .save-zone', function(){
+                // do validation, then save
+
+                //reset
+                $('.error-wrapper #zone-name').parent().find('.error-text').remove();
+                $('.error-wrapper #zone-color').parent().find('.error-text').remove();
+                $('.error-wrapper #zone-name').unwrap();
+                $('.error-wrapper #zone-color').unwrap();
+
+                var zonename = $('#zone-name').val().toLowerCase().replace(/ /g,"");
+
+                //we should do everthing with the #, then strip it off right before giving to backend
+                var zonecolor = $('#zone-color').val(); //.replace(/#/g,"");
+
+                var valid = true;
+
+                for (var v = 0; v < OneMap.zones.allZones.length; v++){
+
+                    var nametotest = OneMap.zones.allZones[v].name.toLowerCase().replace(/ /g,"");
+                    var colortotest = OneMap.zones.allZones[v].color; //.replace(/#/g,"");
+
+                    if(zonename == nametotest){
+                        valid = false;
+
+                        $('#zone-name').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
+
+                        break;
+                    }
+                    //expecting #
+                    console.info('about to test format of: ' + zonecolor);
+                    if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
+                        valid = false;
+
+                        $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
+
+                        break;
+                    } else {
+                        //if short format, convert to long for duplicate check
+                        var validformat = zonecolor;
+                        if(zonecolor.length == 4){
+                            validformat = zonecolor.replace(/#/g,"") + zonecolor.replace(/#/g,"");
+                            validformat = '#' + validformat;
+                        }
+                        console.info('about to test duplicate of: ' + validformat + ', converted from:' + zonecolor);
+                        if (validformat == colortotest){
+                            valid = false;
+
+                            $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                            $('#zone-color').parent().append('<div class="error-text">' + 'This zone color already exists' + '</div>');
+
+                            break;
+                        }
+                        console.info('passed format and duplicate checks');
+                    }
+                }
+
+                if(valid){
+                    OneMap.zones.save();
+                }
+                
+            });
 
             $(document).on('click', '.zone-panel .okay', function () {
                 OneMap.zones.resetFloor();
@@ -797,8 +879,18 @@ var OneMap = {
                     var cornerIcons = [{"zones": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0} }, {"users": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"rooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}, {"warrooms": {"11":0,"12":0,"13":0,"14":0,"15":0,"17":0}}];
                     
                     //console.log(results);
+
+                    var currentType = "";
+                    var typeChangeCount = 0;
                     
                     for (var i = 0; i < results.length; i++) {
+                        //type headers
+                        if (results[i].type != currentType){
+                            typeChangeCount++;
+                            currentType = results[i].type;
+                            content += '<div class="results-group">' + currentType + 's</div>';
+                        }
+
                         var isLinkClass = "";
                         if (results[i].hotspotId !== '') {
                             var canvas = $('.canvas[data-floor="' + results[i].floor + '"]');
@@ -808,6 +900,8 @@ var OneMap = {
                                 OneMap.search.mapPins[results[i].floor] = {};
                                 OneMap.search.mapPins[results[i].floor].floorIds = [];
                             }
+
+                            console.log(OneMap.search.mapPins);
 
                             // break up hotspots by type
                             if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
@@ -849,11 +943,17 @@ var OneMap = {
                             case 'room':
                                 content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "room");                        
                                 break;
+                            case 'desk':
+                                content += $('#deskResult-template').html().format(results[i].assignedSeatId, results[i].location, results[i].floor, isLinkClass, results[i].floor, results[i].hotspotId, "desk");                        
+                                break;
                             case 'warroom':
                                 break;
                         }
                     }
                     $('#result-list').html(content);
+                    if(typeChangeCount > 1){
+                        $('#result-list').addClass('show-dividers');
+                    }
 
                     // show results tab
                     OneMap.search.toggleDisplay();
