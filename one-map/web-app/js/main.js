@@ -828,8 +828,6 @@ var OneMap = {
         }
     },     
     search: {
-        pinHeight: 36,
-        pinWidth: 28,
         pinSrcs: {
             'room': 'images/pin-room.png',
             'desk': 'images/pin-seat.png'
@@ -993,7 +991,7 @@ var OneMap = {
             var floor = $(self).data('floor'),
                 hotspot = $(self).data('hotspot'),
                 canvas = $('.canvas[data-floor="' + floor + '"]');
-            OneMap.search.activeResult =  hotspot; 
+            OneMap.search.activeResult =  hotspot;
             $('#results').addClass('collapsed');
             canvas.parent('.floorplan').trigger('click');
         },
@@ -1005,20 +1003,27 @@ var OneMap = {
 
             for (var i = 1; i < hotspotsLength; i++) {
                 if($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
+                    var pinWidth = 0,
+                        pinHeight = 0;
+
                     switch(hotspots[i].areaType) {
                         case 'room':
+                            pinHeight = 36;
+                            pinWidth = 28;
                             pinImage = OneMap.search.pinImages.room;
                             break;
                         case 'desk':
+                            pinHeight = 30;
+                            pinWidth = 20;
                             pinImage = OneMap.search.pinImages.desk;
-                            break;                                    
+                            break;                            
                     }
 
                      var rect = new Kinetic.Rect({
-                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - OneMap.search.pinWidth/2,
-                        y: (hotspots[i].areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - OneMap.search.pinHeight,
-                        width: OneMap.search.pinWidth,
-                        height: OneMap.search.pinHeight,
+                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - pinWidth/2,
+                        y: (hotspots[i].areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - pinHeight,
+                        width: pinWidth,
+                        height: pinHeight,
                         fillPatternImage: pinImage,
                         fillPatternScale: {x:1, y:1}
                     });
@@ -1039,7 +1044,7 @@ var OneMap = {
                     hotspots[i].isPin = false;
                 }
             }
-            OneMap.map.floorplanLayer.drawScene();
+            OneMap.map.floorplanLayer.draw();
 
             if (selectedHotspot !== null) {
                 selectedHotspot.fire('mousedown');
