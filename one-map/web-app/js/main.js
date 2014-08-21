@@ -217,6 +217,10 @@ var OneMap = {
                     width: imageWidth,
                     height: imageHeight,
                 });
+
+                if(OneMap.zones.isCreating) {
+                    layer.setOpacity(0.5);
+                }
                 layer.add(floorplan);
                 
                 OneMap.map.stage = stage;
@@ -231,6 +235,8 @@ var OneMap = {
         },
         unloadFloor: function () {
             if (OneMap.map.stage !== null) {
+                OneMap.map.draggedOffset = new Object;
+                OneMap.map.hasPanned = false;
                 OneMap.map.stage.destroy();
                 $('.zoom-btns').fadeOut();
             }
@@ -295,7 +301,7 @@ var OneMap = {
                 this.setFill(OneMap.hotspots.defaultFill);
                 this.setOpacity(OneMap.hotspots.defaultOpacity);
                 this.moveTo(OneMap.map.floorplanLayer);
-                OneMap.map.interactiveLayer.draw();
+                OneMap.map.interactiveLayer.drawScene();
             }
         },
         getInfo: function () {
@@ -381,7 +387,7 @@ var OneMap = {
             });
         },
         click: function() {
-            //console.log(this.areaID);
+            console.log(this.areaID);
             if(!OneMap.zones.isCreating) {
                 OneMap.hotspots.unactivate();
                 OneMap.hotspots.active.hotspot = this;
@@ -456,17 +462,27 @@ var OneMap = {
                         hotspotPath.isVacant = hotspotsObj[key].isVacant;
                         hotspotPath.zone = hotspotsObj[key].zone.name;
                         hotspotPath.zoneColor = hotspotsObj[key].zone.color;
-                        
-                        // hotspot mouse events
-                        hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
-                        hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
+
                         hotspotPath.on('mousedown', OneMap.hotspots.click);
-
-
-                        if(!$.isEmptyObject(OneMap.search.mapPins) && $.inArray(key, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
-                            OneMap.search.displayPin(hotspotPath);
+                        
+                        if(OneMap.zones.isCreating) {
+                            if($.inArray(key, OneMap.zones.vacantHotspots) > -1) {
+                                OneMap.zones.displayFreeZone(hotspotPath);
+                            }
                         } else {
-                            OneMap.map.floorplanLayer.add(hotspotPath);
+                            hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
+                            hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
+
+                            if(!$.isEmptyObject(OneMap.search.mapPins)) {
+                                if($.inArray(key, OneMap.search.mapPins[floorNumber].zone) > -1) {
+                                    OneMap.search.displayZone(hotspotPath);
+                                }
+                                if($.inArray(key, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
+                                    OneMap.search.displayPin(hotspotPath);
+                                }
+                            } else {
+                                OneMap.map.floorplanLayer.add(hotspotPath);
+                            }
                         }
                     }
 
@@ -597,6 +613,7 @@ var OneMap = {
         selectedOpacity: 1,
         selectedHotspots: [],
         allZones: [],
+        vacantHotspots: [],
         cancel: function() {
             $('.zone-panel').removeClass('expanded');
             $('#backto3d').fadeIn();
@@ -630,6 +647,7 @@ var OneMap = {
             });
         },
         toggleSelected: function (self) {
+            console.log('toggle');
             if(self.zone == 'Free Zone') {
                 if(self.opacity() != 1) {
                     self.setOpacity(OneMap.zones.selectedOpacity);
@@ -644,11 +662,24 @@ var OneMap = {
                 $('#selected-number').html(OneMap.zones.selectedHotspots.length +' '+ seat);
             }
         },
+        displayFreeZone: function(hotspot) {
+            hotspot.setOpacity(OneMap.zones.defaultOpacity);
+            if(hotspot.isVacant) {
+                hotspot.setStroke(OneMap.zones.defaultColor);
+            } else {
+                hotspot.setFill(OneMap.zones.defaultColor);
+            }
+            hotspot.moveTo(OneMap.map.interactiveLayer);
+        },
         create: function() {
-            OneMap.hotspots.unactivate();
-
             OneMap.zones.isCreating = true;
-            var floorNumber = $('.showthisfloor .canvas').data('floor');
+            OneMap.search.clear();
+            OneMap.hotspots.unactivate();
+            OneMap.map.unloadFloor();
+            
+            var canvas = $('.showthisfloor .canvas'),
+                floorNumber = canvas.data('floor');
+
             $.ajax({
                 url: "oneMap/getFreeZoneHotspots",
                 type: 'GET',
@@ -656,7 +687,6 @@ var OneMap = {
                     floor: floorNumber
                 },
                 success: function(data) {
-
                     //get zones for validation
                     $.ajax({
                         url: 'oneMap/getAllZones',
@@ -670,35 +700,23 @@ var OneMap = {
                     });
 
                     //console.log(data);
-                    OneMap.map.floorplanLayer.setOpacity(0.5);
-                    OneMap.map.floorplanLayer.draw();
+                    // OneMap.zones.vacantHotspots = data; // nice to have
 
-                    var hotspots = OneMap.map.floorplanLayer.children.getChildren();
                     for(var j = 0; j < data.length; j++) {
-                        for (var i = 1; i < hotspots.length; i++) {
-                            if(hotspots[i].attrs.id == data[j].id) {
-                                hotspots[i].setOpacity(OneMap.zones.defaultOpacity);
-                                if(data[j].isVacant) {
-                                    hotspots[i].setStroke(OneMap.zones.defaultColor);
-                                } else {
-                                    hotspots[i].setFill(OneMap.zones.defaultColor);
-                                }
-                                hotspots[i].moveTo(OneMap.map.interactiveLayer);
-                                continue;
-                            }
-                        }
+                        OneMap.zones.vacantHotspots.push(data[j].id);
                     }
-                    OneMap.map.interactiveLayer.drawScene();
+                    OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
                 }
             });
             $('.zone-panel').addClass('expanded');
             $('#backto3d').fadeOut();
         },
         resetFloor: function() {
-             OneMap.zones.isCreating = false;
-             OneMap.map.unloadFloor();
-             var canvas = $('.showthisfloor .canvas');
-             OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
+            OneMap.zones.isCreating = false;
+            OneMap.map.unloadFloor();
+            OneMap.zone.vacantHotspots = [];
+            var canvas = $('.showthisfloor .canvas');
+            OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
         },
         updateSeatZone: function(event){
             var $this = $(event.target);
@@ -719,7 +737,6 @@ var OneMap = {
                     }, 1500);
                 }
             });
-
         },
         init: function() {
             $(document).on('click', '.create-zone a', function () {
@@ -902,20 +919,30 @@ var OneMap = {
                             if (results[i].type == 'room' && results[i].project !== undefined){
                                 results[i].type = 'warroom';
                             }
-
-                            // break up hotspots by type
-                            if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
-                                OneMap.search.mapPins[results[i].floor][results[i].type] = [results[i].hotspotId];
+                            if(results[i].type == 'zone') {
+                                for(var j = 0; j < results[i].hotspotIds.length; j++) {
+                                    var id = results[i].hotspotIds[j];
+                                    // break up hotspots by type
+                                    if(typeof OneMap.search.mapPins[results[i].floor].zone == 'undefined') {
+                                        OneMap.search.mapPins[results[i].floor].zone = [id];
+                                    } else {
+                                        OneMap.search.mapPins[results[i].floor].zone.push(id);
+                                    }
+                                }
                             } else {
-                                OneMap.search.mapPins[results[i].floor][results[i].type].push(results[i].hotspotId);
+                                // break up hotspots by type
+                                if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
+                                    OneMap.search.mapPins[results[i].floor][results[i].type] = [results[i].hotspotId];
+                                } else {
+                                    OneMap.search.mapPins[results[i].floor][results[i].type].push(results[i].hotspotId);
+                                }
+                                
+                                // add all ids to floors for when search returns type user
+                                OneMap.search.mapPins[results[i].floor].floorIds.push(results[i].hotspotId);
                             }
-                            
-                            // add all ids to floors for when search returns type user
-                            OneMap.search.mapPins[results[i].floor].floorIds.push(results[i].hotspotId);
 
                             isLinkClass = "isLink";
                             
-                            //@Dave: seems like this could be even more simplified (use .length of mapPins object)?
                             var floor = results[i].floor.toString();
                             switch(results[i].type) {
                                 case 'zone':
@@ -999,7 +1026,9 @@ var OneMap = {
             $('.corner-results div').each(function(){
                 $(this).hide().text("");
             });
-            OneMap.map.backTo3D();
+            if(!OneMap.zones.isCreating) {
+                OneMap.map.backTo3D();
+            }
         },
         displayResult: function (self) {
             // console.log(self);
@@ -1013,6 +1042,19 @@ var OneMap = {
             }
             $('#results').addClass('collapsed');
              canvas.parent('.floorplan').trigger('click');
+        },
+        displayZone: function(hotspot){
+            console.log(hotspot.zone);
+            //if(hotspot.zone !== 'Free Zone') {
+                if(hotspot.isVacant) {
+                    hotspot.setStroke(hotspot.zoneColor);
+                } else {
+                    hotspot.setFill(hotspot.zoneColor);
+                }
+            //}
+
+            OneMap.map.floorplanLayer.add(hotspot);
+            OneMap.map.floorplanLayer.draw();
         },
         displayPin: function(hotspot) {
             var floorNumber = $('.showthisfloor .canvas').data('floor'),
@@ -1053,16 +1095,7 @@ var OneMap = {
             rect.on('mousedown', function() {
                 this.hotspot.fire('mousedown');
             });
-
-            if(hotspot.zone !== 'Free Zone') {
-                if(hotspot.isVacant) {
-                    hotspot.setStroke(hotspot.zoneColor);
-                } else {
-                    hotspot.setFill(hotspot.zoneColor);
-                }
-            }
-
-            OneMap.map.floorplanLayer.add(hotspot);
+            
             OneMap.map.floorplanLayer.add(rect);
 
             hotspot.isPin = true;
@@ -1116,8 +1149,6 @@ var OneMap = {
                 OneMap.search.clear();
             });
             $(document).on('click', '#results .isLink', function() {
-                
-
                 OneMap.search.activeResult =  $(this).data('hotspot');
 
                 var floor = $(this).data('floor');
@@ -1131,14 +1162,27 @@ var OneMap = {
                     OneMap.search.mapPins[floor].floorIds = [];
                 }
 
-                if(typeof OneMap.search.mapPins[floor][type] == 'undefined') {
-                    OneMap.search.mapPins[floor][type] = [$(this).data('hotspot')];
+                if(type == 'zone') {
+                    var idArray = $(this).data('ids').split(',');
+                    for(var j = 0; j < idArray.length; j++) {
+                        var id = idArray[j];
+                        if(typeof OneMap.search.mapPins[floor].zone == 'undefined') {
+                            OneMap.search.mapPins[floor].zone = [id];
+                        } else {
+                            OneMap.search.mapPins[floor].zone.push(id);
+                        }
+                    }
                 } else {
-                    OneMap.search.mapPins[floor][type].push($(this).data('hotspot'));
-                }
-
-                // add all ids to floors for when search returns type user
-                OneMap.search.mapPins[floor].floorIds.push(hotspot);
+                    // break up hotspots by type
+                    if(typeof OneMap.search.mapPins[floor][type] == 'undefined') {
+                        OneMap.search.mapPins[floor][type] = [hotspot];
+                    } else {
+                        OneMap.search.mapPins[floor][type].push(hotspot);
+                    }
+                    
+                    // add all ids to floors for when search returns type user
+                    OneMap.search.mapPins[floor].floorIds.push(hotspot);
+                }                
 
                 OneMap.search.displayResult(this);
             });
