@@ -124,6 +124,7 @@ var OneMap = {
         moveEnd: function() {
             OneMap.map.hasPanned = true;
             OneMap.map.draggedOffset = OneMap.map.floorplanLayer.getPosition();
+            OneMap.map.interactiveLayer.draw();
         },
         showFloor: function () {
             if (this.getAttribute("data-showing") == "false") {
@@ -1045,13 +1046,13 @@ var OneMap = {
         },
         displayZone: function(hotspot){
             console.log(hotspot.zone);
-            //if(hotspot.zone !== 'Free Zone') {
+            if(hotspot.zone !== 'Free Zone') {
                 if(hotspot.isVacant) {
                     hotspot.setStroke(hotspot.zoneColor);
                 } else {
                     hotspot.setFill(hotspot.zoneColor);
                 }
-            //}
+            }
 
             OneMap.map.floorplanLayer.add(hotspot);
             OneMap.map.floorplanLayer.draw();
