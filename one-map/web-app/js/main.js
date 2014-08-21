@@ -456,6 +456,7 @@ var OneMap = {
                         hotspotPath.areaType = hotspotsObj[key].type;
                         hotspotPath.areaID = hotspotsObj[key].assignedSeatId;
                         hotspotPath.isVacant = hotspotsObj[key].isVacant;
+                        hotspotPath.zone = hotspotsObj[key].zone.name;
 
                         // hotspot mouse events
                         hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
@@ -590,7 +591,7 @@ var OneMap = {
     zones: {
         isCreating: false,
         defaultColor: '#000000',
-        defaultOpacity: 0.2,
+        defaultOpacity: 0.3,
         selectedOpacity: 1,
         selectedHotspots: [],
         allZones: [],
@@ -627,17 +628,19 @@ var OneMap = {
             });
         },
         toggleSelected: function (self) {
-            if(self.opacity() != 1) {
-                self.setOpacity(OneMap.zones.selectedOpacity);
-                OneMap.zones.selectedHotspots.push(self.attrs.id);
-            } else {
-                self.setOpacity(OneMap.zones.defaultOpacity);
-                var index = $.inArray(self.attrs.id, OneMap.zones.selectedHotspots);
-                OneMap.zones.selectedHotspots.splice(index, 1);
+            if(self.zone == 'Free Zone') {
+                if(self.opacity() != 1) {
+                    self.setOpacity(OneMap.zones.selectedOpacity);
+                    OneMap.zones.selectedHotspots.push(self.attrs.id);
+                } else {
+                    self.setOpacity(OneMap.zones.defaultOpacity);
+                    var index = $.inArray(self.attrs.id, OneMap.zones.selectedHotspots);
+                    OneMap.zones.selectedHotspots.splice(index, 1);
+                }
+                OneMap.map.interactiveLayer.drawScene();
+                var seat = OneMap.zones.selectedHotspots.length == 1 ? 'seat' : 'seats'; 
+                $('#selected-number').html(OneMap.zones.selectedHotspots.length +' '+ seat);
             }
-            OneMap.map.interactiveLayer.drawScene();
-            var seat = OneMap.zones.selectedHotspots.length == 1 ? 'seat' : 'seats'; 
-            $('#selected-number').html(OneMap.zones.selectedHotspots.length +' '+ seat);
         },
         create: function() {
             OneMap.hotspots.unactivate();
@@ -664,13 +667,13 @@ var OneMap = {
                         }
                     });
 
-                    console.log(data);
+                    //console.log(data);
                     OneMap.map.floorplanLayer.setOpacity(0.5);
-                    OneMap.map.floorplanLayer.drawScene();
+                    OneMap.map.floorplanLayer.draw();
 
                     var hotspots = OneMap.map.floorplanLayer.children.getChildren();
-                    for (var i = 1; i < hotspots.length; i++) {
-                        for(var j = 0; j < data.length; j++) {
+                    for(var j = 0; j < data.length; j++) {
+                        for (var i = 1; i < hotspots.length; i++) {
                             if(hotspots[i].attrs.id == data[j].id) {
                                 hotspots[i].setOpacity(OneMap.zones.defaultOpacity);
                                 if(data[j].isVacant) {
@@ -679,7 +682,7 @@ var OneMap = {
                                     hotspots[i].setFill(OneMap.zones.defaultColor);
                                 }
                                 hotspots[i].moveTo(OneMap.map.interactiveLayer);
-                                break;
+                                continue;
                             }
                         }
                     }
@@ -691,9 +694,9 @@ var OneMap = {
         },
         resetFloor: function() {
              OneMap.zones.isCreating = false;
-            // do i just set them back to normal? can creating zones be triggered with search if so do i need to know pins colors, etc.
-
-            //DF: yes, just set everything the way it was. zones are only created via the create zone workflow
+             OneMap.map.unloadFloor();
+             var canvas = $('.showthisfloor .canvas');
+             OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
         },
         updateSeatZone: function(event){
             var $this = $(event.target);
