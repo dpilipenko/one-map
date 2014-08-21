@@ -929,7 +929,8 @@ var OneMap = {
 
                         switch(results[i].type) {
                             case 'zone':
-                                content += $('#zoneResult-template').html().format(results[i].zoneName, results[i].office.name, results[i].floor, isLinkClass, results[i].floor, results[i].zoneId, "zone");                        
+                                console.log(results[i]);
+                                content += $('#zoneResult-template').html().format(results[i].zoneName, results[i].office.name, results[i].floor, isLinkClass, results[i].floor, results[i].zoneId, "zone", results[i].zoneColor, results[i].hotspotIds);                        
                                 break;
                             case 'user':
                                 content += $('#userResult-template').html().format(results[i].name, results[i].level, results[i].craft, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "desk");
@@ -991,12 +992,17 @@ var OneMap = {
             OneMap.map.backTo3D();
         },
         displayResult: function (self) {
+            console.log(self);
             var floor = $(self).data('floor'),
-                hotspot = $(self).data('hotspot'),
                 canvas = $('.canvas[data-floor="' + floor + '"]');
-            OneMap.search.activeResult =  hotspot;
+            if($(self).data('type') == 'zone') {
+
+            } else {
+                var hotspot = $(self).data('hotspot');
+                OneMap.search.activeResult =  hotspot;
+            }
             $('#results').addClass('collapsed');
-            canvas.parent('.floorplan').trigger('click');
+             canvas.parent('.floorplan').trigger('click');
         },
         displayPins: function() {
             var hotspots = OneMap.map.floorplanLayer.children.getChildren(),
