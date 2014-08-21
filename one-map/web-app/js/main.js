@@ -276,14 +276,12 @@ var OneMap = {
         defaultOpacity: 0,
         hoverFill: '#a6bf3e',
         hoverOpacity: 0.5,
-
         active: {
             hotspot: null,
             id: null,
             type: null,
             center: []
         },
-
         mouseOver: function () {
             if (!this.isPin && !OneMap.zones.isCreating) {
                 this.setFill(OneMap.hotspots.hoverFill);
@@ -300,7 +298,6 @@ var OneMap = {
                 OneMap.map.interactiveLayer.draw();
             }
         },
-
         getInfo: function () {
             $.ajax({
                 url: 'oneMap/getHotspot',
@@ -451,23 +448,26 @@ var OneMap = {
                         });
 
                         // Set custom properties for each hotspot
+                        //console.log(hotspotsObj[key]);
                         hotspotPath.areaY = hotspotsObj[key].y;
                         hotspotPath.areaX = hotspotsObj[key].x;
                         hotspotPath.areaType = hotspotsObj[key].type;
                         hotspotPath.areaID = hotspotsObj[key].assignedSeatId;
                         hotspotPath.isVacant = hotspotsObj[key].isVacant;
                         hotspotPath.zone = hotspotsObj[key].zone.name;
-
+                        hotspotPath.zoneColor = hotspotsObj[key].zone.color;
+                        
                         // hotspot mouse events
                         hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
                         hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
                         hotspotPath.on('mousedown', OneMap.hotspots.click);
 
-                        OneMap.map.floorplanLayer.add(hotspotPath);
-                    }
 
-                    if(!$.isEmptyObject(OneMap.search.mapPins)) {
-                        OneMap.search.displayPins();
+                        if(!$.isEmptyObject(OneMap.search.mapPins) && $.inArray(key, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
+                            OneMap.search.displayPin(hotspotPath);
+                        } else {
+                            OneMap.map.floorplanLayer.add(hotspotPath);
+                        }
                     }
 
                     OneMap.map.stage.add(OneMap.map.floorplanLayer);
@@ -1014,61 +1014,64 @@ var OneMap = {
             $('#results').addClass('collapsed');
              canvas.parent('.floorplan').trigger('click');
         },
-        displayPins: function() {
-            var hotspots = OneMap.map.floorplanLayer.children.getChildren(),
-                hotspotsLength = hotspots.length
-                floorNumber = $('.showthisfloor .canvas').data('floor'),
-                selectedHotspot = null;
+        displayPin: function(hotspot) {
+            var floorNumber = $('.showthisfloor .canvas').data('floor'),
+                selectedHotspot = null,
+                pinWidth = 0,
+                pinHeight = 0;
 
-            for (var i = 1; i < hotspotsLength; i++) {
-                if($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
-                    var pinWidth = 0,
-                        pinHeight = 0;
-
-                    switch(hotspots[i].areaType) {
-                        case 'room':
-                            if(OneMap.search.mapPins[floorNumber].warroom != undefined && ($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber].warroom) > -1)) {
-                                pinHeight = 40;
-                                pinWidth = 31;
-                                pinImage = OneMap.search.pinImages.warroom;
-                            } else {
-                                pinHeight = 36;
-                                pinWidth = 28;
-                                pinImage = OneMap.search.pinImages.room;
-                            }
-                            break;
-                        case 'desk':
-                            pinHeight = 30;
-                            pinWidth = 20;
-                            pinImage = OneMap.search.pinImages.desk;
-                            break;                            
+            switch(hotspot.areaType) {
+                case 'room':
+                    if(OneMap.search.mapPins[floorNumber].warroom != undefined && ($.inArray(hotspot.attrs.id, OneMap.search.mapPins[floorNumber].warroom) > -1)) {
+                        pinHeight = 40;
+                        pinWidth = 31;
+                        pinImage = OneMap.search.pinImages.warroom;
+                    } else {
+                        pinHeight = 36;
+                        pinWidth = 28;
+                        pinImage = OneMap.search.pinImages.room;
                     }
+                    break;
+                case 'desk':
+                    pinHeight = 30;
+                    pinWidth = 20;
+                    pinImage = OneMap.search.pinImages.desk;
+                    break;   
+                default:
+                    console.log('pinImage not set');                       
+            }
 
-                     var rect = new Kinetic.Rect({
-                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - pinWidth/2 + 7, // + 7 offset to make it line up with the pin's puncture point
-                        y: (hotspots[i].areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - pinHeight,
-                        width: pinWidth,
-                        height: pinHeight,
-                        fillPatternImage: pinImage,
-                        fillPatternScale: {x:1, y:1}
-                    });
-                    rect.hotspot = hotspots[i];
-                    rect.on('mousedown', function() {
-                        this.hotspot.fire('mousedown');
-                    });
+            var rect = new Kinetic.Rect({
+                x: (hotspot.areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - pinWidth/2 + 7, // + 7 offset to make it line up with the pin's puncture point
+                y: (hotspot.areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - pinHeight,
+                width: pinWidth,
+                height: pinHeight,
+                fillPatternImage: pinImage,
+                fillPatternScale: {x:1, y:1}
+            });
+            rect.hotspot = hotspot;
+            rect.on('mousedown', function() {
+                this.hotspot.fire('mousedown');
+            });
 
-                    OneMap.map.floorplanLayer.add(rect);
-
-                    hotspots[i].isPin = true;
-
-                    if (OneMap.search.activeResult == hotspots[i].attrs.id) {
-                        selectedHotspot = hotspots[i];
-                        OneMap.search.activeResult = null;
-                    }
+            if(hotspot.zone !== 'Free Zone') {
+                if(hotspot.isVacant) {
+                    hotspot.setStroke(hotspot.zoneColor);
                 } else {
-                    hotspots[i].isPin = false;
+                    hotspot.setFill(hotspot.zoneColor);
                 }
             }
+
+            OneMap.map.floorplanLayer.add(hotspot);
+            OneMap.map.floorplanLayer.add(rect);
+
+            hotspot.isPin = true;
+
+            if (OneMap.search.activeResult == hotspot.attrs.id) {
+                selectedHotspot = hotspot;
+                OneMap.search.activeResult = null;
+            }
+
             OneMap.map.floorplanLayer.draw();
 
             if (selectedHotspot !== null) {
