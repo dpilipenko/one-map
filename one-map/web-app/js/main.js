@@ -1046,7 +1046,7 @@ var OneMap = {
                     }
 
                      var rect = new Kinetic.Rect({
-                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - pinWidth/2,
+                        x: (hotspots[i].areaX*OneMap.map.stageScale) + OneMap.map.floorplanX - pinWidth/2 + 7, // + 7 offset to make it line up with the pin's puncture point
                         y: (hotspots[i].areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - pinHeight,
                         width: pinWidth,
                         height: pinHeight,
