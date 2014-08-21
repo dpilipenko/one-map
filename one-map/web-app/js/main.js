@@ -515,7 +515,9 @@ var OneMap = {
                     } else { // conference room
                         var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
                         innerDiv.html(content);
-                        OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">CONVERT TO WARROOM</a>');
+                        if(OneMap.userIsAdmin){
+                            OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">CONVERT TO WARROOM</a>');
+                        }
                     }
                     break;
                 case "desk":
@@ -798,7 +800,6 @@ var OneMap = {
 
                                 break;
                             }
-                            console.info('passed format and duplicate checks');
                         }
                     }
 
@@ -833,7 +834,8 @@ var OneMap = {
     search: {
         pinSrcs: {
             'room': 'images/pin-room.png',
-            'desk': 'images/pin-seat.png'
+            'desk': 'images/pin-seat.png',
+            'warroom': 'images/pin-war.png'
         },
         pinImages: null,
         mapPins: {},
@@ -895,7 +897,12 @@ var OneMap = {
                                 OneMap.search.mapPins[results[i].floor].floorIds = [];
                             }
 
-                            console.log(OneMap.search.mapPins);
+                            console.info('before:' + results[i].type);
+                            if (results[i].type == 'room' && results[i].project !== undefined){
+                                results[i].type = 'warroom';
+                            }
+                            console.info('after:' + results[i].type);
+                            console.log(results[i]);
 
                             // break up hotspots by type
                             if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
@@ -919,7 +926,11 @@ var OneMap = {
                                     cornerIcons[1].users[floor] = parseInt(cornerIcons[1].users[floor], 10) + 1;
                                     break;
                                 case 'room':
-                                    cornerIcons[2].rooms[floor] = parseInt(cornerIcons[2].rooms[floor], 10) + 1;
+                                    if (results[i].project !== undefined){
+                                        cornerIcons[3].warrooms[floor] = parseInt(cornerIcons[3].warrooms[floor], 10) + 1;
+                                    } else {
+                                        cornerIcons[2].rooms[floor] = parseInt(cornerIcons[2].rooms[floor], 10) + 1;
+                                    }
                                     break;
                                 case 'warroom':
                                     cornerIcons[3].warrooms[floor] = parseInt(cornerIcons[3].warrooms[floor], 10) + 1;
@@ -929,7 +940,6 @@ var OneMap = {
 
                         switch(results[i].type) {
                             case 'zone':
-                                console.log(results[i]);
                                 content += $('#zoneResult-template').html().format(results[i].zoneName, results[i].office.name, results[i].floor, isLinkClass, results[i].floor, results[i].zoneId, "zone", results[i].zoneColor, results[i].hotspotIds);                        
                                 break;
                             case 'user':
@@ -942,6 +952,7 @@ var OneMap = {
                                 content += $('#deskResult-template').html().format(results[i].assignedSeatId, results[i].location, results[i].floor, isLinkClass, results[i].floor, results[i].hotspotId, "desk");                        
                                 break;
                             case 'warroom':
+                                content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "warroom");
                                 break;
                         }
                     }
@@ -1017,9 +1028,15 @@ var OneMap = {
 
                     switch(hotspots[i].areaType) {
                         case 'room':
-                            pinHeight = 36;
-                            pinWidth = 28;
-                            pinImage = OneMap.search.pinImages.room;
+                            if(OneMap.search.mapPins[floorNumber].warroom != undefined && ($.inArray(hotspots[i].attrs.id, OneMap.search.mapPins[floorNumber].warroom) > -1)) {
+                                pinHeight = 40;
+                                pinWidth = 31;
+                                pinImage = OneMap.search.pinImages.warroom;
+                            } else {
+                                pinHeight = 36;
+                                pinWidth = 28;
+                                pinImage = OneMap.search.pinImages.room;
+                            }
                             break;
                         case 'desk':
                             pinHeight = 30;
