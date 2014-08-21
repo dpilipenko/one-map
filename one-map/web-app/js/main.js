@@ -264,10 +264,6 @@ var OneMap = {
             $(document).on('click', '.floorplan', OneMap.map.showFloor);
             $(document).on("click", '#backto3d', OneMap.map.backTo3D);
             $(document).on('click', '.zoom', function () {
-                // TODO: like to remove this and be able to keep the popup open while zooming
-                // if ($(OneMap.hotspots.modalElement).css('display') === 'block') {
-                //     $(OneMap.hotspots.modalElement).hide();
-                // }
                 OneMap.map.zoom(this.id);
             });
         }
@@ -275,8 +271,6 @@ var OneMap = {
     hotspots: {
         // hotspot information
         modalElement: $('.md-modal'),
-        // popupWidth: 312,
-        // popupHeight: 114,
         
         // hotspot properties
         defaultFill: '#a6bf3e',
@@ -300,10 +294,10 @@ var OneMap = {
                     this.setFill('#0C748E');
                 } else if(this.areaType == 'room'){
                     if(this.isVacant){
-                        console.log('room');
+                        //room
                         this.setFill('#A10850');
                     } else {
-                        console.log('warroom');
+                        //warroom
                         this.setFill('#E37C26');
                     }
                     
@@ -405,7 +399,7 @@ var OneMap = {
             });
         },
         click: function() {
-            console.log(this.areaID);
+            //console.log(this.areaID);
             if(!OneMap.zones.isCreating) {
                 OneMap.hotspots.unactivate();
                 OneMap.hotspots.active.hotspot = this;
@@ -497,6 +491,8 @@ var OneMap = {
                                 }
                                 if($.inArray(key, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
                                     OneMap.search.displayPin(hotspotPath);
+                                    //so you can hover over the hotspot as well
+                                    OneMap.map.floorplanLayer.add(hotspotPath);
                                 }
                             } else {
                                 OneMap.map.floorplanLayer.add(hotspotPath);
@@ -605,10 +601,7 @@ var OneMap = {
                 ev.stopPropagation();
                 OneMap.hotspots.closeModal();
             });
-            // $(document).on('click', '#popup .close', function () {
-            //     OneMap.hotspots.modalElement.hide();
-            //     OneMap.hotspots.unactivate();
-            // });
+
             $(document).on('click', '.claimHotspot', OneMap.hotspots.claim);
             $(document).on('click', '.createWAR', function () {
                 $(this).after('<input type="text" class="war-name" placeholder="project name"><a href="#" class="btn savewarname">SAVE</a>').hide();
@@ -616,9 +609,6 @@ var OneMap = {
             $(document).on('click', '.savewarname', OneMap.hotspots.createWarRoom);
             $(document).on('click', '.viewWARmembers', function () {
                 $(this).hide();
-                // $('#popup').css({
-                //     top: parseInt($('#popup').css('top'))-$('#members-slider').height() + 'px'
-                // });
                 $('#members-slider').show();
 
             });
@@ -665,7 +655,7 @@ var OneMap = {
             });
         },
         toggleSelected: function (self) {
-            console.log('toggle');
+            //console.log('toggle');
             if(self.zone == 'Free Zone') {
                 if(self.opacity() != 1) {
                     self.setOpacity(OneMap.zones.selectedOpacity);
