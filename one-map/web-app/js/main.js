@@ -550,7 +550,7 @@ var OneMap = {
                     }
                     break;
                 default:
-                    console.log(object.type);
+                    console.log("unaccounted for type:" + object.type);
                     break;
             }
             OneMap.hotspots.showModal();
@@ -897,12 +897,11 @@ var OneMap = {
                                 OneMap.search.mapPins[results[i].floor].floorIds = [];
                             }
 
-                            console.info('before:' + results[i].type);
+                            // if the type is room and it has a project, it's a warroom.
+                            // if its a warroom, we need to update its type for future parsing
                             if (results[i].type == 'room' && results[i].project !== undefined){
                                 results[i].type = 'warroom';
                             }
-                            console.info('after:' + results[i].type);
-                            console.log(results[i]);
 
                             // break up hotspots by type
                             if(typeof OneMap.search.mapPins[results[i].floor][results[i].type] == 'undefined') {
@@ -1003,7 +1002,7 @@ var OneMap = {
             OneMap.map.backTo3D();
         },
         displayResult: function (self) {
-            console.log(self);
+            // console.log(self);
             var floor = $(self).data('floor'),
                 canvas = $('.canvas[data-floor="' + floor + '"]');
             if($(self).data('type') == 'zone') {
