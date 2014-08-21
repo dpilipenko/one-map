@@ -295,6 +295,23 @@ var OneMap = {
                 this.setOpacity(OneMap.hotspots.hoverOpacity);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
+            } else if (this.isPin){
+                if(this.areaType == 'desk'){
+                    this.setFill('#0C748E');
+                } else if(this.areaType == 'room'){
+                    if(this.isVacant){
+                        console.log('room');
+                        this.setFill('#A10850');
+                    } else {
+                        console.log('warroom');
+                        this.setFill('#C0681D');
+                    }
+                    
+                }
+                
+                this.setOpacity(0.3);
+                this.moveTo(OneMap.map.interactiveLayer);
+                OneMap.map.interactiveLayer.drawScene();
             }
         },
         mouseOut: function() {
@@ -1095,6 +1112,12 @@ var OneMap = {
             rect.hotspot = hotspot;
             rect.on('mousedown', function() {
                 this.hotspot.fire('mousedown');
+            });
+            rect.on('mouseover', function() {
+                this.hotspot.fire('mouseover');
+            });
+            rect.on('mouseout', function() {
+                this.hotspot.fire('mouseout');
             });
             
             OneMap.map.floorplanLayer.add(rect);
