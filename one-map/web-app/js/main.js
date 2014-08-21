@@ -289,7 +289,7 @@ var OneMap = {
                 this.setOpacity(OneMap.hotspots.hoverOpacity);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
-            } else if (this.isPin){
+            } else if (this.isPin && !OneMap.zones.isCreating){
                 if(this.areaType == 'desk'){
                     this.setFill('#0C748E');
                 } else if(this.areaType == 'room'){
@@ -300,20 +300,32 @@ var OneMap = {
                         //warroom
                         this.setFill('#E37C26');
                     }
-                    
                 }
-                
                 this.setOpacity(0.3);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
+            } else if (OneMap.zones.isCreating){
+                if(this.zone == 'Free Zone') {
+                    if(this.opacity() != OneMap.zones.selectedOpacity) {
+                        this.setOpacity(OneMap.zones.hoverOpacity);
+                    }
+                    OneMap.map.interactiveLayer.drawScene();
+                }
             }
         },
         mouseOut: function() {
-            if (OneMap.hotspots.active.hotspot !== this && !OneMap.zones.isCreating) {
+            if (!OneMap.zones.isCreating && OneMap.hotspots.active.hotspot !== this && !OneMap.zones.isCreating) {
                 this.setFill(OneMap.hotspots.defaultFill);
                 this.setOpacity(OneMap.hotspots.defaultOpacity);
                 this.moveTo(OneMap.map.floorplanLayer);
                 OneMap.map.interactiveLayer.drawScene();
+            } else if (OneMap.zones.isCreating){
+                if(this.zone == 'Free Zone') {
+                    if(this.opacity() != OneMap.zones.selectedOpacity) {
+                        this.setOpacity(OneMap.zones.defaultOpacity);
+                    }
+                    OneMap.map.interactiveLayer.drawScene();
+                }
             }
         },
         getInfo: function () {
@@ -480,6 +492,8 @@ var OneMap = {
                         if(OneMap.zones.isCreating) {
                             if($.inArray(key, OneMap.zones.vacantHotspots) > -1) {
                                 OneMap.zones.displayFreeZone(hotspotPath);
+                                hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
+                                hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
                             }
                         } else {
                             hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
@@ -617,8 +631,9 @@ var OneMap = {
     zones: {
         isCreating: false,
         defaultColor: '#000000',
-        defaultOpacity: 0.3,
-        selectedOpacity: 1,
+        defaultOpacity: 0.2,
+        hoverOpacity: 0.35,
+        selectedOpacity: 0.5,
         selectedHotspots: [],
         allZones: [],
         vacantHotspots: [],
@@ -655,9 +670,8 @@ var OneMap = {
             });
         },
         toggleSelected: function (self) {
-            //console.log('toggle');
             if(self.zone == 'Free Zone') {
-                if(self.opacity() != 1) {
+                if(self.opacity() != OneMap.zones.selectedOpacity) {
                     self.setOpacity(OneMap.zones.selectedOpacity);
                     OneMap.zones.selectedHotspots.push(self.attrs.id);
                 } else {
@@ -672,11 +686,12 @@ var OneMap = {
         },
         displayFreeZone: function(hotspot) {
             hotspot.setOpacity(OneMap.zones.defaultOpacity);
-            if(hotspot.isVacant) {
-                hotspot.setStroke(OneMap.zones.defaultColor);
-            } else {
+            //if(hotspot.isVacant) {
+             //   hotspot.setStroke(OneMap.zones.defaultColor);
+            //} else {
                 hotspot.setFill(OneMap.zones.defaultColor);
-            }
+            //}
+
             hotspot.moveTo(OneMap.map.interactiveLayer);
         },
         create: function() {
