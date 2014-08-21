@@ -304,7 +304,7 @@ var OneMap = {
                         this.setFill('#A10850');
                     } else {
                         console.log('warroom');
-                        this.setFill('#C0681D');
+                        this.setFill('#E37C26');
                     }
                     
                 }
