@@ -455,6 +455,7 @@ var OneMap = {
                         hotspotPath.areaX = hotspotsObj[key].x;
                         hotspotPath.areaType = hotspotsObj[key].type;
                         hotspotPath.areaID = hotspotsObj[key].assignedSeatId;
+                        hotspotPath.isVacant = hotspotsObj[key].isVacant;
 
                         // hotspot mouse events
                         hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
