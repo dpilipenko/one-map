@@ -715,7 +715,7 @@ var OneMap = {
         resetFloor: function() {
             OneMap.zones.isCreating = false;
             OneMap.map.unloadFloor();
-            OneMap.zone.vacantHotspots = [];
+            OneMap.zones.vacantHotspots = [];
             var canvas = $('.showthisfloor .canvas');
             OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
         },
