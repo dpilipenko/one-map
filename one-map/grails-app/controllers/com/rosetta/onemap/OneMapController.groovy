@@ -449,34 +449,52 @@ class OneMapController {
 				ilike('color', '%'+searchTerm+'%');
 			}
 		}
+		println "zoneResults: "+zoneResults
 		for (Zone zone : zoneResults) {
+			println "zone iteration"
 			Office zoneOffice = null;
-			Map<String, Integer> floorCounts = new HashMap<String, Integer>()
+			//Map<String, Integer> floorCounts = new HashMap<String, Integer>()
+			Map<String, ArrayList<Hotspot>> floorCounts = new HashMap<String, ArrayList<Hotspot>>()
 			// iterate through all associate hotspots and count how many per floor
-			for (Hotspot h: Hotspot.findAllByZone(Zone.getFreeZone())) {
-				Integer fCount = floorCounts.get(h.floor)
-				if (fCount == null) {
-					fCount = new Integer(1)
+			for (Hotspot h: Hotspot.findAllByZone(zone)) {
+				println "hotspot id : " + h.id
+				ArrayList<Hotspot> zonedHotspots = floorCounts.get(h.floor)
+				if (zonedHotspots == null) {
+				//if (zonedHotspots == null) {
+					//fCount = new Integer(1)
+					zonedHotspots = new ArrayList<Hotspot>()
+					zonedHotspots.add(h)
 				} else {
-					fCount = new Integer(fCount.intValue() + 1)
+					//fCount = new Integer(fCount.intValue() + 1)
+					zonedHotspots.add(h)
 				}
-				floorCounts.put(h.floor, fCount)
+				//floorCounts.put(h.floor, fCount)
+				floorCounts.put(h.floor, zonedHotspots)
 				zoneOffice = h?.office
 			}
+			println "floorCounts: " + floorCounts
 			for (String floor : floorCounts.keySet()) {
+				println "floorCount iteration"
 				JSONObject zoneObject = new JSONObject()
 				zoneObject.put("type", "zone");
 				zoneObject.put("zoneId", zone.id)
 				zoneObject.put("zoneName", zone.name)
 				zoneObject.put("zoneColor", zone.color)
 				zoneObject.put("floor", floor)
-				zoneObject.put("floorCount", floorCounts.get(floor))
+				//zoneObject.put("floorCount", floorCounts.get(floor))
+				zoneObject.put("floorCount", floorCounts.get(floor).size())
 				zoneObject.put("office", zoneOffice)
 				
 				JSONArray hotspotIds = new JSONArray() 
+				/* 
 				for (Hotspot h: Hotspot.findByZoneAndFloor(zone, floor)) {
+					println "hotspot iteration"
 					hotspotIds.add("h"+h.id)
-				} 
+				} */
+				for (Hotspot h: floorCounts.get(floor)) {
+					println "hotspot iteration"
+					hotspotIds.add("h"+h.id)
+				}
 				zoneObject.put("hotspotIds", hotspotIds)
 				
 				searchResults.put(zoneObject)

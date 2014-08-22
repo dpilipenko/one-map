@@ -284,8 +284,13 @@ var OneMap = {
             center: []
         },
         mouseOver: function () {
+            console.log(this);
             if (!this.isPin && !OneMap.zones.isCreating) {
-                this.setFill(OneMap.hotspots.hoverFill);
+                if (this.searchZone !== undefined){
+                    this.setFill(this.zoneColor);
+                } else {
+                    this.setFill(OneMap.hotspots.hoverFill);
+                }
                 this.setOpacity(OneMap.hotspots.hoverOpacity);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
@@ -420,7 +425,11 @@ var OneMap = {
                 OneMap.hotspots.active.hotspot.center = [this.areaX, this.areaY];
 
                 if (!this.isPin) {
-                    this.setFill(OneMap.hotspots.hoverFill);
+                    if (this.searchZone !== undefined){
+                        this.setFill(this.zoneColor);
+                    } else {
+                        this.setFill(OneMap.hotspots.hoverFill);
+                    }
                     this.setOpacity(OneMap.hotspots.hoverOpacity);
                     this.moveTo(OneMap.map.interactiveLayer);
                     OneMap.map.interactiveLayer.drawScene();
@@ -501,6 +510,7 @@ var OneMap = {
 
                             if(!$.isEmptyObject(OneMap.search.mapPins)) {
                                 if($.inArray(key, OneMap.search.mapPins[floorNumber].zone) > -1) {
+                                    hotspotPath.searchZone = true;
                                     OneMap.search.displayZone(hotspotPath);
                                 }
                                 if($.inArray(key, OneMap.search.mapPins[floorNumber].floorIds) > -1) {
