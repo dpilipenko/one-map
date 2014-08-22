@@ -1,9 +1,11 @@
 <%@ page import="com.rosetta.onemap.User" %>
 <!doctype html>
-<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
+<!--[if lt IE 7]> <html lang="en-us" class="ie lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html lang="en-us" class="ie lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html lang="en-us" class="ie lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>    <html lang="en-us" class="ie lt-ie10"> <![endif]-->
+<!--[if gt IE 9]>    <html lang="en-us" class="ie"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en-us"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
 
@@ -116,6 +118,17 @@
                 <label for="password">Password</label>
                 <input class="password" type="password" />
                 <button type="submit" class="submit-login">SUBMIT</button>
+
+              </div>
+              <div class="browser-compatability">
+
+                <div class="login-title">
+                  ONE MAP
+                </div>
+                <div class="upgrade-browser-message">
+                  This site requires modern browsers.<br>
+                  It's time to make the switch.
+                </div>
 
               </div>
             </div>
