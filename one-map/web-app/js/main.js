@@ -284,7 +284,6 @@ var OneMap = {
             center: []
         },
         mouseOver: function () {
-            console.log(this);
             if (!this.isPin && !OneMap.zones.isCreating) {
                 if (this.searchZone !== undefined){
                     this.setFill(this.zoneColor);
@@ -987,6 +986,7 @@ var OneMap = {
                                     cornerIcons[0].zones[floor] = parseInt(cornerIcons[0].zones[floor], 10) + 1;
                                     break;
                                 case 'user':
+                                case 'desk':
                                     cornerIcons[1].users[floor] = parseInt(cornerIcons[1].users[floor], 10) + 1;
                                     break;
                                 case 'room':
@@ -1082,7 +1082,7 @@ var OneMap = {
              canvas.parent('.floorplan').trigger('click');
         },
         displayZone: function(hotspot){
-            console.log(hotspot.zone);
+            //console.log(hotspot.zone);
             if(hotspot.zone !== 'Free Zone') {
                 if(hotspot.isVacant) {
                     hotspot.setStroke(hotspot.zoneColor);
