@@ -75,6 +75,26 @@ var OneMap = {
                 $('#minus').removeClass('disabled');
             }
 
+            //skrink pin images
+            var pins = OneMap.map.stage.find('.pin');
+            pins.each(function(shape) {
+
+                shape.scale({
+                    x: shape.scaleX() / multiplier,
+                    y: shape.scaleY() / multiplier
+                });
+                var shiftY = shape.getHeight() - (shape.getHeight()*shape.scaleY());
+
+                //adjust pin images position. since they are smaller now, they won't shift as much as they need to
+                shape.setAttrs({
+                    x: shape.getX(),
+                    y: shape.getAttr('oriY') + shiftY
+                });
+
+            });
+            
+
+
             OneMap.map.floorplanLayer.setAbsolutePosition({
                 x: offsetX,
                 y: offsetY
@@ -264,7 +284,9 @@ var OneMap = {
             $(document).on('click', '.floorplan', OneMap.map.showFloor);
             $(document).on("click", '#backto3d', OneMap.map.backTo3D);
             $(document).on('click', '.zoom', function () {
-                OneMap.map.zoom(this.id);
+                if(!$(this).hasClass('disabled')){
+                    OneMap.map.zoom(this.id);
+                }
             });
         }
     },
@@ -1127,7 +1149,9 @@ var OneMap = {
                 width: pinWidth,
                 height: pinHeight,
                 fillPatternImage: pinImage,
-                fillPatternScale: {x:1, y:1}
+                fillPatternScale: {x:1, y:1},
+                name: 'pin',
+                oriY: (hotspot.areaY*OneMap.map.stageScale) + OneMap.map.floorplanY - pinHeight
             });
             rect.hotspot = hotspot;
             rect.on('mousedown', function() {
