@@ -18,6 +18,7 @@ var OneMap = {
         floorplanX: 0,
         floorplanY: 0,
         interactiveLayer: null,
+        pinsLayer: null,
 
         hasPanned: false,
         startDragOffset: {},
@@ -36,6 +37,11 @@ var OneMap = {
             });
 
             OneMap.map.interactiveLayer.scale({
+                x: OneMap.map.floorplanLayer.scaleX(),
+                y: OneMap.map.floorplanLayer.scaleY()
+            });
+
+            OneMap.map.pinsLayer.scale({
                 x: OneMap.map.floorplanLayer.scaleX(),
                 y: OneMap.map.floorplanLayer.scaleY()
             });
@@ -59,6 +65,11 @@ var OneMap = {
                     y: 1
                 });
                 OneMap.map.interactiveLayer.draggable(false);
+                OneMap.map.pinsLayer.scale({
+                    x: 1,
+                    y: 1
+                });
+                OneMap.map.pinsLayer.draggable(false);
                 OneMap.map.hasPanned = false;
             } else if (OneMap.map.hasPanned) {
                 $('#minus').removeClass('disabled');
@@ -106,6 +117,12 @@ var OneMap = {
                 y: offsetY
             });
             OneMap.map.interactiveLayer.draw();
+
+            OneMap.map.pinsLayer.setAbsolutePosition({
+                x: offsetX,
+                y: offsetY
+            });
+            OneMap.map.pinsLayer.draw();
         },
         moveStart: function() {
             OneMap.map.startDragOffset = {
@@ -140,11 +157,18 @@ var OneMap = {
                 y: this.getY()
             });
             OneMap.map.interactiveLayer.draw();
+
+            OneMap.map.pinsLayer.setAttrs({
+                x: this.getX(),
+                y: this.getY()
+            });
+            OneMap.map.pinsLayer.draw();
         },
         moveEnd: function() {
             OneMap.map.hasPanned = true;
             OneMap.map.draggedOffset = OneMap.map.floorplanLayer.getPosition();
             OneMap.map.interactiveLayer.draw();
+            OneMap.map.pinsLayer.draw();
         },
         showFloor: function () {
             if (this.getAttribute("data-showing") == "false") {
@@ -207,6 +231,13 @@ var OneMap = {
                 height: stage.height(),
                 draggable: false
             });
+            var highestLayer = new Kinetic.Layer({
+                x: 0,
+                y: 0,
+                width: stage.width(),
+                height: stage.height(),
+                draggable: false
+            });
 
             // event setup for zooming if the user has panned the image
             layer.on('dragstart', OneMap.map.moveStart);
@@ -247,6 +278,7 @@ var OneMap = {
                 OneMap.map.stage = stage;
                 OneMap.map.interactiveLayer = topLayer;
                 OneMap.map.floorplanLayer = layer;
+                OneMap.map.pinsLayer = highestLayer;
 
                 OneMap.hotspots.load(imageWidth, imageHeight, id);
             };
@@ -316,17 +348,22 @@ var OneMap = {
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
             } else if (this.isPin && !OneMap.zones.isCreating){
-                if(this.areaType == 'desk'){
-                    this.setFill('#0C748E');
-                } else if(this.areaType == 'room'){
-                    if(this.isVacant){
-                        //room
-                        this.setFill('#A10850');
-                    } else {
-                        //warroom
-                        this.setFill('#E37C26');
+                if (this.searchZone !== undefined){
+                    this.setFill(this.zoneColor);
+                } else {
+                    if(this.areaType == 'desk'){
+                        this.setFill('#0C748E');
+                    } else if(this.areaType == 'room'){
+                        if(this.isVacant){
+                            //room
+                            this.setFill('#A10850');
+                        } else {
+                            //warroom
+                            this.setFill('#E37C26');
+                        }
                     }
                 }
+                
                 this.setOpacity(0.3);
                 this.moveTo(OneMap.map.interactiveLayer);
                 OneMap.map.interactiveLayer.drawScene();
@@ -547,6 +584,7 @@ var OneMap = {
 
                     OneMap.map.stage.add(OneMap.map.floorplanLayer);
                     OneMap.map.stage.add(OneMap.map.interactiveLayer);
+                    OneMap.map.stage.add(OneMap.map.pinsLayer);
 
                     $('.zoom-btns').fadeIn();
                 },
@@ -1164,7 +1202,7 @@ var OneMap = {
                 this.hotspot.fire('mouseout');
             });
             
-            OneMap.map.floorplanLayer.add(rect);
+            OneMap.map.pinsLayer.add(rect);
 
             hotspot.isPin = true;
 
@@ -1173,7 +1211,7 @@ var OneMap = {
                 OneMap.search.activeResult = null;
             }
 
-            OneMap.map.floorplanLayer.draw();
+            OneMap.map.pinsLayer.draw();
 
             if (selectedHotspot !== null) {
                 selectedHotspot.fire('mousedown');
