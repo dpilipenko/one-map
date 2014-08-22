@@ -738,6 +738,11 @@ var OneMap = {
             OneMap.zones.isCreating = false;
             OneMap.map.unloadFloor();
             OneMap.zones.vacantHotspots = [];
+            $('#zone-name').val("");
+            $('#zone-color').val("");
+            $('.zone-panel .number-selected span').text("0");
+            OneMap.zones.selectedHotspots = [];
+
             var canvas = $('.showthisfloor .canvas');
             OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
         },
