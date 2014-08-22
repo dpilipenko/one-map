@@ -380,7 +380,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			}
 
 			.save-zone {
-				margin-right: 23px;
+				// margin-right: 23px;
+				margin-right: 15px;
 			}
 		}
 
@@ -1377,7 +1378,9 @@ transition: margin-left 0.4s;
     position: absolute;
     right: 0;
     z-index: 200;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+
 
     div {
     	display: block;
@@ -1385,9 +1388,16 @@ transition: margin-left 0.4s;
 	    font-size: 9px;
 	    margin-top: 21px;
 	    position: relative;
+
+	    -webkit-transform: rotateX(-90deg) rotateY(30deg);
+	    -webkit-transform-origin: center bottom 0;
+	    -webkit-transform-style: preserve-3d;
+	    
 	    transform: rotateX(-90deg) rotateY(30deg);
 	    transform-origin: center bottom 0;
 	    transform-style: preserve-3d;
+
+	    
 
 	    display: none;
 
