@@ -725,7 +725,7 @@ input::-moz-placeholder {
   font-size: 15px;
 }
 /* line 769, main.scss */
-#results .results-list .result-item .position, #results .results-list .result-item .location {
+#results .results-list .result-item .position, #results .results-list .result-item .location, #results .results-list .result-item .project {
   color: #dcdcdc;
   font-family: Arial;
   font-size: 12px;

@@ -373,6 +373,7 @@ class OneMapController {
 				ilike('name', '%'+searchTerm+'%')
 				like('number', '%'+searchTerm+'%')
 				ilike('assignedSeatId', '%'+searchTerm+'%')
+				ilike('project', '%'+searchTerm+'%')
 			}
 		}
 		for(Room room : roomResults) {

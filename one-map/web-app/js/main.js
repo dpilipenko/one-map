@@ -1016,7 +1016,7 @@ var OneMap = {
                                 content += $('#deskResult-template').html().format(results[i].assignedSeatId, results[i].location, results[i].floor, isLinkClass, results[i].floor, results[i].hotspotId, "desk");                        
                                 break;
                             case 'warroom':
-                                content += $('#roomResult-template').html().format(results[i].name, results[i].number, results[i].location, isLinkClass, results[i].floor, results[i].hotspotId, "warroom");
+                                content += $('#warroomResult-template').html().format(results[i].name, results[i].number, results[i].location, 'Project: ' + results[i].project,isLinkClass, results[i].floor, results[i].hotspotId, "warroom");
                                 break;
                         }
                     }
