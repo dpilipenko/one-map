@@ -39,7 +39,7 @@
         var init = function() {
             // Set up settings
             settings = $.extend({}, defaults, options);
-                
+
             // Add inital classes
             slider.addClass('lean-slider');
             slides.addClass('lean-slider-slide');

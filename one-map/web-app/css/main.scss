@@ -380,7 +380,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			}
 
 			.save-zone {
-				margin-right: 25px;
+				margin-right: 23px;
 			}
 		}
 
@@ -931,56 +931,6 @@ transition: margin-left 0.4s;
 
 }
 
-// .arrow-right, .lean-slider-next {
-// 	width: 0; 
-// 	height: 0; 
-// 	border-top: 10px solid transparent;
-// 	border-bottom: 10px solid transparent; 
-	
-// 	border-left:10px solid #bbbbbb; 
-
-// 	float: left;
-// 	display: block;
-// 	position: relative;
-// 	margin-top: 25px;
-// }
-
-// .arrow-right:after {
-// 	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
-//     content: "";
-//     height: 15px;
-//     left: -13px;
-//     position: absolute;
-//     top: -5px;
-//     transform: rotate(45deg);
-//     width: 10px;	
-// }
-
-// .arrow-left, .lean-slider-prev {
-// 	width: 0; 
-// 	height: 0; 
-// 	border-top: 10px solid transparent;
-// 	border-bottom: 10px solid transparent; 
-	
-// 	border-right:10px solid #bbbbbb; 
-
-// 	float: left;
-// 	display: block;
-// 	position: relative;
-// 	margin-top: 25px;
-// }
-
-// .arrow-left:after {
-// 	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
-//     content: "";
-//     height: 15px;
-//     left: 4px;
-//     position: absolute;
-//     top: -5px;
-//     transform: rotate(135deg);
-//     width: 10px;	
-// }
-
 /* --- Maps
 ------------------------------ */
 
@@ -1277,6 +1227,56 @@ transition: margin-left 0.4s;
 /* --- Slider
 -------------------------- */
 
+.lean-slider-next { //.arrow-right,
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-left:10px solid #bbbbbb; 
+
+	float: left;
+	display: block;
+	position: relative;
+	margin-top: 25px;
+}
+
+ .lean-slider-next:after { //.arrow-right:after,
+	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
+    content: "";
+    height: 15px;
+    left: -13px;
+    position: absolute;
+    top: -5px;
+    transform: rotate(45deg);
+    width: 10px;	
+}
+
+ .lean-slider-prev { //.arrow-left,
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-right:10px solid #bbbbbb; 
+
+	float: left;
+	display: block;
+	position: relative;
+	margin-top: 25px;
+}
+
+ .lean-slider-prev:after { //.arrow-left:after,
+	box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
+    content: "";
+    height: 15px;
+    left: 4px;
+    position: absolute;
+    top: -5px;
+    transform: rotate(135deg);
+    width: 10px;	
+}
+
 .lean-slider { 
     position: relative; 
     *zoom: 1;
@@ -1292,11 +1292,21 @@ transition: margin-left 0.4s;
 
 .lean-slider-slide { 
     float: left;
-    width: 100%;
-    margin-right: -100%;
-    display: none; 
+    width: 80%;
+    margin-right: -100% !important;
+    display: block;
+
+    opacity: 0;
+    -webkit-transition: opacity 0.6s linear;
+    -moz-transition: opacity 0.6s linear;
+    -ms-transition: opacity 0.6s linear;
+    -o-transition: opacity 0.6s linear;
+    transition: opacity 0.6s linear; 
 }
-.lean-slider-slide.current { display: block; }
+.lean-slider-slide.current {
+	opacity: 1;
+	visibility: visible;
+}
 
 .lean-slider-next, .lean-slider-prev {
 	text-indent: -9999px;
@@ -1308,21 +1318,51 @@ transition: margin-left 0.4s;
 }
 
 .lean-slider-control-nav {
-	text-indent: -9999px;
-	width: 4px;
-	height: 4px;
-	border-radius: 2px;
-	background: rgba(0,0,0,0.4);
-
-	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.5);
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    height: 8px;
+    margin-right: 4px;
+    text-indent: -9999px;
+    width: 8px;
+    font-size: 23px;
+    line-height: 1px;
 
 	&.active {
 		background: white;
 	}
+
+	&:hover {
+		background: #0096b6;
+	}
 }
 
-.lean-slider-next { right: 6px;     border-left: 10px solid #fff; }
-.lean-slider-prev { left: 6px;     border-right: 10px solid #fff; }
+.lean-slider-next {
+	right: 6px;
+	border-left: 10px solid #eee;
+
+	&:hover {
+		border-left: 10px solid #f9f9f9;
+	}
+}
+.lean-slider-prev {
+	left: 6px;
+	border-right: 10px solid #eee;
+
+	&:hover {
+		border-right: 10px solid #f9f9f9;
+	}
+}
+
+#slider-dot-nav {
+    left: 50%;
+    margin: 10px 0 0;
+    position: relative;
+    text-align: center;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+}
 
 /* --- Corner Result Hits
 -------------------------- */
@@ -1763,13 +1803,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	    @include RobotoLight;
 		line-height: 18px;
 
-		&.loading {
-			margin-bottom: -50px;
-		    min-height: 55px;
-		    padding-left: 50px;
-		    padding-top: 40px;
-		    width: 252px;
-		}
+		// &.loading {
+		// 	margin-bottom: -50px;
+		//     min-height: 55px;
+		//     padding-left: 50px;
+		//     padding-top: 40px;
+		//     width: 252px;
+		// }
 
 		>div {
 			padding: 15px;
@@ -1851,8 +1891,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
     clear: both;
-    margin: 10px -10px 0;
-    padding: 10px;
+    margin: 10px -25px 0;
+    padding: 10px 25px 0;
     	position: relative;
     	display: none;
 

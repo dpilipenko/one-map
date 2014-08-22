@@ -436,11 +436,11 @@ var OneMap = {
                 success: function (object) {
                     if (isWARRoom) {
                         $modalContent.html('Done');
-                        setTimeout(function () {
-                            $modalContent.removeClass('loading');
-                            OneMap.hotspots.closeModal();
-                            OneMap.hotspots.unactivate();
-                        }, 1500);
+                        // setTimeout(function () {
+                        //     $modalContent.removeClass('loading');
+                        //     OneMap.hotspots.closeModal();
+                        //     OneMap.hotspots.unactivate();
+                        // }, 1500);
                     } else { // desk
                         $modalContent.removeClass('loading');
                         object = object.userinformation;
@@ -611,14 +611,15 @@ var OneMap = {
 
                         var content = '';
                         for (var i = 0; i < object.members.length; i++) {
-                            content += $('#user-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
+                            content += $('#warroom-member-template').html().format(object.members[i].name, object.members[i].level, object.members[i].craft, object.members[i].phone, object.members[i].email);
                         }
                         $('#WARmembers').html(content);
 
                         if (object.members.length > 0) {
                             //init slider
                             var slider = $('#WARmembers').leanSlider({
-                                directionNav: '#slider-direction-nav',
+                                directionNav: '#slider-directional-nav',
+                                controlNav: '#slider-dot-nav',
                                 pauseTime: 0,
                                 prevText: 'Prev',
                                 nextText: 'Next'
@@ -807,10 +808,15 @@ var OneMap = {
             OneMap.zones.isCreating = false;
             OneMap.map.unloadFloor();
             OneMap.zones.vacantHotspots = [];
+            OneMap.zones.selectedHotspots = [];
+
             $('#zone-name').val("");
             $('#zone-color').val("");
             $('.zone-panel .number-selected span').text("0");
-            OneMap.zones.selectedHotspots = [];
+            $('.error-wrapper #zone-name').parent().find('.error-text').remove();
+            $('.error-wrapper #zone-color').parent().find('.error-text').remove();
+            $('.error-wrapper #zone-name').unwrap();
+            $('.error-wrapper #zone-color').unwrap();
 
             var canvas = $('.showthisfloor .canvas');
             OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
