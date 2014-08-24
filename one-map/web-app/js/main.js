@@ -95,10 +95,11 @@ var OneMap = {
                     y: shape.scaleY() / multiplier
                 });
                 var shiftY = shape.getHeight() - (shape.getHeight()*shape.scaleY());
+                var shiftX = zoomType === 'plus' ? Math.abs(OneMap.map.zoomMultiplier) : -Math.abs(OneMap.map.zoomMultiplier);
 
                 //adjust pin images position. since they are smaller now, they won't shift as much as they need to
                 shape.setAttrs({
-                    x: shape.getX(),
+                    x: shape.getX() + shiftX,
                     y: shape.getAttr('oriY') + shiftY
                 });
 
