@@ -709,6 +709,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 		overflow-y: auto;
 		height: 370px;
 
+		.no-results {
+		    color: #fff;
+		    padding: 20px;
+		    font-family: 'robotolight',Arial;
+		    font-size: 13px;
+		}
+
 		.results-group {
 			display: none;
 		}

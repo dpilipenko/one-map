@@ -1099,6 +1099,12 @@ var OneMap = {
                                 break;
                         }
                     }
+
+                    //display no results message if length == 0
+                    if(results.length == 0){
+                        content = '<div class="no-results">No results found.</div>';
+                    }
+
                     $('#result-list').html(content);
                     if(typeChangeCount > 1){
                         $('#result-list').addClass('show-dividers');
