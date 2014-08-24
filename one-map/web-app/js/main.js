@@ -879,33 +879,40 @@ var OneMap = {
                 //we should do everthing with the #, then strip it off right before giving to backend
                 var zonecolor = $('#zone-color').val(); //.replace(/#/g,"");
 
-                var valid = true;
+                var allgood = true;
+                var goodHEX = true;
+                var uniqueName = true;
+                var uniqueColor = true;
 
                 if(zonecolor.length > 0 && zonename.length > 0){
+
+                    //validate hex format. expecting #
+                    if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
+                        allgood = false;
+                        goodHEX = false;
+
+                        $('#zone-color').wrap('<div class="error-wrapper"></div>');
+                        $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
+                    }
 
                     for (var v = 0; v < OneMap.zones.allZones.length; v++){
 
                         var nametotest = OneMap.zones.allZones[v].name.toLowerCase().replace(/ /g,"");
                         var colortotest = OneMap.zones.allZones[v].color; //.replace(/#/g,"");
 
-                        if(zonename == nametotest){
-                            valid = false;
+                        if(uniqueName){
+                            if(zonename == nametotest){
+                                allgood = false;
+                                uniqueName = false;
 
-                            $('#zone-name').wrap('<div class="error-wrapper"></div>');
-                            $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
+                                $('#zone-name').wrap('<div class="error-wrapper"></div>');
+                                $('#zone-name').parent().append('<div class="error-text">' + 'This zone name already exists' + '</div>');
 
-                            break;
+                            }
                         }
 
-                        //expecting #
-                        if(!( /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(zonecolor) )){
-                            valid = false;
-
-                            $('#zone-color').wrap('<div class="error-wrapper"></div>');
-                            $('#zone-color').parent().append('<div class="error-text">' + 'Invalid HEX code format' + '</div>');
-
-                            break;
-                        } else {
+                        //only need test for duplicates if its a valid hex format
+                        if(goodHEX && uniqueColor){
                             //if short format, convert to long for duplicate check
                             var validformat = zonecolor;
                             if(zonecolor.length == 4){
@@ -913,17 +920,21 @@ var OneMap = {
                                 validformat = '#' + validformat;
                             }
                             if (validformat == colortotest){
-                                valid = false;
+                                allgood = false;
+                                uniqueColor = false;
 
                                 $('#zone-color').wrap('<div class="error-wrapper"></div>');
                                 $('#zone-color').parent().append('<div class="error-text">' + 'This zone color already exists' + '</div>');
 
-                                break;
                             }
+                        }
+
+                        if(!uniqueColor && !uniqueName){
+                            break;
                         }
                     }
 
-                    if(valid){
+                    if(allgood){
                         OneMap.zones.save();
                     }
 
