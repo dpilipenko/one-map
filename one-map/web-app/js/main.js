@@ -1277,6 +1277,7 @@ var OneMap = {
             });
             $(document).on('click', '.clear-results', function (e) {
                 e.preventDefault();
+                $('.searchbar').val("");
                 OneMap.search.clear();
             });
             $(document).on('click', '#results .isLink', function() {
