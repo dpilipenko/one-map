@@ -1392,7 +1392,7 @@ transition: margin-left 0.4s;
 	    -webkit-transform: rotateX(-90deg) rotateY(30deg);
 	    -webkit-transform-origin: center bottom 0;
 	    -webkit-transform-style: preserve-3d;
-	    
+
 	    transform: rotateX(-90deg) rotateY(30deg);
 	    transform-origin: center bottom 0;
 	    transform-style: preserve-3d;
@@ -1556,7 +1556,7 @@ $time: 0.7s;
 	color: #fff;
 	position: absolute;
 	left: 100%;
-	top: 0;
+	top: -20px;
 	margin-left: 18px;
 	width: 65px;
 	padding: 10px;

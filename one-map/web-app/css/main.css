@@ -1372,7 +1372,7 @@ input::-moz-placeholder {
   color: #fff;
   position: absolute;
   left: 100%;
-  top: 0;
+  top: -20px;
   margin-left: 18px;
   width: 65px;
   padding: 10px;
