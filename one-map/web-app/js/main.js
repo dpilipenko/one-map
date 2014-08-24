@@ -1351,6 +1351,7 @@ var OneMap = {
                         success: function (data, textStatus, jqXHR) {
                             
                             $('.header').removeClass('login');
+                            $('.info-panel').removeClass('login');
                             setTimeout(function () {
                                 $('.ms-wrapper').addClass('ms-view-layers');
                             }, 500);

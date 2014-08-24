@@ -637,9 +637,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
     	.info-link {
 		    margin: 10px 0 10px 10px;
 
-			border: 1px solid #fff;
+			border: 1px solid #fff !important;
 		    border-radius: 16px;
-		    color: #fff;
+		    color: #fff !important;
 		    cursor: pointer;
 		    display: block;
 		    float: left;
@@ -667,6 +667,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 		}
 
+    }
+
+    &.login {
+    	.info-link {
+    		color: #686869;
+	    	border: 1px solid #686869;
+    	}
+
+    	.info-content {
+    		strong, .legend {
+				display: none;
+    		}
+    	}
+
+    	&.open {
+    		.info-content {
+    			height: 40px;
+
+    			.support {
+    				padding: 0;
+    			}
+    		}
+    	}
     }
 }
 

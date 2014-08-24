@@ -153,7 +153,7 @@
   		</div>
   	</div>
 
-    <div class="info-panel">
+    <div class="info-panel login">
       <a class="info-link">i</a>
       <div class="info-title">Info</div>
       <div class="info-content">
