@@ -1576,6 +1576,10 @@ $time: 0.7s;
 	background: $blue;
 }
 
+.floorplan.showthisfloor .ms-label {
+	top: 0;
+}
+
 .ms-label::after {
 	right: 100%;
 	border: solid transparent;
