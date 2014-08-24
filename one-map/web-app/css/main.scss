@@ -494,6 +494,182 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	margin-right: 20px;
 }
 
+/* --- Info Panel
+------------------------------ */
+
+.info-panel {
+    bottom: 0;
+    position: absolute;
+    right: -360px;
+	width: 360px;
+	z-index: 101;
+	background: linear-gradient(to right, rgba(0, 188, 228, 0.9) 0%, rgba(0, 150, 182, 0.9) 100%) repeat scroll 0 0 rgba(0, 188, 228, 0);
+
+	-webkit-transition: right 1s; 
+	-moz-transition: right 1s; 
+	-ms-transition: right 1s; 
+	-o-transition: right 1s; 
+	transition: right 1s;
+
+    .info-link {
+		float: left;
+		margin: -37px;
+
+		border: 1px solid #fff;
+	    border-radius: 16px;
+	    color: #fff;
+	    cursor: pointer;
+	    display: block;
+	    float: left;
+	    font-family: 'robotolight',arial;
+	    font-size: 16px;
+	    height: 17px;
+	    line-height: 17px;
+	    padding: 5px;
+	    text-align: center;
+	    text-decoration: none;
+	    vertical-align: top;
+	    width: 17px;
+
+		-webkit-transition: margin 1s; 
+		-moz-transition: margin 1s; 
+		-ms-transition: margin 1s; 
+		-o-transition: margin 1s; 
+		transition: margin 1s;
+
+		&:hover {
+			background: rgba(255,255,255,0.2);
+		}
+    }
+
+    .info-title {
+    	float: left;
+		@include Satellite;
+		font-size: 19px;
+		color: #fff;
+		text-transform: uppercase;
+		padding: 12px;
+		display: none;
+    }
+
+    .info-shadow {
+		border-radius: 10000px;
+	    box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.8), 0 5px 10px 5px rgba(0, 0, 0, 0.8);
+	    height: 200px;
+	    margin: 0;
+	    position: absolute;
+	    top: -219px;
+	    width: 90%;
+	    z-index: 1;
+    }
+
+    .info-content {
+		height: 0px;
+	    overflow: hidden;
+	    padding: 0px;
+	    position: relative;
+	    clear: both;
+	    opacity: 0;
+
+	    -webkit-transition: height 1s, padding 1s, opacity 0.3s; 
+		-moz-transition: height 1s, padding 1s, opacity 0.3s; 
+		-ms-transition: height 1s, padding 1s, opacity 0.3s; 
+		-o-transition: height 1s, padding 1s, opacity 0.3s; 
+		transition: height 1s, padding 1s, opacity 0.3s;
+
+		strong {
+			color: #252525;
+		    display: block;
+		    font-family: 'robotoregular',arial;
+		    font-size: 15px;
+		}
+
+		a {
+			color: #dcdcdc;
+			text-decoration: underline;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		.legend {
+		    color: #fff;
+		    font-family: 'robotolight',arial;
+		    font-size: 14px;
+		    padding: 20px;
+
+		    >div {
+		    	margin: 6px 0px;
+		    }
+		}
+
+		.support {
+		    color: #fff;
+		    font-family: 'robotolight',arial;
+		    font-size: 14px;
+		    padding: 20px;
+		}
+
+		.desk-pin {
+			padding: 5px 0 5px 40px;
+	    	background: url(../images/pin-seat.png) top left no-repeat transparent;
+		}
+
+		.room-pin {
+			padding: 10px 0 10px 40px;
+	    	background: url(../images/pin-room.png) top left no-repeat transparent;
+		}
+
+		.warroom-pin {
+			padding: 11px 0 11px 40px;
+	    	background: url(../images/pin-war.png) top left no-repeat transparent;
+		}
+    }
+
+    &.open {
+		right: 0px;
+
+		.info-title {
+			display: block;
+		}
+
+    	.info-link {
+		    margin: 10px 0 10px 10px;
+
+			border: 1px solid #fff;
+		    border-radius: 16px;
+		    color: #fff;
+		    cursor: pointer;
+		    display: block;
+		    float: left;
+		    font-family: 'robotolight',arial;
+		    font-size: 18px;
+		    height: 17px;
+		    line-height: 14px;
+		    padding: 5px;
+		    text-align: center;
+		    text-decoration: none;
+		    vertical-align: top;
+		    width: 17px;
+    	}
+
+    	.info-content {
+			height: 280px;
+			padding: 20px;
+			opacity: 1;
+
+			-webkit-transition: height 1s, padding 1s, opacity 1.3s; 
+			-moz-transition: height 1s, padding 1s, opacity 1.3s; 
+			-ms-transition: height 1s, padding 1s, opacity 1.3s; 
+			-o-transition: height 1s, padding 1s, opacity 1.3s; 
+			transition: height 1s, padding 1s, opacity 1.3s;
+
+		}
+
+    }
+}
+
 /* --- Login
 ------------------------------ */
 
@@ -640,10 +816,10 @@ transition: left 0.7s;
 		margin-top: -71px;
 
 		-webkit-transition: margin-left 0.4s; 
--moz-transition: margin-left 0.4s; 
--ms-transition: margin-left 0.4s; 
--o-transition: margin-left 0.4s; 
-transition: margin-left 0.4s;
+		-moz-transition: margin-left 0.4s; 
+		-ms-transition: margin-left 0.4s; 
+		-o-transition: margin-left 0.4s; 
+		transition: margin-left 0.4s;
 		transition-delay: 0s;
 		transition-timing-function: ease-out;
 		margin-left: 0px;
@@ -793,12 +969,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 
 		.results-header {
 			-webkit-transition: margin-left 0.4s; 
--moz-transition: margin-left 0.4s; 
--ms-transition: margin-left 0.4s; 
--o-transition: margin-left 0.4s; 
-transition: margin-left 0.4s;
-		transition-delay: 0.4s;
-		 transition-timing-function: ease-out;
+			-moz-transition: margin-left 0.4s; 
+			-ms-transition: margin-left 0.4s; 
+			-o-transition: margin-left 0.4s; 
+			transition: margin-left 0.4s;
+			transition-delay: 0.4s;
+			transition-timing-function: ease-out;
 			margin-left: 59px;
 		}
 

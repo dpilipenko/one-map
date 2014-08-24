@@ -1398,6 +1398,17 @@ var OneMap = {
             $('#offices').height($(window).height() - 95 - 20 - 70);
         });
 
+        $(document).on('click', '.info-link', function(){
+            var parent = $(this).parent();
+            if(parent.hasClass("open")){
+                parent.removeClass("open");
+                parent.find(".info-link").text("i");
+            } else {
+                parent.addClass("open");
+                parent.find(".info-link").text("x");
+            }
+        });
+
         OneMap.map.init();
         OneMap.search.init();
         OneMap.login.init();

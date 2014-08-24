@@ -153,6 +153,26 @@
   		</div>
   	</div>
 
+    <div class="info-panel">
+      <a class="info-link">i</a>
+      <div class="info-title">Info</div>
+      <div class="info-content">
+        <div class="info-shadow"></div>
+          <strong>Support</strong>
+          <div class="support">
+            Please direct any questions, issues, or feature requests to:
+            <a href="mailto:onemapsupport@rosetta.com">onemapsupport@rosetta.com</a>
+          </div>
+          <strong>Legend</strong>
+          <div class="legend">
+            <div class="desk-pin">= Seat or Office</div>
+            <div class="room-pin">= Room</div>
+            <div class="warroom-pin">= Warroom</div>
+          </div>
+
+      </div>
+    </div>
+
     <div id="offices-container">
       <div id="offices-slider">
         <div id="offices" class="ms-wrapper ms-effect-3">
