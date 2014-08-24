@@ -557,7 +557,8 @@ var OneMap = {
                         hotspotPath.on('mousedown', OneMap.hotspots.click);
                         
                         if(OneMap.zones.isCreating) {
-                            if($.inArray(key, OneMap.zones.vacantHotspots) > -1) {
+                            // console.info(hotspotsObj[key].type);
+                            if(($.inArray(key, OneMap.zones.vacantHotspots) > -1) && (hotspotsObj[key].type != 'room')) {
                                 OneMap.zones.displayFreeZone(hotspotPath);
                                 hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
                                 hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
