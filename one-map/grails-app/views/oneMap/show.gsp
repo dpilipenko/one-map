@@ -126,7 +126,7 @@
                 <label for="password">Password</label>
                 <input class="password" type="password" />
                 <button type="submit" class="submit-login">SUBMIT</button>
-                <a class="skip-login">Skip Login</a>
+                
               </div>
               <div class="browser-compatability">
 
@@ -140,7 +140,7 @@
 
               </div>
             </div>
-
+            <a class="skip-login">Skip Login</a>
           </div>
 
       </div>

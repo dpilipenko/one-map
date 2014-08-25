@@ -662,13 +662,13 @@ var OneMap = {
                             content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
                         }
                         innerDiv.html(content).data("profile", object);
-                    } else if (object.claimed && object.isMine) { // should be done
+                    } else if (object.claimed && object.isOwn) { // should be done
                         OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
-                        var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
+                        var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, object.assignedSeatId, zoneDisplay);
                         innerDiv.html(content);
                     } else { // other user claimed seat
                         OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
-                        var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
+                        var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, object.assignedSeatId, zoneDisplay);
                         content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey, can I have your seat?">REQUEST SEAT</a></div>';
                         innerDiv.html(content);
                     }

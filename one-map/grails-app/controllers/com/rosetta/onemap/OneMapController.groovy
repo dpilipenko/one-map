@@ -280,11 +280,11 @@ class OneMapController {
 				container.put("claimed", true)
 			} else {
 				container.put("isOwn", desk.user.id == currentUser.id)
-				if (desk.user.id != currentUser.id) {
+				//if (desk.user.id != currentUser.id) {
 					container.put("claimed", true)
-				}  else {
-					container.put("claimed", false)
-				}
+				//}  else {
+				//	container.put("claimed", false)
+				//}
 			}
 		}
 	}
