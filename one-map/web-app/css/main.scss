@@ -581,7 +581,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			color: #252525;
 		    display: block;
 		    font-family: 'robotoregular',arial;
-		    font-size: 15px;
+		    font-size: 14px;
 		}
 
 		a {
@@ -593,11 +593,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			}
 		}
 
+		table {
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
+
 		.legend {
 		    color: #fff;
 		    font-family: 'robotolight',arial;
-		    font-size: 14px;
-		    padding: 20px;
+		    font-size: 12px;
+		    padding: 20px 12px 20px 20px;
 
 		    >div {
 		    	margin: 6px 0px;
@@ -607,23 +613,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		.support {
 		    color: #fff;
 		    font-family: 'robotolight',arial;
-		    font-size: 14px;
+		    font-size: 13px;
 		    padding: 20px;
 		}
 
 		.desk-pin {
-			padding: 5px 0 5px 40px;
+			padding: 7px 0 7px 37px;
 	    	background: url(../images/pin-seat.png) top left no-repeat transparent;
+	    	margin-bottom: 10px;
 		}
 
 		.room-pin {
-			padding: 10px 0 10px 40px;
+			padding: 10px 0 10px 37px;
 	    	background: url(../images/pin-room.png) top left no-repeat transparent;
+	    	margin-bottom: 10px;
 		}
 
 		.warroom-pin {
-			padding: 11px 0 11px 40px;
+			padding: 12px 0 12px 37px;
 	    	background: url(../images/pin-war.png) top left no-repeat transparent;
+		}
+
+		.zone-pin {
+			background: url("../images/pin-zone.png") no-repeat scroll left 3px transparent;
+		    margin-bottom: 10px;
+		    margin-left: 13px;
+		    padding: 10px 0 7px 40px;
+		}
+
+		.zone-vacant {
+			margin-left: 10px;
+			margin-bottom: 10px;
+			div {
+			    border: 2px solid #e1e21a;
+			    float: left;
+			    height: 15px;
+			    margin: 0 16px 0px 2px;
+			    width: 20px;
+			}
+		}
+
+		.zone-occupied {
+			margin-left: 10px;
+			div {
+			    border: 2px solid #e1e21a;
+			    background: #e1e21a;
+			    float: left;
+			    height: 15px;
+			    margin: 0 16px 0px 2px;
+			    width: 20px;
+			}
 		}
     }
 

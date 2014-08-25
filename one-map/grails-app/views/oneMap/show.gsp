@@ -165,9 +165,20 @@
           </div>
           <strong>Legend</strong>
           <div class="legend">
-            <div class="desk-pin">= Seat or Office</div>
-            <div class="room-pin">= Room</div>
-            <div class="warroom-pin">= Warroom</div>
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td><div class="desk-pin">= Seat or Office</div></td>
+                <td><div class="zone-pin">= Zone Indicator</div></td>
+              </tr>
+              <tr>
+                <td><div class="room-pin">= Room</div></td>
+                <td><div class="zone-vacant"><div></div>= Vacant Zoned Seat</div></td>
+              </tr>
+              <tr>
+                <td><div class="warroom-pin">= Warroom</div></td>
+                <td><div class="zone-occupied"><div></div>= Occupied Zone Seat</div></td>
+              </tr>
+            </table>
           </div>
 
       </div>
