@@ -2204,11 +2204,21 @@ perspective effects (not including the modals and the overlay).
 .md-modal .md-content .btns-container {
   padding-top: 0px;
 }
-/* line 2110, main.scss */
+/* line 2108, main.scss */
+.md-modal .md-content .btns-container .error-wrapper {
+  position: relative;
+}
+/* line 2111, main.scss */
+.md-modal .md-content .btns-container .error-wrapper .error-text {
+  font-size: 10px;
+  position: absolute;
+  top: 33px;
+}
+/* line 2120, main.scss */
 .md-modal .md-content .md-bg .btns-container {
   margin-top: 10px;
 }
-/* line 2116, main.scss */
+/* line 2126, main.scss */
 .md-modal .md-content .seat-info #saveSeatZone {
   margin-left: 5px;
   display: none;
@@ -2216,17 +2226,17 @@ perspective effects (not including the modals and the overlay).
   font-size: 13px;
   cursor: pointer;
 }
-/* line 2126, main.scss */
+/* line 2136, main.scss */
 .md-modal .md-content .member .seat-info {
   padding-top: 15px;
 }
-/* line 2132, main.scss */
+/* line 2142, main.scss */
 .md-modal .war-name {
   float: left;
   height: 30px;
   margin-right: 10px;
 }
-/* line 2138, main.scss */
+/* line 2148, main.scss */
 .md-modal .close {
   position: absolute;
   top: -13px;
@@ -2237,22 +2247,22 @@ perspective effects (not including the modals and the overlay).
   cursor: pointer;
   z-index: 1;
 }
-/* line 2148, main.scss */
+/* line 2158, main.scss */
 .md-modal .close:hover {
   background-position: 0px -26px;
 }
-/* line 2153, main.scss */
+/* line 2163, main.scss */
 .md-modal .name {
   font-size: 23px;
   color: #252525;
   font-family: 'robotolight', Arial;
   margin: 3px 0px 8px;
 }
-/* line 2160, main.scss */
+/* line 2170, main.scss */
 .md-modal a {
   color: inherit;
 }
-/* line 2163, main.scss */
+/* line 2173, main.scss */
 .md-modal a.btn {
   text-decoration: none;
   border: 1px solid #FFF;
@@ -2261,11 +2271,11 @@ perspective effects (not including the modals and the overlay).
   margin-right: 10px;
   cursor: pointer;
 }
-/* line 2171, main.scss */
+/* line 2181, main.scss */
 .md-modal a.btn:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 2177, main.scss */
+/* line 2187, main.scss */
 .md-modal #members-slider {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
@@ -2275,7 +2285,7 @@ perspective effects (not including the modals and the overlay).
   position: relative;
   display: none;
 }
-/* line 2188, main.scss */
+/* line 2198, main.scss */
 .md-modal #members-slider .members .member {
   background: url(../images/icon-person.png) no-repeat left center;
   background-size: 56px 51px;
@@ -2287,7 +2297,7 @@ perspective effects (not including the modals and the overlay).
   font-size: 11px;
   line-height: 14px;
 }
-/* line 2195, main.scss */
+/* line 2205, main.scss */
 .md-modal #members-slider .members .member .name {
   color: #252525;
   font-family: 'robotoregular', Arial;
@@ -2295,12 +2305,12 @@ perspective effects (not including the modals and the overlay).
   margin: 0 0 5px 0;
 }
 
-/* line 2211, main.scss */
+/* line 2221, main.scss */
 .md-show {
   visibility: visible;
 }
 
-/* line 2215, main.scss */
+/* line 2225, main.scss */
 .md-overlay {
   position: fixed;
   width: 100%;
@@ -2317,13 +2327,13 @@ perspective effects (not including the modals and the overlay).
   transition: all 0.3s;
 }
 
-/* line 2231, main.scss */
+/* line 2241, main.scss */
 .md-show ~ .md-overlay {
   opacity: 1;
   visibility: visible;
 }
 
-/* line 2236, main.scss */
+/* line 2246, main.scss */
 .md-effect-1 .md-content {
   -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7);
@@ -2335,7 +2345,7 @@ perspective effects (not including the modals and the overlay).
   transition: all 0.3s;
 }
 
-/* line 2247, main.scss */
+/* line 2257, main.scss */
 .md-show.md-effect-1 .md-content {
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
@@ -2348,37 +2358,37 @@ perspective effects (not including the modals and the overlay).
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2261, main.scss */
+  /* line 2271, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2265, main.scss */
+  /* line 2275, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2272, main.scss */
+/* line 2282, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2274, main.scss */
+/* line 2284, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2277, main.scss */
+/* line 2287, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2280, main.scss */
+/* line 2290, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2285, main.scss */
+/* line 2295, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;

@@ -465,9 +465,14 @@ var OneMap = {
                     projectName: name
                 },
                 success: function (object) {
-                    OneMap.hotspots.modalElement.find('.room .btns-container')
-                        .before('<div>Project: ' + name + '</div>')
-                        .html('<a class="btn claimHotspot addme">ADD ME</a>');
+                    if (object.success){
+                        OneMap.hotspots.modalElement.find('.room .btns-container')
+                            .before('<div>Project: ' + name + '</div>')
+                            .html('<a class="btn claimHotspot addme">ADD ME</a>');
+                    } else {
+                        OneMap.hotspots.modalElement.find('.war-name').wrap('<div class="error-wrapper"></div>');
+                        OneMap.hotspots.modalElement.find('.war-name').parent().append('<div class="error-text">' + name + ' is already assigned to a warroom' + '</div>');
+                    } 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(errorThrown);

@@ -2104,6 +2104,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 
 		.btns-container {
 	    	padding-top: 0px;
+
+	    	.error-wrapper {
+	    		position: relative;
+
+	    		.error-text {
+				    font-size: 10px;
+				    position: absolute;
+				    top: 33px;
+				}
+	    	}
 	    }
 
 		.md-bg {
