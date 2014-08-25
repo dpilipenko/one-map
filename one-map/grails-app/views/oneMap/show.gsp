@@ -80,7 +80,14 @@
 					  </g:formRemote>
 
             <div class="logout">
-              <g:link controller="logout">LOGOUT</g:link>
+              <g:link controller="logout">
+                <sec:ifLoggedIn>
+                  LOGOUT
+                </sec:ifLoggedIn>
+                <sec:ifNotLoggedIn>
+                  LOGIN
+                </sec:ifNotLoggedIn>
+              </g:link>
             </div>
 
             <!-- if admin -->

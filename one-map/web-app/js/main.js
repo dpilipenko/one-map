@@ -1362,6 +1362,7 @@ var OneMap = {
                             if(data.success){
                                 OneMap.isLoggedIn = true;
                                 $('.welcome').html('Hey ' + data.firstname + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|');
+                                $('.logout a').text('LOGOUT');
 
                                 $('.header').removeClass('login');
                                 $('.info-panel').removeClass('login');
@@ -1370,8 +1371,8 @@ var OneMap = {
                                 }, 500);
                             } else {
                                 console.log(data.error);
-                                $('.password').wrap('<div class="error-wrapper"></div>');
-                                $('.password').parent().append('<div class="error-text auth-error">' + data.error + '</div>');
+                                $('.password').wrap('<div class="error-wrapper auth-error"></div>');
+                                $('.password').parent().append('<div class="error-text">' + data.error + '</div>');
                                 $('.login-form').addClass("password-error");
                             }
                         },
@@ -1393,6 +1394,7 @@ var OneMap = {
             }
         },
         skipLogin: function(){
+            $('.logout a').text('LOGIN');
             $('.header').removeClass('login');
             $('.info-panel').removeClass('login');
             setTimeout(function () {

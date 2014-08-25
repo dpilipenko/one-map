@@ -887,8 +887,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 		}
 
 		.auth-error {
-			text-align: center;
-			margin: 10px 0px -10px 0px;
+			input {
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.6) inset;
+			}
+			.error-text {
+				text-align: center;
+				margin: 10px 0px -10px 0px;
+			}
 		}
 	}
 
