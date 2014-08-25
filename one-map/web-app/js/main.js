@@ -669,7 +669,7 @@ var OneMap = {
                     } else { // other user claimed seat
                         OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
                         var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email, '1125A', zoneDisplay);
-                        content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey Bro, can I have your seat?">REQUEST SEAT</a></div>';
+                        content += '<div class="btns-container clearfix"><a class="btn" href="mailto:' + object.email + '?Subject=ONEMAP Seat Request&Body=Hey, can I have your seat?">REQUEST SEAT</a></div>';
                         innerDiv.html(content);
                     }
                     break;
