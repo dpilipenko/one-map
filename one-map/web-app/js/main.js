@@ -6,6 +6,7 @@ String.prototype.format = function () {
 };
 
 var OneMap = {
+    isLoggedIn: false,
     userIsAdmin: true,
 
     map: {
@@ -657,7 +658,9 @@ var OneMap = {
                     if (!object.claimed) {
                         OneMap.hotspots.modalElement.removeClass('room').removeClass('user').addClass('desk');
                         var content = '<div class="md-bg"><div class="seat-info"><div>Seat ID:&nbsp;' + object.assignedSeatId + '</div>Zone:&nbsp;' + zoneDisplay + '</div>';
-                        content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
+                        if(OneMap.isLoggedIn){
+                            content += '<div class="btns-container clearfix"><a class="btn claimHotspot">CLAIM THIS SEAT</a></div></div>';
+                        }
                         innerDiv.html(content).data("profile", object);
                     } else if (object.claimed && object.isMine) { // should be done
                         OneMap.hotspots.modalElement.removeClass('room').removeClass('desk').addClass('user');
@@ -1331,21 +1334,22 @@ var OneMap = {
             var username = $('.username').val();
             var password = $('.password').val();
 
-            // //reset validation
-            // $('.error-wrapper .username').parent().find('.error-text').remove();
-            // $('.error-wrapper .password').parent().find('.error-text').remove();
-            // $('.error-wrapper .username').unwrap();
-            // $('.error-wrapper .password').unwrap();
+            //reset validation
+            $('.error-wrapper .username').parent().find('.error-text').remove();
+            $('.error-wrapper .password').parent().find('.error-text').remove();
+            $('.error-wrapper .username').unwrap();
+            $('.error-wrapper .password').unwrap();
+            $('.login-form').removeClass("password-error");
 
-            // //validation
-            // if (username.length > 0 && password.length > 0){
-            //     if(!( /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/.test(username) )){
+            //validation
+            if (username.length > 0 && password.length > 0){
+                if(!( /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/.test(username) )){
 
-            //         $('.username').wrap('<div class="error-wrapper"></div>');
-            //         $('.username').parent().append('<div class="error-text">' + 'Invalid email format' + '</div>');
+                    $('.username').wrap('<div class="error-wrapper"></div>');
+                    $('.username').parent().append('<div class="error-text">' + 'Invalid email format' + '</div>');
 
-            //     } else {
-            //         //all good
+                } else {
+                    //all good
                     $.ajax({
                         url: OneMap.login.submitURL,
                         type: 'POST',
@@ -1354,38 +1358,60 @@ var OneMap = {
                             j_password: password
                         },
                         success: function (data, textStatus, jqXHR) {
-                            
-                            $('.header').removeClass('login');
-                            $('.info-panel').removeClass('login');
-                            setTimeout(function () {
-                                $('.ms-wrapper').addClass('ms-view-layers');
-                            }, 500);
-                            
+
+                            if(data.success){
+                                OneMap.isLoggedIn = true;
+                                $('.welcome').html('Hey ' + data.firstname + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|');
+
+                                $('.header').removeClass('login');
+                                $('.info-panel').removeClass('login');
+                                setTimeout(function () {
+                                    $('.ms-wrapper').addClass('ms-view-layers');
+                                }, 500);
+                            } else {
+                                console.log(data.error);
+                                $('.password').wrap('<div class="error-wrapper"></div>');
+                                $('.password').parent().append('<div class="error-text auth-error">' + data.error + '</div>');
+                                $('.login-form').addClass("password-error");
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
                         }
                     });
-            //     }
-            // } else {
-            //     if(! username.length > 0){
-            //         $('.username').wrap('<div class="error-wrapper"></div>');
-            //         $('.username').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
-            //     }
-            //     if(! password.length > 0){
-            //         $('.password').wrap('<div class="error-wrapper"></div>');
-            //         $('.password').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
-            //     }
-            // }
-
-            
+                }
+            } else {
+                if(! username.length > 0){
+                    $('.username').wrap('<div class="error-wrapper"></div>');
+                    $('.username').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+                }
+                if(! password.length > 0){
+                    $('.password').wrap('<div class="error-wrapper"></div>');
+                    $('.password').parent().append('<div class="error-text">' + 'This field is required' + '</div>');
+                    $('.login-form').addClass("password-error");
+                }
+            }
+        },
+        skipLogin: function(){
+            $('.header').removeClass('login');
+            $('.info-panel').removeClass('login');
+            setTimeout(function () {
+                $('.ms-wrapper').addClass('ms-view-layers');
+            }, 500);
         },
         init: function() {
             //TODO: how will this work with AD? Do we need to have them log in every time?
-            if (isLoggedIn) {
-                $('.ms-wrapper').addClass('ms-view-layers');
+            console.info('here');
+            if (OneMap.isLoggedIn) {
+                console.info('inside here');
+                $('.header').removeClass('login');
+                $('.info-panel').removeClass('login');
+                setTimeout(function () {
+                    $('.ms-wrapper').addClass('ms-view-layers');
+                }, 500);
             }
             $(document).on('click', '.submit-login', OneMap.login.submit);
+            $(document).on('click', '.skip-login', OneMap.login.skipLogin);
             $(document).on('keypress', '.password', function (e) {
                 if (e.keyCode == 13) {
                     e.preventDefault();

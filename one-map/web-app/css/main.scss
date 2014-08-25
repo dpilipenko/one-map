@@ -853,6 +853,45 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 		}
 	}
 
+	.skip-login {
+	    color: #252525;
+	    cursor: pointer;
+	    display: block;
+	    font-family: 'satelliteregular',Arial;
+	    font-size: 12px;
+	    margin: 20px auto;
+	    text-align: center;
+	    text-decoration: none;
+	    text-transform: uppercase;
+
+	    &:hover {
+	    	text-decoration: underline !important;
+	    }
+	}
+
+	.error-wrapper {
+		.username, .password {
+			margin-bottom: 5px;
+		}
+
+		.error-text {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 14px;
+		}
+	}
+
+	.password-error {
+		.submit-login {
+			margin-top: 23px;
+		}
+
+		.auth-error {
+			text-align: center;
+			margin: 10px 0px -10px 0px;
+		}
+	}
+
 	.browser-compatability {
 		display: none;
 	}
@@ -1215,139 +1254,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a4a4a', end
 		z-index: 2;
 	}
 }
-
-// #popup, .generic-popup {
-//     border-radius: 10px;
-//     display: none;
-//     right: 10%;
-//     min-height: 105px;
-//     position: absolute;
-//     top: 0;
-//     width: 312px;
-
-//     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.6);
-
-//     background: rgb(0,188,228); /* Old browsers */
-// background: -moz-linear-gradient(top,  rgba(0,188,228,1) 0%, rgba(0,150,182,1) 100%); /* FF3.6+ */
-// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,188,228,1)), color-stop(100%,rgba(0,150,182,1))); /* Chrome,Safari4+ */
-// background: -webkit-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* Chrome10+,Safari5.1+ */
-// background: -o-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* Opera 11.10+ */
-// background: -ms-linear-gradient(top,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* IE10+ */
-// background: linear-gradient(to bottom,  rgba(0,188,228,1) 0%,rgba(0,150,182,1) 100%); /* W3C */
-// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 ); /* IE6-9 */
-
-// 	.inner {
-// 	    min-height: 85px;
-// 	    padding: 10px;
-// 	    width: 292px;
-
-// 	    color: #FFF;
-// 	    font-size: 15px;
-// 	    @include RobotoLight;
-// 		line-height: 18px;
-
-// 		&.loading {
-// 			margin-bottom: -50px;
-// 		    min-height: 55px;
-// 		    padding-left: 50px;
-// 		    padding-top: 40px;
-// 		    width: 252px;
-// 		}
-// 	}
-
-// 	&.user .inner {
-// 	    background: url("../images/icon-watermark-person.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
-// 	}
-
-// 	&.room .inner {
-// 	    background: url("../images/icon-watermark-room.png") no-repeat scroll 192px 9px rgba(0, 0, 0, 0);
-// 	}
-
-// 	.war-name {
-// 		float: left;
-// 	    height: 30px;
-// 	    margin-right: 10px;
-// 	}
-
-// 	.close {
-// 		position: absolute;
-// 		top: -13px;
-// 		right: -12px;
-// 		width: 25px;
-// 		height: 26px;
-// 		background: url(../images/btn-cancel.png) no-repeat 0 0;
-// 		cursor: pointer;
-// 		z-index: 1;
-
-// 		&:hover {
-// 			background-position: 0px -26px;
-// 		}
-// 	}
-
-// 	.notch {
-// 		border-left: 20px solid transparent;
-// 	    border-right: 20px solid transparent;
-// 	    border-top: 12px solid #0096b6;
-// 	    bottom: -12px;
-// 	    height: 0;
-// 	    left: 50%;
-// 	    margin-left: -18px;
-// 	    position: absolute;
-// 	    width: 0;
-// 	}
-
-// 	.notch:after {
-// 	    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
-// 	    content: "";
-// 	    height: 9px;
-// 	    left: -18px;
-// 	    position: absolute;
-// 	    top: -17px;
-// 	    transform: rotate(27deg);
-// 	    width: 21px;
-// 	    z-index: -1;
-// 	}
-
-// 	.notch:before {
-// 	    box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
-// 	    content: "";
-// 	    height: 9px;
-// 	    left: -4px;
-// 	    position: absolute;
-// 	    top: -17px;
-// 	    transform: rotate(-29deg);
-// 	    width: 21px;
-// 	    z-index: -1;
-// 	}
-
-// 	.name {
-// 		font-size: 23px;
-// 		color: $charcoal;
-// 		@include RobotoLight;
-// 		margin: 3px 0px 8px;
-// 	}
-
-// 	a {
-//     	color: inherit;
-
-//     	&.btn {
-//     		text-decoration: none;
-//     		border: 1px solid #FFF;
-//     		padding: 5px 10px;
-//     		float: left;
-//     		margin-right: 10px;
-//     		cursor: pointer;
-
-//     		&:hover {
-// 				background: rgba(255,255,255,0.2);
-//     		}
-//     	}
-//     }
-
-//     .btns-container {
-//     	margin-top: 10px;
-//     }
-// }
 
 .generic-popup {
 	width: auto;

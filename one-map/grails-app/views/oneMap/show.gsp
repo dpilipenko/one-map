@@ -95,11 +95,12 @@
               </div>
             <!-- end if admin -->
 
-					  <sec:ifLoggedIn>
-						
-	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
-	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
-  					 </sec:ifLoggedIn>
+            <div class="welcome">
+  					  <sec:ifLoggedIn>
+  	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
+  	  					Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+    					 </sec:ifLoggedIn>
+             </div>
   				</div>
 
   				
@@ -118,7 +119,7 @@
                 <label for="password">Password</label>
                 <input class="password" type="password" />
                 <button type="submit" class="submit-login">SUBMIT</button>
-
+                <a class="skip-login">Skip Login</a>
               </div>
               <div class="browser-compatability">
 
@@ -332,13 +333,6 @@
 
   </div><!-- end main -->
 
-	<script type="text/javascript">
-		var isLoggedIn = false;
-		<sec:ifLoggedIn>
-			isLoggedIn = true;
-		</sec:ifLoggedIn>
-	</script>
-
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
@@ -348,6 +342,13 @@
 	<script type="text/javascript">
 		OneMap.login.submitURL = '${postUrl}';
 	</script>
+
+  <script type="text/javascript">
+    <sec:ifLoggedIn>
+      OneMap.isLoggedIn = true;
+      OneMap.login.init();
+    </sec:ifLoggedIn>
+  </script>
 
 </body>
 </html>
