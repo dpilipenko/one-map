@@ -1167,8 +1167,8 @@ var OneMap = {
              canvas.parent('.floorplan').trigger('click');
         },
         displayZone: function(hotspot){
-            //console.log(hotspot.zone);
-            if(hotspot.zone !== 'Free Zone') {
+            // console.log(hotspot);
+            if(hotspot.areaType !== 'room') {
                 if(hotspot.isVacant) {
                     hotspot.setStroke(hotspot.zoneColor);
                 } else {
@@ -1397,8 +1397,10 @@ var OneMap = {
         $('#offices').height($(window).height() - 95 - 20 - 70);
         $(window).resize(function(){
             $('#offices').height($(window).height() - 95 - 20 - 70);
+            $('.info-panel').css("max-height", $(window).height() - 95);
         });
 
+        $('.info-panel').css("max-height", $(window).height() - 95);
         $(document).on('click', '.info-link', function(){
             var parent = $(this).parent();
             if(parent.hasClass("open")){

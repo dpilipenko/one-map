@@ -180,7 +180,12 @@
               </tr>
             </table>
           </div>
-
+          <strong>Tips</strong>
+          <div class="tips">
+            <ul>
+              <li><span>To find a vacant, unzoned seat, search for "Free Zone", then look for desks/offices that are outlined (not filled) on the map</span></li>
+            </ul>
+          </div>
       </div>
     </div>
 
