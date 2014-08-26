@@ -27,6 +27,10 @@ class Room extends Hotspot {
 		zone nullable: true
 	}
 	
+	static boolean isExistingProjectName(String projectName) {
+		return (Room.findByProject(projectName) != null) // returns false if projectName was already taken by a Room
+	}
+
 	boolean isVacant() {
 		return (project == null || project.isEmpty());
 	}
@@ -34,6 +38,7 @@ class Room extends Hotspot {
 	boolean hasProject() {
 		return (project != null && !project.isEmpty())
 	}
+	
 	
 	void addUser(User user) {
 		users.add(user)

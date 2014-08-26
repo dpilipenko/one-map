@@ -392,9 +392,6 @@ class OneMapController {
 			roomObject.put("hotspotId", hopstopId)
 			roomObject.put("type", room.type)
 			roomObject.put("project", room.project)
-			println "room project"
-			println "project: "+room.project
-			println "room: "+room
 			searchResults.add(roomObject);
 		}
 		return searchTerm
@@ -512,11 +509,11 @@ class OneMapController {
 	 */
 	private boolean setProjectToRoom(Room room, String projectName) {
 		boolean success
-		if ( ! room.hasProject() ) {
+		if ( !room.hasProject() && !Room.isExistingProjectName(projectName) ) {
 			room.initWarRoom(projectName)
 			success = true
 		} else {
-			success = false // Room already has a Project
+			success = false // Room already has a Project or project name has already been taken
 		}
 		return success
 	}
