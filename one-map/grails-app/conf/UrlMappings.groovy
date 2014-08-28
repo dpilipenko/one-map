@@ -12,6 +12,11 @@ class UrlMappings {
 			action="show"
 		}
 		
+		"/admin"{
+			controller="oneMap"
+			action="showAdmin"
+		}
+		
         "500"(view:'/error')
 	}
 }
