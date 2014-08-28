@@ -15,6 +15,7 @@ var OneMap = {
         stageScale: 1,
         stageWidth: 554,
         stageHeight: 528,
+        orginalBackground: null,
         floorplanLayer: null,        
         floorplanX: 0,
         floorplanY: 0,
@@ -197,6 +198,9 @@ var OneMap = {
             }
         },
         loadFloor: function (id, imgSrc) {
+            OneMap.map.orginalBackground = $('.showthisfloor').css('background');
+            $('.showthisfloor').css('background', '#e2e2e2');
+
             var isHorizontal = false,
                 canvas = $('#'+id)[0];
             
@@ -298,6 +302,7 @@ var OneMap = {
         },
         backTo3D: function() {
             $('.ms-wrapper').removeClass('showingfloor');
+            $('.showthisfloor').css('background', OneMap.map.orginalBackground);
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');
             OneMap.map.unloadFloor();
 
@@ -1431,6 +1436,15 @@ var OneMap = {
         $(window).resize(function(){
             $('#offices').height($(window).height() - 95 - 20 - 70);
             $('.info-panel').css("max-height", $(window).height() - 95);
+
+            if(this.resizeTO) clearTimeout(this.resizeTO);
+            this.resizeTO = setTimeout(function() {
+                OneMap.map.unloadFloor();
+                var canvas = $('.showthisfloor .canvas');
+                if(canvas.length > 0) {
+                    OneMap.map.loadFloor(canvas.attr('id'), canvas.data('imgsrc'));
+                }
+            }, 500);
         });
 
         $('.info-panel').css("max-height", $(window).height() - 95);
