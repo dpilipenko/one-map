@@ -92,7 +92,7 @@
 
             <!-- if admin -->
             
-              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+              <div class="create-zone header-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
                 <div class="generic-popup centered notch-top" id="create-zone-popup">
                       <div class="inner">
                         Select a floor first
@@ -100,6 +100,7 @@
                       </div>
                 </div>
               </div>
+              <div class="admin-corner header-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/one-map/admin">ADMIN CORNER</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
             <!-- end if admin -->
 
             <div class="welcome">
