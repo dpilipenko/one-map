@@ -450,7 +450,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	    z-index: 1;
 	}
 
-	.logout a, .welcome, .create-zone {
+	.logout a, .welcome, .header-link {
 		float: right;
 		@include RobotoLight;
 		color: $darkgrey;
@@ -460,7 +460,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		line-height: 37px;
 	}
 
-	.create-zone {
+	.header-link {
 		position: relative;
 		a {
 			color: $darkgrey;

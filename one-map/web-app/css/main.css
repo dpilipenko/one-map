@@ -407,7 +407,7 @@ input::-moz-placeholder {
   z-index: 1;
 }
 /* line 453, main.scss */
-.header .logout a, .header .welcome, .header .create-zone {
+.header .logout a, .header .welcome, .header .header-link {
   float: right;
   font-family: 'robotolight', Arial;
   color: #424242;
@@ -417,11 +417,11 @@ input::-moz-placeholder {
   line-height: 37px;
 }
 /* line 463, main.scss */
-.header .create-zone {
+.header .header-link {
   position: relative;
 }
 /* line 465, main.scss */
-.header .create-zone a {
+.header .header-link a {
   color: #424242;
 }
 /* line 470, main.scss */
