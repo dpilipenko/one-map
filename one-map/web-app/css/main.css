@@ -2393,41 +2393,58 @@ perspective effects (not including the modals and the overlay).
   opacity: 1;
 }
 
+/* line 2177, main.scss */
+.admin #tabs {
+  margin-top: 100px;
+}
+/* line 2179, main.scss */
+.admin #tabs .tab {
+  display: none;
+}
+/* line 2181, main.scss */
+.admin #tabs .tab.active {
+  display: block;
+}
+/* line 2186, main.scss */
+.admin #tabs .tabs-navigation li {
+  display: inline-block;
+}
+
 /*  ===================================================================
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2182, main.scss */
+  /* line 2199, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2186, main.scss */
+  /* line 2203, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2193, main.scss */
+/* line 2210, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2195, main.scss */
+/* line 2212, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2198, main.scss */
+/* line 2215, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2201, main.scss */
+/* line 2218, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2206, main.scss */
+/* line 2223, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;

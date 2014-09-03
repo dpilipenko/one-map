@@ -344,6 +344,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
 	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+  <script src="${resource(dir: 'js', file: 'login.js')}"></script>
 
   <script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 	
@@ -354,7 +355,6 @@
   <script type="text/javascript">
     <sec:ifLoggedIn>
       OneMap.isLoggedIn = true;
-      OneMap.login.init();
     </sec:ifLoggedIn>
   </script>
 

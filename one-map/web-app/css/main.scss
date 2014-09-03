@@ -2173,6 +2173,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 	opacity: 1;
 }
 
+.admin {
+	#tabs {
+		margin-top: 100px;
+		.tab {
+			display: none;
+			&.active {
+				display: block;
+			}
+		}
+		.tabs-navigation {
+			li {
+				display: inline-block;
+			}
+		}
+	}
+}
+
 
 /*  ===================================================================
 	Browser Specific
