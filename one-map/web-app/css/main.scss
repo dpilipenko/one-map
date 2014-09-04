@@ -2187,6 +2187,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 				display: inline-block;
 			}
 		}
+		.hidden-content {
+			display: none;
+			&.active {
+				display: block;
+			}
+		}
 	}
 }
 

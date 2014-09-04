@@ -21,27 +21,27 @@
 						<option value="002">Princeton</option>
 						<option value="003">New York</option>
 					</select>
-					<input type="button" id="show-conflicts" value="Show Conflicts" />
+					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" />
 					<div>- OR -</div>
-					<input type="button" id="delete-zone" value="Delete" />
-					<div class="show-conflicts-listing">
+					<input type="button" id="delete-zone" name="delete-zone" value="Delete" />
+					<div id="show-conflicts-listing" class="hidden-content">
 						<div class="conflict">
 							<a href="#">User Name, Seat ID, Location, Floor</a>
-							<input type="radio" name="PrimaryZone-UserID001" selected />
+							<input type="radio" name="PrimaryZone-UserID001" checked />
 							<label for="PrimaryZone001-UserID001">AHA</label>
 							<input type="radio" name="PrimaryZone-UserID001" />
 							<label for="PrimaryZone001-UserID001">Kraft</label>
 						</div>
 						<div class="conflict">
 							<a href="#">User Name2, Seat ID2, Location2, Floor2</a>
-							<input type="radio" name="PrimaryZone-UserID002" selected />
+							<input type="radio" name="PrimaryZone-UserID002" checked />
 							<label for="PrimaryZone001-UserID002">AHA</label>
 							<input type="radio" name="PrimaryZone-UserID002" />
 							<label for="PrimaryZone001-UserID002">Grange</label>
 						</div>
 
 					</div>
-					<input type="button" value="Save" />
+					<input type="button" id="zones-submit" value="Save" />
 				</form>
 			</div>
 			<div id="seats" class="tab">
@@ -58,7 +58,7 @@
 						<option value="h003">1125</option>
 						<option value="h004">1126</option>
 					</select>
-					<input type="button" value="Save" />
+					<input type="button" id="seats-submit" value="Save" />
 					<input type="button" value="Download Floorplans" />
 					<div class="divider horizontal"></div>
 					<input type="button" value="Browse" />
@@ -72,31 +72,31 @@
 						<option value="moves">Recent Moves</option>
 						<option value="analytics">Analytics</option>
 					</select>
-					<div id="query-form">
+					<div id="query-form" class="hidden-content">
 						<select name="reports-location-select" id="reports-location-select">
 							<option value="all">All</option>					
 							<option value="001">Cleveland</option>
 							<option value="002">Princeton</option>
 							<option value="003">New York</option>
 						</select>
-						<select name="floor-select" id="floor-select" class="occupancy-field">
+						<select name="floor-select" id="floor-select" class="occupancy-field hidden-content">
 							<option value="all">All</option>					
 							<option value="001">11</option>
 							<option value="002">12</option>
 							<option value="003">13</option>
 						</select>
-						<select name="time-range-select" id="time-range-select" class="moves-field">
+						<select name="time-range-select" id="time-range-select" class="moves-field hidden-content">
 							<option value="all">Select One</option>					
 							<option value="001">1 week</option>
 							<option value="002">1 month</option>
 							<option value="003">2 months</option>
 						</select>
-						<input type="button" value="Submit" />
+						<input type="button" id="reports-submit" value="Submit" />
 					</div>
 		
 
 					<div class="divider vertical"></div>
-					<div id="report-display">
+					<div id="report-display" class="hidden-content">
 						<table>
 							<tr>
 								<td>Location</td>
