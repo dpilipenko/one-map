@@ -20,6 +20,17 @@
 
 <g:set var="view" value="${pageProperty(name: 'page.view')}"/>
 
+<g:if test="${view != 'admin'}">
+<div class="md-modal md-effect-1" id="modal-1">
+  <a class="md-close close"></a>
+  <div class="md-content">
+  
+  </div>
+</div>
+
+<div class="md-overlay"></div>
+</g:if>
+
 <sec:ifLoggedIn>
 <div class="main ${view}">
 </sec:ifLoggedIn>
@@ -28,8 +39,30 @@
 </sec:ifNotLoggedIn>
   	<div class="fractals"></div>
 
-   	<div class="header"><!-- add login here -->
+   	<div class="header login"><!-- add login here -->
 		<div class="header-bg">
+
+			<g:if test="${view != 'admin'}">
+				<div class="zone-panel">
+	               	<div class="form">
+	                    <div class="fields">
+	                         <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
+	                         <input id="zone-name" class="zone-name" type="text" placeholder="zone name">
+	                         <input id="zone-color" type="text" class="zone-color" placeholder="color (e.g. #00bce4)">
+	                    </div>
+	                    <div class="actions">
+	                         <div class="number-selected"><span id="selected-number">0 seats</span> selected</div>
+	                         <a href="#" class="save-zone">SAVE</a>
+	                         <a href="#" class="cancel-zone">CANCEL</a>
+	                    </div>
+	               </div>
+	               <div class="response">
+	                    <a href="#" class="okay">OK</a>
+	                    <div>Your zone was successfully created</div>
+	               </div>
+	          	</div>
+			</g:if>
+
 			<div class="inner">
 				<div class="logo"></div>
 			  	<div class="divider"></div>
@@ -82,7 +115,6 @@
 		    <div class="login-dot">
 	            <div class="inner">
 	              	<div class="login-form">
-
 		                <div class="login-title">
 		                  ONE MAP
 		                </div>
@@ -117,22 +149,20 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <g:if test="${view == 'admin'}">
-<script src="${resource(dir: 'js', file: 'admin.js')}"></script>
+	<script src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </g:if>
 <g:else>
-<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+	<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+	<script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 </g:else>
 <script src="${resource(dir: 'js', file: 'login.js')}"></script>
 
 <script type="text/javascript">
 	OneMap.login.submitURL = '${postUrl}';
-</script>
-
-<script type="text/javascript">
 	<sec:ifLoggedIn>
 	  OneMap.isLoggedIn = true;
 	</sec:ifLoggedIn>
 </script>
-
 </body>
 </html>
