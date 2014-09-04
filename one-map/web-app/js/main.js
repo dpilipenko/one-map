@@ -174,6 +174,11 @@ var OneMap = {
             OneMap.map.pinsLayer.draw();
         },
         showFloor: function () {
+            $('#results:not(".collapsed")').addClass("collapsed");
+
+            if($('.ms-wrapper').hasClass('showingfloor')){
+                OneMap.map.backTo3D();
+            }  
             if (this.getAttribute("data-showing") == "false") {
                 $(this).addClass('tag');
                 var found = false;
@@ -187,6 +192,8 @@ var OneMap = {
                     }
                 });
                 $(this).removeClass('tag');
+
+                
 
                 $('.ms-wrapper').addClass('showingfloor');
                 $(this).addClass('showthisfloor');
@@ -579,7 +586,7 @@ var OneMap = {
                             hotspotPath.on('mouseover', OneMap.hotspots.mouseOver);
                             hotspotPath.on('mouseout', OneMap.hotspots.mouseOut);
 
-                            if(!$.isEmptyObject(OneMap.search.mapPins)) {
+                            if(!$.isEmptyObject(OneMap.search.mapPins) && OneMap.search.mapPins[floorNumber] !== undefined) {
                                 if($.inArray(key, OneMap.search.mapPins[floorNumber].zone) > -1) {
                                     hotspotPath.searchZone = true;
                                     OneMap.search.displayZone(hotspotPath);
@@ -1200,7 +1207,7 @@ var OneMap = {
 
             switch(hotspot.areaType) {
                 case 'room':
-                    if(OneMap.search.mapPins[floorNumber].warroom != undefined && ($.inArray(hotspot.attrs.id, OneMap.search.mapPins[floorNumber].warroom) > -1)) {
+                    if(OneMap.search.mapPins[floorNumber] != undefined && OneMap.search.mapPins[floorNumber].warroom != undefined && ($.inArray(hotspot.attrs.id, OneMap.search.mapPins[floorNumber].warroom) > -1)) {
                         pinHeight = 40;
                         pinWidth = 31;
                         pinImage = OneMap.search.pinImages.warroom;
@@ -1327,7 +1334,7 @@ var OneMap = {
                     
                     // add all ids to floors for when search returns type user
                     OneMap.search.mapPins[floor].floorIds.push(hotspot);
-                }                
+                }
 
                 OneMap.search.displayResult(this);
             });
