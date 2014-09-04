@@ -1,4 +1,5 @@
 <%@ page import="com.rosetta.onemap.User" %>
+
 <!doctype html>
 <!--[if lt IE 7]> <html lang="en-us" class="ie lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html lang="en-us" class="ie lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
@@ -100,21 +101,115 @@
 
     <div id="tabs">
 		<div id="zones" class="tab active">
+			<h2>Zones</h2>
 			<form action="">
-				Zones
-				<input type="submit" value="Submit" />
+				<select name="zones-select" id="zones-select">
+					<option value="default">Select One</option>
+					<option value="001">AHA</option>
+					<option value="002">Kraft</option>
+					<option value="003">Grange</option>
+				</select>
+				<select name="zones-location-select" id="zones-location-select">
+					<option value="all">All</option>					
+					<option value="001">Cleveland</option>
+					<option value="002">Princeton</option>
+					<option value="003">New York</option>
+				</select>
+				<input type="button" id="show-conflicts" value="Show Conflicts" />
+				<div>- OR -</div>
+				<input type="button" id="delete-zone" value="Delete" />
+				<div class="show-conflicts-listing">
+					<div class="conflict">
+						<a href="#">User Name, Seat ID, Location, Floor</a>
+						<input type="radio" name="PrimaryZone-UserID001" selected />
+						<label for="PrimaryZone001-UserID001">AHA</label>
+						<input type="radio" name="PrimaryZone-UserID001" />
+						<label for="PrimaryZone001-UserID001">Kraft</label>
+					</div>
+					<div class="conflict">
+						<a href="#">User Name2, Seat ID2, Location2, Floor2</a>
+						<input type="radio" name="PrimaryZone-UserID002" selected />
+						<label for="PrimaryZone001-UserID002">AHA</label>
+						<input type="radio" name="PrimaryZone-UserID002" />
+						<label for="PrimaryZone001-UserID002">Grange</label>
+					</div>
+
+				</div>
+				<input type="button" value="Save" />
 			</form>
 		</div>
 		<div id="seats" class="tab">
+			<h2>Seat Assignments</h2>
 			<form action="">
-				Seat Assignments
-				<input type="submit" value="Submit" />
+				<input type="checkbox" name="is-unclaimed" />
+				<label for="is-unclaimed">Get Unclaimed Names Only</label>
+
+				<input type="text" placeholder="Name" />
+				<select>
+					<option value="default">Select One</option>
+					<option value="h001">1123</option>
+					<option value="h002">1124</option>
+					<option value="h003">1125</option>
+					<option value="h004">1126</option>
+				</select>
+				<input type="button" value="Save" />
+				<input type="button" value="Download Floorplans" />
+				<div class="divider horizontal"></div>
+				<input type="button" value="Browse" />
 			</form>
 		</div>
 		<div id="reports" class="tab">
+			<h2>Reports</h2>
 			<form action="">
-				Reports
-				<input type="submit" value="Submit" />
+				<select name="query-select" id="query-select">
+					<option value="occupancy">Occupancy</option>
+					<option value="moves">Recent Moves</option>
+					<option value="analytics">Analytics</option>
+				</select>
+				<div id="query-form">
+					<select name="reports-location-select" id="reports-location-select">
+						<option value="all">All</option>					
+						<option value="001">Cleveland</option>
+						<option value="002">Princeton</option>
+						<option value="003">New York</option>
+					</select>
+					<select name="floor-select" id="floor-select" class="occupancy-field">
+						<option value="all">All</option>					
+						<option value="001">11</option>
+						<option value="002">12</option>
+						<option value="003">13</option>
+					</select>
+					<select name="time-range-select" id="time-range-select" class="moves-field">
+						<option value="all">Select One</option>					
+						<option value="001">1 week</option>
+						<option value="002">1 month</option>
+						<option value="003">2 months</option>
+					</select>
+					<input type="button" value="Submit" />
+				</div>
+	
+
+				<div class="divider vertical"></div>
+				<div id="report-display">
+					<table>
+						<tr>
+							<td>Location</td>
+							<td>Floor</td>
+							<td>% vacant</td>
+						</tr>
+						<tr>
+							<td>Location</td>
+							<td>Floor</td>
+							<td>% vacant</td>
+						</tr>
+						<tr>
+							<td>Location</td>
+							<td>Floor</td>
+							<td>% vacant</td>
+						</tr>
+					</table>
+					<input type="button" value="Download Report" />
+				</div>
 			</form>
 		</div>
         <div id="falloff-shadow"></div>
