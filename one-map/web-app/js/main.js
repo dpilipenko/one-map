@@ -7,7 +7,7 @@ String.prototype.format = function () {
 
 var OneMap = {
     isLoggedIn: false,
-    userIsAdmin: true,
+    userIsAdmin: false,
 
     map: {
         // map properties

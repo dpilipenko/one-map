@@ -162,6 +162,7 @@
 	OneMap.login.submitURL = '${postUrl}';
 	<sec:ifLoggedIn>
 	  OneMap.isLoggedIn = true;
+	  OneMap.userIsAdmin = true;
 	</sec:ifLoggedIn>
 </script>
 </body>

@@ -64,7 +64,9 @@ OneMap.login = {
         }
     },
     skipLogin: function(){
-        $('.logout a').text('LOGIN');
+        if(!OneMap.isLoggedIn){
+            $('.logout a').text('LOGIN');
+        }
         $('.header').removeClass('login');
         $('.info-panel').removeClass('login');
         setTimeout(function () {
