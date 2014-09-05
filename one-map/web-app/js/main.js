@@ -174,6 +174,7 @@ var OneMap = {
             OneMap.map.pinsLayer.draw();
         },
         showFloor: function () {
+            console.log('here');
             $('#results:not(".collapsed")').addClass("collapsed");
 
             if($('.ms-wrapper').hasClass('showingfloor')){
@@ -327,7 +328,7 @@ var OneMap = {
         init: function() {
             OneMap.hotspots.init();
 
-            $(document).on('click', '.floorplan', OneMap.map.showFloor);
+            $(document).on('click', '.floorplan:not(".showthisfloor")', OneMap.map.showFloor);
             $(document).on("click", '#backto3d', OneMap.map.backTo3D);
             $(document).on('click', '.zoom', function () {
                 if(!$(this).hasClass('disabled')){
