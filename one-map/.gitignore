@@ -6,3 +6,4 @@ wrapper/springloaded-core-1.1.4.jar
 target/
 /.project
 logs/*.log
+/ROOT.war
