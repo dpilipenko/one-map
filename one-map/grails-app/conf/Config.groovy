@@ -1,4 +1,5 @@
 import org.apache.log4j.DailyRollingFileAppender
+import org.junit.After;
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
@@ -103,9 +104,27 @@ log4j = {
 			name: "file",
 			file: "logs/one-map.log",
 			datePattern: "'.'yyyy-MM-dd",   //Rollover at midnight each day.
-			layout: pattern(conversionPattern: "%d{yyyy-MM-dd/HH:mm:ss.SSS} [%t] %x %-5p %c{2} - %m%n")
+			layout: pattern(conversionPattern: "%d{yy.MM.dd HH:mm:ss} [%t] %-5p %c %x - %m%n")
 			)
 	}
+	environments {
+		production {
+			appenders {
+				def catalinaBase = System.properties.getProperty('catalina.base')
+				if (!catalinaBase) catalinaBase = '.'
+				def logDirectory = "${catalinaBase}/logs"
+	
+				appender new DailyRollingFileAppender(
+					name: "file",
+					file: "$logDirectory/one-map.log",
+					layout:pattern(conversionPattern: "%d{yy.MM.dd HH:mm:ss} [%t] %-5p %c %x - %m%n"),
+					datePattern:"'.'yyyy-MM-dd",
+					threshold: org.apache.log4j.Level.DEBUG
+					)
+			}
+		}
+	}
+		
 	root {
 		error 'stdout', 'file' 
 	}
