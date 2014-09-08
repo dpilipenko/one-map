@@ -135,9 +135,10 @@
 	              	</div>
 	            </div>
 
-	            <g:if test="${view != 'admin'}">
+	            <%-- TODO: add this back in after Active director is hooked up
+	            <g:if test="${view != 'admin'}"> --%>
 		            <a class="skip-login">Skip Login</a>
-		        </g:if>
+		        <%-- </g:if> --%>
 	        </div>
 	    </div>
  	</div><!-- end header -->
@@ -153,7 +154,7 @@
 </g:if>
 <g:else>
 	<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+	<script src="${resource(dir: 'js', file: 'map.js')}"></script>
 	<script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 </g:else>
 <script src="${resource(dir: 'js', file: 'login.js')}"></script>
