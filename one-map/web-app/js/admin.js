@@ -6,14 +6,26 @@ OneMap.admin = {
         var id = this.querySelector('span').classList[1];
         document.getElementById(id).classList.add('active');
 	},
+	updateAvailableActions: function(tab, select) {
+		var self = select !== undefined ? select : this,
+			buttons = $('#'+tab+' .needs-required');
+		if (self.value !== 'default') {
+			buttons.removeClass('disabled');
+			buttons.removeAttr('disabled');
+		
+		} else {
+			buttons.addClass('disabled');
+			buttons.attr('disabled', true);
+		}
+	},
 	zones: {
 		updatedSeats: [],
 		getConflicts: function() {
 			if(this.classList.contains('disabled')) return;
 
-			var deleteButton = $('#delete-zone');
-			deleteButton.addClass('disabled');
-			deleteButton.attr('disabled', true);
+			var deleteButton = document.getElementById('delete-zone');
+			deleteButton.classList.add('disabled');
+			deleteButton.setAttribute('disabled', true);
 
 			var zoneID = document.getElementById('zones-select').value,
 				zoneLocation = document.getElementById('zones-location-select').value;
@@ -83,7 +95,7 @@ OneMap.admin = {
 				}
 				var user = c.name == '' ? 'Vacant' : c.name;
 
-				conflicts += $('#zoneConflict-template').html().format(
+				conflicts += document.getElementById('zoneConflict-template').innerHTML.format(
 					user, // 0
 					c.seatID, // 1
 					c.location, // 2
@@ -134,18 +146,6 @@ OneMap.admin = {
 			// Success: -- resets everything back
 			OneMap.admin.zones.resetTab();
 		},
-		updateOptions: function(select) {
-			var self = select !== undefined ? select : this,
-				buttons = $('#zones .needsRequired');
-			if (self.value !== 'default') {
-				buttons.removeClass('disabled');
-				buttons.removeAttr('disabled');
-			
-			} else {
-				buttons.addClass('disabled');
-				buttons.attr('disabled', true);
-			}
-		},
 		resetTab: function() {
 			OneMap.admin.zones.updatedSeats = [];
 			var zoneSelect = document.getElementById('zones-select'),
@@ -158,7 +158,7 @@ OneMap.admin = {
 			zoneSubmit.classList.add('disabled');
 			zoneSubmit.setAttribute('disabled', true);
 			zoneSelect.value = 'default';
-			OneMap.admin.zones.updateOptions(zoneSelect);
+			OneMap.admin.updateAvailableActions('zones', zoneSelect);
 		},
 		init: function() {
 			$.get("js/template-admin.html", function (data) {
@@ -167,15 +167,85 @@ OneMap.admin = {
 			$(document).on('click', '#show-conflicts', OneMap.admin.zones.getConflicts);
 	        $(document).on('click', '#delete-zone', OneMap.admin.zones.delete);
 	        $(document).on('change', '#conflicts-listing input', OneMap.admin.zones.updatePrimary);
-	        $(document).on('click', '#zones-submit', OneMap.admin.zones.updatePrimary);
-	        $(document).on('change', '#zones-select', OneMap.admin.zones.updateOptions);
+	        $(document).on('click', '#zones-submit', OneMap.admin.zones.savePrimary);
+	        $(document).on('change', '#zones-select', function() {
+	        	OneMap.admin.updateAvailableActions('zones');
+	        });
 	        
 		}
 	},
-	
+	seats: {
+		init: function() {
+
+		}
+	},
+	reports: {
+		showFields: function() {
+			if(this.value == 'default') {
+				OneMap.admin.reports.resetTab();
+				return;
+			}
+
+			var queryForm = document.getElementById('query-form'),
+				hiddenFields = queryForm.getElementsByClassName('hidden-content'),
+				reportsSubmit = document.getElementById('reports-submit');
+
+			if (this.options[this.selectedIndex].dataset.hasrequired) {
+				reportsSubmit.classList.add('disabled');
+				reportsSubmit.setAttribute('disabled', true);
+			} else {
+				reportsSubmit.classList.remove('disabled');
+				reportsSubmit.removeAttribute('disabled');
+			}		
+			queryForm.classList.add('active');
+			document.getElementById('reports-location-select').selectedIndex = 0;
+			for(var i = 0; i < hiddenFields.length; i++) {
+				if(hiddenFields[i].classList.contains(this.value + '-field')) {
+					hiddenFields[i].classList.add('active');
+					hiddenFields[i].selectedIndex = 0;
+				} else {
+					hiddenFields[i].classList.remove('active');
+				}
+			}
+		},
+		resetTab: function() {
+			document.getElementById('query-select').value = 'default';
+			var reportsTab = document.getElementById('reports'),
+				hiddenFields = reportsTab.getElementsByClassName('hidden-content');
+						
+			for(var i = 0; i < hiddenFields.length; i++) {
+				hiddenFields[i].classList.remove('active');
+				if(hiddenFields[i].nodeName == 'SELECT') {
+					hiddenFields[i].selectedIndex = 0;
+				}
+			}
+
+			var reportsSubmit = document.getElementById('reports-submit');
+			reportsSubmit.classList.add('disabled');
+			reportsSubmit.setAttribute('disabled', true);
+		},
+		submit: function() {
+			if(this.classList.contains('disabled')) return;
+			// ajax call
+			// 
+			// success::
+			document.getElementById('report-display').classList.add('active');
+
+		},
+
+		init: function() {
+			$(document).on('change', '#query-select', OneMap.admin.reports.showFields);
+			$(document).on('click', '#reports-submit', OneMap.admin.reports.submit);
+			$(document).on('change', '#reports .is-required', function() {
+				OneMap.admin.updateAvailableActions('reports');
+			});
+		}
+	},
 	init: function() {
         $(document).on('click', '.tabs-navigation li', OneMap.admin.changeTab);
         OneMap.admin.zones.init();
+        OneMap.admin.seats.init();
+        OneMap.admin.reports.init();
     }
 };
 

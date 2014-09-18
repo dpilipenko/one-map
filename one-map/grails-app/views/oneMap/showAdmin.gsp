@@ -21,9 +21,9 @@
 						<option value="002">Princeton</option>
 						<option value="003">New York</option>
 					</select>
-					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" class="needsRequired disabled" disabled />
+					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" class="needs-required disabled" disabled />
 					<div>- OR -</div>
-					<input type="button" id="delete-zone" name="delete-zone" value="Delete" class="needsRequired disabled" disabled />
+					<input type="button" id="delete-zone" name="delete-zone" value="Delete" class="needs-required disabled" disabled />
 					<div id="zone-conflicts"  class="hidden-content">
 						<div id="conflicts-listing"></div>
 						<input type="button" id="zones-submit" value="Save" class="disabled" disabled />
@@ -37,7 +37,7 @@
 					<label for="is-unclaimed">Get Unclaimed Names Only</label>
 
 					<input type="text" placeholder="Name" />
-					<select>
+					<select size="3">
 						<option value="default">Select One</option>
 						<option value="h001">1123</option>
 						<option value="h002">1124</option>
@@ -54,8 +54,9 @@
 				<h2>Reports</h2>
 				<form action="">
 					<select name="query-select" id="query-select">
+						<option value="default" selected>Select One</option>
 						<option value="occupancy">Occupancy</option>
-						<option value="moves">Recent Moves</option>
+						<option value="moves" data-hasrequired="true">Recent Moves</option>
 						<option value="analytics">Analytics</option>
 					</select>
 					<div id="query-form" class="hidden-content">
@@ -71,13 +72,13 @@
 							<option value="002">12</option>
 							<option value="003">13</option>
 						</select>
-						<select name="time-range-select" id="time-range-select" class="moves-field hidden-content">
+						<select name="time-range-select" id="time-range-select" class="moves-field hidden-content is-required">
 							<option value="all">Select One</option>					
 							<option value="001">1 week</option>
 							<option value="002">1 month</option>
 							<option value="003">2 months</option>
 						</select>
-						<input type="button" id="reports-submit" value="Submit" />
+						<input type="button" id="reports-submit" value="Submit" class="needs-required disabled" disabled />
 					</div>
 		
 
