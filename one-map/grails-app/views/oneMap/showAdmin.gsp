@@ -21,27 +21,13 @@
 						<option value="002">Princeton</option>
 						<option value="003">New York</option>
 					</select>
-					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" />
+					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" class="needsRequired disabled" disabled />
 					<div>- OR -</div>
-					<input type="button" id="delete-zone" name="delete-zone" value="Delete" />
-					<div id="show-conflicts-listing" class="hidden-content">
-						<div class="conflict">
-							<a href="#">User Name, Seat ID, Location, Floor</a>
-							<input type="radio" name="PrimaryZone-UserID001" checked />
-							<label for="PrimaryZone001-UserID001">AHA</label>
-							<input type="radio" name="PrimaryZone-UserID001" />
-							<label for="PrimaryZone001-UserID001">Kraft</label>
-						</div>
-						<div class="conflict">
-							<a href="#">User Name2, Seat ID2, Location2, Floor2</a>
-							<input type="radio" name="PrimaryZone-UserID002" checked />
-							<label for="PrimaryZone001-UserID002">AHA</label>
-							<input type="radio" name="PrimaryZone-UserID002" />
-							<label for="PrimaryZone001-UserID002">Grange</label>
-						</div>
-
+					<input type="button" id="delete-zone" name="delete-zone" value="Delete" class="needsRequired disabled" disabled />
+					<div id="zone-conflicts"  class="hidden-content">
+						<div id="conflicts-listing"></div>
+						<input type="button" id="zones-submit" value="Save" class="disabled" disabled />
 					</div>
-					<input type="button" id="zones-submit" value="Save" />
 				</form>
 			</div>
 			<div id="seats" class="tab">
