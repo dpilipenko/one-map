@@ -12,6 +12,9 @@
 	<meta name="viewport" content="width=device-width" />
 
 	<title><g:layoutTitle default="ONEMAP" /></title>
+	<g:if test="${view == 'admin'}">
+		<link href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" rel="stylesheet">
+	</g:if>
 	<link href="${resource(dir: 'css', file: 'main.css')}" rel="stylesheet">
 
 	<g:layoutHead />
@@ -150,6 +153,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <g:if test="${view == 'admin'}">
+	<script src="${resource(dir: 'js', file: 'jquery-ui.min.js')}"></script> <!-- currently only have the autocomplete functionality (not sure if we want to spend the time building this custom) -->
 	<script src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </g:if>
 <g:else>
