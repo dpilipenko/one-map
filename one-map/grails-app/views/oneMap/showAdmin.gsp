@@ -35,6 +35,14 @@
 				<div class="watermark"></div>
 				<h2>Seats</h2>
 				<form action="">
+					<input type="button" id="sync-db" name="sync-db" value="Sync with Active Directory" />
+					<select name="seats-location-select" id="seats-location-select">
+						<option value="default">Select One</option>					
+						<option value="001">Cleveland</option>
+						<option value="002">Princeton</option>
+						<option value="003">New York</option>
+					</select>
+
 					<input type="checkbox" name="unclaimed-only" id="unclaimed-only" />
 					<label for="unclaimed-only">Get Unclaimed Names Only</label>
 

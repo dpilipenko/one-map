@@ -1,3 +1,22 @@
+/* TODO:
+ * 1. Hook app into Active Directory
+ * 2. Estimations for Admin
+ * 3. Styling for Admin section
+ * 4. Create Floorplan PDF with all seat IDs (use the cleaned up versions that Liz has)
+ * 5. Hook into backend ajax calls for Admin features
+ *
+ * Reports:
+ * 1. Update the "floor" drop down based on location selected
+ *
+ * Seat Assignments:
+ * 1. Update the "available seats" select based on location selected
+ * 2. User must type in name before clicking "browse" so we know who to "impersonate"
+ * 3. validation that the person is in the DB? - they wouldn't be in the drop down if they aren't in the database
+ *
+ * Zones:
+ * 1. clicking seat info (in conflict area) shows it on the map. Displays a popup explaining they are navigating away and will lose their progress
+ */
+
 var OneMap = {};
 
 OneMap.admin = {
@@ -94,7 +113,7 @@ OneMap.admin = {
 				} else {
 					twoPrimary = 'checked';
 				}
-				var user = c.name == '' ? 'Vacant' : c.name;
+				var user = c.name === '' ? 'Vacant' : c.name;
 
 				conflicts += document.getElementById('zoneConflict-template').innerHTML.format(
 					user, // 0
@@ -109,8 +128,8 @@ OneMap.admin = {
 					c.zone2ID, // 8
 					c.zone2name, // 9
 					twoPrimary // 10
-				);                        
-			};
+				);
+			}
 
 			document.getElementById('conflicts-listing').innerHTML = conflicts;
 			document.getElementById('zone-conflicts').classList.add('active');
@@ -163,16 +182,16 @@ OneMap.admin = {
 		},
 		init: function() {
 			$.get("js/template-admin.html", function (data) {
-	            $("body").append(data);
-	        });
+				$("body").append(data);
+			});
 			$(document).on('click', '#show-conflicts', OneMap.admin.zones.getConflicts);
-	        $(document).on('click', '#delete-zone', OneMap.admin.zones.delete);
-	        $(document).on('change', '#conflicts-listing input', OneMap.admin.zones.updatePrimary);
-	        $(document).on('click', '#zones-submit', OneMap.admin.zones.savePrimary);
-	        $(document).on('change', '#zones-select', function() {
-	        	OneMap.admin.updateAvailableActions('zones');
-	        });
-	        
+			$(document).on('click', '#delete-zone', OneMap.admin.zones.delete);
+			$(document).on('change', '#conflicts-listing input', OneMap.admin.zones.updatePrimary);
+			$(document).on('click', '#zones-submit', OneMap.admin.zones.savePrimary);
+			$(document).on('change', '#zones-select', function() {
+				OneMap.admin.updateAvailableActions('zones');
+			});
+			
 		}
 	},
 	seats: {
@@ -204,25 +223,55 @@ OneMap.admin = {
 	        response(data);
 		},
 		selectName: function(event, ui) {
-	    	for (var n = 0; n < OneMap.admin.seats.userList.length; n++){
-	    		if(OneMap.admin.seats.userList[n].label == ui.item.value){
-	    			document.getElementById('user-ID').value = OneMap.admin.seats.userList[n].id;
-	    			break;
-	    		}
-	    	}
+			for (var n = 0; n < OneMap.admin.seats.userList.length; n++){
+				if(OneMap.admin.seats.userList[n].label == ui.item.value){
+					document.getElementById('user-ID').value = OneMap.admin.seats.userList[n].id;
+					OneMap.admin.seats.checkRequiredFields();
+					break;
+				}
+			}
 		},
 		assignSeat: function() {
 			if(this.classList.contains('disabled')) return;
 
+			var user = document.getElementById('user-ID').value,
+				hotspot = document.getElementById('hotspot-ID').value;
+			// ajax
+			// 
+			// success:
+			var select = document.getElementById('hotspot-ID');
+			select.remove(select.selectedIndex);
+			OneMap.admin.seats.resetTab();
+
 		},
 		resetTab: function() {
-
+			document.getElementById('unclaimed-only').checked = false;
+			OneMap.admin.seats.userList = [];
+			document.getElementById('user-name').value = '';
+			document.getElementById('user-ID').value = '';
+			document.getElementById('hotspot-ID').selectedIndex = 0;
+			var submitButton = document.getElementById('seats-submit');
+			submitButton.classList.add('disabled');
+			submitButton.setAttribute('disabled', true);
+		},
+		checkRequiredFields: function() {
+			var user = document.getElementById('user-ID').value,
+				hotspot = document.getElementById('hotspot-ID').value,
+				submitButton = document.getElementById('seats-submit');
+			if(user !== '' && hotspot !== 'default') {
+				submitButton.classList.remove('disabled');
+				submitButton.removeAttribute('disabled');
+			} else {
+				submitButton.classList.add('disabled');
+				submitButton.setAttribute('disabled', true);
+			}
 		},
 		init: function() {
 			$( "#user-name" ).autocomplete({
 				source: OneMap.admin.seats.populateAutocomplete,
 				select: OneMap.admin.seats.selectName
 			});
+			$(document).on('change', '#hotspot-ID', OneMap.admin.seats.checkRequiredFields);
 			$(document).on('click', '#seats-submit', OneMap.admin.seats.assignSeat);
 		}
 	},
@@ -257,6 +306,9 @@ OneMap.admin = {
 		},
 		resetTab: function() {
 			document.getElementById('query-select').value = 'default';
+
+			document.getElementById('reports-location-select').selectedIndex = 0;
+
 			var reportsTab = document.getElementById('reports'),
 				hiddenFields = reportsTab.getElementsByClassName('hidden-content');
 						
@@ -271,7 +323,7 @@ OneMap.admin = {
 			reportsSubmit.classList.add('disabled');
 			reportsSubmit.setAttribute('disabled', true);
 		},
-		getOccupancy: function() { // need to update the floor dropdown based on the location downdown? 
+		getOccupancy: function() {
 			var location = document.getElementById('reports-location-select').value,
 				floor = document.getElementById('floor-select').value;
 			// ajax call
