@@ -14,7 +14,8 @@
  * 3. validation that the person is in the DB? - they wouldn't be in the drop down if they aren't in the database
  *
  * Zones:
- * 1. clicking seat info (in conflict area) shows it on the map. Displays a popup explaining they are navigating away and will lose their progress
+ * 1. Create modal that alerts the user they are leaving the admin area (see comments in "navigatingAwayAlert()")
+ * 2. update "map.js" to handle a url with hotspot parameters to display on page load
  */
 
 var OneMap = {};
@@ -37,6 +38,11 @@ OneMap.admin = {
 			buttons.addClass('disabled');
 			buttons.attr('disabled', true);
 		}
+	},
+	navigatingAwayAlert: function() {
+		// shows alert that the user is leaving the admin area and will lose any changes. 
+		// If the user clicks "OK" return true else return false
+		return true;
 	},
 	zones: {
 		updatedSeats: [],
@@ -180,6 +186,16 @@ OneMap.admin = {
 			zoneSelect.value = 'default';
 			OneMap.admin.updateAvailableActions('zones', zoneSelect);
 		},
+		viewHotspotOnMap: function() {
+			if(OneMap.admin.navigatingAwayAlert()) {
+				var hotspot = this.dataset.hotspot,
+					floor = this.dataset.floor,
+					location = this.dataset.location,
+					url = '/one-map/?hotspot='+hotspot+'&floor='+floor+'&location='+location;
+
+				window.location.href = url; // functionality on map for this scenario needs implemented
+			}
+		},
 		init: function() {
 			$.get("js/template-admin.html", function (data) {
 				$("body").append(data);
@@ -191,7 +207,7 @@ OneMap.admin = {
 			$(document).on('change', '#zones-select', function() {
 				OneMap.admin.updateAvailableActions('zones');
 			});
-			
+			$(document).on('click', '.conflict .user', OneMap.admin.zones.viewHotspotOnMap);
 		}
 	},
 	seats: {
