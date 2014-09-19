@@ -2405,7 +2405,12 @@ perspective effects (not including the modals and the overlay).
   z-index: 2;
   overflow: hidden;
 }
-/* line 2189, main.scss */
+/* line 2188, main.scss */
+.admin #tabs form {
+  position: relative;
+  z-index: 3;
+}
+/* line 2194, main.scss */
 .admin #tabs #zones .watermark {
   background: url("../images/icon-watermark-zone.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2415,7 +2420,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 459px;
 }
-/* line 2201, main.scss */
+/* line 2206, main.scss */
 .admin #tabs #seats .watermark {
   background: url("../images/icon-watermark-desk.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2425,7 +2430,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 361px;
 }
-/* line 2213, main.scss */
+/* line 2218, main.scss */
 .admin #tabs #reports .watermark {
   background: url("../images/icon-watermark-reports.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2435,7 +2440,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 367px;
 }
-/* line 2224, main.scss */
+/* line 2229, main.scss */
 .admin #tabs h2 {
   font-family: 'satelliteregular', Arial;
   font-size: 25px;
@@ -2455,24 +2460,24 @@ perspective effects (not including the modals and the overlay).
   background: linear-gradient(to bottom, #1fbce2 0%, #1db2d7 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1fbce2', endColorstr='#1db2d7',GradientType=0 );
 }
-/* line 2247, main.scss */
+/* line 2252, main.scss */
 .admin #tabs .tab {
   display: none;
   position: relative;
 }
-/* line 2250, main.scss */
+/* line 2255, main.scss */
 .admin #tabs .tab.active {
   display: block;
 }
-/* line 2255, main.scss */
+/* line 2260, main.scss */
 .admin #tabs .hidden-content {
   display: none;
 }
-/* line 2257, main.scss */
+/* line 2262, main.scss */
 .admin #tabs .hidden-content.active {
   display: block;
 }
-/* line 2263, main.scss */
+/* line 2268, main.scss */
 .admin .tabs-navigation {
   height: 135px;
   width: 90%;
@@ -2480,7 +2485,7 @@ perspective effects (not including the modals and the overlay).
   position: relative;
   overflow: hidden;
 }
-/* line 2270, main.scss */
+/* line 2275, main.scss */
 .admin .tabs-navigation #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -2491,14 +2496,14 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   z-index: 1;
 }
-/* line 2281, main.scss */
+/* line 2286, main.scss */
 .admin .tabs-navigation ul {
   margin: 0;
   text-align: center;
   position: relative;
   z-index: 2;
 }
-/* line 2287, main.scss */
+/* line 2292, main.scss */
 .admin .tabs-navigation ul li {
   display: inline-block;
   text-align: center;
@@ -2509,7 +2514,7 @@ perspective effects (not including the modals and the overlay).
   text-shadow: 0 2px 2px #000;
   text-transform: uppercase;
 }
-/* line 2298, main.scss */
+/* line 2303, main.scss */
 .admin .tabs-navigation ul li a {
   padding: 12px 0px 0px 0px;
   text-decoration: none;
@@ -2518,7 +2523,7 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   height: 135px;
 }
-/* line 2306, main.scss */
+/* line 2311, main.scss */
 .admin .tabs-navigation ul li a:hover {
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjE1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
@@ -2529,29 +2534,29 @@ perspective effects (not including the modals and the overlay).
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#26ffffff', endColorstr='#00ffffff',GradientType=0 );
 }
-/* line 2318, main.scss */
+/* line 2323, main.scss */
 .admin .tabs-navigation ul li a.active {
   background: url(../images/admin-tabs-active-effect.png) no-repeat top center;
   background-size: 100% auto;
 }
-/* line 2324, main.scss */
+/* line 2329, main.scss */
 .admin .tabs-navigation ul li a.active .icon.seats {
   background: url("../images/icon-desk.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2328, main.scss */
+/* line 2333, main.scss */
 .admin .tabs-navigation ul li a.active .icon.zones {
   background: url("../images/icon-zone.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2332, main.scss */
+/* line 2337, main.scss */
 .admin .tabs-navigation ul li a.active .icon.reports {
   background: url("../images/icon-reports.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2339, main.scss */
+/* line 2344, main.scss */
 .admin .tabs-navigation ul li.divide {
   width: 4px;
   height: 105px;
 }
-/* line 2343, main.scss */
+/* line 2348, main.scss */
 .admin .tabs-navigation ul li.divide div {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px black inset;
@@ -2559,42 +2564,42 @@ perspective effects (not including the modals and the overlay).
   margin-top: 18px;
   width: 4px;
 }
-/* line 2352, main.scss */
+/* line 2357, main.scss */
 .admin .tabs-navigation ul li .admin-zone-text {
   margin-left: -22px;
 }
-/* line 2356, main.scss */
+/* line 2361, main.scss */
 .admin .tabs-navigation ul li .icon {
   display: block;
   margin: 0 auto;
 }
-/* line 2360, main.scss */
+/* line 2365, main.scss */
 .admin .tabs-navigation ul li .icon.seats {
   background: url("../images/icon-desk-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 93px;
 }
-/* line 2365, main.scss */
+/* line 2370, main.scss */
 .admin .tabs-navigation ul li .icon.seats.active {
   background: url("../images/icon-desk.png") no-repeat scroll top center transparent;
 }
-/* line 2370, main.scss */
+/* line 2375, main.scss */
 .admin .tabs-navigation ul li .icon.zones {
   background: url("../images/icon-zone-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 116px;
 }
-/* line 2375, main.scss */
+/* line 2380, main.scss */
 .admin .tabs-navigation ul li .icon.zones.active {
   background: url("../images/icon-zone.png") no-repeat scroll top center transparent;
 }
-/* line 2380, main.scss */
+/* line 2385, main.scss */
 .admin .tabs-navigation ul li .icon.reports {
   background: url("../images/icon-reports-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 94px;
 }
-/* line 2385, main.scss */
+/* line 2390, main.scss */
 .admin .tabs-navigation ul li .icon.reports.active {
   background: url("../images/icon-reports.png") no-repeat scroll top center transparent;
 }
@@ -2603,37 +2608,37 @@ perspective effects (not including the modals and the overlay).
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2401, main.scss */
+  /* line 2406, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2405, main.scss */
+  /* line 2410, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2412, main.scss */
+/* line 2417, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2414, main.scss */
+/* line 2419, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2417, main.scss */
+/* line 2422, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2420, main.scss */
+/* line 2425, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2425, main.scss */
+/* line 2430, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;
