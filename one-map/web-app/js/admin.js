@@ -23,6 +23,8 @@ OneMap.admin = {
 	changeTab: function() {
 		document.querySelector('#tabs .active').classList.remove('active');
         var id = this.querySelector('span').classList[1];
+        document.querySelector('.tabs-navigation .active').classList.remove('active');
+        this.classList.add('active');
         OneMap.admin[id].resetTab();
         document.getElementById(id).classList.add('active');
 	},
@@ -374,7 +376,7 @@ OneMap.admin = {
 	},
 	init: function() {
         $('#tabs').height($(window).height() - 95 - 20 - 135);
-        $(document).on('click', '.tabs-navigation li', OneMap.admin.changeTab);
+        $(document).on('click', '.tabs-navigation li a', OneMap.admin.changeTab);
         OneMap.admin.zones.init();
         OneMap.admin.seats.init();
         OneMap.admin.reports.init();
