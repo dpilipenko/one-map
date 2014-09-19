@@ -7,6 +7,7 @@
 	<body>
 	    <div id="tabs">
 			<div id="zones" class="tab active">
+				<div class="watermark"></div>
 				<h2>Zones</h2>
 				<form action="">
 					<select name="zones-select" id="zones-select">
@@ -45,7 +46,8 @@
 				</form>
 			</div>
 			<div id="seats" class="tab">
-				<h2>Seat Assignments</h2>
+				<div class="watermark"></div>
+				<h2>Seats</h2>
 				<form action="">
 					<input type="checkbox" name="is-unclaimed" />
 					<label for="is-unclaimed">Get Unclaimed Names Only</label>
@@ -65,6 +67,7 @@
 				</form>
 			</div>
 			<div id="reports" class="tab">
+				<div class="watermark"></div>
 				<h2>Reports</h2>
 				<form action="">
 					<select name="query-select" id="query-select">
@@ -118,13 +121,15 @@
 					</div>
 				</form>
 			</div>
-	        <div id="falloff-shadow"></div>
 	    </div> <!-- end content container -->
 	    <div class="tabs-navigation">
+	    	<div id="falloff-shadow"></div>
 	    	<ul>
-	    		<li><span class="icon zones"></span>Zones</li>
-	    		<li><span class="icon seats"></span>Seat Assignments</li>
-	    		<li><span class="icon reports"></span>Reports</li>
+	    		<li><a href="#" class="active"><span class="icon zones"></span><span class="admin-zone-text">Zones</span></a></li>
+	    		<li class="divide"><div></div></li>
+	    		<li><a href="#"><span class="icon seats"></span>Seats</a></li>
+	    		<li class="divide"><div></div></li>
+	    		<li><a href="#"><span class="icon reports"></span>Reports</a></li>
 	    	</ul>
 	    </div>
 	</body>
