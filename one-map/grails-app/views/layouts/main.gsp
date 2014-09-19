@@ -12,9 +12,6 @@
 	<meta name="viewport" content="width=device-width" />
 
 	<title><g:layoutTitle default="ONEMAP" /></title>
-	<g:if test="${view == 'admin'}">
-		<link href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" rel="stylesheet">
-	</g:if>
 	<link href="${resource(dir: 'css', file: 'main.css')}" rel="stylesheet">
 
 	<g:layoutHead />
