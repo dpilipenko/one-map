@@ -33,18 +33,19 @@
 			<div id="seats" class="tab">
 				<h2>Seat Assignments</h2>
 				<form action="">
-					<input type="checkbox" name="is-unclaimed" />
-					<label for="is-unclaimed">Get Unclaimed Names Only</label>
+					<input type="checkbox" name="unclaimed-only" id="unclaimed-only" />
+					<label for="unclaimed-only">Get Unclaimed Names Only</label>
 
-					<input type="text" placeholder="Name" />
-					<select size="3">
+					<input type="text" placeholder="Name" name="user-name" id="user-name" />
+					<input type="hidden" name="user-ID" id="user-ID" value="" />
+					<select size="3" name="hotspot-ID" id="hotspot-ID"> 
 						<option value="default">Select One</option>
 						<option value="h001">1123</option>
 						<option value="h002">1124</option>
 						<option value="h003">1125</option>
 						<option value="h004">1126</option>
 					</select>
-					<input type="button" id="seats-submit" value="Save" />
+					<input type="button" id="seats-submit" value="Save" class="disabled" disabled />
 					<input type="button" value="Download Floorplans" />
 					<div class="divider horizontal"></div>
 					<input type="button" value="Browse" />

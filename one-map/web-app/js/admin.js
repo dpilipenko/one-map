@@ -4,6 +4,7 @@ OneMap.admin = {
 	changeTab: function() {
 		document.querySelector('#tabs .active').classList.remove('active');
         var id = this.querySelector('span').classList[1];
+        OneMap.admin[id].resetTab();
         document.getElementById(id).classList.add('active');
 	},
 	updateAvailableActions: function(tab, select) {
@@ -175,8 +176,54 @@ OneMap.admin = {
 		}
 	},
 	seats: {
-		init: function() {
+		userList: [],
+		populateAutocomplete: function (request, response) {
+			var unclaimedOnly = document.getElementById('unclaimed-only').checked;
+			// ajax call 
+			//
+			//    successs: 
+			var data = [
+				{
+					label: 'Liz Judd',
+					id: '1234'
+				},
+				{
+					label: 'Dave Fagan',
+					id: '1235'
+				},
+				{
+					label: 'Dan Padgett',
+					id: '1236'
+				},
+				{
+					label: 'Becky Horvath',
+					id: '1237'
+				},
+			];
+			OneMap.admin.seats.userList = data;
+	        response(data);
+		},
+		selectName: function(event, ui) {
+	    	for (var n = 0; n < OneMap.admin.seats.userList.length; n++){
+	    		if(OneMap.admin.seats.userList[n].label == ui.item.value){
+	    			document.getElementById('user-ID').value = OneMap.admin.seats.userList[n].id;
+	    			break;
+	    		}
+	    	}
+		},
+		assignSeat: function() {
+			if(this.classList.contains('disabled')) return;
 
+		},
+		resetTab: function() {
+
+		},
+		init: function() {
+			$( "#user-name" ).autocomplete({
+				source: OneMap.admin.seats.populateAutocomplete,
+				select: OneMap.admin.seats.selectName
+			});
+			$(document).on('click', '#seats-submit', OneMap.admin.seats.assignSeat);
 		}
 	},
 	reports: {
@@ -196,7 +243,7 @@ OneMap.admin = {
 			} else {
 				reportsSubmit.classList.remove('disabled');
 				reportsSubmit.removeAttribute('disabled');
-			}		
+			}
 			queryForm.classList.add('active');
 			document.getElementById('reports-location-select').selectedIndex = 0;
 			for(var i = 0; i < hiddenFields.length; i++) {
@@ -224,13 +271,45 @@ OneMap.admin = {
 			reportsSubmit.classList.add('disabled');
 			reportsSubmit.setAttribute('disabled', true);
 		},
+		getOccupancy: function() { // need to update the floor dropdown based on the location downdown? 
+			var location = document.getElementById('reports-location-select').value,
+				floor = document.getElementById('floor-select').value;
+			// ajax call
+			//
+			//	success:
+			var data = {};
+			OneMap.admin.reports.displayOccupancy(data);
+		},
+		displayOccupancy: function(data) {
+			document.getElementById('report-display').classList.add('active');
+		},
+		getAnalytics: function() {
+			var location = document.getElementById('reports-location-select').value;
+			// ajax call
+			//
+			//	success:
+			var data = {};
+			OneMap.admin.reports.displayAnalytics(data);
+		},
+		displayAnalytics: function(data) {
+			document.getElementById('report-display').classList.add('active');
+		},
+		getMoves: function() {
+			var location = document.getElementById('reports-location-select').value,
+				timeRange = document.getElementById('time-range-select').value;
+			// ajax call
+			//	
+			//	success:
+			var data = {};
+			OneMap.admin.reports.displayMoves(data);
+		},
+		displayMoves: function(data) {
+			document.getElementById('report-display').classList.add('active');
+		},
 		submit: function() {
 			if(this.classList.contains('disabled')) return;
-			// ajax call
-			// 
-			// success::
-			document.getElementById('report-display').classList.add('active');
-
+			var query = document.getElementById('query-select').value;
+			OneMap.admin.reports['get'+query.charAt(0).toUpperCase() + query.slice(1)]();
 		},
 
 		init: function() {
