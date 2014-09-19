@@ -2185,6 +2185,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 		z-index: 2;
 		overflow: hidden;
 
+		form {
+			position: relative;
+			z-index: 3;
+		}
+
 		#zones {
 			.watermark {
 				background: url("../images/icon-watermark-zone.png") no-repeat scroll 0 0 / contain rgba(0, 0, 0, 0);
