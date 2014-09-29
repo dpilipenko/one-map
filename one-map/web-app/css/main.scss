@@ -2395,6 +2395,44 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bce4', end
 			}
 		}
 	}
+
+	.modal {
+		display: none;
+		background: yellow;
+		left: 10px;
+		top: 10px;
+		padding: 10px;
+		position: absolute;
+		z-index: 9999;
+		&.active {
+			display: block;
+		}
+	}
+	.validation {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		background: transparent;
+		&.valid {
+			background: green;
+		}
+		&.error {
+			background: red;
+		}
+
+	}
+
+}
+
+// jQuery UI Autocomplete styles
+.ui-helper-hidden-accessible {
+	display: none;
+}
+.ui-autocomplete {
+	z-index: 1000;
+	li:hover {
+		color: blue;
+	}
 }
 
 

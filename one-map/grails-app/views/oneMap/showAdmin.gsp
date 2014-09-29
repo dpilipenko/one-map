@@ -48,17 +48,14 @@
 
 					<input type="text" placeholder="Name" name="user-name" id="user-name" />
 					<input type="hidden" name="user-ID" id="user-ID" value="" />
+					<span class="validation" id="name-validation"></span> 
 					<select size="3" name="hotspot-ID" id="hotspot-ID"> 
 						<option value="default">Select One</option>
-						<option value="h001">1123</option>
-						<option value="h002">1124</option>
-						<option value="h003">1125</option>
-						<option value="h004">1126</option>
 					</select>
 					<input type="button" id="seats-submit" value="Save" class="disabled" disabled />
 					<input type="button" value="Download Floorplans" />
 					<div class="divider horizontal"></div>
-					<input type="button" value="Browse" />
+					<input type="button" value="Browse" id="browse-seats" class="disabled" disabled />
 				</form>
 			</div>
 			<div id="reports" class="tab">
@@ -79,10 +76,7 @@
 							<option value="003">New York</option>
 						</select>
 						<select name="floor-select" id="floor-select" class="occupancy-field hidden-content">
-							<option value="all">All</option>					
-							<option value="001">11</option>
-							<option value="002">12</option>
-							<option value="003">13</option>
+							<option value="all">All</option>
 						</select>
 						<select name="time-range-select" id="time-range-select" class="moves-field hidden-content is-required">
 							<option value="all">Select One</option>					
@@ -127,6 +121,11 @@
 	    		<li class="divide"><div></div></li>
 	    		<li><a href="#"><span class="icon reports"></span>Reports</a></li>
 	    	</ul>
+	    </div>
+	    <div id="navigating-away" class="modal">
+	    	You will be leaving this page now to view the map.
+	    	<input type="button" onclick="return true;" value="OK" />
+	    	<input type="button" onclick="return false;" value="Cancel" />
 	    </div>
 	</body>
 </html>

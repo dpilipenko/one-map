@@ -2603,42 +2603,85 @@ perspective effects (not including the modals and the overlay).
 .admin .tabs-navigation ul li .icon.reports.active {
   background: url("../images/icon-reports.png") no-repeat scroll top center transparent;
 }
+/* line 2399, main.scss */
+.admin .modal {
+  display: none;
+  background: yellow;
+  left: 10px;
+  top: 10px;
+  padding: 10px;
+  position: absolute;
+  z-index: 9999;
+}
+/* line 2407, main.scss */
+.admin .modal.active {
+  display: block;
+}
+/* line 2411, main.scss */
+.admin .validation {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+}
+/* line 2416, main.scss */
+.admin .validation.valid {
+  background: green;
+}
+/* line 2419, main.scss */
+.admin .validation.error {
+  background: red;
+}
+
+/* line 2428, main.scss */
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+/* line 2431, main.scss */
+.ui-autocomplete {
+  z-index: 1000;
+}
+/* line 2433, main.scss */
+.ui-autocomplete li:hover {
+  color: blue;
+}
 
 /*  ===================================================================
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2406, main.scss */
+  /* line 2444, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2410, main.scss */
+  /* line 2448, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2417, main.scss */
+/* line 2455, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2419, main.scss */
+/* line 2457, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2422, main.scss */
+/* line 2460, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2425, main.scss */
+/* line 2463, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2430, main.scss */
+/* line 2468, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;

@@ -5,17 +5,11 @@
  * 4. Create Floorplan PDF with all seat IDs (use the cleaned up versions that Liz has)
  * 5. Hook into backend ajax calls for Admin features
  *
- * Reports:
- * 1. Update the "floor" drop down based on location selected
- *
  * Seat Assignments:
- * 1. Update the "available seats" select based on location selected
- * 2. User must type in name before clicking "browse" so we know who to "impersonate"
- * 3. validation that the person is in the DB? - they wouldn't be in the drop down if they aren't in the database
+ * 1. update "map.js" to handle a url with user parameters for impersonations
  *
  * Zones:
- * 1. Create modal that alerts the user they are leaving the admin area (see comments in "navigatingAwayAlert()")
- * 2. update "map.js" to handle a url with hotspot parameters to display on page load
+ * 1. update "map.js" to handle a url with hotspot parameters to display on page load
  */
 
 var OneMap = {};
@@ -41,10 +35,18 @@ OneMap.admin = {
 			buttons.attr('disabled', true);
 		}
 	},
-	navigatingAwayAlert: function() {
-		// shows alert that the user is leaving the admin area and will lose any changes. 
-		// If the user clicks "OK" return true else return false
-		return true;
+	navigatingAwayAlert: function(tab, action, button) {
+		var modal = document.getElementById('navigating-away'),
+			confirmBtn = modal.getElementsByTagName('input')[0],
+			denyBtn = modal.getElementsByTagName('input')[1];
+		modal.classList.add('active');
+		confirmBtn.onclick = function() {
+			modal.classList.remove('active');
+			OneMap.admin[tab][action](button);
+		};
+		denyBtn.onclick = function() {
+			modal.classList.remove('active');
+		};
 	},
 	zones: {
 		updatedSeats: [],
@@ -188,15 +190,13 @@ OneMap.admin = {
 			zoneSelect.value = 'default';
 			OneMap.admin.updateAvailableActions('zones', zoneSelect);
 		},
-		viewHotspotOnMap: function() {
-			if(OneMap.admin.navigatingAwayAlert()) {
-				var hotspot = this.dataset.hotspot,
-					floor = this.dataset.floor,
-					location = this.dataset.location,
-					url = '/one-map/?hotspot='+hotspot+'&floor='+floor+'&location='+location;
+		viewHotspotOnMap: function(button) {
+			var hotspot = button.dataset.hotspot,
+				floor = button.dataset.floor,
+				location = button.dataset.location,
+				url = '/one-map/?hotspot='+hotspot+'&floor='+floor+'&location='+location;
 
-				window.location.href = url; // functionality on map for this scenario needs implemented
-			}
+			window.location.href = url; // functionality on map for this scenario needs implemented
 		},
 		init: function() {
 			$.get("js/template-admin.html", function (data) {
@@ -209,11 +209,19 @@ OneMap.admin = {
 			$(document).on('change', '#zones-select', function() {
 				OneMap.admin.updateAvailableActions('zones');
 			});
-			$(document).on('click', '.conflict .user', OneMap.admin.zones.viewHotspotOnMap);
+			$(document).on('click', '.conflict .user', function() {
+				OneMap.admin.navigatingAwayAlert('zones', 'viewHotspotOnMap', this);
+			});
 		}
 	},
 	seats: {
 		userList: [],
+		impersonateUser: function() {
+			var userID = document.getElementById('user-ID').value,
+				url = '/one-map/?impersonate='+userID;
+
+			window.location.href = url; // functionality on map for this scenario needs implemented
+		},
 		populateAutocomplete: function (request, response) {
 			var unclaimedOnly = document.getElementById('unclaimed-only').checked;
 			// ajax call 
@@ -238,13 +246,39 @@ OneMap.admin = {
 				},
 			];
 			OneMap.admin.seats.userList = data;
-	        response(data);
+			response(data);
+		},
+		getAvailableSeatsByLocation: function() {
+			var location = this.value,
+				floorSelect = document.getElementById('hotspot-ID'),
+				selectOptions = '<option value="default">Select One</option>';
+			
+			if(location !== 'default') {
+				// ajax call
+				// 
+				// success:
+				var data = [{id: 'h001', label: '1125'}, {id: 'h002', label: '1225'}, {id: 'h003', label: '1325'}, {id: 'h004', label: '1425'}, {id: 'h005', label: '1525'}, {id: 'h006', label: '1725'}];
+				
+
+				for(var i = 0; i < data.length; i++) {
+					selectOptions += '<option value="'+ data[i].id +'">'+ data[i].label +'</option>';
+				}
+				floorSelect.innerHTML = selectOptions;
+			} else {
+				floorSelect.innerHTML = selectOptions;
+			}
 		},
 		selectName: function(event, ui) {
 			for (var n = 0; n < OneMap.admin.seats.userList.length; n++){
 				if(OneMap.admin.seats.userList[n].label == ui.item.value){
 					document.getElementById('user-ID').value = OneMap.admin.seats.userList[n].id;
 					OneMap.admin.seats.checkRequiredFields();
+					var browseBtn = document.getElementById('browse-seats'),
+						validationCue = document.getElementById('name-validation');
+					browseBtn.classList.remove('disabled');
+					browseBtn.removeAttribute('disabled');
+					validationCue.classList.remove('error');
+					validationCue.classList.add('valid');
 					break;
 				}
 			}
@@ -260,7 +294,6 @@ OneMap.admin = {
 			var select = document.getElementById('hotspot-ID');
 			select.remove(select.selectedIndex);
 			OneMap.admin.seats.resetTab();
-
 		},
 		resetTab: function() {
 			document.getElementById('unclaimed-only').checked = false;
@@ -287,10 +320,23 @@ OneMap.admin = {
 		init: function() {
 			$( "#user-name" ).autocomplete({
 				source: OneMap.admin.seats.populateAutocomplete,
-				select: OneMap.admin.seats.selectName
+				select: OneMap.admin.seats.selectName,
+				search: function() {
+					var browseBtn = document.getElementById('browse-seats'),
+						validationCue = document.getElementById('name-validation');
+					browseBtn.classList.add('disabled');
+					browseBtn.setAttribute('disabled', true);
+					validationCue.classList.add('error');
+					validationCue.classList.remove('valid');
+				}
 			});
 			$(document).on('change', '#hotspot-ID', OneMap.admin.seats.checkRequiredFields);
 			$(document).on('click', '#seats-submit', OneMap.admin.seats.assignSeat);
+			$(document).on('change', '#seats-location-select', OneMap.admin.seats.getAvailableSeatsByLocation);
+			$(document).on('click', '#browse-seats', function() {
+				if(this.classList.contains('disabled')) return;
+				OneMap.admin.navigatingAwayAlert('seats', 'impersonateUser', this);
+			});
 		}
 	},
 	reports: {
@@ -381,6 +427,28 @@ OneMap.admin = {
 			var query = document.getElementById('query-select').value;
 			OneMap.admin.reports['get'+query.charAt(0).toUpperCase() + query.slice(1)]();
 		},
+		getFloorsByLocation: function() {
+			if (document.getElementById('query-select').value !== 'occupancy') return; // currently floors only displays on occupancy
+
+			var location = this.value,
+				floorSelect = document.getElementById('floor-select'),
+				selectOptions = '<option value="all">All</option>';
+			
+			if(location !== 'all') {
+				// ajax call
+				// 
+				// success:
+				var data = [{id: 001, label: '11'}, {id: 002, label: '12'}, {id: 003, label: '13'}, {id: 004, label: '14'}, {id: 005, label: '15'}, {id: 006, label: '17'}];
+				
+
+				for(var i = 0; i < data.length; i++) {
+					selectOptions += '<option value="'+ data[i].id +'">'+ data[i].label +'</option>';
+				}
+				floorSelect.innerHTML = selectOptions;
+			} else {
+				floorSelect.innerHTML = selectOptions;
+			}			
+		},
 
 		init: function() {
 			$(document).on('change', '#query-select', OneMap.admin.reports.showFields);
@@ -388,6 +456,7 @@ OneMap.admin = {
 			$(document).on('change', '#reports .is-required', function() {
 				OneMap.admin.updateAvailableActions('reports');
 			});
+			$(document).on('change', '#reports-location-select', OneMap.admin.reports.getFloorsByLocation);
 		}
 	},
 	init: function() {
