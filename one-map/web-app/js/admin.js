@@ -17,6 +17,78 @@ function isEmpty(obj) {
 	}
 	return true;
 }
+function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+    
+    var CSV = '';    
+    //Set Report title in first row or line
+    
+    // CSV += ReportTitle + '\r\n\n';  This prints out the title at the top of the file
+
+    //This condition will generate the Label/Header
+    if (ShowLabel) {
+        var row = "";
+        
+        //This loop will extract the label from 1st index of on array
+        for (var index in arrData[0]) {
+            
+            //Now convert each value to string and comma-seprated
+            row += index + ',';
+        }
+
+        row = row.slice(0, -1);
+        
+        //append Label row with line break
+        CSV += row + '\r\n';
+    }
+    
+    //1st loop is to extract each row
+    for (var i = 0; i < arrData.length; i++) {
+        var row = "";
+        
+        //2nd loop will extract each column and convert it in string comma-seprated
+        for (var index in arrData[i]) {
+            row += '"' + arrData[i][index] + '",';
+        }
+
+        row.slice(0, row.length - 1);
+        
+        //add a line break after each row
+        CSV += row + '\r\n';
+    }
+
+    if (CSV == '') {        
+        alert("Invalid data");
+        return;
+    }   
+    
+    //Generate a file name
+    var fileName = "OneMap_";
+    //this will remove the blank-spaces from the title and replace it with an underscore
+    fileName += ReportTitle.replace(/ /g,"_");   
+    
+    //Initialize file format you want csv or xls
+    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+    
+    // Now the little tricky part.
+    // you can use either>> window.open(uri);
+    // but this will not work in some browsers
+    // or you will not get the correct file extension    
+    
+    //this trick will generate a temp <a /> tag
+    var link = document.createElement("a");    
+    link.href = uri;
+    
+    //set the visibility hidden so it will not effect on your web-layout
+    link.style = "visibility:hidden";
+    link.download = fileName + ".csv";
+    
+    //this part will append the anchor tag and remove it after automatic click
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 var OneMap = {};
 
@@ -371,6 +443,7 @@ OneMap.admin = {
 		}
 	},
 	reports: {
+		currentData: '',
 		showFields: function() {
 			if(this.value == 'default') {
 				OneMap.admin.reports.resetTab();
@@ -382,6 +455,7 @@ OneMap.admin = {
 				reportsSubmit = document.getElementById('reports-submit'),
 				display = document.getElementById('report-display');
 
+			OneMap.admin.reports.currentData = '';
 			display.classList.remove('active');
 
 			if (this.options[this.selectedIndex].dataset.hasrequired) {
@@ -421,15 +495,40 @@ OneMap.admin = {
 			reportsSubmit.classList.add('disabled');
 			reportsSubmit.setAttribute('disabled', true);
 		},
-		displayResults: function(content) {
-			var reportWrapper = document.getElementById('report-display');
-			if(content.length > 0) {
-				var html = '<table>' + content + '</table>';
-				html += '<a href="#">Download Report</a>'; // update link once we know how to do this
-				reportWrapper.innerHTML = html;
-			} else {
-				reportWrapper.innerHTML = 'No Results Found';
+		generateFile: function() {
+			if(OneMap.admin.reports.currentData === '') return;
+			var title = document.getElementById('query-select').value;
+			JSONToCSVConvertor(OneMap.admin.reports.currentData, title, true);
+		},
+		displayResults: function(data) {
+			var html = 'No Results Found',
+				numOfResults = data.length;
+			if(numOfResults > 0) {
+				OneMap.admin.reports.currentData = data; // this is used to create the CSV
+
+				// Create Table
+				html = '<table>';
+				for (var i = 0; i < numOfResults; i++) {
+					if(i === 0) {
+						html += '<tr>';
+						for(var key in data[i]) {							
+							html += '<th>'+ key +'</th>';
+						}
+						html += '</tr>';
+					}
+					html += '<tr>';
+					for(var key in data[i]) {							
+						html += '<td>'+ data[i][key] +'</td>';
+					}
+					html += '</tr>';
+				}
+
+				html +='</table>';
+				html += '<input type="button" value="Download Report" id="generate-report" />'; // update link once we know how to do this
+				
 			}
+			var reportWrapper = document.getElementById('report-display');
+			reportWrapper.innerHTML = html;
 			reportWrapper.classList.add('active');
 			document.getElementById('reports-loading').style.display = 'none';
 		},
@@ -439,57 +538,56 @@ OneMap.admin = {
 			// ajax call
 			//
 			//	success:
-			var data = {
-				'Cleveland': {
-					'11': 24,
-					'12': 50,
-					'13': 75,
-					'14': 12,
-					'15': 0,
-					'17': 0
+			var data = [ 
+				{
+					'Location': 'Cleveland',
+					'Floor': '11',
+					'Vancancy': 24
 				},
-				'New York': {
-					'5': 1
+				{
+					'Location': 'Cleveland',
+					'Floor': '12',
+					'Vancancy': 50
+				},
+				{
+					'Location': 'Cleveland',
+					'Floor': '13',
+					'Vancancy': 75
+				},
+				{
+					'Location': 'Cleveland',
+					'Floor': '14',
+					'Vancancy': 12
+				},
+				{
+					'Location': 'Cleveland',
+					'Floor': '15',
+					'Vancancy': 0
+				},
+				{
+					'Location': 'Cleveland',
+					'Floor': '17',
+					'Vancancy': 0
+				},
+				{
+					'Location': 'New York',
+					'Floor': '5',
+					'Vancancy': 1
 				}
-			};
+			];
 			setTimeout(function() { // remove when ajax is actually implemented
-				OneMap.admin.reports.populateOccupancy(data);
+				OneMap.admin.reports.displayResults(data);
 			}, 1000);
-		},
-		populateOccupancy: function(data) {	
-			var html = '';
-			if(!isEmpty(data)) {
-				html += '<tr>';
-				html += '<th>Location</th>';
-				html += '<th>Floor</th>';
-				html += '<th>Vacant</th>';
-				html += '</tr>';
-				for(var location in data) {
-					for(var floor in data[location]) {
-						console.log(data[location][floor]);
-						html += '<tr>';
-						html += '<td>'+ location +'</td>';
-						html += '<td>'+ floor +'</td>';
-						html += '<td>'+ data[location][floor] +'%</td>';
-						html += '</tr>';
-					}
-				}
-			}
-			OneMap.admin.reports.displayResults(html);
 		},
 		getAnalytics: function() {
 			var location = document.getElementById('reports-location-select').value;
 			// ajax call
 			//
 			//	success:
-			var data = {};
+			var data = [];
 			setTimeout(function() { // remove when ajax is actually implemented
-				OneMap.admin.reports.populateAnalytics(data);
+				OneMap.admin.reports.displayResults(data);
 			}, 1000);
-		},
-		populateAnalytics: function(data) {
-			// TODO: need to define what this are in order to populate it
-			OneMap.admin.reports.displayResults('');
 		},
 		getMoves: function() {
 			var location = document.getElementById('reports-location-select').value,
@@ -497,41 +595,36 @@ OneMap.admin = {
 			// ajax call
 			//	
 			//	success:
-			var data = {
-				'Cleveland': {
-					'Dave Fagan': '09/30/14',
-					'Liz Judd': '01/15/14',
-					'Dmitriy Pilipenko': '05/24/14',
-					'Becky Horvath': '03/16/14',
+			var data = [
+				{
+					'Location': 'Cleveland',
+					'Employee': 'Dave Fagan',
+					'Date': '09/30/14' 
 				},
-				'New York': {
-					'Dan Padgett': '08/28/14',
+				{
+					'Location': 'Cleveland',
+					'Employee': 'Liz Judd',
+					'Date': '01/15/14' 
+				},
+				{
+					'Location': 'Cleveland',
+					'Employee': 'Dmitriy Pilipenko',
+					'Date': '05/24/14' 
+				},
+				{
+					'Location': 'Cleveland',
+					'Employee': 'Becky Horvath',
+					'Date': '03/16/14' 
+				},
+				{
+					'Location': 'New York',
+					'Employee': 'Dan Padgett',
+					'Date': '08/28/14' 
 				}
-			};
+			];
 			setTimeout(function() { // remove when ajax is actually implemented
-				OneMap.admin.reports.populateMoves(data);
+				OneMap.admin.reports.displayResults(data);
 			}, 1000);
-		},
-		populateMoves: function(data) {
-			var html = '';
-			if(!isEmpty(data)) {
-				html += '<tr>';
-				html += '<th>Location</th>';
-				html += '<th>Employee</th>';
-				html += '<th>Last Moved</th>';
-				html += '</tr>';
-				for(var location in data) {
-					for(var employee in data[location]) {
-						console.log(data[location][employee]);
-						html += '<tr>';
-						html += '<td>'+ location +'</td>';
-						html += '<td>'+ employee +'</td>';
-						html += '<td>'+ data[location][employee] +'</td>';
-						html += '</tr>';
-					}
-				}
-			}
-			OneMap.admin.reports.displayResults(html);
 		},
 		submit: function() {
 			if(this.classList.contains('disabled')) return;
@@ -569,6 +662,7 @@ OneMap.admin = {
 				OneMap.admin.updateAvailableActions('reports');
 			});
 			$(document).on('change', '#reports-location-select', OneMap.admin.reports.getFloorsByLocation);
+			$(document).on('click', '#generate-report', OneMap.admin.reports.generateFile);
 		}
 	},
 	init: function() {
