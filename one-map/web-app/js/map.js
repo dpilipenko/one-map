@@ -1,6 +1,8 @@
 var OneMap = {
     isLoggedIn: false,
     userIsAdmin: false,
+    isViewingConflict: false,
+    impersonatingID: -1,
 
     map: {
         // map properties
@@ -299,6 +301,12 @@ var OneMap = {
                 OneMap.map.hasPanned = false;
                 OneMap.map.stage.destroy();
                 $('.zoom-btns').fadeOut();
+                if(OneMap.isViewingConflict) {
+                    OneMap.isViewingConflict = false;
+                    var backBtn =  document.getElementById('backto3d');
+                    backBtn.href = '#';
+                    backBtn.innerHTML = '3D';
+                }
             }
         },
         backTo3D: function() {
@@ -407,6 +415,7 @@ var OneMap = {
                     hotspotID: OneMap.hotspots.active.id,
                 },
                 success: function (object) {
+                    console.log(object);
                     if(OneMap.userIsAdmin){
                         $.ajax({
                             url: 'oneMap/getAllZones',
@@ -695,8 +704,6 @@ var OneMap = {
             $('.md-overlay').on( 'click' , OneMap.hotspots.closeModal);
         },
         init: function() {
-            // ----- popup interactions -----
-
             $('.md-close').on( 'click', function( ev ) {
                 ev.stopPropagation();
                 OneMap.hotspots.closeModal();
@@ -1364,7 +1371,46 @@ var OneMap = {
 
         OneMap.map.init();
         OneMap.search.init();
-        OneMap.zones.init();
+        OneMap.zones.init(); // this should be scoped to admin only?
+
+        $(document).ready(function() {
+            var mapQuery = window.location.search.slice(1);
+            if(OneMap.isLoggedIn && OneMap.userIsAdmin && mapQuery.length > 1) {
+                var queryArray = mapQuery.split('&'),
+                    parameters = {};
+
+                for(var i = 0; i < queryArray.length; i++) {
+                    var p = queryArray[i].split('=');
+                    parameters[p[0]] = p[1];
+                }
+
+                // console.log(parameters);
+                if(parameters.hotspot) {
+                    // will need to add in location when that gets implemented
+                    OneMap.isViewingConflict = true;
+                    var backBtn =  document.getElementById('backto3d');
+                    backBtn.href = '/one-map/admin/';
+                    backBtn.innerHTML = 'Back';
+                    var canvas = $('.canvas[data-floor="' + parameters.floor + '"]');
+                    OneMap.search.activeResult =  parameters.hotspot;
+                    OneMap.search.mapPins[parameters.floor] = {};
+                    OneMap.search.mapPins[parameters.floor].floorIds = [parameters.hotspot];
+                    canvas.parent('.floorplan').trigger('click');
+                } else if (parameters.impersonate) {
+                    // need to update "claim" function to pass in the user ID.
+                    OneMap.impersonatingID = parameters.impersonate;
+                    var panel = document.getElementById('impersonating-panel'),
+                        nameWrapper = document.getElementById('impersonating-name');
+                    nameWrapper.innerHTML = decodeURI(parameters.name);
+                    document.getElementById('impersonating-done').onclick = function() {
+                        OneMap.impersonatingID = -1;
+                        nameWrapper.innerHTML = '';
+                        panel.classList.remove('expanded');
+                    };
+                    panel.classList.add('expanded');
+                }
+            }
+        });
     }
 };
 

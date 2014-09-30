@@ -43,7 +43,7 @@
 		<div class="header-bg">
 
 			<g:if test="${view != 'admin'}">
-				<div class="zone-panel">
+				<div class="zone-panel admin-panel">
 	               	<div class="form">
 	                    <div class="fields">
 	                         <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
@@ -52,13 +52,24 @@
 	                    </div>
 	                    <div class="actions">
 	                         <div class="number-selected"><span id="selected-number">0 seats</span> selected</div>
-	                         <a href="#" class="save-zone">SAVE</a>
-	                         <a href="#" class="cancel-zone">CANCEL</a>
+	                         <a href="#" class="save-zone panel-button">SAVE</a>
+	                         <a href="#" class="cancel-zone panel-button">CANCEL</a>
 	                    </div>
 	               </div>
 	               <div class="response">
 	                    <a href="#" class="okay">OK</a>
 	                    <div>Your zone was successfully created</div>
+	               </div>
+	          	</div>
+	          	<div id="impersonating-panel" class="admin-panel">
+	               	<div class="form">
+	                    <div class="fields">
+	                         <div class="messaging">You are impersonating:</div>
+	                         <div id="impersonating-name"></div>
+	                    </div>
+	                    <div class="actions">
+	                         <a href="#" id="impersonating-done" class="panel-button">DONE</a>
+	                    </div>
 	               </div>
 	          	</div>
 			</g:if>

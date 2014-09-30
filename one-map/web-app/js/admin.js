@@ -6,10 +6,15 @@
  * 5. Hook into backend ajax calls for Admin features
  *
  * Seat Assignments:
- * 1. update "map.js" to handle a url with user parameters for impersonations
+ * 1. BLOCKED --update "map.js" to handle a url with user parameters for impersonations.
+ *		need to be able to pass a userID with the "claim" so that we can impersonate a user.
+ * 2. Sync with Active Directory button
+ * 3. Update link for "download floorplans" button
+ * 4. reset tab (update to include the location and hotspot dropdowns)
  *
- * Zones:
- * 1. update "map.js" to handle a url with hotspot parameters to display on page load
+ * Reports
+ * 1. print tables for reports
+ *
  */
 
 var OneMap = {};
@@ -66,7 +71,7 @@ OneMap.admin = {
 			// Success:
 			var returnedData = [
 				{
-					hotspotID: 'h001',
+					hotspotID: 'h106',
 					name: 'Dave Fagan',
 					seatID: '1123',
 					location: 'Cleveland',
@@ -78,11 +83,11 @@ OneMap.admin = {
 					primary: '002'
 				},
 				{
-					hotspotID: 'h002',
+					hotspotID: 'h226',
 					name: '',
 					seatID: '1124',
 					location: 'Cleveland',
-					floor: 12,
+					floor: 13,
 					zone1name: 'AHA',
 					zone1ID: '001',
 					zone2name: 'One Map',
@@ -90,11 +95,11 @@ OneMap.admin = {
 					primary: '001'
 				},
 				{
-					hotspotID: 'h003',
+					hotspotID: 'h227',
 					name: 'Dmitriy Pilipenko',
 					seatID: '1125',
 					location: 'Cleveland',
-					floor: 12,
+					floor: 13,
 					zone1name: 'AHA',
 					zone1ID: '001',
 					zone2name: 'Grange',
@@ -102,11 +107,11 @@ OneMap.admin = {
 					primary: '001'
 				},
 				{
-					hotspotID: 'h004',
+					hotspotID: 'h232',
 					name: 'Dan Padgett',
 					seatID: '1123',
 					location: 'New York',
-					floor: 5,
+					floor: 15,
 					zone1name: 'AHA',
 					zone1ID: '001',
 					zone2name: 'Kraft',
@@ -218,8 +223,7 @@ OneMap.admin = {
 		userList: [],
 		impersonateUser: function() {
 			var userID = document.getElementById('user-ID').value,
-				url = '/one-map/?impersonate='+userID;
-
+				url = '/one-map/?impersonate='+userID+'&name='+encodeURI(document.getElementById('user-name').value);
 			window.location.href = url; // functionality on map for this scenario needs implemented
 		},
 		populateAutocomplete: function (request, response) {
