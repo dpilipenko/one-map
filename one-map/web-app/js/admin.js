@@ -3,14 +3,8 @@
  * 2. Estimations for Admin
  * 3. Styling for Admin section
  * 4. Create Floorplan PDF with all seat IDs (use the cleaned up versions that Liz has)
+ * 		file name structure: 'floorplan-<location ID>.pdf'
  * 5. Hook into backend ajax calls for Admin features
- *
- * Seat Assignments:
- * 1. BLOCKED --update "map.js" to handle a url with user parameters for impersonations.
- *		need to be able to pass a userID with the "claim" so that we can impersonate a user.
- * 2. Sync with Active Directory button
- * 3. Update link for "download floorplans" button
- * 4. reset tab (update to include the location and hotspot dropdowns)
  *
  * Reports
  * 1. print tables for reports
@@ -255,9 +249,11 @@ OneMap.admin = {
 		getAvailableSeatsByLocation: function() {
 			var location = this.value,
 				floorSelect = document.getElementById('hotspot-ID'),
+				floorplanButton = document.getElementById('floorplan-download'),
 				selectOptions = '<option value="default">Select One</option>';
 			
 			if(location !== 'default') {
+				floorplanButton.href = '/one-map/pdf/floorplan-'+ location +'.pdf';
 				// ajax call
 				// 
 				// success:
@@ -269,6 +265,7 @@ OneMap.admin = {
 				}
 				floorSelect.innerHTML = selectOptions;
 			} else {
+				floorplanButton.href = '#';
 				floorSelect.innerHTML = selectOptions;
 			}
 		},
@@ -305,6 +302,8 @@ OneMap.admin = {
 			document.getElementById('user-name').value = '';
 			document.getElementById('user-ID').value = '';
 			document.getElementById('hotspot-ID').selectedIndex = 0;
+			document.getElementById('seats-location-select').selectedIndex = 0;
+			$('#seats-location-select').trigger('change');
 			var submitButton = document.getElementById('seats-submit');
 			submitButton.classList.add('disabled');
 			submitButton.setAttribute('disabled', true);
@@ -340,6 +339,22 @@ OneMap.admin = {
 			$(document).on('click', '#browse-seats', function() {
 				if(this.classList.contains('disabled')) return;
 				OneMap.admin.navigatingAwayAlert('seats', 'impersonateUser', this);
+			});
+			$(document).on('click', '#sync-db', function() {
+				var loadingIcon = document.getElementById('sync-loading'),
+					form = document.querySelector('#seats form');
+				loadingIcon.style.display = 'inline-block';
+				form.style.display = 'none';
+
+				// ajax call
+				// 
+				// success:
+				setTimeout(function() { // remove this once the ajax call is actually in
+					loadingIcon.style.display = 'none';
+					form.style.display = 'block';
+				}, 1000);
+
+				
 			});
 		}
 	},

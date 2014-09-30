@@ -2483,6 +2483,10 @@ perspective effects (not including the modals and the overlay).
   display: block;
 }
 /* line 2271, main.scss */
+.admin .loading-icon {
+  display: none;
+}
+/* line 2275, main.scss */
 .admin .tabs-navigation {
   height: 135px;
   width: 90%;
@@ -2490,7 +2494,7 @@ perspective effects (not including the modals and the overlay).
   position: relative;
   overflow: hidden;
 }
-/* line 2278, main.scss */
+/* line 2282, main.scss */
 .admin .tabs-navigation #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -2501,14 +2505,14 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   z-index: 1;
 }
-/* line 2289, main.scss */
+/* line 2293, main.scss */
 .admin .tabs-navigation ul {
   margin: 0;
   text-align: center;
   position: relative;
   z-index: 2;
 }
-/* line 2295, main.scss */
+/* line 2299, main.scss */
 .admin .tabs-navigation ul li {
   display: inline-block;
   text-align: center;
@@ -2519,7 +2523,7 @@ perspective effects (not including the modals and the overlay).
   text-shadow: 0 2px 2px #000;
   text-transform: uppercase;
 }
-/* line 2306, main.scss */
+/* line 2310, main.scss */
 .admin .tabs-navigation ul li a {
   padding: 12px 0px 0px 0px;
   text-decoration: none;
@@ -2528,7 +2532,7 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   height: 135px;
 }
-/* line 2314, main.scss */
+/* line 2318, main.scss */
 .admin .tabs-navigation ul li a:hover {
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjE1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
@@ -2539,29 +2543,29 @@ perspective effects (not including the modals and the overlay).
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#26ffffff', endColorstr='#00ffffff',GradientType=0 );
 }
-/* line 2326, main.scss */
+/* line 2330, main.scss */
 .admin .tabs-navigation ul li a.active {
   background: url(../images/admin-tabs-active-effect.png) no-repeat top center;
   background-size: 100% auto;
 }
-/* line 2332, main.scss */
+/* line 2336, main.scss */
 .admin .tabs-navigation ul li a.active .icon.seats {
   background: url("../images/icon-desk.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2336, main.scss */
+/* line 2340, main.scss */
 .admin .tabs-navigation ul li a.active .icon.zones {
   background: url("../images/icon-zone.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2340, main.scss */
+/* line 2344, main.scss */
 .admin .tabs-navigation ul li a.active .icon.reports {
   background: url("../images/icon-reports.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2347, main.scss */
+/* line 2351, main.scss */
 .admin .tabs-navigation ul li.divide {
   width: 4px;
   height: 105px;
 }
-/* line 2351, main.scss */
+/* line 2355, main.scss */
 .admin .tabs-navigation ul li.divide div {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px black inset;
@@ -2569,46 +2573,46 @@ perspective effects (not including the modals and the overlay).
   margin-top: 18px;
   width: 4px;
 }
-/* line 2360, main.scss */
+/* line 2364, main.scss */
 .admin .tabs-navigation ul li .admin-zone-text {
   margin-left: -22px;
 }
-/* line 2364, main.scss */
+/* line 2368, main.scss */
 .admin .tabs-navigation ul li .icon {
   display: block;
   margin: 0 auto;
 }
-/* line 2368, main.scss */
+/* line 2372, main.scss */
 .admin .tabs-navigation ul li .icon.seats {
   background: url("../images/icon-desk-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 93px;
 }
-/* line 2373, main.scss */
+/* line 2377, main.scss */
 .admin .tabs-navigation ul li .icon.seats.active {
   background: url("../images/icon-desk.png") no-repeat scroll top center transparent;
 }
-/* line 2378, main.scss */
+/* line 2382, main.scss */
 .admin .tabs-navigation ul li .icon.zones {
   background: url("../images/icon-zone-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 116px;
 }
-/* line 2383, main.scss */
+/* line 2387, main.scss */
 .admin .tabs-navigation ul li .icon.zones.active {
   background: url("../images/icon-zone.png") no-repeat scroll top center transparent;
 }
-/* line 2388, main.scss */
+/* line 2392, main.scss */
 .admin .tabs-navigation ul li .icon.reports {
   background: url("../images/icon-reports-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 94px;
 }
-/* line 2393, main.scss */
+/* line 2397, main.scss */
 .admin .tabs-navigation ul li .icon.reports.active {
   background: url("../images/icon-reports.png") no-repeat scroll top center transparent;
 }
-/* line 2402, main.scss */
+/* line 2406, main.scss */
 .admin .modal {
   display: none;
   background: yellow;
@@ -2618,36 +2622,36 @@ perspective effects (not including the modals and the overlay).
   position: absolute;
   z-index: 9999;
 }
-/* line 2410, main.scss */
+/* line 2414, main.scss */
 .admin .modal.active {
   display: block;
 }
-/* line 2414, main.scss */
+/* line 2418, main.scss */
 .admin .validation {
   display: inline-block;
   width: 20px;
   height: 20px;
   background: transparent;
 }
-/* line 2419, main.scss */
+/* line 2423, main.scss */
 .admin .validation.valid {
   background: green;
 }
-/* line 2422, main.scss */
+/* line 2426, main.scss */
 .admin .validation.error {
   background: red;
 }
 
-/* line 2431, main.scss */
+/* line 2435, main.scss */
 .ui-helper-hidden-accessible {
   display: none;
 }
 
-/* line 2434, main.scss */
+/* line 2438, main.scss */
 .ui-autocomplete {
   z-index: 1000;
 }
-/* line 2436, main.scss */
+/* line 2440, main.scss */
 .ui-autocomplete li:hover {
   color: blue;
 }
@@ -2656,37 +2660,37 @@ perspective effects (not including the modals and the overlay).
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2447, main.scss */
+  /* line 2451, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2451, main.scss */
+  /* line 2455, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2458, main.scss */
+/* line 2462, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2460, main.scss */
+/* line 2464, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2463, main.scss */
+/* line 2467, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2466, main.scss */
+/* line 2470, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2471, main.scss */
+/* line 2475, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;

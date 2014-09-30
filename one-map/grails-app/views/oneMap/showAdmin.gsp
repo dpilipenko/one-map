@@ -34,8 +34,10 @@
 			<div id="seats" class="tab">
 				<div class="watermark"></div>
 				<h2>Seats</h2>
+				
+				<input type="button" id="sync-db" name="sync-db" value="Sync with Active Directory" />
+				<img id="sync-loading" class="loading-icon" width="13px" height="13px" src="images/loading.gif">
 				<form action="">
-					<input type="button" id="sync-db" name="sync-db" value="Sync with Active Directory" />
 					<select name="seats-location-select" id="seats-location-select">
 						<option value="default">Select One</option>					
 						<option value="001">Cleveland</option>
@@ -53,7 +55,7 @@
 						<option value="default">Select One</option>
 					</select>
 					<input type="button" id="seats-submit" value="Save" class="disabled" disabled />
-					<input type="button" value="Download Floorplans" />
+					<a id="floorplan-download" href="#" >Download Floorplans</a>
 					<div class="divider horizontal"></div>
 					<input type="button" value="Browse" id="browse-seats" class="disabled" disabled />
 				</form>
