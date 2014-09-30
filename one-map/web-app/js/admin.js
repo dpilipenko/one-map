@@ -8,8 +8,15 @@
  *
  * Reports
  * 1. print tables for reports
+ * 		BLOCKED -- analytics row: need to know what the analytics are
  *
  */
+function isEmpty(obj) {
+	for(var prop in obj) {
+		if(obj.hasOwnProperty(prop)) return false;
+	}
+	return true;
+}
 
 var OneMap = {};
 
@@ -52,7 +59,9 @@ OneMap.admin = {
 		getConflicts: function() {
 			if(this.classList.contains('disabled')) return;
 
+			var loadingIcon = document.getElementById('conflicts-loading');
 			var deleteButton = document.getElementById('delete-zone');
+			loadingIcon.style.display = 'inline-block';
 			deleteButton.classList.add('disabled');
 			deleteButton.setAttribute('disabled', true);
 
@@ -114,34 +123,37 @@ OneMap.admin = {
 				},
 			];
 
-			var conflicts = '';
-			for (var i = 0; i < returnedData.length; i++) {
-				var onePrimary = '', twoPrimary = '', c = returnedData[i];
-				if(c.primary == c.zone1ID) {
-					onePrimary = 'checked';
-				} else {
-					twoPrimary = 'checked';
+			setTimeout(function() { // remove when ajax is actually implemented
+				var conflicts = '';
+				for (var i = 0; i < returnedData.length; i++) {
+					var onePrimary = '', twoPrimary = '', c = returnedData[i];
+					if(c.primary == c.zone1ID) {
+						onePrimary = 'checked';
+					} else {
+						twoPrimary = 'checked';
+					}
+					var user = c.name === '' ? 'Vacant' : c.name;
+
+					conflicts += document.getElementById('zoneConflict-template').innerHTML.format(
+						user, // 0
+						c.seatID, // 1
+						c.location, // 2
+						c.floor, // 3
+						c.hotspotID, // 4
+						
+						c.zone1ID, // 5
+						c.zone1name, // 6
+						onePrimary, // 7
+						c.zone2ID, // 8
+						c.zone2name, // 9
+						twoPrimary // 10
+					);
 				}
-				var user = c.name === '' ? 'Vacant' : c.name;
 
-				conflicts += document.getElementById('zoneConflict-template').innerHTML.format(
-					user, // 0
-					c.seatID, // 1
-					c.location, // 2
-					c.floor, // 3
-					c.hotspotID, // 4
-					
-					c.zone1ID, // 5
-					c.zone1name, // 6
-					onePrimary, // 7
-					c.zone2ID, // 8
-					c.zone2name, // 9
-					twoPrimary // 10
-				);
-			}
-
-			document.getElementById('conflicts-listing').innerHTML = conflicts;
-			document.getElementById('zone-conflicts').classList.add('active');
+				document.getElementById('conflicts-listing').innerHTML = conflicts;
+				loadingIcon.style.display = 'none';
+				document.getElementById('zone-conflicts').classList.add('active');
+			}, 1000);
 		},
 		delete: function() {
 			if(this.classList.contains('disabled')) return;
@@ -367,7 +379,10 @@ OneMap.admin = {
 
 			var queryForm = document.getElementById('query-form'),
 				hiddenFields = queryForm.getElementsByClassName('hidden-content'),
-				reportsSubmit = document.getElementById('reports-submit');
+				reportsSubmit = document.getElementById('reports-submit'),
+				display = document.getElementById('report-display');
+
+			display.classList.remove('active');
 
 			if (this.options[this.selectedIndex].dataset.hasrequired) {
 				reportsSubmit.classList.add('disabled');
@@ -406,17 +421,61 @@ OneMap.admin = {
 			reportsSubmit.classList.add('disabled');
 			reportsSubmit.setAttribute('disabled', true);
 		},
+		displayResults: function(content) {
+			var reportWrapper = document.getElementById('report-display');
+			if(content.length > 0) {
+				var html = '<table>' + content + '</table>';
+				html += '<a href="#">Download Report</a>'; // update link once we know how to do this
+				reportWrapper.innerHTML = html;
+			} else {
+				reportWrapper.innerHTML = 'No Results Found';
+			}
+			reportWrapper.classList.add('active');
+			document.getElementById('reports-loading').style.display = 'none';
+		},
 		getOccupancy: function() {
 			var location = document.getElementById('reports-location-select').value,
 				floor = document.getElementById('floor-select').value;
 			// ajax call
 			//
 			//	success:
-			var data = {};
-			OneMap.admin.reports.displayOccupancy(data);
+			var data = {
+				'Cleveland': {
+					'11': 24,
+					'12': 50,
+					'13': 75,
+					'14': 12,
+					'15': 0,
+					'17': 0
+				},
+				'New York': {
+					'5': 1
+				}
+			};
+			setTimeout(function() { // remove when ajax is actually implemented
+				OneMap.admin.reports.populateOccupancy(data);
+			}, 1000);
 		},
-		displayOccupancy: function(data) {
-			document.getElementById('report-display').classList.add('active');
+		populateOccupancy: function(data) {	
+			var html = '';
+			if(!isEmpty(data)) {
+				html += '<tr>';
+				html += '<th>Location</th>';
+				html += '<th>Floor</th>';
+				html += '<th>Vacant</th>';
+				html += '</tr>';
+				for(var location in data) {
+					for(var floor in data[location]) {
+						console.log(data[location][floor]);
+						html += '<tr>';
+						html += '<td>'+ location +'</td>';
+						html += '<td>'+ floor +'</td>';
+						html += '<td>'+ data[location][floor] +'%</td>';
+						html += '</tr>';
+					}
+				}
+			}
+			OneMap.admin.reports.displayResults(html);
 		},
 		getAnalytics: function() {
 			var location = document.getElementById('reports-location-select').value;
@@ -424,10 +483,13 @@ OneMap.admin = {
 			//
 			//	success:
 			var data = {};
-			OneMap.admin.reports.displayAnalytics(data);
+			setTimeout(function() { // remove when ajax is actually implemented
+				OneMap.admin.reports.populateAnalytics(data);
+			}, 1000);
 		},
-		displayAnalytics: function(data) {
-			document.getElementById('report-display').classList.add('active');
+		populateAnalytics: function(data) {
+			// TODO: need to define what this are in order to populate it
+			OneMap.admin.reports.displayResults('');
 		},
 		getMoves: function() {
 			var location = document.getElementById('reports-location-select').value,
@@ -435,15 +497,46 @@ OneMap.admin = {
 			// ajax call
 			//	
 			//	success:
-			var data = {};
-			OneMap.admin.reports.displayMoves(data);
+			var data = {
+				'Cleveland': {
+					'Dave Fagan': '09/30/14',
+					'Liz Judd': '01/15/14',
+					'Dmitriy Pilipenko': '05/24/14',
+					'Becky Horvath': '03/16/14',
+				},
+				'New York': {
+					'Dan Padgett': '08/28/14',
+				}
+			};
+			setTimeout(function() { // remove when ajax is actually implemented
+				OneMap.admin.reports.populateMoves(data);
+			}, 1000);
 		},
-		displayMoves: function(data) {
-			document.getElementById('report-display').classList.add('active');
+		populateMoves: function(data) {
+			var html = '';
+			if(!isEmpty(data)) {
+				html += '<tr>';
+				html += '<th>Location</th>';
+				html += '<th>Employee</th>';
+				html += '<th>Last Moved</th>';
+				html += '</tr>';
+				for(var location in data) {
+					for(var employee in data[location]) {
+						console.log(data[location][employee]);
+						html += '<tr>';
+						html += '<td>'+ location +'</td>';
+						html += '<td>'+ employee +'</td>';
+						html += '<td>'+ data[location][employee] +'</td>';
+						html += '</tr>';
+					}
+				}
+			}
+			OneMap.admin.reports.displayResults(html);
 		},
 		submit: function() {
 			if(this.classList.contains('disabled')) return;
 			var query = document.getElementById('query-select').value;
+			document.getElementById('reports-loading').style.display = 'inline-block';
 			OneMap.admin.reports['get'+query.charAt(0).toUpperCase() + query.slice(1)]();
 		},
 		getFloorsByLocation: function() {
