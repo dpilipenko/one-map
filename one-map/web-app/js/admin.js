@@ -6,17 +6,7 @@
  * 		file name structure: 'floorplan-<location ID>.pdf'
  * 5. Hook into backend ajax calls for Admin features
  *
- * Reports
- * 1. print tables for reports
- * 		BLOCKED -- analytics row: need to know what the analytics are
- *
  */
-function isEmpty(obj) {
-	for(var prop in obj) {
-		if(obj.hasOwnProperty(prop)) return false;
-	}
-	return true;
-}
 function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
