@@ -23,7 +23,7 @@
 						<option value="003">New York</option>
 					</select>
 					<input type="button" id="show-conflicts" name="show-conflicts" value="Show Conflicts" class="needs-required disabled" disabled />
-					<img id="conflicts-loading" class="loading-icon" width="13px" height="13px" src="images/loading.gif" />
+					<img id="conflicts-loading" class="loading-icon" width="13px" height="13px" src="/one-map/images/loading.gif" />
 					<div>- OR -</div>
 					<input type="button" id="delete-zone" name="delete-zone" value="Delete" class="needs-required disabled" disabled />
 					<div id="zone-conflicts"  class="hidden-content">
@@ -37,7 +37,7 @@
 				<h2>Seats</h2>
 				
 				<input type="button" id="sync-db" name="sync-db" value="Sync with Active Directory" />
-				<img id="sync-loading" class="loading-icon" width="13px" height="13px" src="images/loading.gif" />
+				<img id="sync-loading" class="loading-icon" width="13px" height="13px" src="/one-map/images/loading.gif" />
 				<form action="">
 					<select name="seats-location-select" id="seats-location-select">
 						<option value="default">Select One</option>					
@@ -88,7 +88,7 @@
 							<option value="003">2 months</option>
 						</select>
 						<input type="button" id="reports-submit" value="Submit" class="needs-required disabled" disabled />
-						<img id="reports-loading" class="loading-icon" width="13px" height="13px" src="images/loading.gif" />
+						<img id="reports-loading" class="loading-icon" width="13px" height="13px" src="/one-map/images/loading.gif" />
 					</div>
 		
 

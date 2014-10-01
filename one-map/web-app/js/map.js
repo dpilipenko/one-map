@@ -310,6 +310,7 @@ var OneMap = {
             }
         },
         backTo3D: function() {
+            if(this.href !== '#') return true;
             $('.ms-wrapper').removeClass('showingfloor');
             $('.showthisfloor').css('background', OneMap.map.orginalBackground);
             $('.floorplan.showthisfloor').attr("data-showing", "false").removeClass('showthisfloor');

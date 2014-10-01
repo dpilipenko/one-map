@@ -7,78 +7,6 @@
  * 5. Hook into backend ajax calls for Admin features
  *
  */
-function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
-    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
-    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
-    
-    var CSV = '';    
-    //Set Report title in first row or line
-    
-    // CSV += ReportTitle + '\r\n\n';  This prints out the title at the top of the file
-
-    //This condition will generate the Label/Header
-    if (ShowLabel) {
-        var row = "";
-        
-        //This loop will extract the label from 1st index of on array
-        for (var index in arrData[0]) {
-            
-            //Now convert each value to string and comma-seprated
-            row += index + ',';
-        }
-
-        row = row.slice(0, -1);
-        
-        //append Label row with line break
-        CSV += row + '\r\n';
-    }
-    
-    //1st loop is to extract each row
-    for (var i = 0; i < arrData.length; i++) {
-        var row = "";
-        
-        //2nd loop will extract each column and convert it in string comma-seprated
-        for (var index in arrData[i]) {
-            row += '"' + arrData[i][index] + '",';
-        }
-
-        row.slice(0, row.length - 1);
-        
-        //add a line break after each row
-        CSV += row + '\r\n';
-    }
-
-    if (CSV == '') {        
-        alert("Invalid data");
-        return;
-    }   
-    
-    //Generate a file name
-    var fileName = "OneMap_";
-    //this will remove the blank-spaces from the title and replace it with an underscore
-    fileName += ReportTitle.replace(/ /g,"_");   
-    
-    //Initialize file format you want csv or xls
-    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
-    
-    // Now the little tricky part.
-    // you can use either>> window.open(uri);
-    // but this will not work in some browsers
-    // or you will not get the correct file extension    
-    
-    //this trick will generate a temp <a /> tag
-    var link = document.createElement("a");    
-    link.href = uri;
-    
-    //set the visibility hidden so it will not effect on your web-layout
-    link.style = "visibility:hidden";
-    link.download = fileName + ".csv";
-    
-    //this part will append the anchor tag and remove it after automatic click
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
 
 var OneMap = {};
 
@@ -116,8 +44,33 @@ OneMap.admin = {
 			modal.classList.remove('active');
 		};
 	},
+	setCookie: function(name, value, exdays) {
+
+	    var expires = "";
+		if (typeof exdays !== 'undefined') {
+			var date = new Date();
+			date.setTime(date.getTime()+(exdays*24*60*60*1000));
+			expires = "; expires="+date.toGMTString();
+		}
+		document.cookie = name +"="+ value + expires +"; path=/";
+	},
+	getCookie: function(cname) {
+		var name = cname + "=",
+	    	ca = document.cookie.split(';');
+	    for(var i = 0; i < ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1);
+	        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+	    }
+	    return "";
+	},
+	deleteCookie: function(name) {
+		OneMap.admin.setCookie(name, "", -1);
+	},
 	zones: {
 		updatedSeats: [],
+		isPreviousState: false,
+
 		getConflicts: function() {
 			if(this.classList.contains('disabled')) return;
 
@@ -213,6 +166,19 @@ OneMap.admin = {
 				}
 
 				document.getElementById('conflicts-listing').innerHTML = conflicts;
+
+				if(OneMap.admin.zones.isPreviousState) {
+					var savedConflicts = OneMap.admin.zones.updatedSeats,
+						numSaved = savedConflicts.length;
+					for(var i = 0; i < numSaved; i++) {
+						var radioBtns = document.getElementsByName('hotspot'+ savedConflicts[i].split(':')[0]);
+						if(radioBtns[0].value === savedConflicts[i]) {
+							radioBtns[0].checked = true;
+						} else {
+							radioBtns[1].checked = true;
+						}
+					}
+				}
 				loadingIcon.style.display = 'none';
 				document.getElementById('zone-conflicts').classList.add('active');
 			}, 1000);
@@ -269,10 +235,28 @@ OneMap.admin = {
 				location = button.dataset.location,
 				url = '/one-map/?hotspot='+hotspot+'&floor='+floor+'&location='+location;
 
+			// set up cookie for when user returns
+			OneMap.admin.setCookie('OM_zones_conflicts', OneMap.admin.zones.updatedSeats.join('|'), 1);
+			OneMap.admin.setCookie('OM_zones_zone', document.getElementById('zones-select').value, 1);
+			OneMap.admin.setCookie('OM_zones_location', document.getElementById('zones-location-select').value, 1);
+
 			window.location.href = url; // functionality on map for this scenario needs implemented
 		},
+		setPreviousState: function() {
+			OneMap.admin.zones.isPreviousState = true;
+			OneMap.admin.zones.updatedSeats = OneMap.admin.getCookie('OM_zones_conflicts').split('|'); // used in the show conflicts function
+
+			document.getElementById('zones-select').value = OneMap.admin.getCookie('OM_zones_zone');
+			$('#zones-select').trigger('change');
+			document.getElementById('zones-location-select').value = OneMap.admin.getCookie('OM_zones_location');
+			$('#show-conflicts').trigger('click');
+
+			OneMap.admin.deleteCookie('OM_zones_zone');
+			OneMap.admin.deleteCookie('OM_zones_location');
+			OneMap.admin.deleteCookie('OM_zones_conflicts');
+		},
 		init: function() {
-			$.get("js/template-admin.html", function (data) {
+			$.get("/one-map/js/template-admin.html", function (data) {
 				$("body").append(data);
 			});
 			$(document).on('click', '#show-conflicts', OneMap.admin.zones.getConflicts);
@@ -284,6 +268,9 @@ OneMap.admin = {
 			});
 			$(document).on('click', '.conflict .user', function() {
 				OneMap.admin.navigatingAwayAlert('zones', 'viewHotspotOnMap', this);
+			});
+			$(document).ready(function() {
+				if(OneMap.admin.getCookie('OM_zones_zone') != "") OneMap.admin.zones.setPreviousState();
 			});
 		}
 	},
@@ -434,6 +421,78 @@ OneMap.admin = {
 	},
 	reports: {
 		currentData: '',
+		JSONToCSVConvertor: function(JSONData, ReportTitle, ShowLabel) {
+		    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+		    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+		    
+		    var CSV = '';    
+		    //Set Report title in first row or line
+		    
+		    // CSV += ReportTitle + '\r\n\n';  This prints out the title at the top of the file
+
+		    //This condition will generate the Label/Header
+		    if (ShowLabel) {
+		        var row = "";
+		        
+		        //This loop will extract the label from 1st index of on array
+		        for (var index in arrData[0]) {
+		            
+		            //Now convert each value to string and comma-seprated
+		            row += index + ',';
+		        }
+
+		        row = row.slice(0, -1);
+		        
+		        //append Label row with line break
+		        CSV += row + '\r\n';
+		    }
+		    
+		    //1st loop is to extract each row
+		    for (var i = 0; i < arrData.length; i++) {
+		        var row = "";
+		        
+		        //2nd loop will extract each column and convert it in string comma-seprated
+		        for (var index in arrData[i]) {
+		            row += '"' + arrData[i][index] + '",';
+		        }
+
+		        row.slice(0, row.length - 1);
+		        
+		        //add a line break after each row
+		        CSV += row + '\r\n';
+		    }
+
+		    if (CSV == '') {        
+		        alert("Invalid data");
+		        return;
+		    }   
+		    
+		    //Generate a file name
+		    var fileName = "OneMap_";
+		    //this will remove the blank-spaces from the title and replace it with an underscore
+		    fileName += ReportTitle.replace(/ /g,"_");   
+		    
+		    //Initialize file format you want csv or xls
+		    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+		    
+		    // Now the little tricky part.
+		    // you can use either>> window.open(uri);
+		    // but this will not work in some browsers
+		    // or you will not get the correct file extension    
+		    
+		    //this trick will generate a temp <a /> tag
+		    var link = document.createElement("a");    
+		    link.href = uri;
+		    
+		    //set the visibility hidden so it will not effect on your web-layout
+		    link.style = "visibility:hidden";
+		    link.download = fileName + ".csv";
+		    
+		    //this part will append the anchor tag and remove it after automatic click
+		    document.body.appendChild(link);
+		    link.click();
+		    document.body.removeChild(link);
+		},
 		showFields: function() {
 			if(this.value == 'default') {
 				OneMap.admin.reports.resetTab();
@@ -488,7 +547,7 @@ OneMap.admin = {
 		generateFile: function() {
 			if(OneMap.admin.reports.currentData === '') return;
 			var title = document.getElementById('query-select').value;
-			JSONToCSVConvertor(OneMap.admin.reports.currentData, title, true);
+			OneMap.admin.reports.JSONToCSVConvertor(OneMap.admin.reports.currentData, title, true);
 		},
 		displayResults: function(data) {
 			var html = 'No Results Found',
@@ -644,7 +703,6 @@ OneMap.admin = {
 				floorSelect.innerHTML = selectOptions;
 			}			
 		},
-
 		init: function() {
 			$(document).on('change', '#query-select', OneMap.admin.reports.showFields);
 			$(document).on('click', '#reports-submit', OneMap.admin.reports.submit);
