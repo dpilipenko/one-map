@@ -170,9 +170,9 @@ OneMap.admin = {
 				if(OneMap.admin.zones.isPreviousState) {
 					var savedConflicts = OneMap.admin.zones.updatedSeats,
 						numSaved = savedConflicts.length;
-					for(var i = 0; i < numSaved; i++) {
-						var radioBtns = document.getElementsByName('hotspot'+ savedConflicts[i].split(':')[0]);
-						if(radioBtns[0].value === savedConflicts[i]) {
+					for(var j = 0; j < numSaved; j++) {
+						var radioBtns = document.getElementsByName('hotspot'+ savedConflicts[j].split(':')[0]);
+						if(radioBtns[0].value === savedConflicts[j]) {
 							radioBtns[0].checked = true;
 						} else {
 							radioBtns[1].checked = true;
