@@ -43,7 +43,7 @@
 		<div class="header-bg">
 
 			<g:if test="${view != 'admin'}">
-				<div class="zone-panel">
+				<div class="zone-panel admin-panel">
 	               	<div class="form">
 	                    <div class="fields">
 	                         <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
@@ -52,13 +52,24 @@
 	                    </div>
 	                    <div class="actions">
 	                         <div class="number-selected"><span id="selected-number">0 seats</span> selected</div>
-	                         <a href="#" class="save-zone">SAVE</a>
-	                         <a href="#" class="cancel-zone">CANCEL</a>
+	                         <a href="#" class="save-zone panel-button">SAVE</a>
+	                         <a href="#" class="cancel-zone panel-button">CANCEL</a>
 	                    </div>
 	               </div>
 	               <div class="response">
 	                    <a href="#" class="okay">OK</a>
 	                    <div>Your zone was successfully created</div>
+	               </div>
+	          	</div>
+	          	<div id="impersonating-panel" class="admin-panel">
+	               	<div class="form">
+	                    <div class="fields">
+	                         <div class="messaging">You are impersonating:</div>
+	                         <div id="impersonating-name"></div>
+	                    </div>
+	                    <div class="actions">
+	                         <a href="#" id="impersonating-done" class="panel-button">DONE</a>
+	                    </div>
 	               </div>
 	          	</div>
 			</g:if>
@@ -135,9 +146,10 @@
 	              	</div>
 	            </div>
 
-	            <g:if test="${view != 'admin'}">
+	            <%-- TODO: add this back in after Active director is hooked up
+	            <g:if test="${view != 'admin'}"> --%>
 		            <a class="skip-login">Skip Login</a>
-		        </g:if>
+		        <%-- </g:if> --%>
 	        </div>
 	    </div>
  	</div><!-- end header -->
@@ -149,11 +161,12 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <g:if test="${view == 'admin'}">
+	<script src="${resource(dir: 'js', file: 'jquery-ui.min.js')}"></script> <!-- currently only have the autocomplete functionality (not sure if we want to spend the time building this custom) -->
 	<script src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </g:if>
 <g:else>
 	<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
+	<script src="${resource(dir: 'js', file: 'map.js')}"></script>
 	<script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 </g:else>
 <script src="${resource(dir: 'js', file: 'login.js')}"></script>
