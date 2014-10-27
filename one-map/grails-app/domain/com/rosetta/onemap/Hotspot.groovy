@@ -14,4 +14,8 @@ class Hotspot {
 		type inList: ["desk", "room"]
 		zone nullable:true
     }
+	
+	boolean isVacant() {
+		return true;
+	}
 }

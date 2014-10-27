@@ -22,24 +22,26 @@ environments {
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            url = "jdbc:mysql://onemapdev.cm4eyezc8vb1.us-east-1.rds.amazonaws.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8"
+			username = "onemapdev"
+			password = "password"
+			pooled = true
+			driverClassName = "com.mysql.jdbc.Driver"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
         }
+		hibernate {
+			show_sql = true
+		}
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=false
-               validationQuery="SELECT 1"
-               jdbcInterceptors="ConnectionState"
-            }
+            url = "jdbc:mysql://SXD00HTTP04E.rosetta.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8"
+			username = "onemap"
+			password = "Rosetta1"
+			pooled = true
+			driverClassName = "com.mysql.jdbc.Driver"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
         }
     }
 }

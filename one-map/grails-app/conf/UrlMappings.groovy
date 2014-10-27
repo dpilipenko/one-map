@@ -15,6 +15,11 @@ class UrlMappings {
 		"/login/$action?"(controller: "login")
 		"/logout/$action?"(controller: "logout")
 		
+		"/admin"{
+			controller="oneMap"
+			action="showAdmin"
+		}
+		
         "500"(view:'/error')
 	}
 }

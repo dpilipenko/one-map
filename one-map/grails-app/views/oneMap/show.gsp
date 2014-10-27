@@ -1,120 +1,10 @@
-<%@ page import="com.rosetta.onemap.User" %>
 <!doctype html>
-<!--[if lt IE 7]> <html lang="en-us" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html lang="en-us" class="lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html lang="en-us" class="lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en-us"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+<html>
+  <head>
+    <meta name="layout" content="main" />
+  </head>
 
-  <title>ONEMAP - Login</title>
-
-  <meta name="viewport" content="width=device-width">
-
-  <link href="${resource(dir: 'css', file: 'main.css')}" rel="stylesheet">
-
-</head>
-
-<body>
-
-<sec:ifLoggedIn>
-   <div class="main">
-</sec:ifLoggedIn>
-<sec:ifNotLoggedIn>
-  <div class="main">
-</sec:ifNotLoggedIn>
-  
-
-  	<div class="fractals"></div>
-
-	   <div class="header login"><!-- add login here -->
-
-  		<div class="header-bg">
-
-          <div class="zone-panel">
-               <div class="form">
-                    <div class="fields">
-                         <div class="messaging">Select the seats you'd like to group into a zone, then fill in the info below</div>
-                         <input class="zone-name" type="text" placeholder="zone name">
-                         <input type="text" class="zone-color" placeholder="color (e.g. #00bce4)">
-                    </div>
-                    <div class="actions">
-                         <div class="number-selected"><span>2 seats</span> selected</div>
-                         <a href="#" class="save-zone">SAVE</a>
-                         <a href="#" class="cancel-zone">CANCEL</a>
-                    </div>
-               </div>
-               <div class="response">
-                    <a href="#" class="okay">OK</a>
-                    <div>Your zone was successfully created</div>
-               </div>
-               
-               
-          </div>
-
-  			<div class="inner">
-  				
-  				<div class="logo"></div>
-				  <div class="divider"></div>
-  				<div class="name">
-  					ONE MAP
-  				</div>
-
-  				<div class="utility">
-	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
-              <input type="submit" class="searchbtn" value="submit" />
-	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
-					  </g:formRemote>
-
-            <div class="logout">
-              <g:link controller="logout">LOGOUT</g:link>
-            </div>
-
-            <!-- if admin -->
-            
-              <div class="create-zone">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">CREATE NEW ZONE</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
-                <div class="generic-popup centered notch-top" id="create-zone-popup">
-                      <div class="inner">
-                        Select a floor first
-                        <div class="notch"></div>
-                      </div>
-                </div>
-              </div>
-            <!-- end if admin -->
-
-					  <sec:ifLoggedIn>
-						
-	  					<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
-	  					<div class="welcome">Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</div>
-  					 </sec:ifLoggedIn>
-  				</div>
-
-  				
-  			
-    		</div>
-
-        <div class="login-dot">
-            <div class="inner">
-              <div class="login-form">
-
-                <div class="login-title">
-                  ONE MAP
-                </div>
-                <label for="username">Email</label>
-                <input class="username" type="text" />
-                <label for="password">Password</label>
-                <input class="password" type="password" />
-                <button type="submit" class="submit-login">SUBMIT</button>
-
-              </div>
-            </div>
-
-          </div>
-
-      </div>
-
-  	</div><!-- end header -->
-
+  <body>
   	<div id="results" class="cleared collapsed">
   		<div class="results-header">
   			<span>RESULTS</span>
@@ -129,39 +19,111 @@
   		</div>
   	</div>
 
-    <div id="offices-container">
-      <div id="offices-slider">
-        <div id="offices" class="ms-wrapper ms-effect-3">
+    <div class="info-panel login">
+        <a class="info-link">i</a>
+        <div class="info-title">Info</div>
+        <div class="info-content">
+            <div class="info-shadow"></div>
+            <strong>Support</strong>
+            <div class="support">
+                Please direct any questions, issues, or feature requests to:
+                <a href="mailto:onemapsupport@rosetta.com">onemapsupport@rosetta.com</a>
+            </div>
+            <strong>Legend</strong>
+            <div class="legend">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><div class="desk-pin">= Seat or Office</div></td>
+                        <td><div class="zone-pin">= Zone Indicator</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="room-pin">= Room</div></td>
+                        <td><div class="zone-vacant"><div></div>= Vacant Zoned Seat</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="warroom-pin">= Warroom</div></td>
+                        <td><div class="zone-occupied"><div></div>= Occupied Zone Seat</div></td>
+                    </tr>
+                </table>
+            </div>
+            <strong>Tips</strong>
+            <div class="tips">
+                <ul>
+                    <li><span>To find a vacant, unzoned seat, search for "Free Zone", then look for desks/offices that are outlined (not filled) on the map</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-          <div id="san-luis-obispo" class="office"></div>
-          <div id="los-angeles" class="office"></div>
-          <div id="san-fransico" class="office"></div>
-          <div id="chicago" class="office"></div>
-          <div id="cleveland" class="office ms-perspective">
+    <div id="offices-container">
+        <div id="offices-slider">
+            <div id="offices" class="ms-wrapper ms-effect-3">
+
+            <div id="san-luis-obispo" class="office"></div>
+            <div id="los-angeles" class="office"></div>
+            <div id="san-fransico" class="office"></div>
+            <div id="chicago" class="office"></div>
+            <div id="cleveland" class="office ms-perspective">
             
             <div id="floor-plans" class="ms-device">
               <div class="ms-screens">
                 <div class="ms-screen-1 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="eleven" class="canvas" data-imgsrc="floorplan-eleven" data-floor="11"></div>
                   <div class="ms-label">Floor 11</div>
                 </div>
                 <div class="ms-screen-2 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="twelve" class="canvas" data-imgsrc="floorplan-twelve" data-floor="12"></div>
                   <div class="ms-label">Floor 12</div>
                 </div>
                 <div class="ms-screen-3 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="thirteen" class="canvas" data-imgsrc="floorplan-thirteen" data-floor="13"></div>
                   <div class="ms-label">Floor 13</div>
                 </div>
                 <div class="ms-screen-4 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="fourteen" class="canvas" data-imgsrc="floorplan-fourteen" data-floor="14"></div>
                   <div class="ms-label">Floor 14</div>
                 </div>
                 <div class="ms-screen-5 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="fifteen" class="canvas" data-imgsrc="floorplan-fifteen" data-floor="15"></div>
                   <div class="ms-label">Floor 15</div>
                 </div>
                 <div class="ms-screen-6 floorplan" data-showing="false">
+                  <div class="corner-results">                    
+                    <div class="warrooms"></div>
+                    <div class="rooms"></div>
+                    <div class="users"></div>
+                    <div class="zones"></div>
+                  </div>
                 	<div id="seventeen" class="canvas" data-imgsrc="floorplan-seventeen" data-floor="17"></div>
                   <div class="ms-label">Floor 17</div>
                 </div>
@@ -173,7 +135,6 @@
           <div id="new-york-fifth" class="office"></div>
           <div id="princeton" class="office"></div>
           <div id="london" class="office"></div>
-
         </div>
         <div id="offices-slider-control">
           <div id="falloff-shadow"></div>
@@ -183,18 +144,16 @@
             <span>Cleveland</span>
             <a href="#" class="arrow-right"></a>
           </div>
-
         </div>
-        
       </div>
 
       <div class="zoom-btns">
         <a href="#" id="plus" class="zoom"></a>
-        <a href="#" id="minus" class="zoom"></a>
+        <a href="#" id="minus" class="zoom disabled"></a>
         <a href="#" id="backto3d">3D</a>
       </div>
 
-      <div id="popup" class="desk">
+        <!-- <div id="popup" class="desk">
         <a href="#" class="close"></a>
 
         <div class="inner">
@@ -229,29 +188,8 @@
             </div>
         </div>
         <div class="notch"></div>
-      </div>
-
+        </div>
+        -->
     </div> <!-- end offices container -->
-
-
-  </div><!-- end main -->
-
-	<script type="text/javascript">
-		var isLoggedIn = false;
-		<sec:ifLoggedIn>
-			isLoggedIn = true;
-		</sec:ifLoggedIn>
-	</script>
-
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-	<script src="${resource(dir: 'js', file: 'main.js')}"></script>
-
-  <script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
-	
-	<script type="text/javascript">
-		Map.login.submitURL = '${postUrl}';
-	</script>
-
 </body>
 </html>
