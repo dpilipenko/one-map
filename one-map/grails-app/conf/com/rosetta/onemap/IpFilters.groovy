@@ -10,13 +10,13 @@ class IpFilters {
     def filters = {
         all(controller:'*', action:'*') {
             before = {
-				def ipAddress = request.getHeader("Client-IP")
-		        log.info ipAddress
-		        if (!ipAddress)
-		            log.info request.getHeader("X-Forwarded-For")
-		
-		        if (!ipAddress)
-		            log.info request.remoteAddr
+//				def ipAddress = request.getHeader("Client-IP")
+//		        log.info ipAddress
+//		        if (!ipAddress)
+//		            log.info request.getHeader("X-Forwarded-For")
+//		
+//		        if (!ipAddress)
+//		            log.info request.remoteAddr
             }
             after = { Map model ->
             }
