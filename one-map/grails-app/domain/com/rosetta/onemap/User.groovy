@@ -1,13 +1,12 @@
 package com.rosetta.onemap
 
 import java.util.Date;
+class User extends org.springframework.security.core.userdetails.User {
 
-class User {
-
-	transient springSecurityService
+	def springSecurityService
 	
 	String username
-	String password
+	String emailAddress
 	String firstName
 	String lastName
 	Office office
@@ -22,31 +21,40 @@ class User {
 	Date lastUpdated
 
 	static constraints = {
-		username blank: false, unique: true, email: true
+		username blank:false
+		emailAddress blank:false, email:true
 		firstName blank:false
 		lastName blank:false
-		password blank: false
 	}
 
 	static mapping = {
-		password column: '`password`'
 	}
-
+	
+	public User() { 
+		super( "guest", "", new HashSet());
+		this.username = "guest";
+	}
+	
+	public User(String username) {
+		super(username, "", new HashSet());
+		this.username = username;
+	}
+	
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this).collect { it.role } as Set
 	}
 
 	def beforeInsert() {
-		encodePassword()
+//		encodePassword()
 	}
 
 	def beforeUpdate() {
 		if (isDirty('password')) {
-			encodePassword()
+//			encodePassword()
 		}
 	}
 
 	protected void encodePassword() {
-		password = springSecurityService.encodePassword(password)
+		password = this.springSecurityService.encodePassword(password)
 	}
 }

@@ -142,7 +142,25 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
+grails.plugin.springsecurity.interceptUrlMap = [
+	'/**':               ['IS_AUTHENTICATED_ANONYMOUSLY']
+]
+
+
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.rosetta.onemap.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.rosetta.onemap.UserRole'
-grails.plugins.springsecurity.authority.className = 'com.rosetta.onemap.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.rosetta.onemap.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.rosetta.onemap.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.rosetta.onemap.Role'
+
+// Added by the Spring Security LDAP plugin:
+grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
+grails.plugin.springsecurity.ldap.context.managerDn = 'CN=dpilipen,OU=Users,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.context.managerPassword = 'Master95!2'
+grails.plugin.springsecurity.ldap.context.server = 'ldaps://global.publicisgroupe.net'
+grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Users,ou=AMER,dc=global,dc=publicisgroupe,dc=net'
+grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
+grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
+grails.plugin.springsecurity.ldap.search.filter = '(sAMAccountName={0})'
+grails.plugin.springsecurity.ldap.search.base = 'DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.search.searchSubtree = true

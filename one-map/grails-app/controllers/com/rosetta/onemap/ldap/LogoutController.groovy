@@ -1,4 +1,5 @@
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+package com.rosetta.onemap.ldap
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 class LogoutController {
 

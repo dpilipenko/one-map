@@ -52,42 +52,42 @@ class BootStrap {
 		////
 		//	Users
 		////
-		def testUser = User.findByUsername("test@rosetta.com")
-		if (testUser == null) {
-			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
-			level: "Associate", craft: "Quality Assurance").save(flush:true);
-		}
-		def dan = User.findByUsername("dan.padgett@rosetta.com")
-		if (dan == null) {
-			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
-		}
-		def dima = User.findByUsername("dmitriy.pilipenko@rosetta.com")
-		if (dima == null) {
-			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Associate", craft: "Software Engineering").save(flush: true);
-		}
-		def liz = User.findByUsername("liz.judd@rosetta.com")
-		if (liz == null) {
-			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		}
-		def dave = User.findByUsername("dave.fagan@rosetta.com")
-		if (dave == null) {
-			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		}
-		def becky = User.findByUsername("becky.horvath@rosetta.com") 
-		if (becky == null) {
-			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "CEO").save(flush: true);
-		}
+//		def testUser = User.findByUsername("test@rosetta.com")
+//		if (testUser == null) {
+//			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
+//			level: "Associate", craft: "Quality Assurance").save(flush:true);
+//		}
+//		def dan = User.findByUsername("dan.padgett@rosetta.com")
+//		if (dan == null) {
+//			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
+//		}
+//		def dima = User.findByUsername("dpilipen")
+//		if (dima == null) {
+//			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Associate", craft: "Software Engineering").save(flush: true);
+//		}
+//		def liz = User.findByUsername("liz.judd@rosetta.com")
+//		if (liz == null) {
+//			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+//		}
+//		def dave = User.findByUsername("dave.fagan@rosetta.com")
+//		if (dave == null) {
+//			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+//		}
+//		def becky = User.findByUsername("becky.horvath@rosetta.com") 
+//		if (becky == null) {
+//			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "CEO").save(flush: true);
+//		}
 
 		////
 		//  Zones

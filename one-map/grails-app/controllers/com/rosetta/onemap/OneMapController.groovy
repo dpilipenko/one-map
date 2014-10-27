@@ -8,7 +8,7 @@ import grails.converters.JSON
 
 import com.rosetta.onemap.pintypes.Room
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
 
@@ -339,7 +339,7 @@ class OneMapController {
 		container.put("level", user.level)
 		container.put("craft", user.craft)
 		container.put("phone", user.phone)
-		container.put("email", user.username)
+		container.put("email", user.emailAddress)
 	}
 	
 	/**
