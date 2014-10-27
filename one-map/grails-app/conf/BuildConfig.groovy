@@ -7,7 +7,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-forkConfig = [maxMemory: 2048, minMemory: 64, debug: true, maxPerm: 512]
+forkConfig = [maxMemory: 2048, minMemory: 64, debug: false, maxPerm: 512]
 grails.project.fork = [
   test: forkConfig, // configure settings for the test-app JVM
   run: forkConfig, // configure settings for the run-app JVM
@@ -49,6 +49,8 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.1"
         compile ":cache:1.1.1"
 		compile ":spring-security-ldap:2.0-RC2"
+		compile ":quartz:1.0.1"
+		compile ":quartz-monitor:1.0"
 		
 		runtime ":hibernate:3.6.10.6"
         runtime ":database-migration:1.3.8"
