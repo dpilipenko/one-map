@@ -1,6 +1,7 @@
 import com.rosetta.onemap.Office
 import com.rosetta.onemap.User
 import com.rosetta.onemap.Zone
+import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
 
 class BootStrap {
@@ -46,7 +47,6 @@ class BootStrap {
 		if (ldoffice == null) {
 			ldoffice = new Office(name: "London").save(flush:true);
 		}
->>>>>>> 6d51373b37be3d9d4156ec8cddce34201501d3b7
 		
 		////
 		//	Users
