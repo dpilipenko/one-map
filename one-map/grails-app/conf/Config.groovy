@@ -158,7 +158,8 @@ grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
 grails.plugin.springsecurity.ldap.context.managerDn = 'CN=dpilipen,OU=Users,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
 grails.plugin.springsecurity.ldap.context.managerPassword = 'Master95!2'
 grails.plugin.springsecurity.ldap.context.server = 'ldaps://global.publicisgroupe.net'
-grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Users,ou=AMER,dc=global,dc=publicisgroupe,dc=net'
+grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'OU=AMER,DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberOf={0}'
 grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
 grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
 grails.plugin.springsecurity.ldap.search.filter = '(sAMAccountName={0})'

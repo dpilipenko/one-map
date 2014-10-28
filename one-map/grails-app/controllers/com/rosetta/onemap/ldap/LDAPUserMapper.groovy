@@ -20,17 +20,19 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 		//printOutAttributes(ctx)
 		
 		String _username = ctx.getAttributes().get("name").toString().split(": ")[1];
+		
 		User _user = User.findByUsername(_username);
 		if (_user == null) {
 			_user = new User(_username);
 		}
-		_user.setCraft(ctx.getAttributes().get("department").toString().split(": ")[1]);
-		_user.setEmailAddress(ctx.getAttributes().get("mail").toString().split(": "[1]));
-		_user.setFirstName(ctx.getAttributes().get("givenName").toString().split(": ")[1]);
-		_user.setLastName(ctx.getAttributes().get("sn").toString().split(": ")[1]);
-		_user.setLevel(ctx.getAttributes().get("title").toString().split(": ")[1]);
-		_user.setOffice(Office.findByName(ctx.getAttributes().get("l").toString().split(": ")[1]));
-		_user.setPhone(ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1]);
+		
+        _user.setCraft(ctx.getAttributes().get("department").toString().split(": ")[1]);
+        _user.setEmailAddress(ctx.getAttributes().get("mail").toString().split(": "[1]));
+        _user.setFirstName(ctx.getAttributes().get("givenName").toString().split(": ")[1]);
+        _user.setLastName(ctx.getAttributes().get("sn").toString().split(": ")[1]);
+        _user.setLevel(ctx.getAttributes().get("title").toString().split(": ")[1]);
+        _user.setOffice(Office.findByName(ctx.getAttributes().get("l").toString().split(": ")[1]));
+        _user.setPhone(ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1]);
 		
 		// Update local DB with LDAP data. TODO: Add conditional to save only if a data is new
 		_user.save(flush: true)
@@ -44,6 +46,9 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 	}
 
 	private printOutAttributes(DirContextOperations ctx) {
+		
+		System.out.println("PRINT GROUPS: " + ctx.getObjectAttributes("memberOf"));
+		
 		for (Object attr : ctx.getAttributes().getAll()) {
 			System.out.println(((Attribute)attr).getID() +":  "+((Attribute)attr).get());
 		}
