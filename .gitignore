@@ -4,7 +4,7 @@ one-map/wrapper/grails-wrapper-runtime-2.3.4.jar
 one-map/wrapper/grails-wrapper.properties
 one-map/wrapper/grails/springloaded-core-1.1.4.jar
 one-map/.classpath
-
+one-map/logs/**
 *.scssc
 
 *.scssc
