@@ -20,7 +20,8 @@ OneMap.login = {
 
         //validation
         if (username.length > 0 && password.length > 0){
-            if(!( /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/.test(username) )){
+        	if(false){
+//            if(!( /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/.test(username) )){
                 $('.username').wrap('<div class="error-wrapper"></div>');
                 $('.username').parent().append('<div class="error-text">' + 'Invalid email format' + '</div>');
             } else {

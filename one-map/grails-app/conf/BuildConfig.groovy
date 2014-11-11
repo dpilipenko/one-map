@@ -48,11 +48,13 @@ grails.project.dependency.resolution = {
 
         compile ":scaffolding:2.0.1"
         compile ":cache:1.1.1"
-		compile ":spring-security-ldap:2.0-RC2"
 		compile ":quartz:1.0.1"
 		compile ":quartz-monitor:1.0"
-		
-		runtime ":hibernate:3.6.10.6"
+		compile ':spring-security-core:2.0-RC4'
+		compile ':spring-security-ldap:2.0-RC2'
+
+        // plugins needed at runtime but not for compilation
+        runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"
         runtime ":database-migration:1.3.8"
         runtime ":jquery:1.10.2.2"
         runtime ":resources:1.2.1"

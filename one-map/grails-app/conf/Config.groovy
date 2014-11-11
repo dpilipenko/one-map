@@ -1,3 +1,6 @@
+import org.apache.log4j.DailyRollingFileAppender
+import org.junit.After;
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -97,12 +100,36 @@ environments {
 
 // log4j configuration
 log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
-
+	appenders {
+		appender new DailyRollingFileAppender(
+			name: "file",
+			file: "logs/one-map.log",
+			datePattern: "'.'yyyy-MM-dd",   //Rollover at midnight each day.
+			layout: pattern(conversionPattern: "%d{yy.MM.dd HH:mm:ss} [%t] %-5p %c %x - %m%n")
+			)
+	}
+	environments {
+		production {
+			appenders {
+				def catalinaBase = System.properties.getProperty('catalina.base')
+				if (!catalinaBase) catalinaBase = '.'
+				def logDirectory = "${catalinaBase}/logs"
+	
+				appender new DailyRollingFileAppender(
+					name: "file",
+					file: "$logDirectory/one-map.log",
+					layout:pattern(conversionPattern: "%d{yy.MM.dd HH:mm:ss} [%t] %-5p %c %x - %m%n"),
+					datePattern:"'.'yyyy-MM-dd",
+					threshold: org.apache.log4j.Level.DEBUG
+					)
+			}
+		}
+	}
+		
+	root {
+		error 'stdout', 'file' 
+	}
+	trace  'com.rosetta.onemap'
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
@@ -116,19 +143,25 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-grails.plugin.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.interceptUrlMap = [
 	'/**':               ['IS_AUTHENTICATED_ANONYMOUSLY']
 ]
 
 // Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.rosetta.onemap.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.rosetta.onemap.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.rosetta.onemap.Role'
+
+// Added by the Spring Security LDAP plugin:
 grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
-grails.plugin.springsecurity.ldap.context.managerDn = 'CN=juan,OU=Accounts,DC=JAVAZQUEZ,DC=com'
-grails.plugin.springsecurity.ldap.context.managerPassword = 'pwd'
-grails.plugin.springsecurity.ldap.context.server = 'ldap://javazquez.com:389'
-grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Accounts,dc=javazquez,dc=com'
+grails.plugin.springsecurity.ldap.context.managerDn = 'CN=__YOUR_USERNAME__,OU=Users,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.context.managerPassword = '__YOUR_PASSWORD__'
+grails.plugin.springsecurity.ldap.context.server = 'ldaps://global.publicisgroupe.net'
+grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'OU=AMER,DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberOf={0}'
 grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
 grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
-grails.plugin.springsecurity.ldap.mapper.userDetailsClass = 'person'
 grails.plugin.springsecurity.ldap.search.filter = '(sAMAccountName={0})'
-grails.plugin.springsecurity.ldap.search.base = 'DC=JAVAZQUEZ,DC=JUAN,DC=com'
+grails.plugin.springsecurity.ldap.search.base = 'DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.search.searchSubtree = true

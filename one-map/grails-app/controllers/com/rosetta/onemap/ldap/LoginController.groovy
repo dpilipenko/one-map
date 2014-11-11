@@ -1,8 +1,11 @@
+package com.rosetta.onemap.ldap
+import com.rosetta.onemap.User
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletResponse
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
@@ -33,13 +36,13 @@ class LoginController {
 		else {
 			redirect action: 'auth', params: params
 		}
+		redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
 	}
 
 	/**
 	 * Show the login page.
 	 */
 	def auth = {
-
 		def config = SpringSecurityUtils.securityConfig
 
 		if (springSecurityService.isLoggedIn()) {
@@ -121,7 +124,8 @@ class LoginController {
 	 * The Ajax success redirect url.
 	 */
 	def ajaxSuccess = {
-		def currentuser = springSecurityService.currentUser
+		String username = springSecurityService.authentication.name;
+		User currentuser = User.findByUsername(username);
 		render([success: true, username: springSecurityService.authentication.name, firstname: currentuser.firstName] as JSON)
 	}
 

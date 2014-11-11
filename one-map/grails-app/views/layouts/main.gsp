@@ -82,7 +82,7 @@
 				</div>
 
 				<div class="utility">
-	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch']">
+	  				<g:formRemote name="searchForm" update="result-list" url="[action: 'runSearch', controller: 'OneMap']">
 	          			<input type="submit" class="searchbtn" value="submit" />
 	    				<input class="searchbar" type="text" name="searchquery" placeholder="Search">
 					</g:formRemote>
@@ -116,7 +116,7 @@
 
 		            <div class="welcome">
 		  				<sec:ifLoggedIn>
-		  	  				<g:set var="userObject" value="${User.findByUsername(sec.loggedInUserInfo(field:'username'))}"/>
+		  	  				<g:set var="userObject" value="${User.findByUsername(sec.username())}"/>
 		  	  				Hey ${userObject.firstName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
 		    			</sec:ifLoggedIn>
 		            </div>
@@ -129,7 +129,7 @@
 		                <div class="login-title">
 		                  ONE MAP
 		                </div>
-		                <label for="username">Email</label>
+		                <label for="username">Username</label>
 		                <input class="username" type="text" />
 		                <label for="password">Password</label>
 		                <input class="password" type="password" />
