@@ -51,42 +51,42 @@ class BootStrap {
 		////
 		//	Users
 		////
-		def testUser = User.findByUsername("test@rosetta.com")
-		if (testUser == null) {
-			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
-			level: "Associate", craft: "Quality Assurance").save(flush:true);
-		}
-		def dan = User.findByUsername("dan.padgett@rosetta.com")
-		if (dan == null) {
-			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
-		}
-		def dima = User.findByUsername("dmitriy.pilipenko@rosetta.com")
-		if (dima == null) {
-			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dmitriy.pilipenko@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Associate", craft: "Software Engineering").save(flush: true);
-		}
-		def liz = User.findByUsername("liz.judd@rosetta.com")
-		if (liz == null) {
-			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		}
-		def dave = User.findByUsername("dave.fagan@rosetta.com")
-		if (dave == null) {
-			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-		}
-		def becky = User.findByUsername("becky.horvath@rosetta.com") 
-		if (becky == null) {
-			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
-			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "CEO").save(flush: true);
-		}
+//		def testUser = User.findByUsername("test@rosetta.com")
+//		if (testUser == null) {
+//			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
+//			level: "Associate", craft: "Quality Assurance").save(flush:true);
+//		}
+//		def dan = User.findByUsername("dan.padgett@rosetta.com")
+//		if (dan == null) {
+//			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
+//		}
+//		def dima = User.findByUsername("dpilipen")
+//		if (dima == null) {
+//			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Associate", craft: "Software Engineering").save(flush: true);
+//		}
+//		def liz = User.findByUsername("liz.judd@rosetta.com")
+//		if (liz == null) {
+//			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+//		}
+//		def dave = User.findByUsername("dave.fagan@rosetta.com")
+//		if (dave == null) {
+//			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+//		}
+//		def becky = User.findByUsername("becky.horvath@rosetta.com") 
+//		if (becky == null) {
+//			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
+//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+//			level: "Senior Associate", craft: "CEO").save(flush: true);
+//		}
 
 		////
 		//  Zones
@@ -103,7 +103,7 @@ class BootStrap {
 		if (uidZone == null) {
 			uidZone = new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
 		}
-				
+
 		////
 		//	11th Floor
 		////
@@ -420,12 +420,12 @@ class BootStrap {
 		if (Desk.findByAssignedSeatId("1135L") == null) {
 			new Desk(office: cloffice, floor: "11", assignedSeatId: "1135L", zone: freeZone, x:508, y:432, polygon:"M507.255,421.928l-6.828,8.4l4.836,10.48l10.711,1.905c0,0-0.516-8.5-2.081-12.491C512.328,426.23,507.255,421.928,507.255,421.928z").save(flush: true);
 		}
-		*/
+		
 
 		////
 		//	12th Floor
 		////
-		 
+		
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219F", zone: freeZone, x:181, y:70, polygon: "M187.989,67.63l-10.955-6.057c0,0-4.288,7.195-0.765,12.744c3.524,5.555,11.736,5.047,11.736,5.047L187.989,67.63z").save(flush: true);
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219A", zone: freeZone, x:188, y:61, polygon: "M187.989,67.63l10.848-6.066c0,0-4.734-7.621-11.667-7.381c-6.933,0.239-10.135,7.39-10.135,7.39L187.989,67.63z").save(flush: true);
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219B", zone: freeZone, x:194, y:70, polygon: "M188.006,79.364l-0.017-11.734l10.848-6.066c0,0,3.799,8.464,1.029,12.579C197.095,78.261,188.006,79.364,188.006,79.364z").save(flush: true);
@@ -667,7 +667,7 @@ class BootStrap {
 		////
 		//	14th Floor
 		////
-		/*
+		
 		new Room(name: "The Grateful Dead", number: "1458", phone: "000.000.0000", office: cloffice, floor: "14", assignedSeatId: "1458", zone: freeZone, x:244, y:470, polygon: "M229.618,426.077l-14.734,36.836l4.954,21.148l-4.7,1.08l6.478,27.311l8.129-2.032l0.889,3.811l42.489-10.161l-14.798-61.986l2.848-8.639c0,0-13.654-5.16-15.841-5.716C241.699,426.806,229.618,426.077,229.618,426.077z").save(flush: true);
 		new Room(name: "James Brown", number: "1433", phone: "000.000.0000", office: cloffice, floor: "14", assignedSeatId: "1433", zone: freeZone, x:231, y:309, polygon: "M216.027,282.162 255.15,282.162 255.15,286.86 264.549,286.86 264.549,336.272 206.628,326.619 197.863,325.221 197.418,286.605 216.408,286.86z").save(flush: true);
 		
@@ -753,7 +753,7 @@ class BootStrap {
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424C", zone: freeZone, x:189, y:35, polygon: "M192.186,29.356l-11.205-0.337c0,0-0.517,7.453,4.543,10.416c5.063,2.969,11.421-0.781,11.421-0.781L192.186,29.356z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424A", zone: freeZone, x:190, y:24, polygon: "M192.186,29.356l6.214-9.233c0,0-6.865-4.113-12.31-1.096c-5.443,3.016-5.11,9.992-5.11,9.992L192.186,29.356z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424B", zone: freeZone, x:198, y:29, polygon: "M196.945,38.653l-4.759-9.297l6.214-9.233c0,0,6.459,5.163,5.911,9.555C203.762,34.073,196.945,38.653,196.945,38.653z").save(flush: true);
-		*/
+		
 		////
 		//	15th Floor
 		////
@@ -818,7 +818,6 @@ class BootStrap {
 		////
 		//	17th Floor
 		////
-		/*
 		if (Room.findByAssignedSeatId("1728") == null) {
 			new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", office: cloffice, floor: "17", assignedSeatId: "1728", zone: freeZone, polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", x: "388", y: "460").save(flush: true);
 		}
@@ -832,7 +831,7 @@ class BootStrap {
 		if (elvis == null) {
 			elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", office: cloffice, floor: "17", assignedSeatId: "1715", zone:uidZone, polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", x: "230", y: "202").save(flush: true);
 		}	
-		*/
+		 */
     }
     def destroy = {
     }

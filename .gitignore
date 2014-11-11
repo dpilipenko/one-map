@@ -1,30 +1,34 @@
-one-map/grailsw
-one-map/grailsw.bat
-one-map/wrapper/grails-wrapper-runtime-2.3.4.jar
-one-map/wrapper/grails-wrapper.properties
-one-map/wrapper/grails/springloaded-core-1.1.4.jar
-one-map/.classpath
+# .gitignore for Grails 1.2 and 1.3
+# Although this should work for most versions of grails, it is
+# suggested that you use the "grails integrate-with --git" command
+# to generate your .gitignore file.
 
-*.scssc
+# web application files
+/web-app/WEB-INF/classes
 
-*.scssc
-one-map/web-app/css/errors.css
-one-map/web-app/css/main.scss.orig
-one-map/web-app/css/mobile.css
-one-map/web-app/images/apple-touch-icon-retina.png
-one-map/web-app/images/apple-touch-icon.png
-one-map/web-app/images/favicon.ico
-one-map/web-app/images/grails_logo.png
-one-map/web-app/images/spinner.gif
-one-map/web-app/images/springsource.png
-one-map/web-app/images/skin/database_add.png
-one-map/web-app/images/skin/database_delete.png
-one-map/web-app/images/skin/database_edit.png
-one-map/web-app/images/skin/database_save.png
-one-map/web-app/images/skin/database_table.png
-one-map/web-app/images/skin/exclamation.png
-one-map/web-app/images/skin/house.png
-one-map/web-app/images/skin/information.png
-one-map/web-app/images/skin/shadow.jpg
-one-map/web-app/images/skin/sorted_asc.gif
-one-map/web-app/images/skin/sorted_desc.gif
+# default HSQL database files for production mode
+/prodDb.*
+
+# general HSQL database files
+*Db.properties
+*Db.script
+
+# logs
+/stacktrace.log
+/test/reports
+/logs
+/one-map/logs
+
+# project release file
+/*.war
+
+# plugin release files
+/*.zip
+/plugin.xml
+
+# older plugin install locations
+/plugins
+/web-app/plugins
+
+# "temporary" build files
+/target
