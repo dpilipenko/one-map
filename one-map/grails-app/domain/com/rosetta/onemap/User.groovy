@@ -1,6 +1,11 @@
 package com.rosetta.onemap
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 class User extends org.springframework.security.core.userdetails.User {
 
 	def springSecurityService
@@ -11,6 +16,7 @@ class User extends org.springframework.security.core.userdetails.User {
 	String lastName
 	Office office
 	String phone
+	
 	String level
 	String craft
 	boolean enabled

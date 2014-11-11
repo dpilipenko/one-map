@@ -21,23 +21,24 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 		
 		String _username = ctx.getAttributes().get("name").toString().split(": ")[1];
 		
-		User _user = User.findByUsername(_username);
-		if (_user == null) {
-			_user = new User(_username);
+		User user = User.findByUsername(username);
+		if (user == null) {
+			user = new User(username);
+			user.save(flush: true)
 		}
 		
-        _user.setCraft(ctx.getAttributes().get("department").toString().split(": ")[1]);
-        _user.setEmailAddress(ctx.getAttributes().get("mail").toString().split(": "[1]));
-        _user.setFirstName(ctx.getAttributes().get("givenName").toString().split(": ")[1]);
-        _user.setLastName(ctx.getAttributes().get("sn").toString().split(": ")[1]);
-        _user.setLevel(ctx.getAttributes().get("title").toString().split(": ")[1]);
-        _user.setOffice(Office.findByName(ctx.getAttributes().get("l").toString().split(": ")[1]));
-        _user.setPhone(ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1]);
+        user.craft = ctx.getAttributes().get("department").toString().split(": ")[1];
+        user.emailAddress = ctx.getAttributes().get("mail").toString().split(": ")[1];
+        user.firstName = ctx.getAttributes().get("givenName").toString().split(": ")[1];
+        user.lastName = ctx.getAttributes().get("sn").toString().split(": ")[1];
+        user.level = ctx.getAttributes().get("title").toString().split(": ")[1];
+        user.office = Office.findByName(ctx.getAttributes().get("l").toString().split(": ")[1]);
+        user.phone = ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1];
 		
 		// Update local DB with LDAP data. TODO: Add conditional to save only if a data is new
-		_user.save(flush: true)
+		user.save(flush: true)
 		
-		return _user;
+		return user;
 	}
 
 	@Override

@@ -155,8 +155,8 @@ grails.plugin.springsecurity.authority.className = 'com.rosetta.onemap.Role'
 
 // Added by the Spring Security LDAP plugin:
 grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
-grails.plugin.springsecurity.ldap.context.managerDn = 'CN=dpilipen,OU=Users,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
-grails.plugin.springsecurity.ldap.context.managerPassword = 'Master95!2'
+grails.plugin.springsecurity.ldap.context.managerDn = 'CN=__YOUR_USERNAME__,OU=Users,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
+grails.plugin.springsecurity.ldap.context.managerPassword = '__YOUR_PASSWORD__'
 grails.plugin.springsecurity.ldap.context.server = 'ldaps://global.publicisgroupe.net'
 grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'OU=AMER,DC=global,DC=publicisgroupe,DC=net'
 grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberOf={0}'
