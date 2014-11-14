@@ -1,4 +1,5 @@
 import com.rosetta.onemap.Office
+import com.rosetta.onemap.Role
 import com.rosetta.onemap.User
 import com.rosetta.onemap.Zone
 import com.rosetta.onemap.pintypes.Desk
@@ -7,6 +8,8 @@ import com.rosetta.onemap.pintypes.Room
 class BootStrap {
 
     def init = { servletContext ->
+		
+		def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
 		
 		////
 		//	Offices
