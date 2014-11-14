@@ -36,11 +36,16 @@ class UserService {
 		user.phone = ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1];
 		
 		Role userRole = Role.findByAuthority('ROLE_USER');
-		user.addToAuthorities(userRole);
 		
 		// Update local DB with LDAP data. TODO: Add conditional to save only if a data is new
 		user.save(flush: true)
 
 		return user;
+	}
+	
+	@Transactional
+	def assignUserRole(User user) {
+		Role role = Role.findByAuthority("ROLE_USER")
+		UserRole.create user, role, true
 	}
 }
