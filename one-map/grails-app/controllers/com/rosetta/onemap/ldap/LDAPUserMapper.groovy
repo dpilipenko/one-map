@@ -16,7 +16,7 @@ import com.rosetta.onemap.User
 import com.rosetta.onemap.UserRole;
 import com.rosetta.onemap.services.UserService;
 
-
+@Transactional
 class LDAPUserMapper implements UserDetailsContextMapper {
 
 	@Autowired
@@ -26,7 +26,8 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 	public User mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
 		//printOutAttributes(ctx)
 		User myUser = userService.readUserFromLDAP(ctx);
-		userService.assignUserRole(myUser);
+		Role userRole = Role.findByAuthority('ROLE_USER');
+		UserRole.create myUser, userRole;
 		return myUser;
 	}
 
