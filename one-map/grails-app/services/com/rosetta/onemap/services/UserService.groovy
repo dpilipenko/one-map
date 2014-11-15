@@ -39,9 +39,7 @@ class UserService {
 		
 		// Update local DB with LDAP data. TODO: Add conditional to save only if a data is new
 		user.save(flush: true)
-		
-		assignUserRole(user);
-		
+
 		return user;
 	}
 	

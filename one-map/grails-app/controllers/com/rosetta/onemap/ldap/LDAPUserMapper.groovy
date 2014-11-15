@@ -26,7 +26,7 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 	public User mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
 		//printOutAttributes(ctx)
 		User myUser = userService.readUserFromLDAP(ctx);
-		
+		userService.assignUserRole(myUser);
 		return myUser;
 	}
 
