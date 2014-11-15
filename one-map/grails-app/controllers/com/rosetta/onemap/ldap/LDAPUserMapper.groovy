@@ -3,7 +3,6 @@ import grails.transaction.Transactional;
 
 import javax.naming.directory.Attribute
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.DirContextAdapter
 import org.springframework.ldap.core.DirContextOperations
 import org.springframework.security.core.GrantedAuthority
@@ -11,24 +10,35 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper
 
 import com.rosetta.onemap.Office
-import com.rosetta.onemap.Role;
 import com.rosetta.onemap.User
-import com.rosetta.onemap.UserRole;
-import com.rosetta.onemap.services.UserService;
 
 @Transactional
 class LDAPUserMapper implements UserDetailsContextMapper {
 
-	@Autowired
-	UserService userService;
-	
 	@Override
 	public User mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
 		//printOutAttributes(ctx)
-		User myUser = userService.readUserFromLDAP(ctx);
-		Role userRole = Role.findByAuthority('ROLE_USER');
-		UserRole.create myUser, userRole;
-		return myUser;
+		
+		String _username = ctx.getAttributes().get("name").toString().split(": ")[1];
+		
+		User user = User.findByUsername(username);
+		if (user == null) {
+			user = new User(username);
+			user.save(flush: true)
+		}
+		
+        user.craft = ctx.getAttributes().get("department").toString().split(": ")[1];
+        user.emailAddress = ctx.getAttributes().get("mail").toString().split(": ")[1];
+        user.firstName = ctx.getAttributes().get("givenName").toString().split(": ")[1];
+        user.lastName = ctx.getAttributes().get("sn").toString().split(": ")[1];
+        user.level = ctx.getAttributes().get("title").toString().split(": ")[1];
+        user.office = Office.findByName(ctx.getAttributes().get("l").toString().split(": ")[1]);
+        user.phone = ctx.getAttributes().get("telephoneNumber").toString().split(": ")[1];
+		
+		// Update local DB with LDAP data. TODO: Add conditional to save only if a data is new
+		user.save(flush: true)
+		
+		return user;
 	}
 
 	@Override
