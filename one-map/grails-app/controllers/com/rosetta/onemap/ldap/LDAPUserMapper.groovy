@@ -21,9 +21,9 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 		
 		String _username = ctx.getAttributes().get("name").toString().split(": ")[1];
 		
-		User user = User.findByUsername(username);
+		User user = User.findByUsername(_username);
 		if (user == null) {
-			user = new User(username);
+			user = new User(_username);
 			user.save(flush: true)
 		}
 		
@@ -46,12 +46,12 @@ class LDAPUserMapper implements UserDetailsContextMapper {
 		throw new IllegalStateException("Only retrieving data from AD is currently supported");
 	}
 
-	private printOutAttributes(DirContextOperations ctx) {
-		
-		System.out.println("PRINT GROUPS: " + ctx.getObjectAttributes("memberOf"));
-		
-		for (Object attr : ctx.getAttributes().getAll()) {
-			System.out.println(((Attribute)attr).getID() +":  "+((Attribute)attr).get());
-		}
-	}
+//	private printOutAttributes(DirContextOperations ctx) {
+//		
+//		System.out.println("PRINT GROUPS: " + ctx.getObjectAttributes("memberOf"));
+//		
+//		for (Object attr : ctx.getAttributes().getAll()) {
+//			System.out.println(((Attribute)attr).getID() +":  "+((Attribute)attr).get());
+//		}
+//	}
 }
