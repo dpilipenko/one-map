@@ -129,7 +129,7 @@
 		                <div class="login-title">
 		                  ONE MAP
 		                </div>
-		                <label for="username">Username - EL BARTO WAS HERE</label>
+		                <label for="username">Username</label>
 		                <input class="username" type="text" />
 		                <label for="password">Password</label>
 		                <input class="password" type="password" />
