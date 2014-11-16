@@ -21,17 +21,9 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:mysql://SXD00HTTP04E.rosetta.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8"
-			username = "onemap"
-			password = "Rosetta1"
-			pooled = true
-			driverClassName = "com.mysql.jdbc.Driver"
-			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }
-		hibernate {
-			show_sql = true
-		}
     }
     production {
         dataSource {
@@ -43,5 +35,8 @@ environments {
 			driverClassName = "com.mysql.jdbc.Driver"
 			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
         }
+		hibernate {
+			show_sql = true
+		}
     }
 }
