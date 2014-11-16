@@ -1,12 +1,11 @@
 package com.rosetta.onemap
 
-import com.rosetta.onemap.IpFilters;
-
 import grails.test.mixin.Mock
-import spock.lang.Specification
 
 import org.apache.commons.logging.Log
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.LogFactory
+
+import spock.lang.Specification
 
 
 @Mock(IpFilters)
