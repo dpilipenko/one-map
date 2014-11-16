@@ -2,6 +2,10 @@ package com.rosetta.onemap
 
 class Role {
 
+	@Override
+	public String toString() {
+		return "Role [authority=" + authority + "]";
+	}
 	String authority
 
 	static mapping = {
@@ -13,16 +17,32 @@ class Role {
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((authority == null) ? 0 : authority.hashCode());
+		return result;
+	}
+	@Override
 	public boolean equals(Object obj) {
-		boolean isEqual = true
-		// both not equal if both are not Roles
-		if (isEqual && !(obj instanceof Role)) {
-			isEqual = false
+		if (this == obj) {
+			return true;
 		}
-		// both not equal if both are not the same authority
-		if (isEqual && !(this.authority.equals(obj.authority))) {
-			isEqual = false
+		if (obj == null) {
+			return false;
 		}
-		return super.equals(obj)
+		if (!(obj instanceof Role)) {
+			return false;
+		}
+		Role other = (Role) obj;
+		if (authority == null) {
+			if (other.authority != null) {
+				return false;
+			}
+		} else if (!authority.equals(other.authority)) {
+			return false;
+		}
+		return true;
 	}
 }

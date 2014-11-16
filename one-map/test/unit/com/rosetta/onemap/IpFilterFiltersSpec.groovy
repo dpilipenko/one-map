@@ -11,12 +11,6 @@ import spock.lang.Specification
 @Mock(IpFilters)
 class IpFilterFiltersSpec extends Specification {
 	private static final Log log = LogFactory.getLog(this)
-	
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 
     void "test logging"() {
 		when:
