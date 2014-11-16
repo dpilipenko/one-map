@@ -25,7 +25,7 @@ class Desk extends Hotspot {
 	}
 	
 	boolean claim(User user) {
-		if ( ! isVacant() ) {
+		if (isVacant() ) {
 			this.user = user
 			this.save(flush:true)
 		} else {

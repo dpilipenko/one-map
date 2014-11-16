@@ -39,7 +39,7 @@ class OneMapController {
 	 */
 	JSONObject claimHotspot() {
 		boolean success
-		User currentUser = springSecurityService.currentUser
+		User currentUser = springSecurityService.principal
 		JSONObject res = new JSONObject()
 		if (currentUser != null) {
 			Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)))
@@ -156,7 +156,7 @@ class OneMapController {
 	 * @return
 	 */
 	JSONObject getHotspot () {
-		User currentUser = springSecurityService.currentUser
+		User currentUser = springSecurityService.principal
 		Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)));
 		JSONObject res = new JSONObject()
 		if (hotspot instanceof Desk) {
@@ -206,7 +206,7 @@ class OneMapController {
 	 */
 	JSONObject unclaimHotspot () {
 		JSONObject res = new JSONObject()
-		User currUser = springSecurityService.currentUser
+		User currUser = springSecurityService.principal
 		if (currUser == null) {
 			res.put("success", false)
 		} else {
@@ -366,7 +366,7 @@ class OneMapController {
 		}
 		for (Desk desk : deskResults) {
 			JSONObject deskObject = new JSONObject()
-			printDeskHotspot(desk, deskObject, springSecurityService.currentUser)
+			printDeskHotspot(desk, deskObject, springSecurityService.principal)
 			deskObject.put("hotspotId", 'h'+desk.id)
 			searchResults.add(deskObject)
 		}
@@ -534,8 +534,7 @@ class OneMapController {
 		boolean success
 		if (desk.isVacant()) {
 			unclaimAllHotspotsForUser(user)
-			desk.claim(user);
-			success = true
+			success = desk.claim(user);
 		} else {
 			success = false // Desk is not empty
 		}

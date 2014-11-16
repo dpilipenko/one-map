@@ -5,109 +5,45 @@ import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
 
 class BootStrap {
-
-    def init = { servletContext ->
+	
+	private Office cloffice;
+	private Zone freeZone;
+	private Zone ahaZone;
+	private Zone uidZone;
+	
+	def init = { servletContext ->
 		
 		////
 		//	Offices
 		////
-		def cloffice = Office.findByName("Cleveland")
-		if (cloffice == null) { 
-			cloffice = new Office(name: "Cleveland").save(flush:true);
-		}
-		def njoffice = Office.findByName("Princeton")
-		if (njoffice == null) {
-			njoffice = new Office(name: "Princeton").save(flush:true);
-		}
-		def nyhoffice = Office.findByName("New York - Hudson Street")
-		if (nyhoffice == null) {
-			nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);
-		}
-		def ny5office = Office.findByName("New York - 5th Avenue")
-		if (ny5office == null) {
-			ny5office = new Office(name: "New York - 5th Avenue").save(flush:true);
-		}
-		def chioffice = Office.findByName("Chicago")
-		if (chioffice == null) {
-			chioffice = new Office(name: "Chicago").save(flush:true);
-		}
-		def sfoffice = Office.findByName("San Francisco")
-		if (sfoffice == null) {
-			sfoffice = new Office(name: "San Francisco").save(flush:true);
-		}
-		def slooffice = Office.findByName("San Luis Obispo")
-		if (slooffice == null) {
-			slooffice = new Office(name: "San Luis Obispo").save(flush:true);
-		}
-		def laoffice = Office.findByName("Los Angeles")
-		if (laoffice == null) {
-			laoffice = new Office(name: "Los Angeles").save(flush:true);
-		}
-		def ldoffice = Office.findByName("London")
-		if (ldoffice == null) {
-			ldoffice = new Office(name: "London").save(flush:true);
-		}
+		saveOffices()
 		
 		////
 		//	Users
 		////
-//		def testUser = User.findByUsername("test@rosetta.com")
-//		if (testUser == null) {
-//			testUser = new User(firstName:"Tess", lastName:"Ting", username:"test@rosetta.com", password: "password", enabled: true,
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "216-867-5309",
-//			level: "Associate", craft: "Quality Assurance").save(flush:true);
-//		}
-//		def dan = User.findByUsername("dan.padgett@rosetta.com")
-//		if (dan == null) {
-//			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dan.padgett@rosetta.com", password: "passw0rd", enabled: true, 
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-//			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
-//		}
-//		def dima = User.findByUsername("dpilipen")
-//		if (dima == null) {
-//			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", password: "passw0rd", enabled: true, 
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-//			level: "Associate", craft: "Software Engineering").save(flush: true);
-//		}
-//		def liz = User.findByUsername("liz.judd@rosetta.com")
-//		if (liz == null) {
-//			liz = new User(firstName: "Liz", lastName: "Judd", username: "liz.judd@rosetta.com", password: "passw0rd", enabled: true, 
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-//		}
-//		def dave = User.findByUsername("dave.fagan@rosetta.com")
-//		if (dave == null) {
-//			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dave.fagan@rosetta.com", password: "passw0rd", enabled: true, 
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-//			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
-//		}
-//		def becky = User.findByUsername("becky.horvath@rosetta.com") 
-//		if (becky == null) {
-//			becky = new User(firstName: "Becky", lastName: "Horvath", username: "becky.horvath@rosetta.com", password: "passw0rd", enabled: true, 
-//			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-//			level: "Senior Associate", craft: "CEO").save(flush: true);
-//		}
+		saveUsers()
 
 		////
 		//  Zones
 		////
-		Zone freeZone = Zone.findByName("Free Zone")
-		if (freeZone == null) {
-			freeZone = Zone.getFreeZone().save(flush:true)
-		}
-		Zone ahaZone = Zone.findByName("AHA")
-		if (ahaZone == null) {
-			ahaZone = new Zone(name: "AHA", color: "#880088").save(flush:true)
-		}
-		Zone uidZone = Zone.findByName("UID Pod")
-		if (uidZone == null) {
-			uidZone = new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
-		}
-
+		saveZones()
+		
 		////
-		//	11th Floor
+		//	Cleveland Office
 		////
-		/*
+		saveCleveland11()
+		saveCleveland12()
+		saveCleveland13()
+		saveCleveland14()
+		saveCleveland15()
+		saveCleveland17()
+		
+	}
+	
+	def destroy = {
+	}
+	
+	private saveCleveland11() {
 		new Room(name: "Nirvana", number: "1127", phone: "000.000.0000", office: cloffice, floor: "11", assignedSeatId: "1127", zone: freeZone, x: 243, y: 321, polygon: "M219.38,284.96 265.18,284.96 266.64,349.28 244.08,353.84 235.56,356.6z").save(flush: true);
 		new Room(name: "Beastie Boys", number: "1141", phone: "000.000.0000", office: cloffice, floor: "11", assignedSeatId: "1141", zone: freeZone, x: 241, y: 470, polygon: "M209.16,461.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239c0,0-20.6-5.111-21.9-4.2L215.4,459.8L209.16,461.36z").save(flush: true);
 
@@ -420,12 +356,9 @@ class BootStrap {
 		if (Desk.findByAssignedSeatId("1135L") == null) {
 			new Desk(office: cloffice, floor: "11", assignedSeatId: "1135L", zone: freeZone, x:508, y:432, polygon:"M507.255,421.928l-6.828,8.4l4.836,10.48l10.711,1.905c0,0-0.516-8.5-2.081-12.491C512.328,426.23,507.255,421.928,507.255,421.928z").save(flush: true);
 		}
-		
-
-		////
-		//	12th Floor
-		////
-		
+	}
+	
+	private saveCleveland12() {
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219F", zone: freeZone, x:181, y:70, polygon: "M187.989,67.63l-10.955-6.057c0,0-4.288,7.195-0.765,12.744c3.524,5.555,11.736,5.047,11.736,5.047L187.989,67.63z").save(flush: true);
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219A", zone: freeZone, x:188, y:61, polygon: "M187.989,67.63l10.848-6.066c0,0-4.734-7.621-11.667-7.381c-6.933,0.239-10.135,7.39-10.135,7.39L187.989,67.63z").save(flush: true);
 		new Desk(office: cloffice, floor: "12", assignedSeatId: "1219B", zone: freeZone, x:194, y:70, polygon: "M188.006,79.364l-0.017-11.734l10.848-6.066c0,0,3.799,8.464,1.029,12.579C197.095,78.261,188.006,79.364,188.006,79.364z").save(flush: true);
@@ -534,12 +467,9 @@ class BootStrap {
 		new Room(name: "Billy Joel", number: "1243", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1243", zone: freeZone, x:244, y:471, polygon: "M250.68,430.8 229.2,426.48 214.56,463.2 225.72,511.56 229.32,510.72 230.16,514.56 272.04,504.6 272.76,500.28 257.88,442.44 260.28,434.4z").save(flush: true);
 		new Room(name: "Van Halen", number: "1239", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1239", zone: freeZone, x:491, y:422, polygon: "M454.68,456 442.32,399 505.2,384.12 539.4,435.96 537.24,437.4 539.4,440.64 459,460.56 458.34,457.808 455.64,458.16z").save(flush: true);
 		new Room(name: "Run DMC", number: "1237", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1237", zone: freeZone, x:459, y:345, polygon: "M428.04,344.64 430.92,358.68 447.72,356.16 455.521,367.92 489.36,360 483.84,351.6 481.33,353.25 478.561,348.36 480.72,346.92 464.88,322.8z").save(flush: true);
-		
+	}
 	
-		////
-		//	13th Floor
-		//// 
-		
+	private saveCleveland13() {
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317I", zone: freeZone, x:191, y:89, polygon: "M191.197,82.538l-10.495,6.423c0,0,4.028,7.224,10.466,6.931c6.443-0.291,10.017-7.591,10.017-7.591L191.197,82.538z").save(flush: true);
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317G", zone: freeZone, x:185, y:80, polygon: "M191.197,82.538l0.132-12.3c0,0-8.791,0.312-11.969,6.384c-3.177,6.069,1.342,12.34,1.342,12.34L191.197,82.538z").save(flush: true);
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317H", zone: freeZone, x:197, y:79, polygon: "M201.184,88.301l-9.987-5.764l0.132-12.3c0,0,9.05,0.906,11.2,5.31C204.678,79.954,201.184,88.301,201.184,88.301z").save(flush: true);
@@ -656,25 +586,16 @@ class BootStrap {
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1325", zone: freeZone, x:244, y:241, polygon: "M222.24,227.56 227.04,253.72 265.32,253.72 265.32,232.24 262.02,232.166 262.2,227.56z").save(flush: true);
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1326", zone: freeZone, x:244, y:268, polygon: "M227.04,254.8 222.6,276.88 222.24,280.96 262.32,280.96 262.32,277.48 265.32,277.48 264.84,254.92z").save(flush: true);
 		new Desk(office: cloffice, floor: "13", assignedSeatId: "1335", zone: freeZone, x:444, y:322, polygon: "M421.92,314.56 429.48,341.2 437.28,338.56 465.48,321.28 454.92,305.2 452.494,306.58 450.84,303.64 424.68,309.88 425.76,313.721z").save(flush: true);
-
-		new Room(name: 'Queen', number: '1319', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1319", zone: freeZone, x:224, y:33, polygon: "M183.24,8.8 183.24,58.84 262.08,58.84 262.08,54.28 265.32,54.28 265.32,10.84 261.84,10.5 262.08,6.64 217.92,6.64 217.92,11.32 210.96,11 210.96,8.8z").save(flush: true);
-		new Room(name: 'Elton John', number: '1329', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1329", zone: freeZone, x:243, y:318, polygon: "M234.84,351.4 219.96,285.52 237.6,285.52 237.6,282.04 262.32,282.04 262.32,285.52 265.32,285.52 265.32,340.84 262.92,340.66 262.92,344.56 258.72,345.64 259.92,350.32 244.328,353.341 243,349.499z").save(flush: true);
-		new Room(name: 'James Taylor', number: '1343', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1343", zone: freeZone, x:245, y:470, polygon: "M261.547,433.853 252.023,430.134 230.52,425.8 215.76,462.64 227.04,511 230.52,510.16 231.48,513.88 273.36,504.04 272.88,500.98 259.354,441.34z").save(flush: true);
-		new Room(name: 'Earth Wind & Fire', number: '1334', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1334", zone: freeZone, x:491, y:422, polygon: "M441.84,398.8 456.84,457.6 459.6,456.88 460.32,460 504.12,449.68 503.4,446.56 511.32,444.76 512.04,447.76 540.6,440.08 538.44,436.84 540.6,435.4 515.4,396.64 513.24,398.02 510,393.52 512.16,392.08 506.52,383.56z").save(flush: true);
-		new Room(name: 'Jimi Hendrix', number: '1336', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1336", zone: freeZone, x:460, y:345, polygon: "M428.76,343.6 433.5,359.44 449.04,355.48 456.72,367.36 490.56,359.32 485.04,351.04 482.279,352.24 479.88,347.68 482.04,346.36 466.48,322.009 438.684,340.249z").save(flush: true);
-		
-
-		////
-		//	14th Floor
-		////
-		
+	}
+	
+	private saveCleveland14() {
 		new Room(name: "The Grateful Dead", number: "1458", phone: "000.000.0000", office: cloffice, floor: "14", assignedSeatId: "1458", zone: freeZone, x:244, y:470, polygon: "M229.618,426.077l-14.734,36.836l4.954,21.148l-4.7,1.08l6.478,27.311l8.129-2.032l0.889,3.811l42.489-10.161l-14.798-61.986l2.848-8.639c0,0-13.654-5.16-15.841-5.716C241.699,426.806,229.618,426.077,229.618,426.077z").save(flush: true);
 		new Room(name: "James Brown", number: "1433", phone: "000.000.0000", office: cloffice, floor: "14", assignedSeatId: "1433", zone: freeZone, x:231, y:309, polygon: "M216.027,282.162 255.15,282.162 255.15,286.86 264.549,286.86 264.549,336.272 206.628,326.619 197.863,325.221 197.418,286.605 216.408,286.86z").save(flush: true);
 		
-		new Desk(user: liz, office: cloffice, floor: "14", assignedSeatId: "1416", zone: freeZone, x:21, y:145, polygon: "M9.489,117.095 32.988,117.095 32.988,172.287 9.489,171.2z").save(flush: true);
-		new Desk(user: becky, office: cloffice, floor: "14", assignedSeatId: "1418", zone: freeZone, x:72, y:135, polygon: "M59.6,115.761 83.607,115.888 83.607,154.63 59.6,154.63z").save(flush: true);
-		new Desk(user: dan, office: cloffice, floor: "14", assignedSeatId: "1419", zone: freeZone, x:98, y:135, polygon: "M84.645,115.761 110.853,115.508 110.344,154.885 84.645,154.63z").save(flush: true);
-		new Desk(user: dave, office: cloffice, floor: "14", assignedSeatId: "1417", zone: freeZone, x:47, y:135, polygon: "M34.576,115.952 58.583,116.079 58.583,154.821 34.576,154.821z").save(flush: true);
+		new Desk(office: cloffice, floor: "14", assignedSeatId: "1416", zone: freeZone, x:21, y:145, polygon: "M9.489,117.095 32.988,117.095 32.988,172.287 9.489,171.2z").save(flush: true);
+		new Desk(office: cloffice, floor: "14", assignedSeatId: "1418", zone: freeZone, x:72, y:135, polygon: "M59.6,115.761 83.607,115.888 83.607,154.63 59.6,154.63z").save(flush: true);
+		new Desk(office: cloffice, floor: "14", assignedSeatId: "1419", zone: freeZone, x:98, y:135, polygon: "M84.645,115.761 110.853,115.508 110.344,154.885 84.645,154.63z").save(flush: true);
+		new Desk(office: cloffice, floor: "14", assignedSeatId: "1417", zone: freeZone, x:47, y:135, polygon: "M34.576,115.952 58.583,116.079 58.583,154.821 34.576,154.821z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1413", zone: freeZone, x:98, y:207, polygon: "M84.432,186.259 111.488,186.259 110.344,227.097 84.645,226.842z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1414", zone: freeZone, x:71, y:207, polygon: "M59.79,187.402 83.289,187.529 83.289,226.736 59.282,227.097z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1431", zone: freeZone, x:242, y:199, polygon: "M220.092,171.143 261.247,171.779 261.247,174.954 264.549,174.954 264.549,221.825 261.375,221.825 261.375,226.525 221.362,226.525 225.681,199.088z").save(flush: true);
@@ -753,11 +674,9 @@ class BootStrap {
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424C", zone: freeZone, x:189, y:35, polygon: "M192.186,29.356l-11.205-0.337c0,0-0.517,7.453,4.543,10.416c5.063,2.969,11.421-0.781,11.421-0.781L192.186,29.356z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424A", zone: freeZone, x:190, y:24, polygon: "M192.186,29.356l6.214-9.233c0,0-6.865-4.113-12.31-1.096c-5.443,3.016-5.11,9.992-5.11,9.992L192.186,29.356z").save(flush: true);
 		new Desk(office: cloffice, floor: "14", assignedSeatId: "1424B", zone: freeZone, x:198, y:29, polygon: "M196.945,38.653l-4.759-9.297l6.214-9.233c0,0,6.459,5.163,5.911,9.555C203.762,34.073,196.945,38.653,196.945,38.653z").save(flush: true);
-		
-		////
-		//	15th Floor
-		////
-		
+	}
+	
+	private saveCleveland15() {
 		new Room(name: "Usability Lab 1", number: "1516", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1516", zone: freeZone, x:106, y:145, polygon: "M126.88,121.32 126.88,173.76 84.64,173.76 84.64,116.28 102.64,116.28 102.58,117.75 105.88,117.6 105.88,121.02z").save(flush: true);
 		new Room(name: "Usability Lab 2", number: "1515", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1515", zone: freeZone, x:71, y:146, polygon: "M63.76,175.44 62.2,174.72 62.2,168.96 59.32,168.96 59.32,119.52 63.28,119.52 63.28,116.28 82.6,116.28 82.6,174.72z").save(flush: true);
 		new Room(name: "Usability Lab Waiting Room", number: "1513", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1513", zone: freeZone, x:86, y:202, polygon: "M130,180.96 121.24,192.36 121.24,228.24 42.52,227.52 41.44,176.52 121.6,175.8z").save(flush: true);
@@ -813,11 +732,9 @@ class BootStrap {
 		new Desk(office: cloffice, floor: "15", assignedSeatId: "1539S", zone: freeZone, x:408, y:403, polygon: "M398.056,393.153l15.252,2.951l4.631,15.313C417.938,411.418,398.264,417.037,398.056,393.153z").save(flush: true);
 		new Desk(office: cloffice, floor: "15", assignedSeatId: "1539U", zone: freeZone, x:411, y:389, polygon: "M422.986,385.15l-10.509,11.425l-14.032-3.832C398.445,392.743,402.627,372.78,422.986,385.15z").save(flush: true);
 		new Desk(office: cloffice, floor: "15", assignedSeatId: "1539T", zone: freeZone, x:420, y:399, polygon: "M417.507,412.049l-5.209-14.623l10.761-12.448C423.059,384.978,437.942,399.803,417.507,412.049z").save(flush: true);
+	}
 	
-	
-		////
-		//	17th Floor
-		////
+	private saveCleveland17() {
 		if (Room.findByAssignedSeatId("1728") == null) {
 			new Room(name: "The Beatles", number: "1728", phone: "216.896.6666", office: cloffice, floor: "17", assignedSeatId: "1728", zone: freeZone, polygon: "M344.099,446.051 354.658,491.652 431.578,473.412 420.658,427.931z", x: "388", y: "460").save(flush: true);
 		}
@@ -830,9 +747,94 @@ class BootStrap {
 		Room elvis = Room.findByAssignedSeatId("1715");
 		if (elvis == null) {
 			elvis = new Room(name: "Elvis Presley", number: "1715", phone: "216.896.1041", office: cloffice, floor: "17", assignedSeatId: "1715", zone:uidZone, polygon: "M280.979,172.452 279.178,227.532 231.778,231.011 199.229,224.863 191.938,221.652 178.802,213.057 181.858,198.372 186.658,175.211 187.138,173.292z", x: "230", y: "202").save(flush: true);
-		}	
-		 */
-    }
-    def destroy = {
-    }
+		}
+	}
+	
+	private saveOffices() {
+		cloffice = Office.findByName("Cleveland")
+		if (cloffice == null) {
+			cloffice = new Office(name: "Cleveland").save(flush:true);
+		}
+		def njoffice = Office.findByName("Princeton")
+		if (njoffice == null) {
+			njoffice = new Office(name: "Princeton").save(flush:true);
+		}
+		def nyhoffice = Office.findByName("New York - Hudson Street")
+		if (nyhoffice == null) {
+			nyhoffice = new Office(name: "New York - Hudson Street").save(flush:true);
+		}
+		def ny5office = Office.findByName("New York - 5th Avenue")
+		if (ny5office == null) {
+			ny5office = new Office(name: "New York - 5th Avenue").save(flush:true);
+		}
+		def chioffice = Office.findByName("Chicago")
+		if (chioffice == null) {
+			chioffice = new Office(name: "Chicago").save(flush:true);
+		}
+		def sfoffice = Office.findByName("San Francisco")
+		if (sfoffice == null) {
+			sfoffice = new Office(name: "San Francisco").save(flush:true);
+		}
+		def slooffice = Office.findByName("San Luis Obispo")
+		if (slooffice == null) {
+			slooffice = new Office(name: "San Luis Obispo").save(flush:true);
+		}
+		def laoffice = Office.findByName("Los Angeles")
+		if (laoffice == null) {
+			laoffice = new Office(name: "Los Angeles").save(flush:true);
+		}
+		def ldoffice = Office.findByName("London")
+		if (ldoffice == null) {
+			ldoffice = new Office(name: "London").save(flush:true);
+		}
+	}
+	
+	private saveUsers() {
+		def dan = User.findByUsername("dpadgett")
+		if (dan == null) {
+			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dpadgett", enabled: true,
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
+		}
+		def dima = User.findByUsername("dpilipen")
+		if (dima == null) {
+			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", enabled: true,
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Associate", craft: "Software Engineering").save(flush: true);
+		}
+		def liz = User.findByUsername("ljudd5")
+		if (liz == null) {
+			liz = new User(firstName: "Liz", lastName: "Judd", username: "ljudd5", enabled: true,
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+		}
+		def dave = User.findByUsername("dfagan5")
+		if (dave == null) {
+			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dfagan5", enabled: true,
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+		}
+		def becky = User.findByUsername("bhorvath5")
+		if (becky == null) {
+			becky = new User(firstName: "Becky", lastName: "Horvath", username: "bhorvath5", enabled: true,
+			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
+			level: "Senior Associate", craft: "CEO").save(flush: true);
+		}
+	}
+	
+	private saveZones() {
+		freeZone = Zone.findByName("Free Zone")
+		if (freeZone == null) {
+			freeZone = Zone.getFreeZone().save(flush:true)
+		}
+		ahaZone = Zone.findByName("AHA")
+		if (ahaZone == null) {
+			ahaZone = new Zone(name: "AHA", color: "#880088").save(flush:true)
+		}
+		uidZone = Zone.findByName("UID Pod")
+		if (uidZone == null) {
+			uidZone = new Zone(name: "UID Pod", color: "#00FF00").save(flush:true)
+		}
+	}
+	
 }

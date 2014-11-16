@@ -17,7 +17,7 @@ class DeskService {
 	void unclaimAllForUser(User user) {
 		for (Desk desk : Desk.findAllByUser(user)) {
 			desk.user = null;
-			desk.delete(flush:true) 
+			desk.save(flush:true) 
 		}
 	}
 	
