@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.1"
         compile ":cache:1.1.1"
 		compile ":codenarc:0.22"
+		compile ":jslint:0.6"
 		compile ":quartz:1.0.1"
 		compile ":quartz-monitor:1.0"
 		compile ':spring-security-core:2.0-RC4'
