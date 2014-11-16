@@ -53,6 +53,7 @@ class OneMapController {
 			}
 			JSONObject userInformation = new JSONObject()
 			printUser(userInformation, currentUser)
+			printHotspot(hotspot, userInformation)
 			res.put("userinformation", userInformation)
 		} else {
 			res.put("userinformation", null)

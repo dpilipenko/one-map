@@ -461,8 +461,20 @@ var OneMap = {
                         // }, 1500);
                     } else { // desk
                         $modalContent.removeClass('loading');
-                        object = object.userinformation;
-                        var content = $('#user-template').html().format(object.name, object.level, object.craft, object.phone, object.email);
+                        var user = object.userinformation;
+                       
+                        var zoneDisplay;
+                        if(OneMap.userIsAdmin){
+                            zoneDisplay = '<select class="zone-select">';
+                            for (var z = 0; z < OneMap.zones.allZones.length; z++){
+                                zoneDisplay += '<option value="' + OneMap.zones.allZones[z].id + '" ' + ( (object.zone.id == OneMap.zones.allZones[z].id) ? 'selected="selected"' : '') + '>' + ((OneMap.zones.allZones[z].name.toLowerCase().replace(/ /g,"") === "freezone") ? "None" : OneMap.zones.allZones[z].name) + '</option>';
+                            }
+                            zoneDisplay += '</select><a id="saveSeatZone">Save</a>';
+                        } else {
+                            zoneDisplay = (object.zone.name.toLowerCase().replace(/ /g,"") === "freezone") ? "None" : object.zone.name;
+                        }
+                        
+                        var content = $('#user-template').html().format(user.name, user.level, user.craft, user.phone, user.email, object.assignedSeatId, zoneDisplay);
                         $modalContent.html(content);
                     }
                 },
