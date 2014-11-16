@@ -62,3 +62,17 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.2.1"
     }
 }
+
+codenarc.extraIncludeDirs=['grails-app/jobs']
+codenarc.reports = {
+	// Each report definition is of the form:
+	//    REPORT-NAME(REPORT-TYPE) {
+	//        PROPERTY-NAME = PROPERTY-VALUE
+	//        PROPERTY-NAME = PROPERTY-VALUE
+	//    }
+
+	MyHtmlReport('html') {                  // Report type is 'html'
+		outputFile = 'CodeNarcReport.html'
+		title = 'CodeNarc Report'
+	}
+}
