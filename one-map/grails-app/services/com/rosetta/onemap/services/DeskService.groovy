@@ -19,7 +19,7 @@ class DeskService {
 			desk.user = null;
 			desk.save(flush:true) 
 		}
-		asdfjad;
+		asdfjad = 012/0zs;
 	}
 	
 	/**
