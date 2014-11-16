@@ -72,7 +72,7 @@ codenarc.reports = {
 	//    }
 
 	MyHtmlReport('html') {                  // Report type is 'html'
-		outputFile = 'CodeNarcReport.html'
+		outputFile = 'target/CodeNarcReport.html'
 		title = 'CodeNarc Report'
 	}
 }
