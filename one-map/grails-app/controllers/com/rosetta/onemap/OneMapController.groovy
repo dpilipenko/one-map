@@ -6,8 +6,6 @@ import com.rosetta.onemap.pintypes.Room
 
 import grails.converters.JSON
 
-import com.rosetta.onemap.pintypes.Room
-
 import grails.plugin.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONObject
