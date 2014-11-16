@@ -8,8 +8,6 @@ import com.rosetta.onemap.User
 
 @Transactional
 class RoomService {
-    def serviceMethod() { }
-	
 	/**
 	 * Removes all mentions of User in all Room pins
 	 * @param user The user being removed
@@ -88,5 +86,4 @@ class RoomService {
 		}
 		return r
 	}
-	
 }

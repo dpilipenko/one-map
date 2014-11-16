@@ -8,8 +8,6 @@ import com.rosetta.onemap.pintypes.Desk
 
 @Transactional
 class DeskService {
-    def serviceMethod() { }
-	
 	/**
 	 * Deletes all Desk pins that belong to user
 	 * @param user Person that owns desk pins
@@ -35,5 +33,4 @@ class DeskService {
 		desk.lastUpdated = new Date()
 		desk.save(flush:true)
 	}
-	
 }
