@@ -75,4 +75,8 @@ codenarc.reports = {
 		outputFile = 'target/CodeNarcReport.html'
 		title = 'CodeNarc Report'
 	}
+codenarc.properties = {
+		GrailsDomainHasEquals.enabled=false
+		GrailsDomainHasToString.enabled=false
+	}
 }
