@@ -1,54 +1,8 @@
 package com.rosetta.onemap
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 class UserRole implements Serializable {
-
-	@Override
-	public String toString() {
-		return "UserRole [user=" + user + ", role=" + role + "]";
-	}
-
 	User user
 	Role role
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof UserRole)) {
-			return false;
-		}
-		UserRole other = (UserRole) obj;
-		if (role == null) {
-			if (other.role != null) {
-				return false;
-			}
-		} else if (!role.equals(other.role)) {
-			return false;
-		}
-		if (user == null) {
-			if (other.user != null) {
-				return false;
-			}
-		} else if (!user.equals(other.user)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
 
 	static UserRole get(long userId, long roleId) {
 		find 'from UserRole where user.id=:userId and role.id=:roleId',
