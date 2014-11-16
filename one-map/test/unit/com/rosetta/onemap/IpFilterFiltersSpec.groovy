@@ -26,3 +26,4 @@ class IpFilterFiltersSpec extends Specification {
 		true
     }
 }
+
