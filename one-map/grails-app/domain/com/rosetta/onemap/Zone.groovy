@@ -25,6 +25,19 @@ public class Zone {
 		o.put("name", this.name)
 		o.put("color", this.color)
 	}
+	@Override
+	public boolean equals(Object obj) {
+		boolean isEqual = true
+		// not equal if both not Zones
+		if (isEqual && !(obj instanceof Zone)) {
+			isEqual = false
+		}
+		// not equal if different name
+		if (isEqual && !(this.name.equals(obj.name))) {
+			isEqual = false
+		}
+		return isEqual
+	}
 	
 	/* Private Methods */
 	private static void createFreeZone() {

@@ -1,23 +1,15 @@
 package com.rosetta.onemap
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 class User extends org.springframework.security.core.userdetails.User {
 
-	def springSecurityService
-	
 	String username
 	String emailAddress
 	String firstName
 	String lastName
 	Office office
 	String phone
-	
-	String level
+	String level // TODO change 'level' to 'title' because level is a SQL reserved keyword
 	String craft
 	boolean enabled
 	boolean accountExpired
@@ -50,17 +42,17 @@ class User extends org.springframework.security.core.userdetails.User {
 		UserRole.findAllByUser(this).collect { it.role } as Set
 	}
 
-	def beforeInsert() {
-//		encodePassword()
-	}
-
-	def beforeUpdate() {
-		if (isDirty('password')) {
-//			encodePassword()
+	@Override
+	public boolean equals(Object rhs) {
+		boolean isEqual = true
+		// not equal if both are not Users
+		if (isEqual && !(rhs instanceof User)) {
+			isEqual = false
 		}
-	}
-
-	protected void encodePassword() {
-		password = this.springSecurityService.encodePassword(password)
+		// not equal if usernames are different
+		if (isEqual && !(this.username.equals(rhs.username))) {
+			isEqual = false
+		}
+		return isEqual
 	}
 }
