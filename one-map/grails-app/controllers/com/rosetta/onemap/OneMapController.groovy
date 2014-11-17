@@ -156,7 +156,10 @@ class OneMapController {
 	 * @return
 	 */
 	JSONObject getHotspot () {
-		User currentUser = springSecurityService.principal
+		User currentUser = null
+		if (springSecurityService.principal instanceof User) {
+			currentUser = springSecurityService.principle
+		}
 		Hotspot hotspot = Hotspot.get(Long.parseLong(cleanseHotspotIdFromInput(params.hotspotID)));
 		JSONObject res = new JSONObject()
 		if (hotspot instanceof Desk) {
