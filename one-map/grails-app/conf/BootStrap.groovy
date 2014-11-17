@@ -33,7 +33,7 @@ class BootStrap {
 		////
 		saveCleveland11()
 		saveCleveland12()
-//		saveCleveland13()
+		saveCleveland13()
 //		saveCleveland14()
 //		saveCleveland15()
 //		saveCleveland17()
@@ -707,122 +707,354 @@ class BootStrap {
 	}
 	
 	private saveCleveland13() {
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317I", zone: freeZone, x:191, y:89, polygon: "M191.197,82.538l-10.495,6.423c0,0,4.028,7.224,10.466,6.931c6.443-0.291,10.017-7.591,10.017-7.591L191.197,82.538z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317G", zone: freeZone, x:185, y:80, polygon: "M191.197,82.538l0.132-12.3c0,0-8.791,0.312-11.969,6.384c-3.177,6.069,1.342,12.34,1.342,12.34L191.197,82.538z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317H", zone: freeZone, x:197, y:79, polygon: "M201.184,88.301l-9.987-5.764l0.132-12.3c0,0,9.05,0.906,11.2,5.31C204.678,79.954,201.184,88.301,201.184,88.301z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317K", zone: freeZone, x:186, y:122, polygon: "M191.903,118.991l-10.362-6.025c0,0-4.127,7.159-0.823,12.68c3.307,5.526,11.111,5.021,11.111,5.021L191.903,118.991z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317L", zone: freeZone, x:192, y:112, polygon: "M191.903,118.991l10.351-6.038c0,0-4.439-7.582-11.029-7.342c-6.587,0.239-9.684,7.354-9.684,7.354L191.903,118.991z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317M", zone: freeZone, x:198, y:122, polygon: "M191.83,130.666l0.073-11.675l10.351-6.038c0,0,3.544,8.42,0.882,12.516C200.473,129.566,191.83,130.666,191.83,130.666z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317O", zone: freeZone, x:191, y:148, polygon: "M191.377,141.692l-10.277,5.638c0,0,3.941,7.021,10.244,7.019c6.309,0.001,9.81-6.765,9.81-6.765L191.377,141.692z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317J", zone: freeZone, x:185, y:139, polygon: "M191.377,141.692l0.131-11.654c0,0-8.606-0.082-11.72,5.538c-3.112,5.616,1.312,11.754,1.312,11.754L191.377,141.692z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317N", zone: freeZone, x:197, y:139, polygon: "M201.154,147.584l-9.777-5.892l0.131-11.654c0,0,8.861,1.247,10.964,5.514C204.576,139.822,201.154,147.584,201.154,147.584z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Q", zone: freeZone, x:185, y:179, polygon: "M190.836,176.086l-9.847-5.896c0,0-3.977,6.815-0.855,12.145c3.122,5.336,10.568,4.94,10.568,4.94L190.836,176.086z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317R", zone: freeZone, x:191, y:170, polygon: "M190.836,176.086l9.903-5.668c0,0-4.191-7.319-10.477-7.166c-6.283,0.154-9.274,6.938-9.274,6.938L190.836,176.086z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317S", zone: freeZone, x:197, y:179, polygon: "M190.702,187.275l0.134-11.189l9.903-5.668c0,0,3.334,8.111,0.773,12.007C198.949,186.321,190.702,187.275,190.702,187.275z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317P", zone: freeZone, x:185, y:196, polygon: "M190.945,198.659l-0.296-11.314c0,0-7.978,0.286-10.84,5.7c-2.868,5.418,1.503,11.41,1.503,11.41L190.945,198.659z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317T", zone: freeZone, x:197, y:196, polygon: "M190.945,198.659l10.208,5.254c0,0,3.984-7.354,0.447-12.508c-3.535-5.151-10.951-4.061-10.951-4.061L190.945,198.659z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317U", zone: freeZone, x:191, y:205, polygon: "M181.311,204.455l9.634-5.796l10.208,5.254c0,0-5.124,7.061-9.84,6.983C186.594,210.819,181.311,204.455,181.311,204.455z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317X", zone: freeZone, x:191, y:226, polygon: "M190.723,232.167l9.729-5.391c0,0-3.769-7.03-9.75-7.147c-5.986-0.119-9.28,6.518-9.28,6.518L190.723,232.167z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Y", zone: freeZone, x:197, y:235, polygon: "M190.723,232.167l-0.076,11.54c0,0,8.167,0.244,11.097-5.264c2.93-5.505-1.292-11.667-1.292-11.667L190.723,232.167z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317W", zone: freeZone, x:185, y:235, polygon: "M181.421,226.146l9.301,6.021l-0.076,11.54c0,0-8.413-1.401-10.427-5.669C178.206,233.77,181.421,226.146,181.421,226.146z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317V", zone: freeZone, x:185, y:252, polygon: "M190.979,254.833L191,243.431c0,0-7.76-0.081-10.689,5.234c-2.934,5.32,1.148,11.554,1.148,11.554L190.979,254.833z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Z", zone: freeZone, x:197, y:252, polygon: "M190.979,254.833l9.774,5.761c0,0,4.072-7.218,0.777-12.566c-3.294-5.35-10.53-4.597-10.53-4.597L190.979,254.833z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Z1", zone: freeZone, x:191, y:261, polygon: "M181.46,260.219l9.52-5.386l9.774,5.761c0,0-5.173,6.867-9.753,6.572C186.418,266.868,181.46,260.219,181.46,260.219z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317C", zone: freeZone, x:150, y:160, polygon: "M156.62,157.72l-10.466-5.684c0,0-4.247,6.646-0.937,11.813c3.311,5.173,11.234,4.753,11.234,4.753L156.62,157.72z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317D", zone: freeZone, x:157, y:151, polygon: "M156.62,157.72l10.552-5.561c0,0-4.444-7.096-11.133-6.916c-6.686,0.18-9.885,6.792-9.885,6.792L156.62,157.72z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317E", zone: freeZone, x:163, y:160, polygon: "M156.452,168.602l0.168-10.882l10.552-5.561c0,0,3.53,7.871,0.795,11.672C165.23,167.633,156.452,168.602,156.452,168.602z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317B", zone: freeZone, x:151, y:181, polygon: "M156.32,184.339l0.146-11.59c0,0-7.513-0.643-10.41,4.55c-2.901,5.196,0.985,11.829,0.985,11.829L156.32,184.339z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317F", zone: freeZone, x:162, y:182, polygon: "M156.32,184.339l9.404,6.563c0,0,4.023-7.044,0.891-12.723c-3.131-5.675-10.149-5.431-10.149-5.431L156.32,184.339z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1317A", zone: freeZone, x:156, y:191, polygon: "M147.041,189.128l9.279-4.789l9.404,6.563c0,0-5.085,6.609-9.519,5.978C151.771,196.248,147.041,189.128,147.041,189.128z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312R", zone: freeZone, x:120, y:201, polygon: "M126.433,198.658l-10.14-5.616c0,0-4.124,6.313-0.92,11.323c3.203,5.016,10.885,4.733,10.885,4.733L126.433,198.658z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312T", zone: freeZone, x:126, y:193, polygon: "M126.433,198.658l10.233-5.176c0,0-4.299-6.879-10.784-6.809c-6.481,0.07-9.589,6.368-9.589,6.368L126.433,198.658z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312S", zone: freeZone, x:132, y:201, polygon: "M126.257,209.099l0.175-10.44l10.233-5.176c0,0,3.414,7.608,0.758,11.215C134.768,208.304,126.257,209.099,126.257,209.099z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312M", zone: freeZone, x:102, y:184, polygon: "M107.243,187.821l-0.036-11.606c0,0-7.471-0.524-10.267,4.721c-2.799,5.248,1.163,11.826,1.163,11.826L107.243,187.821z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312U", zone: freeZone, x:113, y:185, polygon: "M107.243,187.821l9.44,6.423c0,0,3.885-7.115,0.686-12.751c-3.197-5.633-10.162-5.278-10.162-5.278L107.243,187.821z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Q", zone: freeZone, x:107, y:194, polygon: "M98.104,192.762l9.14-4.94l9.44,6.423c0,0-4.946,6.697-9.358,6.135C102.912,199.815,98.104,192.762,98.104,192.762z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312N", zone: freeZone, x:88, y:193, polygon: "M87.67,198.846l9.606-6.188c0,0-3.729-6.181-9.637-5.604c-5.913,0.574-9.161,7.194-9.161,7.194L87.67,198.846z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312P", zone: freeZone, x:94, y:201, polygon: "M87.67,198.846l-0.067,10.866c0,0,8.066-0.707,10.958-6.226c2.89-5.515-1.285-10.829-1.285-10.829L87.67,198.846z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312O", zone: freeZone, x:82, y:202, polygon: "M78.479,194.248l9.191,4.598l-0.067,10.866c0,0-8.311-0.354-10.303-4.137C75.308,201.789,78.479,194.248,78.479,194.248z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312B", zone: freeZone, x:55, y:211, polygon: "M60.966,211.073l-5.603-9.985c0,0-6.304,3.411-6.048,9.377c0.252,5.973,6.62,9.593,6.62,9.593L60.966,211.073z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312C", zone: freeZone, x:64, y:205, polygon: "M60.966,211.073l10.731,0.655c0,0-0.27-8.143-5.567-11.346c-5.294-3.201-10.767,0.705-10.767,0.705L60.966,211.073z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312A", zone: freeZone, x:64, y:217, polygon: "M55.935,220.058l5.031-8.984l10.731,0.655c0,0-0.791,8.33-4.634,10.126C63.217,223.65,55.935,220.058,55.935,220.058z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312I", zone: freeZone, x:55, y:149, polygon: "M54.072,155.361l10.133-5.832c0,0-3.465-6.557-9.521-6.288c-6.061,0.265-9.734,6.89-9.734,6.89L54.072,155.361z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312D", zone: freeZone, x:60, y:158, polygon: "M54.072,155.361l-0.661,11.164c0,0,8.265-0.283,11.514-5.796c3.248-5.509-0.72-11.199-0.72-11.199L54.072,155.361z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312E", zone: freeZone, x:48, y:158, polygon: "M44.95,150.131l9.123,5.229l-0.661,11.164c0,0-8.456-0.82-10.282-4.817C41.305,157.707,44.95,150.131,44.95,150.131z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312G", zone: freeZone, x:29, y:142, polygon: "M34.704,144.883l-0.326-11.644c0,0-7.416-0.06-10.053,5.379c-2.642,5.44,1.447,11.793,1.447,11.793L34.704,144.883z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312H", zone: freeZone, x:40, y:142, polygon: "M34.704,144.883l9.514,5.855c0,0,3.671-7.381,0.36-12.837c-3.309-5.452-10.2-4.662-10.2-4.662L34.704,144.883z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312F", zone: freeZone, x:35, y:151, polygon: "M25.772,150.412l8.932-5.529l9.514,5.855c0,0-4.733,7.029-9.118,6.741C30.712,157.189,25.772,150.412,25.772,150.412z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312J", zone: freeZone, x:82, y:141, polygon: "M87.648,143.634l-0.125-11.63c0,0-7.52-0.188-10.291,5.196c-2.775,5.387,1.26,11.8,1.26,11.8L87.648,143.634z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Z1", zone: freeZone, x:93, y:141, polygon: "M87.648,143.634l9.545,6.011c0,0,3.854-7.307,0.592-12.811c-3.259-5.5-10.263-4.83-10.263-4.83L87.648,143.634z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312K", zone: freeZone, x:88, y:150, polygon: "M78.493,149l9.156-5.366l9.545,6.011c0,0-4.925,6.936-9.367,6.572C83.383,155.852,78.493,149,78.493,149z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Z", zone: freeZone, x:107, y:149, polygon: "M106.603,155.23l10.816-5.817c0,0-3.698-6.541-10.163-6.272c-6.47,0.264-10.391,6.873-10.391,6.873L106.603,155.23z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312V", zone: freeZone, x:113, y:158, polygon: "M106.603,155.23l-0.705,11.136c0,0,8.821-0.283,12.29-5.782c3.466-5.495-0.769-11.171-0.769-11.171L106.603,155.23z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312L", zone: freeZone, x:100, y:158, polygon: "M96.866,150.014l9.737,5.216l-0.705,11.136c0,0-9.027-0.818-10.976-4.805C92.975,157.57,96.866,150.014,96.866,150.014z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Y", zone: freeZone, x:121, y:140, polygon: "M126.461,143.495l-0.256-12.127c0,0-7.415-0.108-10.084,5.539c-2.675,5.649,1.376,12.29,1.376,12.29L126.461,143.495z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312X", zone: freeZone, x:132, y:140, polygon: "M126.461,143.495l9.479,6.157c0,0,3.716-7.665,0.438-13.366c-3.276-5.698-10.172-4.918-10.172-4.918L126.461,143.495z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1312W", zone: freeZone, x:127, y:150, polygon: "M117.497,149.196l8.964-5.702l9.479,6.157c0,0-4.775,7.289-9.158,6.962C122.396,156.284,117.497,149.196,117.497,149.196z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331U", zone: freeZone, x:287, y:380, polygon: "M291.267,376.437l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L291.267,376.437z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331V", zone: freeZone, x:290, y:370, polygon: "M291.267,376.437l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L291.267,376.437z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331T", zone: freeZone, x:297, y:378, polygon: "M293.794,386.943l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C301.688,384.096,293.794,386.943,293.794,386.943z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331S", zone: freeZone, x:309, y:367, polygon: "M307.989,361.195l-8.503,7.878c0,0,5.132,5.736,11.048,4.2c5.925-1.534,7.835-8.837,7.835-8.837L307.989,361.195z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331W", zone: freeZone, x:302, y:360, polygon: "M307.989,361.195l-2.249-11.142c0,0-8.098,2.015-9.875,8.13c-1.779,6.113,3.621,10.89,3.621,10.89L307.989,361.195z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331X", zone: freeZone, x:312, y:357, polygon: "M318.369,364.437l-10.38-3.241l-2.249-11.142c0,0,8.573-0.966,11.417,2.591C320.002,356.204,318.369,364.437,318.369,364.437z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331R", zone: freeZone, x:325, y:371, polygon: "M329.229,367.262l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L329.229,367.262z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Y", zone: freeZone, x:328, y:361, polygon: "M329.229,367.262l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L329.229,367.262z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Z", zone: freeZone, x:335, y:369, polygon: "M331.757,377.769l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C339.651,374.921,331.757,377.769,331.757,377.769z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331M", zone: freeZone, x:301, y:415, polygon: "M299.95,409.031l-8.019,7.66c0,0,4.851,5.565,10.435,4.067c5.592-1.498,7.387-8.592,7.387-8.592L299.95,409.031z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331N", zone: freeZone, x:294, y:407, polygon: "M299.95,409.031l-2.136-10.818c0,0-7.644,1.966-9.315,7.906c-1.673,5.939,3.433,10.572,3.433,10.572L299.95,409.031z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331O", zone: freeZone, x:304, y:405, polygon: "M309.753,412.167l-9.803-3.136l-2.136-10.818c0,0,8.093-0.948,10.782,2.502C311.286,404.17,309.753,412.167,309.753,412.167z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331L", zone: freeZone, x:317, y:419, polygon: "M321.292,415.262l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L321.292,415.262z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331P", zone: freeZone, x:320, y:409, polygon: "M321.292,415.262l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L321.292,415.262z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331K", zone: freeZone, x:327, y:417, polygon: "M323.819,425.769l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C331.714,422.921,323.819,425.769,323.819,425.769z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331J", zone: freeZone, x:338, y:406, polygon: "M337.425,400.093l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L337.425,400.093z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Q", zone: freeZone, x:331, y:398, polygon: "M337.425,400.093l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L337.425,400.093z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Z1", zone: freeZone, x:342, y:396, polygon: "M347.706,403.391l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C349.412,395.291,347.706,403.391,347.706,403.391z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331D", zone: freeZone, x:314, y:470, polygon: "M318.771,465.722l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L318.771,465.722z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331E", zone: freeZone, x:317, y:460, polygon: "M318.771,465.722l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L318.771,465.722z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331C", zone: freeZone, x:325, y:467, polygon: "M321.299,476.229l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C329.193,473.381,321.299,476.229,321.299,476.229z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331F", zone: freeZone, x:329, y:448, polygon: "M334.789,449.772l-2.943-11.36c0,0-7.564,1.778-9.029,7.773c-1.47,6.001,4.118,11.231,4.118,11.231L334.789,449.772z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331G", zone: freeZone, x:339, y:445, polygon: "M334.789,449.772l10.997,3.396c0,0,2.083-8.163-2.511-12.7c-4.592-4.539-11.43-2.056-11.43-2.056L334.789,449.772z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331B", zone: freeZone, x:336, y:456, polygon: "M326.935,457.417l7.854-7.645l10.997,3.396c0,0-3.244,8.078-7.772,8.882C333.481,462.851,326.935,457.417,326.935,457.417z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331A", zone: freeZone, x:352, y:460, polygon: "M356.093,456.513l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L356.093,456.513z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331H", zone: freeZone, x:355, y:450, polygon: "M356.093,456.513l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L356.093,456.513z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1331I", zone: freeZone, x:362, y:458, polygon: "M358.62,467.02l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C366.515,464.172,358.62,467.02,358.62,467.02z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333A", zone: freeZone, x:389, y:448, polygon: "M387.673,441.39l-8.738,7.824c0,0,5.134,5.845,11.161,4.374c6.035-1.468,8.072-8.799,8.072-8.799L387.673,441.39z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333I", zone: freeZone, x:381, y:440, polygon: "M387.673,441.39l-2.136-11.251c0,0-8.25,1.923-10.136,8.06c-1.888,6.135,3.533,11.016,3.533,11.016L387.673,441.39z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333H", zone: freeZone, x:392, y:437, polygon: "M398.168,444.789l-10.495-3.399l-2.136-11.251c0,0,8.717-0.862,11.559,2.757C399.936,436.52,398.168,444.789,398.168,444.789z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333C", zone: freeZone, x:416, y:450, polygon: "M409.425,447.62l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L409.425,447.62z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333B", zone: freeZone, x:405, y:452, polygon: "M409.425,447.62l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L409.425,447.62z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333G", zone: freeZone, x:408, y:441, polygon: "M417.625,439.911l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C411.139,434.229,417.625,439.911,417.625,439.911z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333E", zone: freeZone, x:430, y:428, polygon: "M425.674,431.999l11.021,3.757c0,0,2.445-7.51-1.801-12.096c-4.251-4.594-11.525-2.674-11.525-2.674L425.674,431.999z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333D", zone: freeZone, x:427, y:438, polygon: "M425.674,431.999l-8.553,7.602c0,0,5.737,6.323,11.917,4.876c6.176-1.445,7.657-8.721,7.657-8.721L425.674,431.999z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333F", zone: freeZone, x:420, y:430, polygon: "M423.369,420.986l2.305,11.013l-8.553,7.602c0,0-5.062-7.274-3.38-11.627C415.429,423.622,423.369,420.986,423.369,420.986z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333K", zone: freeZone, x:378, y:404, polygon: "M372.137,402.234l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L372.137,402.234z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333J", zone: freeZone, x:368, y:407, polygon: "M372.137,402.234l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L372.137,402.234z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333R", zone: freeZone, x:371, y:396, polygon: "M380.337,394.525l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C373.851,388.843,380.337,394.525,380.337,394.525z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333N", zone: freeZone, x:416, y:395, polygon: "M409.396,392.874l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L409.396,392.874z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333M", zone: freeZone, x:405, y:397, polygon: "M409.396,392.874l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L409.396,392.874z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333O", zone: freeZone, x:408, y:387, polygon: "M417.597,385.165l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C411.11,379.482,417.597,385.165,417.597,385.165z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333U", zone: freeZone, x:387, y:360, polygon: "M381.257,357.955l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L381.257,357.955z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333T", zone: freeZone, x:377, y:362, polygon: "M381.257,357.955l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L381.257,357.955z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Y", zone: freeZone, x:380, y:352, polygon: "M389.457,350.246l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C382.971,344.563,389.457,350.246,389.457,350.246z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333V", zone: freeZone, x:399, y:348, polygon: "M397.942,342.345l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L397.942,342.345z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333X", zone: freeZone, x:392, y:341, polygon: "M397.942,342.345l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L397.942,342.345z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333W", zone: freeZone, x:402, y:338, polygon: "M408.224,345.643l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C409.93,337.543,408.224,345.643,408.224,345.643z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333S", zone: freeZone, x:361, y:357, polygon: "M359.723,351.285l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L359.723,351.285z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Z1", zone: freeZone, x:354, y:350, polygon: "M359.723,351.285l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L359.723,351.285z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Z", zone: freeZone, x:364, y:347, polygon: "M370.004,354.583l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C371.71,346.483,370.004,354.583,370.004,354.583z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333L", zone: freeZone, x:389, y:393, polygon: "M388.243,386.745l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L388.243,386.745z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Q", zone: freeZone, x:382, y:385, polygon: "M388.243,386.745l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L388.243,386.745z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1333P", zone: freeZone, x:393, y:383, polygon: "M398.524,390.043l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C400.23,381.943,398.524,390.043,398.524,390.043z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1320", zone: freeZone, x:244, y:73, polygon: "M222.24,60.04 227.04,86.8 264.84,86.68 265.32,64.6 262.019,64.666 262.08,60.04z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1321", zone: freeZone, x:244, y:101, polygon: "M227.04,88 222.24,114.76 262.08,114.76 262.08,111.04 265.32,111.04 265.32,88.12z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1322", zone: freeZone, x:243, y:143, polygon: "M222.24,115.84 226.56,143.2 221.28,169.84 262.08,170.56 262.08,166.6 265.32,166.6 265.32,119.56 262.151,119.56 262.08,115.84z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1323", zone: freeZone, x:244, y:185, polygon: "M222.24,171.76 227.04,198.52 265.32,198.28 265.32,175 261.96,175 262.08,171.76z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1324", zone: freeZone, x:244, y:213, polygon: "M227.04,199.72 222.96,222.64 222.24,226.48 262.2,226.48 262.2,221.8 265.32,221.8 265.32,199.72z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1325", zone: freeZone, x:244, y:241, polygon: "M222.24,227.56 227.04,253.72 265.32,253.72 265.32,232.24 262.02,232.166 262.2,227.56z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1326", zone: freeZone, x:244, y:268, polygon: "M227.04,254.8 222.6,276.88 222.24,280.96 262.32,280.96 262.32,277.48 265.32,277.48 264.84,254.92z").save(flush: true);
-		new Desk(office: cloffice, floor: "13", assignedSeatId: "1335", zone: freeZone, x:444, y:322, polygon: "M421.92,314.56 429.48,341.2 437.28,338.56 465.48,321.28 454.92,305.2 452.494,306.58 450.84,303.64 424.68,309.88 425.76,313.721z").save(flush: true);
+		if (Desk.findByAssignedSeatId("1317I") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317I", zone: freeZone, x:191, y:89, polygon: "M191.197,82.538l-10.495,6.423c0,0,4.028,7.224,10.466,6.931c6.443-0.291,10.017-7.591,10.017-7.591L191.197,82.538z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317G") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317G", zone: freeZone, x:185, y:80, polygon: "M191.197,82.538l0.132-12.3c0,0-8.791,0.312-11.969,6.384c-3.177,6.069,1.342,12.34,1.342,12.34L191.197,82.538z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317H") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317H", zone: freeZone, x:197, y:79, polygon: "M201.184,88.301l-9.987-5.764l0.132-12.3c0,0,9.05,0.906,11.2,5.31C204.678,79.954,201.184,88.301,201.184,88.301z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317K") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317K", zone: freeZone, x:186, y:122, polygon: "M191.903,118.991l-10.362-6.025c0,0-4.127,7.159-0.823,12.68c3.307,5.526,11.111,5.021,11.111,5.021L191.903,118.991z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317L") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317L", zone: freeZone, x:192, y:112, polygon: "M191.903,118.991l10.351-6.038c0,0-4.439-7.582-11.029-7.342c-6.587,0.239-9.684,7.354-9.684,7.354L191.903,118.991z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317M") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317M", zone: freeZone, x:198, y:122, polygon: "M191.83,130.666l0.073-11.675l10.351-6.038c0,0,3.544,8.42,0.882,12.516C200.473,129.566,191.83,130.666,191.83,130.666z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317O") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317O", zone: freeZone, x:191, y:148, polygon: "M191.377,141.692l-10.277,5.638c0,0,3.941,7.021,10.244,7.019c6.309,0.001,9.81-6.765,9.81-6.765L191.377,141.692z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317J") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317J", zone: freeZone, x:185, y:139, polygon: "M191.377,141.692l0.131-11.654c0,0-8.606-0.082-11.72,5.538c-3.112,5.616,1.312,11.754,1.312,11.754L191.377,141.692z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317N") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317N", zone: freeZone, x:197, y:139, polygon: "M201.154,147.584l-9.777-5.892l0.131-11.654c0,0,8.861,1.247,10.964,5.514C204.576,139.822,201.154,147.584,201.154,147.584z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317Q") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Q", zone: freeZone, x:185, y:179, polygon: "M190.836,176.086l-9.847-5.896c0,0-3.977,6.815-0.855,12.145c3.122,5.336,10.568,4.94,10.568,4.94L190.836,176.086z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317R") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317R", zone: freeZone, x:191, y:170, polygon: "M190.836,176.086l9.903-5.668c0,0-4.191-7.319-10.477-7.166c-6.283,0.154-9.274,6.938-9.274,6.938L190.836,176.086z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317S") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317S", zone: freeZone, x:197, y:179, polygon: "M190.702,187.275l0.134-11.189l9.903-5.668c0,0,3.334,8.111,0.773,12.007C198.949,186.321,190.702,187.275,190.702,187.275z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317P") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317P", zone: freeZone, x:185, y:196, polygon: "M190.945,198.659l-0.296-11.314c0,0-7.978,0.286-10.84,5.7c-2.868,5.418,1.503,11.41,1.503,11.41L190.945,198.659z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317T") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317T", zone: freeZone, x:197, y:196, polygon: "M190.945,198.659l10.208,5.254c0,0,3.984-7.354,0.447-12.508c-3.535-5.151-10.951-4.061-10.951-4.061L190.945,198.659z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1221317U8") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317U", zone: freeZone, x:191, y:205, polygon: "M181.311,204.455l9.634-5.796l10.208,5.254c0,0-5.124,7.061-9.84,6.983C186.594,210.819,181.311,204.455,181.311,204.455z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317X") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317X", zone: freeZone, x:191, y:226, polygon: "M190.723,232.167l9.729-5.391c0,0-3.769-7.03-9.75-7.147c-5.986-0.119-9.28,6.518-9.28,6.518L190.723,232.167z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317Y") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Y", zone: freeZone, x:197, y:235, polygon: "M190.723,232.167l-0.076,11.54c0,0,8.167,0.244,11.097-5.264c2.93-5.505-1.292-11.667-1.292-11.667L190.723,232.167z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317W") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317W", zone: freeZone, x:185, y:235, polygon: "M181.421,226.146l9.301,6.021l-0.076,11.54c0,0-8.413-1.401-10.427-5.669C178.206,233.77,181.421,226.146,181.421,226.146z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317V") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317V", zone: freeZone, x:185, y:252, polygon: "M190.979,254.833L191,243.431c0,0-7.76-0.081-10.689,5.234c-2.934,5.32,1.148,11.554,1.148,11.554L190.979,254.833z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Z", zone: freeZone, x:197, y:252, polygon: "M190.979,254.833l9.774,5.761c0,0,4.072-7.218,0.777-12.566c-3.294-5.35-10.53-4.597-10.53-4.597L190.979,254.833z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317Z1") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317Z1", zone: freeZone, x:191, y:261, polygon: "M181.46,260.219l9.52-5.386l9.774,5.761c0,0-5.173,6.867-9.753,6.572C186.418,266.868,181.46,260.219,181.46,260.219z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317C") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317C", zone: freeZone, x:150, y:160, polygon: "M156.62,157.72l-10.466-5.684c0,0-4.247,6.646-0.937,11.813c3.311,5.173,11.234,4.753,11.234,4.753L156.62,157.72z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317D") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317D", zone: freeZone, x:157, y:151, polygon: "M156.62,157.72l10.552-5.561c0,0-4.444-7.096-11.133-6.916c-6.686,0.18-9.885,6.792-9.885,6.792L156.62,157.72z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317E") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317E", zone: freeZone, x:163, y:160, polygon: "M156.452,168.602l0.168-10.882l10.552-5.561c0,0,3.53,7.871,0.795,11.672C165.23,167.633,156.452,168.602,156.452,168.602z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317B") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317B", zone: freeZone, x:151, y:181, polygon: "M156.32,184.339l0.146-11.59c0,0-7.513-0.643-10.41,4.55c-2.901,5.196,0.985,11.829,0.985,11.829L156.32,184.339z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317F") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317F", zone: freeZone, x:162, y:182, polygon: "M156.32,184.339l9.404,6.563c0,0,4.023-7.044,0.891-12.723c-3.131-5.675-10.149-5.431-10.149-5.431L156.32,184.339z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1317A") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317A", zone: freeZone, x:156, y:191, polygon: "M147.041,189.128l9.279-4.789l9.404,6.563c0,0-5.085,6.609-9.519,5.978C151.771,196.248,147.041,189.128,147.041,189.128z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312R") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312R", zone: freeZone, x:120, y:201, polygon: "M126.433,198.658l-10.14-5.616c0,0-4.124,6.313-0.92,11.323c3.203,5.016,10.885,4.733,10.885,4.733L126.433,198.658z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312T") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312T", zone: freeZone, x:126, y:193, polygon: "M126.433,198.658l10.233-5.176c0,0-4.299-6.879-10.784-6.809c-6.481,0.07-9.589,6.368-9.589,6.368L126.433,198.658z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312S") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312S", zone: freeZone, x:132, y:201, polygon: "M126.257,209.099l0.175-10.44l10.233-5.176c0,0,3.414,7.608,0.758,11.215C134.768,208.304,126.257,209.099,126.257,209.099z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312M") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312M", zone: freeZone, x:102, y:184, polygon: "M107.243,187.821l-0.036-11.606c0,0-7.471-0.524-10.267,4.721c-2.799,5.248,1.163,11.826,1.163,11.826L107.243,187.821z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312U") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312U", zone: freeZone, x:113, y:185, polygon: "M107.243,187.821l9.44,6.423c0,0,3.885-7.115,0.686-12.751c-3.197-5.633-10.162-5.278-10.162-5.278L107.243,187.821z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312Q") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Q", zone: freeZone, x:107, y:194, polygon: "M98.104,192.762l9.14-4.94l9.44,6.423c0,0-4.946,6.697-9.358,6.135C102.912,199.815,98.104,192.762,98.104,192.762z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312N") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312N", zone: freeZone, x:88, y:193, polygon: "M87.67,198.846l9.606-6.188c0,0-3.729-6.181-9.637-5.604c-5.913,0.574-9.161,7.194-9.161,7.194L87.67,198.846z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312P") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312P", zone: freeZone, x:94, y:201, polygon: "M87.67,198.846l-0.067,10.866c0,0,8.066-0.707,10.958-6.226c2.89-5.515-1.285-10.829-1.285-10.829L87.67,198.846z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312O") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312O", zone: freeZone, x:82, y:202, polygon: "M78.479,194.248l9.191,4.598l-0.067,10.866c0,0-8.311-0.354-10.303-4.137C75.308,201.789,78.479,194.248,78.479,194.248z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312B") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312B", zone: freeZone, x:55, y:211, polygon: "M60.966,211.073l-5.603-9.985c0,0-6.304,3.411-6.048,9.377c0.252,5.973,6.62,9.593,6.62,9.593L60.966,211.073z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312C") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312C", zone: freeZone, x:64, y:205, polygon: "M60.966,211.073l10.731,0.655c0,0-0.27-8.143-5.567-11.346c-5.294-3.201-10.767,0.705-10.767,0.705L60.966,211.073z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312A") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312A", zone: freeZone, x:64, y:217, polygon: "M55.935,220.058l5.031-8.984l10.731,0.655c0,0-0.791,8.33-4.634,10.126C63.217,223.65,55.935,220.058,55.935,220.058z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312I") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312I", zone: freeZone, x:55, y:149, polygon: "M54.072,155.361l10.133-5.832c0,0-3.465-6.557-9.521-6.288c-6.061,0.265-9.734,6.89-9.734,6.89L54.072,155.361z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312D") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312D", zone: freeZone, x:60, y:158, polygon: "M54.072,155.361l-0.661,11.164c0,0,8.265-0.283,11.514-5.796c3.248-5.509-0.72-11.199-0.72-11.199L54.072,155.361z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312E") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312E", zone: freeZone, x:48, y:158, polygon: "M44.95,150.131l9.123,5.229l-0.661,11.164c0,0-8.456-0.82-10.282-4.817C41.305,157.707,44.95,150.131,44.95,150.131z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312G") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312G", zone: freeZone, x:29, y:142, polygon: "M34.704,144.883l-0.326-11.644c0,0-7.416-0.06-10.053,5.379c-2.642,5.44,1.447,11.793,1.447,11.793L34.704,144.883z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312H") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312H", zone: freeZone, x:40, y:142, polygon: "M34.704,144.883l9.514,5.855c0,0,3.671-7.381,0.36-12.837c-3.309-5.452-10.2-4.662-10.2-4.662L34.704,144.883z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312F") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312F", zone: freeZone, x:35, y:151, polygon: "M25.772,150.412l8.932-5.529l9.514,5.855c0,0-4.733,7.029-9.118,6.741C30.712,157.189,25.772,150.412,25.772,150.412z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312J") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312J", zone: freeZone, x:82, y:141, polygon: "M87.648,143.634l-0.125-11.63c0,0-7.52-0.188-10.291,5.196c-2.775,5.387,1.26,11.8,1.26,11.8L87.648,143.634z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Z", zone: freeZone, x:93, y:141, polygon: "M87.648,143.634l9.545,6.011c0,0,3.854-7.307,0.592-12.811c-3.259-5.5-10.263-4.83-10.263-4.83L87.648,143.634z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312K") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312K", zone: freeZone, x:88, y:150, polygon: "M78.493,149l9.156-5.366l9.545,6.011c0,0-4.925,6.936-9.367,6.572C83.383,155.852,78.493,149,78.493,149z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Z", zone: freeZone, x:107, y:149, polygon: "M106.603,155.23l10.816-5.817c0,0-3.698-6.541-10.163-6.272c-6.47,0.264-10.391,6.873-10.391,6.873L106.603,155.23z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312V") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312V", zone: freeZone, x:113, y:158, polygon: "M106.603,155.23l-0.705,11.136c0,0,8.821-0.283,12.29-5.782c3.466-5.495-0.769-11.171-0.769-11.171L106.603,155.23z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312L") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312L", zone: freeZone, x:100, y:158, polygon: "M96.866,150.014l9.737,5.216l-0.705,11.136c0,0-9.027-0.818-10.976-4.805C92.975,157.57,96.866,150.014,96.866,150.014z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312Y") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312Y", zone: freeZone, x:121, y:140, polygon: "M126.461,143.495l-0.256-12.127c0,0-7.415-0.108-10.084,5.539c-2.675,5.649,1.376,12.29,1.376,12.29L126.461,143.495z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312X") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312X", zone: freeZone, x:132, y:140, polygon: "M126.461,143.495l9.479,6.157c0,0,3.716-7.665,0.438-13.366c-3.276-5.698-10.172-4.918-10.172-4.918L126.461,143.495z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312W") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1312W", zone: freeZone, x:127, y:150, polygon: "M117.497,149.196l8.964-5.702l9.479,6.157c0,0-4.775,7.289-9.158,6.962C122.396,156.284,117.497,149.196,117.497,149.196z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331U") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331U", zone: freeZone, x:287, y:380, polygon: "M291.267,376.437l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L291.267,376.437z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331V") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331V", zone: freeZone, x:290, y:370, polygon: "M291.267,376.437l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L291.267,376.437z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331T") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331T", zone: freeZone, x:297, y:378, polygon: "M293.794,386.943l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C301.688,384.096,293.794,386.943,293.794,386.943z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331S") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331S", zone: freeZone, x:309, y:367, polygon: "M307.989,361.195l-8.503,7.878c0,0,5.132,5.736,11.048,4.2c5.925-1.534,7.835-8.837,7.835-8.837L307.989,361.195z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331W") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331W", zone: freeZone, x:302, y:360, polygon: "M307.989,361.195l-2.249-11.142c0,0-8.098,2.015-9.875,8.13c-1.779,6.113,3.621,10.89,3.621,10.89L307.989,361.195z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331X") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331X", zone: freeZone, x:312, y:357, polygon: "M318.369,364.437l-10.38-3.241l-2.249-11.142c0,0,8.573-0.966,11.417,2.591C320.002,356.204,318.369,364.437,318.369,364.437z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331R") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331R", zone: freeZone, x:325, y:371, polygon: "M329.229,367.262l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L329.229,367.262z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331Y") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Y", zone: freeZone, x:328, y:361, polygon: "M329.229,367.262l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L329.229,367.262z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Z", zone: freeZone, x:335, y:369, polygon: "M331.757,377.769l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C339.651,374.921,331.757,377.769,331.757,377.769z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331M") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331M", zone: freeZone, x:301, y:415, polygon: "M299.95,409.031l-8.019,7.66c0,0,4.851,5.565,10.435,4.067c5.592-1.498,7.387-8.592,7.387-8.592L299.95,409.031z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331N") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331N", zone: freeZone, x:294, y:407, polygon: "M299.95,409.031l-2.136-10.818c0,0-7.644,1.966-9.315,7.906c-1.673,5.939,3.433,10.572,3.433,10.572L299.95,409.031z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331O") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331O", zone: freeZone, x:304, y:405, polygon: "M309.753,412.167l-9.803-3.136l-2.136-10.818c0,0,8.093-0.948,10.782,2.502C311.286,404.17,309.753,412.167,309.753,412.167z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331L") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331L", zone: freeZone, x:317, y:419, polygon: "M321.292,415.262l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L321.292,415.262z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331P") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331P", zone: freeZone, x:320, y:409, polygon: "M321.292,415.262l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L321.292,415.262z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331K") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331K", zone: freeZone, x:327, y:417, polygon: "M323.819,425.769l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C331.714,422.921,323.819,425.769,323.819,425.769z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331J") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331J", zone: freeZone, x:338, y:406, polygon: "M337.425,400.093l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L337.425,400.093z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331Q") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Q", zone: freeZone, x:331, y:398, polygon: "M337.425,400.093l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L337.425,400.093z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331Z", zone: freeZone, x:342, y:396, polygon: "M347.706,403.391l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C349.412,395.291,347.706,403.391,347.706,403.391z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331D") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331D", zone: freeZone, x:314, y:470, polygon: "M318.771,465.722l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L318.771,465.722z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331E") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331E", zone: freeZone, x:317, y:460, polygon: "M318.771,465.722l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L318.771,465.722z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331C") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331C", zone: freeZone, x:325, y:467, polygon: "M321.299,476.229l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C329.193,473.381,321.299,476.229,321.299,476.229z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1312C") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331F", zone: freeZone, x:329, y:448, polygon: "M334.789,449.772l-2.943-11.36c0,0-7.564,1.778-9.029,7.773c-1.47,6.001,4.118,11.231,4.118,11.231L334.789,449.772z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331G") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331G", zone: freeZone, x:339, y:445, polygon: "M334.789,449.772l10.997,3.396c0,0,2.083-8.163-2.511-12.7c-4.592-4.539-11.43-2.056-11.43-2.056L334.789,449.772z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331B") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331B", zone: freeZone, x:336, y:456, polygon: "M326.935,457.417l7.854-7.645l10.997,3.396c0,0-3.244,8.078-7.772,8.882C333.481,462.851,326.935,457.417,326.935,457.417z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331A") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331A", zone: freeZone, x:352, y:460, polygon: "M356.093,456.513l-11.103-3.185c0,0-2.296,7.323,2.046,11.57c4.345,4.255,11.584,2.121,11.584,2.121L356.093,456.513z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331H") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331H", zone: freeZone, x:355, y:450, polygon: "M356.093,456.513l8.404-7.652c0,0-5.868-5.858-12.021-4.224c-6.152,1.633-7.486,8.691-7.486,8.691L356.093,456.513z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1331I") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1331I", zone: freeZone, x:362, y:458, polygon: "M358.62,467.02l-2.527-10.507l8.404-7.652c0,0,5.212,6.803,3.616,11.057C366.515,464.172,358.62,467.02,358.62,467.02z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333A") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333A", zone: freeZone, x:389, y:448, polygon: "M387.673,441.39l-8.738,7.824c0,0,5.134,5.845,11.161,4.374c6.035-1.468,8.072-8.799,8.072-8.799L387.673,441.39z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333I") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333I", zone: freeZone, x:381, y:440, polygon: "M387.673,441.39l-2.136-11.251c0,0-8.25,1.923-10.136,8.06c-1.888,6.135,3.533,11.016,3.533,11.016L387.673,441.39z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333H") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333H", zone: freeZone, x:392, y:437, polygon: "M398.168,444.789l-10.495-3.399l-2.136-11.251c0,0,8.717-0.862,11.559,2.757C399.936,436.52,398.168,444.789,398.168,444.789z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333C") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333C", zone: freeZone, x:416, y:450, polygon: "M409.425,447.62l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L409.425,447.62z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333B") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333B", zone: freeZone, x:405, y:452, polygon: "M409.425,447.62l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L409.425,447.62z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333G") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333G", zone: freeZone, x:408, y:441, polygon: "M417.625,439.911l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C411.139,434.229,417.625,439.911,417.625,439.911z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333E") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333E", zone: freeZone, x:430, y:428, polygon: "M425.674,431.999l11.021,3.757c0,0,2.445-7.51-1.801-12.096c-4.251-4.594-11.525-2.674-11.525-2.674L425.674,431.999z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333D") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333D", zone: freeZone, x:427, y:438, polygon: "M425.674,431.999l-8.553,7.602c0,0,5.737,6.323,11.917,4.876c6.176-1.445,7.657-8.721,7.657-8.721L425.674,431.999z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333F") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333F", zone: freeZone, x:420, y:430, polygon: "M423.369,420.986l2.305,11.013l-8.553,7.602c0,0-5.062-7.274-3.38-11.627C415.429,423.622,423.369,420.986,423.369,420.986z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333K") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333K", zone: freeZone, x:378, y:404, polygon: "M372.137,402.234l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L372.137,402.234z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333J") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333J", zone: freeZone, x:368, y:407, polygon: "M372.137,402.234l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L372.137,402.234z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333R") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333R", zone: freeZone, x:371, y:396, polygon: "M380.337,394.525l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C373.851,388.843,380.337,394.525,380.337,394.525z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333N") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333N", zone: freeZone, x:416, y:395, polygon: "M409.396,392.874l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L409.396,392.874z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333M") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333M", zone: freeZone, x:405, y:397, polygon: "M409.396,392.874l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L409.396,392.874z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333O") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333O", zone: freeZone, x:408, y:387, polygon: "M417.597,385.165l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C411.11,379.482,417.597,385.165,417.597,385.165z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333U") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333U", zone: freeZone, x:387, y:360, polygon: "M381.257,357.955l2.653,11.702c0,0,7.732-1.695,9.396-7.819c1.67-6.131-3.85-11.592-3.85-11.592L381.257,357.955z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333T") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333T", zone: freeZone, x:377, y:362, polygon: "M381.257,357.955l-11.065-3.67c0,0-2.357,8.339,2.174,13.071c4.527,4.732,11.545,2.301,11.545,2.301L381.257,357.955z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333Y") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Y", zone: freeZone, x:380, y:352, polygon: "M389.457,350.246l-8.2,7.709l-11.065-3.67c0,0,3.532-8.23,8.154-8.979C382.971,344.563,389.457,350.246,389.457,350.246z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333V") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333V", zone: freeZone, x:399, y:348, polygon: "M397.942,342.345l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L397.942,342.345z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333X") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333X", zone: freeZone, x:392, y:341, polygon: "M397.942,342.345l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L397.942,342.345z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333W") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333W", zone: freeZone, x:402, y:338, polygon: "M408.224,345.643l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C409.93,337.543,408.224,345.643,408.224,345.643z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333S") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333S", zone: freeZone, x:361, y:357, polygon: "M359.723,351.285l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L359.723,351.285z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333Z1") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Z1", zone: freeZone, x:354, y:350, polygon: "M359.723,351.285l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L359.723,351.285z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333Z") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Z", zone: freeZone, x:364, y:347, polygon: "M370.004,354.583l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C371.71,346.483,370.004,354.583,370.004,354.583z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333L") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333L", zone: freeZone, x:389, y:393, polygon: "M388.243,386.745l-8.53,7.682c0,0,5.041,5.706,10.937,4.251c5.902-1.454,7.875-8.635,7.875-8.635L388.243,386.745z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333Q") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333Q", zone: freeZone, x:382, y:385, polygon: "M388.243,386.745l-2.123-11.006c0,0-8.067,1.905-9.896,7.916c-1.829,6.01,3.489,10.771,3.489,10.771L388.243,386.745z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1333P") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1333P", zone: freeZone, x:393, y:383, polygon: "M398.524,390.043l-10.281-3.298l-2.123-11.006c0,0,8.529-0.867,11.321,2.667C400.23,381.943,398.524,390.043,398.524,390.043z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1320") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1320", zone: freeZone, x:244, y:73, polygon: "M222.24,60.04 227.04,86.8 264.84,86.68 265.32,64.6 262.019,64.666 262.08,60.04z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1321") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1321", zone: freeZone, x:244, y:101, polygon: "M227.04,88 222.24,114.76 262.08,114.76 262.08,111.04 265.32,111.04 265.32,88.12z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1322") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1322", zone: freeZone, x:243, y:143, polygon: "M222.24,115.84 226.56,143.2 221.28,169.84 262.08,170.56 262.08,166.6 265.32,166.6 265.32,119.56 262.151,119.56 262.08,115.84z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1323") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1323", zone: freeZone, x:244, y:185, polygon: "M222.24,171.76 227.04,198.52 265.32,198.28 265.32,175 261.96,175 262.08,171.76z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1324") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1324", zone: freeZone, x:244, y:213, polygon: "M227.04,199.72 222.96,222.64 222.24,226.48 262.2,226.48 262.2,221.8 265.32,221.8 265.32,199.72z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1325") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1325", zone: freeZone, x:244, y:241, polygon: "M222.24,227.56 227.04,253.72 265.32,253.72 265.32,232.24 262.02,232.166 262.2,227.56z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1326") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1326", zone: freeZone, x:244, y:268, polygon: "M227.04,254.8 222.6,276.88 222.24,280.96 262.32,280.96 262.32,277.48 265.32,277.48 264.84,254.92z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1335") == null) {
+			new Desk(office: cloffice, floor: "13", assignedSeatId: "1335", zone: freeZone, x:444, y:322, polygon: "M421.92,314.56 429.48,341.2 437.28,338.56 465.48,321.28 454.92,305.2 452.494,306.58 450.84,303.64 424.68,309.88 425.76,313.721z").save(flush: true);
+		}
 	}
 	
 	private saveCleveland14() {
