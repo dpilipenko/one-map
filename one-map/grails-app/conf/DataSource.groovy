@@ -36,7 +36,7 @@ environments {
 			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
         }
 		hibernate {
-			show_sql = true
+			show_sql = false
 		}
     }
 }
