@@ -132,6 +132,10 @@ class LoginController {
 		adminUsernames.add("ljudd5")
 		adminUsernames.add("dfagan5")
 		adminUsernames.add("bhorvath5")
+		adminUsernames.add("tklein5")
+		adminUsernames.add("jtabelin")
+		adminUsernames.add("dlindsay5")
+		adminUsernames.add("bfagan5")
 		boolean isUserAdmin = adminUsernames.contains(username);
 		render([success: true, username: springSecurityService.authentication.name, firstname: currentuser.firstName, isAdmin: isUserAdmin] as JSON)
 	}
