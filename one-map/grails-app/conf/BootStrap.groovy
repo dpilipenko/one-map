@@ -1,7 +1,7 @@
-import java.awt.Desktop;
-
 import com.rosetta.onemap.Office
+import com.rosetta.onemap.Role
 import com.rosetta.onemap.User
+import com.rosetta.onemap.UserRole
 import com.rosetta.onemap.Zone
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
@@ -23,6 +23,7 @@ class BootStrap {
 		////
 		//	Users
 		////
+		saveRoles()
 		saveUsers()
 
 		////
@@ -1533,36 +1534,63 @@ class BootStrap {
 		}
 	}
 	
+	private saveRoles() {
+		def adminRole = Role.findByAuthority('ROLE_ADMIN')
+		if (adminRole == null) {
+			adminRole = new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+		}
+		def userRole = Role.findByAuthority('ROLE_USER')
+		if (userRole == null) {
+			userRole = new Role(authority: 'ROLE_USER').save(failOnError: true)
+		}
+	}
+	
 	private saveUsers() {
-		def dan = User.findByUsername("dpadgett")
-		if (dan == null) {
-			dan = new User(firstName: "Dan", lastName: "Padgett", username: "dpadgett", enabled: true,
+		def adminRole = Role.findByAuthority('ROLE_ADMIN')
+		def danPadgett = User.findByUsername("dpadgett")
+		if (danPadgett == null) {
+			danPadgett = new User(firstName: "Dan", lastName: "Padgett", username: "dpadgett", emailAddress: "dan.padgett@rosetta.com", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Software Engineering").save(flush: true);
+			level: "Senior Associate", craft: "Software Engineering").save(failOnError: true)
+			if (adminRole != null) {
+//				UserRole.create(danPadgett, adminRole)
+			}
 		}
-		def dima = User.findByUsername("dpilipen")
-		if (dima == null) {
-			dima = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", enabled: true,
+		def dmitriyPilipenko = User.findByUsername("dpilipen")
+		if (dmitriyPilipenko == null) {
+			dmitriyPilipenko = new User(firstName: "Dmitriy", lastName: "Pilipenko", username: "dpilipen", emailAddress: "dmitriy.pilipenko@rosetta.com", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Associate", craft: "Software Engineering").save(flush: true);
+			level: "Associate", craft: "Software Engineering").save(failOnError: true)
+			if (adminRole != null) {
+//				UserRole.create(dmitriyPilipenko, adminRole)
+			}
 		}
-		def liz = User.findByUsername("ljudd5")
-		if (liz == null) {
-			liz = new User(firstName: "Liz", lastName: "Judd", username: "ljudd5", enabled: true,
+		def lizJudd = User.findByUsername("ljudd5")
+		if (lizJudd == null) {
+			lizJudd = new User(firstName: "Liz", lastName: "Judd", username: "ljudd5", emailAddress: "liz.judd@rosetta.com", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+			level: "Senior Associate", craft: "Creative Engineering").save(failOnError: true)
+			if (adminRole != null) {
+//				UserRole.create(lizJudd, adminRole)
+			}
 		}
-		def dave = User.findByUsername("dfagan5")
-		if (dave == null) {
-			dave = new User(firstName: "Dave", lastName: "Fagan", username: "dfagan5", enabled: true,
+		def daveFagan = User.findByUsername("dfagan5")
+		if (daveFagan == null) {
+			daveFagan = new User(firstName: "Dave", lastName: "Fagan", username: "dfagan5", emailAddress: "dave.fagan@rosetta.com", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "Creative Engineering").save(flush: true);
+			level: "Senior Associate", craft: "Creative Engineering").save(failOnError: true)
+			if (adminRole != null) {
+//				UserRole.create(daveFagan, adminRole)
+			}
 		}
-		def becky = User.findByUsername("bhorvath5")
-		if (becky == null) {
-			becky = new User(firstName: "Becky", lastName: "Horvath", username: "bhorvath5", enabled: true,
+		def beckyHorvath = User.findByUsername("bhorvath5")
+		if (beckyHorvath == null) {
+			beckyHorvath = new User(firstName: "Becky", lastName: "Horvath", username: "bhorvath5", emailAddress: "becky.horvath@rosetta.com", enabled: true,
 			accountExpired: false, accountLocked: false, passwordExpired: false, office: cloffice, phone: "555-555-5555",
-			level: "Senior Associate", craft: "CEO").save(flush: true);
+			level: "Senior Associate", craft: "CEO").save(failOnError: true)
+			if (adminRole != null) {
+//				UserRole.create(beckyHorvath, adminRole)
+			}
 		}
 	}
 	

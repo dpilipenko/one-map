@@ -36,7 +36,10 @@ OneMap.login = {
                     success: function (data, textStatus, jqXHR) {
                         if(data.success){
                             OneMap.isLoggedIn = true;
-//                            OneMap.userIsAdmin = true; //for testing
+                            OneMap.userIsAdmin = data.isAdmin;
+                            if (!data.isAdmin) {
+                            	$('.create-zone').hide();
+                            }
                             $('.welcome').html('Hey ' + data.firstname + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|');
                             $('.logout a').text('LOGOUT');
 

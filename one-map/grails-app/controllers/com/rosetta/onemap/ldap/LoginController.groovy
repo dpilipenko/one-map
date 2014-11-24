@@ -126,7 +126,14 @@ class LoginController {
 	def ajaxSuccess = {
 		String username = springSecurityService.authentication.name;
 		User currentuser = User.findByUsername(username);
-		render([success: true, username: springSecurityService.authentication.name, firstname: currentuser.firstName] as JSON)
+		Set<String> adminUsernames = new TreeSet<String>()
+		adminUsernames.add("dpadgett")
+		adminUsernames.add("dpilipen")
+		adminUsernames.add("ljudd5")
+		adminUsernames.add("dfagan5")
+		adminUsernames.add("bhorvath5")
+		boolean isUserAdmin = adminUsernames.contains(username);
+		render([success: true, username: springSecurityService.authentication.name, firstname: currentuser.firstName, isAdmin: isUserAdmin] as JSON)
 	}
 
 	/**
