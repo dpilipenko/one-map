@@ -174,9 +174,9 @@
 <script type="text/javascript">
 	OneMap.login.submitURL = '${postUrl}';
 	OneMap.userIsAdmin = false; // defaulting IsAdmin to false to hide Admin functionality 
-    OneMap.login.userID = 0;
 	<sec:ifLoggedIn>
 	  OneMap.isLoggedIn = true;
+      OneMap.login.userID = ${userObject.id};
 	</sec:ifLoggedIn>
 </script>
 </body>
