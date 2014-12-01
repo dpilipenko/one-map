@@ -338,6 +338,7 @@ class OneMapController {
 	}
 
 	private printUser(JSONObject container, User user) {
+		container.put("userID", user.id)
 		container.put("name", user.firstName+" "+user.lastName)
 		container.put("level", user.level)
 		container.put("craft", user.craft)
