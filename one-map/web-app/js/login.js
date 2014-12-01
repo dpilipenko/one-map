@@ -37,6 +37,7 @@ OneMap.login = {
                         if(data.success){
                             OneMap.isLoggedIn = true;
                             OneMap.userIsAdmin = data.isAdmin;
+                            OneMap.login.userID = data.userID;
                             if (!data.isAdmin) {
                             	$('.create-zone').hide();
                             }
