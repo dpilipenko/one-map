@@ -27,7 +27,7 @@
             <strong>Support</strong>
             <div class="support">
                 Please direct any questions, issues, or feature requests to:
-                <a href="mailto:onemapsupport@rosetta.com">onemapsupport@rosetta.com</a>
+                <a href="mailto:onemap.support@rosetta.com">onemap.support@rosetta.com</a>
             </div>
             <strong>Legend</strong>
             <div class="legend">
