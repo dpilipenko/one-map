@@ -39,7 +39,7 @@ OneMap.login = {
                             OneMap.userIsAdmin = data.isAdmin;
                             OneMap.login.userID = data.userID;
                             if (!data.isAdmin) {
-                            	$('.create-zone').hide();
+                            	$('.create-zone').remove();
                             }
                             $('.welcome').html('Hey ' + data.firstname + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|');
                             $('.logout a').text('LOGOUT');
@@ -79,6 +79,7 @@ OneMap.login = {
         }
         $('.header').removeClass('login');
         $('.info-panel').removeClass('login');
+        $('.create-zone').remove();
         setTimeout(function () {
             $('.ms-wrapper').addClass('ms-view-layers');
         }, 500);
