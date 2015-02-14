@@ -2,15 +2,26 @@ package com.rosetta.onemap
 
 import org.codehaus.groovy.grails.web.json.JSONArray;
 import org.codehaus.groovy.grails.web.json.JSONObject
+import org.grails.plugins.csv.CSVMapReader;
 import org.grails.plugins.csv.CSVWriter
 
+import au.com.bytecode.opencsv.CSVReader;
+import com.rosetta.onemap.pintypes.Desk
+import com.rosetta.onemap.pintypes.Room
 import grails.plugin.springsecurity.SpringSecurityUtils
 
 class AdminController {
 	
 	def userService
+	def roomService
+	def deskService
 	
 	def showAdmin() {
+		def config = SpringSecurityUtils.securityConfig
+		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+		[postUrl: postUrl]
+	}
+	def showAdmin2() {
 		def config = SpringSecurityUtils.securityConfig
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		[postUrl: postUrl]
@@ -52,6 +63,37 @@ class AdminController {
 	}
 	
 	def seatChartImport() {
-		render '{status: "pending"}'
+		InputStream istream = request.getFile("import").inputStream
+		CSVReader reader = new CSVReader(new BufferedReader(new InputStreamReader(istream)))
+		
+		new CSVMapReader(reader).each{ map ->
+			User user = User.findByUsername(map["username"])
+			if (user != null) {
+				user.firstName = map["first name"]
+				user.lastName = map["last name"]
+				user.level = map["level"]
+				user.craft = map["craft"]
+				user.phone = map["phone"]
+				user.save(true)
+				
+				String assignedSeatId = map["assignedSeatId"]
+				if (assignedSeatId.isEmpty()) {
+					userService.unclaimAllHotspots(user)	
+				} else {
+					userService.unclaimAllHotspots(user)
+					Room room = Room.findByAssignedSeatId(assignedSeatId)
+					if (room != null) {
+						roomService.addUserToRoom(room, user)
+					} else {
+						Desk desk = Desk.findByAssignedSeatId(assignedSeatId)
+						if (desk != null) {
+							desk.claim(user)
+						}
+					}
+				}
+				
+			}
+		}
+		render(view:"showAdmin2")
 	}
 }

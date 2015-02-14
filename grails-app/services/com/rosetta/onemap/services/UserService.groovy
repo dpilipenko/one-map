@@ -29,4 +29,9 @@ class UserService {
 		}
 	}
 	
+	void unclaimAllHotspots(User user) {
+		deskService.unclaimAllForUser(user)
+		roomService.unclaimAllForUser(user)
+	}
+	
 }
