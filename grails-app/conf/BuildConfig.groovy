@@ -54,6 +54,7 @@ grails.project.dependency.resolution = {
 		compile ":quartz-monitor:1.0"
 		compile ':spring-security-core:2.0-RC4'
 		compile ':spring-security-ldap:2.0-RC2'
+		compile ':csv:0.3.1'
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"

@@ -33,4 +33,8 @@ class DeskService {
 		desk.lastUpdated = new Date()
 		desk.save(flush:true)
 	}
+	
+	Desk getDesk(User user) {
+		return Desk.findByUser(user);
+	}
 }

@@ -23,12 +23,6 @@ class OneMapController {
 		[postUrl: postUrl]
 	}
 	
-	def showAdmin() {
-		def config = SpringSecurityUtils.securityConfig
-		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
-		[postUrl: postUrl]
-	}
-	
 	/* Public API begin */
 	
 	/**

@@ -16,8 +16,11 @@ class UrlMappings {
 		"/logout/$action?"(controller: "logout")
 		
 		"/admin"{
-			controller="oneMap"
+			controller="admin"
 			action="showAdmin"
+		}
+		"/admin/seatchart" (controller: "admin") {
+			action = [GET: "seatChartExport", PUT: "seatChartImport"]
 		}
 		
         "500"(view:'/error')
