@@ -38,13 +38,13 @@ class AdminController {
 			
 			
 			b << [
-				val1 : assignedSeatId,
-				val2 : user.username,
-				val3 : user.firstName,
-				val4 : user.lastName,
-				val5 : user.level,
-				val6 : user.craft,
-				val7 : user.phone
+				val1 : (String)assignedSeatId,
+				val2 : (String)user.username,
+				val3 : (String)user.firstName,
+				val4 : (String)user.lastName,
+				val5 : (String)user.level,
+				val6 : (String)user.craft,
+				val7 : (String)user.phone
 				]
 		}
 		
