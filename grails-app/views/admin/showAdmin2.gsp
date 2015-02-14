@@ -9,10 +9,16 @@
 			<div id="zones" class="tab active">
 				<div class="watermark"></div>
 				<h2>Export / Import</h2>
+				<h3>Export</h3>
+				<a href="admin/seatchart">Download CSV file</a>
+				</div>
+				<h3>Import</h3>
 				<g:uploadForm name="import" controller="admin" action="seatChartImport">
-					<input type="file" name="import" />
+					<label for="import">Upload .CSV file</label>
+					<input type="file" id="import" name="import" />
 					<input type="submit" />
 				</g:uploadForm>
+				<div>
 			</div>
 	    </div> <!-- end content container -->
 	    <div class="tabs-navigation">

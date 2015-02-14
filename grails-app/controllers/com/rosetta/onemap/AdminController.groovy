@@ -94,6 +94,6 @@ class AdminController {
 				
 			}
 		}
-		render(view:"showAdmin2")
+		redirect (uri: "/admin2") 
 	}
 }
