@@ -165,7 +165,7 @@
 	<script src="${resource(dir: 'js', file: 'admin.js')}"></script>
 </g:if>
 <g:else>
-	<script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+	<script type="text/javascript" src="${resource(dir: 'js', file: 'kinetic-v5.0.2.min.js') }"></script>
 	<script src="${resource(dir: 'js', file: 'map.js')}"></script>
 	<script src="${resource(dir: 'js', file: 'lean-slider.js')}"></script>
 </g:else>
