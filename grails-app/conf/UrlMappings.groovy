@@ -19,9 +19,9 @@ class UrlMappings {
 			controller="admin"
 			action="showAdmin"
 		}
-		"/admin2" {
+		"/export-import" {
 			controller="admin"
-			action="showAdmin2"
+			action="showExportImport"
 		}
 		"/admin/seatchart" (controller: "admin") {
 			action = [GET: "seatChartExport", POST: "seatChartImport"]

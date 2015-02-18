@@ -21,7 +21,7 @@ class AdminController {
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		[postUrl: postUrl]
 	}
-	def showAdmin2() {
+	def showExportImport() {
 		def config = SpringSecurityUtils.securityConfig
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		[postUrl: postUrl]
@@ -32,11 +32,12 @@ class AdminController {
 		def b = new CSVWriter(sw, {
 			"assignedSeatId" { it.val1 }
 			"username" { it.val2 }
-			"first name" { it.val3 }
-			"last name" { it.val4 }
-			"level" { it.val5 }
-			"craft" { it.val6 }
-			"phone" { it.val7 }
+			"email" { it.val3 }
+			"first name" { it.val4 }
+			"last name" { it.val5 }
+			"level" { it.val6 }
+			"craft" { it.val7 }
+			"phone" { it.val8 }
 		})
 		
 		for (user in User.findAll()) {
@@ -51,11 +52,12 @@ class AdminController {
 			b << [
 				val1 : (String)assignedSeatId,
 				val2 : (String)user.username,
-				val3 : (String)user.firstName,
-				val4 : (String)user.lastName,
-				val5 : (String)user.level,
-				val6 : (String)user.craft,
-				val7 : (String)user.phone
+				val3 : (String)user.emailAddress,
+				val4 : (String)user.firstName,
+				val5 : (String)user.lastName,
+				val6 : (String)user.level,
+				val7 : (String)user.craft,
+				val8 : (String)user.phone
 				]
 		}
 		
@@ -69,6 +71,7 @@ class AdminController {
 		new CSVMapReader(reader).each{ map ->
 			User user = User.findByUsername(map["username"])
 			if (user != null) {
+				user.emailAddress = map["email address"]
 				user.firstName = map["first name"]
 				user.lastName = map["last name"]
 				user.level = map["level"]
@@ -94,6 +97,6 @@ class AdminController {
 				
 			}
 		}
-		redirect (uri: "/admin2") 
+		redirect (uri: "/export-import") 
 	}
 }
