@@ -69,9 +69,10 @@ class AdminController {
 		CSVReader reader = new CSVReader(new BufferedReader(new InputStreamReader(istream)))
 		
 		new CSVMapReader(reader).each{ map ->
+			// Update user
 			User user = User.findByUsername(map["username"])
 			if (user != null) {
-				user.emailAddress = map["email address"]
+				user.emailAddress = map["email"]
 				user.firstName = map["first name"]
 				user.lastName = map["last name"]
 				user.level = map["level"]
@@ -81,7 +82,7 @@ class AdminController {
 				
 				String assignedSeatId = map["assignedSeatId"]
 				if (assignedSeatId.isEmpty()) {
-					userService.unclaimAllHotspots(user)	
+					userService.unclaimAllHotspots(user)
 				} else {
 					userService.unclaimAllHotspots(user)
 					Room room = Room.findByAssignedSeatId(assignedSeatId)
@@ -94,7 +95,32 @@ class AdminController {
 						}
 					}
 				}
-				
+			} else {
+				Office cloffice = Office.findByName("Cleveland");
+				String firstName = map["first name"]
+				String lastName = map["last name"]
+				String username = map["username"]
+				String emailAddress = map["email"]
+				String phone = map["phone"]
+				String level = map["level"]
+				String craft = map["craft"]
+				 
+				user = new User(firstName: firstName, lastName: lastName, username: username,
+					emailAddress: emailAddress, enabled: true, accountExpired: false, accountLocked: false,
+					 passwordExpired: false, office: cloffice, phone: phone, level: level, craft: craft).save(true)
+					 
+				String assignedSeatId = map["assignedSeatId"]
+				if (!assignedSeatId.isEmpty()) {
+					Room room = Room.findByAssignedSeatId(assignedSeatId)
+					if (room != null) {
+						roomService.addUserToRoom(room, user)
+					} else {
+						Desk desk = Desk.findByAssignedSeatId(assignedSeatId)
+						if (desk != null) {
+							desk.claim(user)
+						}
+					}
+				}
 			}
 		}
 		redirect (uri: "/export-import") 
