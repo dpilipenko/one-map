@@ -89,12 +89,21 @@ grails.exceptionresolver.params.exclude = ['password']
 grails.hibernate.cache.queries = false
 
 environments {
+	
     development {
         grails.logging.jul.usebridge = true
     }
+	
+	test {
+		grails.serverURL = "http://onemapdev.rosetta.com"
+		grails.logging.jul.usebridge = true
+		grails.config.locations = ["classpath:onemap-test-database.properties", "classpath:onemap-test-ldap.properties"]
+	}
+	
     production {
-        grails.logging.jul.usebridge = false
-        // xTODO: grails.serverURL = "http://www.changeme.com"
+		grails.serverURL = "http://onemap.rosetta.com"
+		grails.logging.jul.usebridge = false
+		grails.config.locations = ["classpath:onemap-production-database.properties", "classpath:onemap-production-ldap.properties"]
     }
 }
 
@@ -155,8 +164,6 @@ grails.plugin.springsecurity.authority.className = 'com.rosetta.onemap.Role'
 
 // Added by the Spring Security LDAP plugin:
 grails.plugin.springsecurity.providerNames = ['ldapAuthProvider']
-grails.plugin.springsecurity.ldap.context.managerDn = 'CN=svc-amer-OneMap,OU=Service Accounts,OU=AMER,DC=global,DC=publicisgroupe,DC=net'
-grails.plugin.springsecurity.ldap.context.managerPassword = 't?yxYdmSxNVllZ@Bh'
 grails.plugin.springsecurity.ldap.context.server = 'ldaps://global.publicisgroupe.net'
 grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'OU=AMER,DC=global,DC=publicisgroupe,DC=net'
 grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberOf={0}'
