@@ -18,13 +18,11 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"	 
-            url = "jdbc:mysql://SXD00HTTP04E.rosetta.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true"
-			username = "onemap"
-			password = "Rosetta1"
-			pooled = true
-			driverClassName = "com.mysql.jdbc.Driver"
-			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+            dbCreate = ""	 
+            url = ""
+			username = ""
+			password = ""
+			driverClassName = ""
 			properties {
 				maxActive = 50
 				maxIdle = 25
@@ -42,13 +40,11 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "update"	 
-            url = "jdbc:mysql://SXD00HTTP04E.rosetta.com:3306/onemapdev?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true"
-			username = "onemap"
-			password = "Rosetta1"
-			pooled = true
-			driverClassName = "com.mysql.jdbc.Driver"
-			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+            dbCreate = ""	 
+            url = ""
+			username = ""
+			password = ""
+			driverClassName = ""
 			properties {
 				maxActive = 50
 				maxIdle = 25
