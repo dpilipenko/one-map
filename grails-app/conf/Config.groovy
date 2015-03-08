@@ -92,7 +92,7 @@ environments {
 	
     development {
         grails.logging.jul.usebridge = true
-		grails.config.locations = ["file:${userHome}/.grails/onemap/ldap-config.groovy"]
+		grails.config.locations = ["file:${userHome}/.grails/onemap/onemap-development-ldap.groovy"]
     }
 	
 	test {
