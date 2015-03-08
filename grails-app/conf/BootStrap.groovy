@@ -1597,7 +1597,7 @@ class BootStrap {
 	private saveZones() {
 		freeZone = Zone.findByName("Free Zone")
 		if (freeZone == null) {
-			freeZone = Zone.getFreeZone().save(flush:true)
+			freeZone = Zone.getFreeZone()
 		}
 		ahaZone = Zone.findByName("AHA")
 		if (ahaZone == null) {
