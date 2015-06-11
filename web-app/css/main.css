@@ -36,13 +36,13 @@
 --------------------- */
 /* --- Globals
 ------------------------------ */
-/* line 81, main.scss */
+/* line 80, main.scss */
 body {
   background: url(../images/bg-tile.jpg) repeat;
   margin: 0;
 }
 
-/* line 86, main.scss */
+/* line 85, main.scss */
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -52,31 +52,31 @@ body {
   height: 0;
 }
 
-/* line 95, main.scss */
+/* line 94, main.scss */
 form {
   margin: 0 !important;
 }
 
-/* line 99, main.scss */
+/* line 98, main.scss */
 ::-webkit-scrollbar {
   height: 7px;
   width: 7px;
   background: none;
 }
 
-/* line 105, main.scss */
+/* line 104, main.scss */
 ::-webkit-scrollbar-thumb {
   background: #767676;
   -webkit-border-radius: 1ex;
   -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
 }
 
-/* line 111, main.scss */
+/* line 110, main.scss */
 ::-webkit-scrollbar-corner {
   background: none;
 }
 
-/* line 115, main.scss */
+/* line 114, main.scss */
 .main {
   overflow: hidden;
   position: absolute;
@@ -88,21 +88,21 @@ form {
   box-shadow: inset 0 0 200px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* line 127, main.scss */
+/* line 126, main.scss */
 * {
   outline-color: #00bce4;
 }
 
-/* line 131, main.scss */
+/* line 130, main.scss */
 a {
   text-decoration: underline;
 }
-/* line 134, main.scss */
+/* line 133, main.scss */
 a:hover {
   text-decoration: none !important;
 }
 
-/* line 138, main.scss */
+/* line 137, main.scss */
 input {
   height: 37px;
   line-height: 37px;
@@ -114,12 +114,12 @@ input {
   font-family: 'robotoregular', Arial;
   padding: 0px 10px;
 }
-/* line 149, main.scss */
+/* line 148, main.scss */
 input::-webkit-input-placeholder {
   color: #424242;
   opacity: 0.6;
 }
-/* line 153, main.scss */
+/* line 152, main.scss */
 input::-moz-placeholder {
   color: #424242;
   opacity: 0.6;
@@ -127,11 +127,11 @@ input::-moz-placeholder {
 
 /* --- Errors
 ------------------------------ */
-/* line 162, main.scss */
+/* line 161, main.scss */
 .error-wrapper input {
   box-shadow: 0 0px 0px 1px rgba(212, 29, 29, 0.6) inset, 0 2px 2px 0 rgba(0, 0, 0, 0.6) inset;
 }
-/* line 166, main.scss */
+/* line 165, main.scss */
 .error-wrapper .error-text {
   color: #d41d1d;
   font-family: Arial;
@@ -139,27 +139,27 @@ input::-moz-placeholder {
 
 /* --- Main
 ------------------------------ */
-/* line 176, main.scss */
+/* line 175, main.scss */
 .main.login {
   overflow: hidden;
 }
 
-/* line 180, main.scss */
+/* line 179, main.scss */
 .header.login {
   height: 100%;
   position: relative;
 }
-/* line 184, main.scss */
+/* line 183, main.scss */
 .header.login .divider, .header.login .name, .header.login .utility {
   opacity: 0;
 }
-/* line 188, main.scss */
+/* line 187, main.scss */
 .header.login .login-dot {
   opacity: 1;
   margin-top: -255px;
 }
 
-/* line 198, main.scss */
+/* line 197, main.scss */
 .header {
   -webkit-transition: height 1s;
   -moz-transition: height 1s;
@@ -187,7 +187,7 @@ input::-moz-placeholder {
   -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
 }
-/* line 221, main.scss */
+/* line 220, main.scss */
 .header .header-bg {
   background: url(../images/bg-header.png) no-repeat;
   background-size: cover;
@@ -198,7 +198,7 @@ input::-moz-placeholder {
   top: 0;
   left: 0;
 }
-/* line 240, main.scss */
+/* line 239, main.scss */
 .header .divider {
   -webkit-transition: opacity 1s;
   -moz-transition: opacity 1s;
@@ -207,7 +207,7 @@ input::-moz-placeholder {
   transition: opacity 1s;
   opacity: 1;
 }
-/* line 250, main.scss */
+/* line 249, main.scss */
 .header .admin-panel {
   background: none repeat scroll 0 0 black;
   position: absolute;
@@ -241,28 +241,28 @@ input::-moz-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00bce4', endColorstr='#0096b6',GradientType=1 );
   /* IE6-9 */
 }
-/* line 278, main.scss */
+/* line 277, main.scss */
 .header .admin-panel.expanded {
   right: 0px;
 }
-/* line 282, main.scss */
+/* line 281, main.scss */
 .header .admin-panel .error-wrapper {
   position: relative;
   float: left;
 }
-/* line 286, main.scss */
+/* line 285, main.scss */
 .header .admin-panel .error-wrapper .error-text {
   position: absolute;
   top: 33px;
   left: 0;
   font-size: 10px;
 }
-/* line 294, main.scss */
+/* line 293, main.scss */
 .header .admin-panel .response {
   display: none;
   padding-top: 14px;
 }
-/* line 298, main.scss */
+/* line 297, main.scss */
 .header .admin-panel .response div {
   color: #252525;
   font-size: 13px;
@@ -270,7 +270,7 @@ input::-moz-placeholder {
   margin: 8px 25px 0 0;
   float: right;
 }
-/* line 306, main.scss */
+/* line 305, main.scss */
 .header .admin-panel .response .okay {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: 1px solid #fff;
@@ -286,11 +286,11 @@ input::-moz-placeholder {
   text-decoration: none;
   width: 80px;
 }
-/* line 321, main.scss */
+/* line 320, main.scss */
 .header .admin-panel .response .okay:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 328, main.scss */
+/* line 327, main.scss */
 .header .admin-panel .fields {
   float: left;
   padding-right: 25px;
@@ -298,37 +298,37 @@ input::-moz-placeholder {
   border-right: 1px solid #00bce4;
   min-width: 400px;
 }
-/* line 335, main.scss */
+/* line 334, main.scss */
 .header .admin-panel .fields .messaging {
   color: #252525;
   font-size: 13px;
   font-family: 'robotolight',Arial;
   margin-bottom: 8px;
 }
-/* line 342, main.scss */
+/* line 341, main.scss */
 .header .admin-panel .fields .zone-name, .header .admin-panel .fields .zone-color {
   height: 30px;
   float: left;
   font-size: 11px;
   background: #ececec;
 }
-/* line 349, main.scss */
+/* line 348, main.scss */
 .header .admin-panel .fields .zone-name {
   margin-right: 25px;
   width: 220px;
 }
-/* line 356, main.scss */
+/* line 355, main.scss */
 .header .admin-panel .actions {
   vertical-align: middle;
 }
-/* line 358, main.scss */
+/* line 357, main.scss */
 .header .admin-panel .actions .number-selected {
   color: #252525;
   font-size: 13px;
   font-family: 'robotolight',Arial;
   margin-bottom: 8px;
 }
-/* line 364, main.scss */
+/* line 363, main.scss */
 .header .admin-panel .actions .panel-button {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: 1px solid #fff;
@@ -344,21 +344,21 @@ input::-moz-placeholder {
   text-decoration: none;
   width: 80px;
 }
-/* line 379, main.scss */
+/* line 378, main.scss */
 .header .admin-panel .actions .panel-button:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 384, main.scss */
+/* line 383, main.scss */
 .header .admin-panel .actions .save-zone {
   margin-right: 15px;
 }
-/* line 392, main.scss */
+/* line 391, main.scss */
 .header .inner {
   padding: 20px 2%;
   width: 96%;
   height: 55px;
 }
-/* line 398, main.scss */
+/* line 397, main.scss */
 .header .logo {
   width: 52px;
   height: 52px;
@@ -366,7 +366,7 @@ input::-moz-placeholder {
   float: left;
   margin-right: 20px;
 }
-/* line 406, main.scss */
+/* line 405, main.scss */
 .header .name {
   font-family: 'satelliteregular', Arial;
   color: #00bce4;
@@ -381,7 +381,7 @@ input::-moz-placeholder {
   transition: opacity 1s;
   opacity: 1;
 }
-/* line 423, main.scss */
+/* line 422, main.scss */
 .header .utility {
   margin-top: 8px;
   -webkit-transition: opacity 1s;
@@ -391,14 +391,14 @@ input::-moz-placeholder {
   transition: opacity 1s;
   opacity: 1;
 }
-/* line 434, main.scss */
+/* line 433, main.scss */
 .header .searchbar {
   background: url(../images/icon-magnify.png) no-repeat 237px center rgba(181, 181, 181, 0.7);
   width: 220px;
   float: right;
   padding: 0px 38px 0px 10px;
 }
-/* line 442, main.scss */
+/* line 441, main.scss */
 .header .searchbtn {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: medium none;
@@ -411,7 +411,7 @@ input::-moz-placeholder {
   width: 38px;
   z-index: 1;
 }
-/* line 455, main.scss */
+/* line 454, main.scss */
 .header .logout a, .header .welcome, .header .header-link {
   float: right;
   font-family: 'robotolight', Arial;
@@ -421,20 +421,20 @@ input::-moz-placeholder {
   height: 37px;
   line-height: 37px;
 }
-/* line 465, main.scss */
+/* line 464, main.scss */
 .header .header-link {
   position: relative;
 }
-/* line 467, main.scss */
+/* line 466, main.scss */
 .header .header-link a {
   color: #424242;
 }
-/* line 472, main.scss */
+/* line 471, main.scss */
 .header .logout a {
   margin: 0px 40px 0px 20px;
 }
 
-/* line 478, main.scss */
+/* line 477, main.scss */
 .fractals {
   background: url(../images/fractals.png) no-repeat bottom center;
   background-size: cover;
@@ -446,7 +446,7 @@ input::-moz-placeholder {
   z-index: 0;
 }
 
-/* line 489, main.scss */
+/* line 488, main.scss */
 .divider {
   width: 3px;
   height: 35px;
@@ -459,7 +459,7 @@ input::-moz-placeholder {
 
 /* --- Info Panel
 ------------------------------ */
-/* line 502, main.scss */
+/* line 501, main.scss */
 .info-panel {
   bottom: 0;
   position: absolute;
@@ -473,7 +473,7 @@ input::-moz-placeholder {
   -o-transition: right 1s;
   transition: right 1s;
 }
-/* line 516, main.scss */
+/* line 515, main.scss */
 .info-panel .info-link {
   float: left;
   margin: -37px;
@@ -498,11 +498,11 @@ input::-moz-placeholder {
   -o-transition: margin 1s;
   transition: margin 1s;
 }
-/* line 542, main.scss */
+/* line 541, main.scss */
 .info-panel .info-link:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 547, main.scss */
+/* line 546, main.scss */
 .info-panel .info-title {
   float: left;
   font-family: 'satelliteregular', Arial;
@@ -512,7 +512,7 @@ input::-moz-placeholder {
   padding: 12px;
   display: none;
 }
-/* line 557, main.scss */
+/* line 556, main.scss */
 .info-panel .info-shadow {
   border-radius: 10000px;
   box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.8), 0 5px 10px 5px rgba(0, 0, 0, 0.8);
@@ -523,7 +523,7 @@ input::-moz-placeholder {
   width: 90%;
   z-index: 1;
 }
-/* line 568, main.scss */
+/* line 567, main.scss */
 .info-panel .info-content {
   max-height: 0px;
   overflow: hidden;
@@ -537,98 +537,98 @@ input::-moz-placeholder {
   -o-transition: max-height 1s, padding 1s, opacity 0.3s;
   transition: max-height 1s, padding 1s, opacity 0.3s;
 }
-/* line 583, main.scss */
+/* line 582, main.scss */
 .info-panel .info-content strong {
   color: #252525;
   display: block;
   font-family: 'robotoregular',arial;
   font-size: 14px;
 }
-/* line 590, main.scss */
+/* line 589, main.scss */
 .info-panel .info-content a {
   color: #dcdcdc;
   text-decoration: underline;
 }
-/* line 594, main.scss */
+/* line 593, main.scss */
 .info-panel .info-content a:hover {
   text-decoration: none;
 }
-/* line 599, main.scss */
+/* line 598, main.scss */
 .info-panel .info-content table {
   border: none;
   margin: 0;
   padding: 0;
 }
-/* line 605, main.scss */
+/* line 604, main.scss */
 .info-panel .info-content ul {
   margin: 0;
   padding: 0;
 }
-/* line 609, main.scss */
+/* line 608, main.scss */
 .info-panel .info-content ul li {
   margin: 5px 0px;
   color: #dcdcdc;
 }
-/* line 613, main.scss */
+/* line 612, main.scss */
 .info-panel .info-content ul li span {
   color: #fff;
 }
-/* line 617, main.scss */
+/* line 616, main.scss */
 .info-panel .info-content ul li:first-child {
   margin-top: 0;
 }
-/* line 620, main.scss */
+/* line 619, main.scss */
 .info-panel .info-content ul li:last-child {
   margin-bottom: 0;
 }
-/* line 626, main.scss */
+/* line 625, main.scss */
 .info-panel .info-content .legend {
   color: #fff;
   font-family: 'robotolight',arial;
   font-size: 12px;
   padding: 20px 12px 20px 20px;
 }
-/* line 632, main.scss */
+/* line 631, main.scss */
 .info-panel .info-content .legend > div {
   margin: 6px 0px;
 }
-/* line 637, main.scss */
+/* line 636, main.scss */
 .info-panel .info-content .support, .info-panel .info-content .tips {
   color: #fff;
   font-family: 'robotolight',arial;
   font-size: 13px;
   padding: 20px;
 }
-/* line 644, main.scss */
+/* line 643, main.scss */
 .info-panel .info-content .desk-pin {
   padding: 7px 0 7px 37px;
   background: url(../images/pin-seat.png) top left no-repeat transparent;
   margin-bottom: 10px;
 }
-/* line 650, main.scss */
+/* line 649, main.scss */
 .info-panel .info-content .room-pin {
   padding: 10px 0 10px 37px;
   background: url(../images/pin-room.png) top left no-repeat transparent;
   margin-bottom: 10px;
 }
-/* line 656, main.scss */
+/* line 655, main.scss */
 .info-panel .info-content .warroom-pin {
   padding: 12px 0 12px 37px;
   background: url(../images/pin-war.png) top left no-repeat transparent;
 }
-/* line 661, main.scss */
+/* line 660, main.scss */
 .info-panel .info-content .zone-pin {
   background: url("../images/pin-zone.png") no-repeat scroll left 3px transparent;
   margin-bottom: 10px;
   margin-left: 13px;
   padding: 10px 0 7px 40px;
 }
-/* line 668, main.scss */
+/* line 667, main.scss */
 .info-panel .info-content .zone-vacant {
   margin-left: 10px;
   margin-bottom: 10px;
 }
-/* line 671, main.scss */
+/* line 670, main.scss */
 .info-panel .info-content .zone-vacant div {
   border: 2px solid #e1e21a;
   float: left;
@@ -636,11 +636,11 @@ input::-moz-placeholder {
   margin: 0 16px 0px 2px;
   width: 20px;
 }
-/* line 680, main.scss */
+/* line 679, main.scss */
 .info-panel .info-content .zone-occupied {
   margin-left: 10px;
 }
-/* line 682, main.scss */
+/* line 681, main.scss */
 .info-panel .info-content .zone-occupied div {
   border: 2px solid #e1e21a;
   background: #e1e21a;
@@ -649,15 +649,15 @@ input::-moz-placeholder {
   margin: 0 16px 0px 2px;
   width: 20px;
 }
-/* line 693, main.scss */
+/* line 692, main.scss */
 .info-panel.open {
   right: 0px;
 }
-/* line 696, main.scss */
+/* line 695, main.scss */
 .info-panel.open .info-title {
   display: block;
 }
-/* line 700, main.scss */
+/* line 699, main.scss */
 .info-panel.open .info-link {
   margin: 10px 0 10px 10px;
   border: 1px solid #fff !important;
@@ -676,7 +676,7 @@ input::-moz-placeholder {
   vertical-align: top;
   width: 17px;
 }
-/* line 720, main.scss */
+/* line 719, main.scss */
 .info-panel.open .info-content {
   max-height: 500px;
   display: block;
@@ -689,27 +689,167 @@ input::-moz-placeholder {
   -o-transition: max-height 1s, padding 1s, opacity 1.3s;
   transition: max-height 1s, padding 1s, opacity 1.3s;
 }
-/* line 738, main.scss */
+/* line 737, main.scss */
 .info-panel.login .info-link {
   color: #686869;
   border: 1px solid #686869;
 }
-/* line 744, main.scss */
+/* line 743, main.scss */
 .info-panel.login .info-content strong, .info-panel.login .info-content .legend, .info-panel.login .info-content .tips {
   display: none;
 }
-/* line 751, main.scss */
+/* line 750, main.scss */
 .info-panel.login.open .info-content {
   max-height: 60px;
 }
-/* line 753, main.scss */
+/* line 752, main.scss */
 .info-panel.login.open .info-content .support {
   padding: 0 0 20px 0;
 }
 
 /* --- Login
 ------------------------------ */
-/* line 764, main.scss */
+/* line 766, main.scss */
+.spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 772, main.scss */
+.login-dot.loading .spinner {
+  -webkit-animation: rotator 2.4s linear infinite;
+  animation: rotator 2.4s linear infinite;
+}
+/* line 776, main.scss */
+.login-dot.loading .spinner .path {
+  -webkit-animation: dash 2.4s ease-in-out infinite, colors 9.6s ease-in-out infinite;
+  animation: dash 2.4s ease-in-out infinite, colors 9.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes rotator {
+  /* line 788, main.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 789, main.scss */
+  100% {
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes rotator {
+  /* line 793, main.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  /* line 794, main.scss */
+  100% {
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
+}
+
+/* line 797, main.scss */
+.path {
+  stroke-dasharray: 1482;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: 248px 248px;
+  -ms-transform-origin: 248px 248px;
+  transform-origin: 248px 248px;
+}
+
+@-webkit-keyframes colors {
+  /* line 807, main.scss */
+  0% {
+    stroke: #73e7ff;
+  }
+
+  /* line 808, main.scss */
+  25% {
+    stroke: #c7f5ff;
+  }
+
+  /* line 809, main.scss */
+  75% {
+    stroke: #00d3ff;
+  }
+
+  /* line 810, main.scss */
+  100% {
+    stroke: #8fcdda;
+  }
+}
+
+@keyframes colors {
+  /* line 814, main.scss */
+  0% {
+    stroke: #73e7ff;
+  }
+
+  /* line 815, main.scss */
+  25% {
+    stroke: #c7f5ff;
+  }
+
+  /* line 816, main.scss */
+  75% {
+    stroke: #00d3ff;
+  }
+
+  /* line 817, main.scss */
+  100% {
+    stroke: #8fcdda;
+  }
+}
+
+@-webkit-keyframes dash {
+  /* line 821, main.scss */
+  0% {
+    stroke-dashoffset: 1482;
+  }
+
+  /* line 822, main.scss */
+  50% {
+    stroke-dashoffset: 370.5;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+
+  /* line 827, main.scss */
+  100% {
+    stroke-dashoffset: 1482;
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg);
+  }
+}
+
+@keyframes dash {
+  /* line 835, main.scss */
+  0% {
+    stroke-dashoffset: 1482;
+  }
+
+  /* line 836, main.scss */
+  50% {
+    stroke-dashoffset: 370.5;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+
+  /* line 841, main.scss */
+  100% {
+    stroke-dashoffset: 1482;
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg);
+  }
+}
+
+/* line 862, main.scss */
 .login-dot {
   -webkit-transition: opacity 0.4s, margin-top 0.8s;
   -moz-transition: opacity 0.4s, margin-top 0.8s;
@@ -727,7 +867,7 @@ input::-moz-placeholder {
   -webkit-box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.2);
 }
-/* line 784, main.scss */
+/* line 901, main.scss */
 .login-dot .inner {
   background: #00b4da;
   /* Old browsers */
@@ -750,15 +890,16 @@ input::-moz-placeholder {
   width: 470px;
   height: 470px;
   padding: 0px;
+  position: relative;
 }
-/* line 801, main.scss */
+/* line 919, main.scss */
 .login-dot .login-form {
   margin: 0 auto;
   width: 285px;
   top: 65px;
   position: relative;
 }
-/* line 808, main.scss */
+/* line 926, main.scss */
 .login-dot .login-title {
   font-size: 40px;
   font-family: 'satelliteregular', Arial;
@@ -766,14 +907,14 @@ input::-moz-placeholder {
   text-align: center;
   margin-bottom: 25px;
 }
-/* line 816, main.scss */
+/* line 934, main.scss */
 .login-dot input {
   background: #ececec;
   border: none;
   width: 265px;
   height: 37px;
 }
-/* line 824, main.scss */
+/* line 942, main.scss */
 .login-dot label {
   display: block;
   font-size: 18px;
@@ -782,11 +923,11 @@ input::-moz-placeholder {
   padding-left: 10px;
   margin-bottom: 4px;
 }
-/* line 833, main.scss */
+/* line 951, main.scss */
 .login-dot .username {
   margin-bottom: 35px;
 }
-/* line 837, main.scss */
+/* line 955, main.scss */
 .login-dot .submit-login {
   width: 120px;
   height: 45px;
@@ -799,13 +940,13 @@ input::-moz-placeholder {
   background: none;
   cursor: pointer;
 }
-/* line 851, main.scss */
+/* line 969, main.scss */
 .login-dot .submit-login:hover {
   background: rgba(0, 0, 0, 0.08);
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
 }
-/* line 858, main.scss */
+/* line 976, main.scss */
 .login-dot .skip-login {
   color: #252525;
   cursor: pointer;
@@ -817,41 +958,41 @@ input::-moz-placeholder {
   text-decoration: none;
   text-transform: uppercase;
 }
-/* line 869, main.scss */
+/* line 987, main.scss */
 .login-dot .skip-login:hover {
   text-decoration: underline !important;
 }
-/* line 875, main.scss */
+/* line 993, main.scss */
 .login-dot .error-wrapper .username, .login-dot .error-wrapper .password {
   margin-bottom: 5px;
 }
-/* line 879, main.scss */
+/* line 997, main.scss */
 .login-dot .error-wrapper .error-text {
   display: block;
   margin-bottom: 10px;
   font-size: 14px;
 }
-/* line 887, main.scss */
+/* line 1005, main.scss */
 .login-dot .password-error .submit-login {
   margin-top: 23px;
 }
-/* line 892, main.scss */
+/* line 1010, main.scss */
 .login-dot .password-error .auth-error input {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.6) inset;
 }
-/* line 895, main.scss */
+/* line 1013, main.scss */
 .login-dot .password-error .auth-error .error-text {
   text-align: center;
   margin: 10px 0px -10px 0px;
 }
-/* line 902, main.scss */
+/* line 1020, main.scss */
 .login-dot .browser-compatability {
   display: none;
 }
 
 /* --- Search Results
 ------------------------------ */
-/* line 910, main.scss */
+/* line 1028, main.scss */
 #results {
   border: 1px solid #404040;
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.85);
@@ -885,7 +1026,7 @@ input::-moz-placeholder {
   left: 0px;
   padding-top: 70px;
 }
-/* line 944, main.scss */
+/* line 1062, main.scss */
 #results .results-header {
   width: 295px;
   height: 70px;
@@ -919,7 +1060,7 @@ input::-moz-placeholder {
   /* IE6-9 */
   border: 1px solid #414141;
 }
-/* line 973, main.scss */
+/* line 1091, main.scss */
 #results .results-header span {
   font-family: 'satelliteregular', Arial;
   color: #00bce4;
@@ -928,7 +1069,7 @@ input::-moz-placeholder {
   float: left;
   margin-top: 16px;
 }
-/* line 982, main.scss */
+/* line 1100, main.scss */
 #results .results-header .clear-results {
   float: right;
   width: 30px;
@@ -938,12 +1079,12 @@ input::-moz-placeholder {
   cursor: pointer;
   margin-right: 20px;
 }
-/* line 992, main.scss */
+/* line 1110, main.scss */
 #results .results-header .divider {
   float: right;
   margin-top: 16px;
 }
-/* line 997, main.scss */
+/* line 1115, main.scss */
 #results .results-header .collapse-results {
   float: right;
   width: 30px;
@@ -951,7 +1092,7 @@ input::-moz-placeholder {
   margin-top: 20px;
   cursor: pointer;
 }
-/* line 1004, main.scss */
+/* line 1122, main.scss */
 #results .results-header .collapse-results div {
   margin: 6px;
   width: 0;
@@ -960,23 +1101,23 @@ input::-moz-placeholder {
   border-bottom: 10px solid transparent;
   border-right: 10px solid #bbbbbb;
 }
-/* line 1016, main.scss */
+/* line 1134, main.scss */
 #results .results-list {
   overflow-y: auto;
   height: 370px;
 }
-/* line 1020, main.scss */
+/* line 1138, main.scss */
 #results .results-list .no-results {
   color: #fff;
   padding: 20px;
   font-family: 'robotolight',Arial;
   font-size: 13px;
 }
-/* line 1027, main.scss */
+/* line 1145, main.scss */
 #results .results-list .results-group {
   display: none;
 }
-/* line 1032, main.scss */
+/* line 1150, main.scss */
 #results .results-list.show-dividers .results-group {
   display: block;
   background: none repeat scroll 0 0 rgba(255, 255, 255, 0.07);
@@ -990,7 +1131,7 @@ input::-moz-placeholder {
   text-shadow: 0 1px 0 #000;
   margin-top: -1px;
 }
-/* line 1049, main.scss */
+/* line 1167, main.scss */
 #results .results-list .result-item {
   opacity: 0.5;
   padding: 11px 0px 11px 40px;
@@ -998,49 +1139,49 @@ input::-moz-placeholder {
   border-bottom: 1px solid #393939;
   margin: 0px 12px;
 }
-/* line 1057, main.scss */
+/* line 1175, main.scss */
 #results .results-list .result-item.user {
   background: url(../images/icon-person.png) no-repeat left center;
   background-size: 29px 27px;
 }
-/* line 1062, main.scss */
+/* line 1180, main.scss */
 #results .results-list .result-item.room {
   background: url(../images/icon-room.png) no-repeat left center;
   background-size: 29px 28px;
 }
-/* line 1067, main.scss */
+/* line 1185, main.scss */
 #results .results-list .result-item.zone {
   background: url(../images/icon-zone.png) no-repeat left center;
   background-size: 33px 26px;
 }
-/* line 1072, main.scss */
+/* line 1190, main.scss */
 #results .results-list .result-item.desk {
   background: url(../images/icon-desk.png) no-repeat left center;
   background-size: 27px 28px;
 }
-/* line 1078, main.scss */
+/* line 1196, main.scss */
 #results .results-list .result-item.isLink {
   opacity: 1;
   cursor: pointer;
 }
-/* line 1083, main.scss */
+/* line 1201, main.scss */
 #results .results-list .result-item .name {
   color: #FFF;
   font-family: 'robotoregular', Arial;
   font-size: 15px;
 }
-/* line 1089, main.scss */
+/* line 1207, main.scss */
 #results .results-list .result-item .position, #results .results-list .result-item .location, #results .results-list .result-item .project {
   color: #dcdcdc;
   font-family: Arial;
   font-size: 12px;
   margin-top: 2px;
 }
-/* line 1099, main.scss */
+/* line 1217, main.scss */
 #results.collapsed {
   left: -322px;
 }
-/* line 1102, main.scss */
+/* line 1220, main.scss */
 #results.collapsed .results-header {
   -webkit-transition: margin-left 0.4s;
   -moz-transition: margin-left 0.4s;
@@ -1051,7 +1192,7 @@ input::-moz-placeholder {
   transition-timing-function: ease-out;
   margin-left: 59px;
 }
-/* line 1114, main.scss */
+/* line 1232, main.scss */
 #results.collapsed .collapse-results div {
   margin: 6px;
   width: 0;
@@ -1061,23 +1202,23 @@ input::-moz-placeholder {
   border-left: 10px solid #bbbbbb;
   border-right: none;
 }
-/* line 1127, main.scss */
+/* line 1245, main.scss */
 #results.cleared {
   left: -390px;
 }
-/* line 1130, main.scss */
+/* line 1248, main.scss */
 #results.cleared .results-header {
   margin-left: 59px;
 }
 
-/* line 1138, main.scss */
+/* line 1256, main.scss */
 .zoom-btns {
   position: absolute;
   right: 5%;
   top: 55px;
   display: none;
 }
-/* line 1144, main.scss */
+/* line 1262, main.scss */
 .zoom-btns #plus {
   width: 25px;
   height: 26px;
@@ -1087,11 +1228,11 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 1153, main.scss */
+/* line 1271, main.scss */
 .zoom-btns #plus:hover {
   background-position: 0 -26px;
 }
-/* line 1158, main.scss */
+/* line 1276, main.scss */
 .zoom-btns #minus {
   width: 25px;
   height: 26px;
@@ -1101,19 +1242,19 @@ input::-moz-placeholder {
   float: left;
   margin-right: 10px;
 }
-/* line 1167, main.scss */
+/* line 1285, main.scss */
 .zoom-btns #minus:hover {
   background-position: 0 -26px;
 }
-/* line 1171, main.scss */
+/* line 1289, main.scss */
 .zoom-btns #minus.disabled {
   opacity: 0.5;
 }
-/* line 1174, main.scss */
+/* line 1292, main.scss */
 .zoom-btns #minus.disabled:hover {
   background-position: 0 0;
 }
-/* line 1180, main.scss */
+/* line 1298, main.scss */
 .zoom-btns #backto3d {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   border: 1px solid #424242;
@@ -1131,7 +1272,7 @@ input::-moz-placeholder {
   text-decoration: none;
   padding: 0 8px;
 }
-/* line 1198, main.scss */
+/* line 1316, main.scss */
 .zoom-btns #backto3d:hover {
   background: rgba(0, 0, 0, 0.08);
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4);
@@ -1140,27 +1281,27 @@ input::-moz-placeholder {
 
 /* --- Offices
 ------------------------------ */
-/* line 1209, main.scss */
+/* line 1327, main.scss */
 #offices-container {
   z-index: 1;
   position: relative;
 }
 
-/* line 1214, main.scss */
+/* line 1332, main.scss */
 #offices-slider-control {
   min-height: 60px;
   overflow: hidden;
   position: relative;
   width: 100%;
 }
-/* line 1222, main.scss */
+/* line 1340, main.scss */
 #offices-slider-control .inner {
   margin: 0 auto;
   min-height: 1px;
   text-align: center;
   width: 188px;
 }
-/* line 1229, main.scss */
+/* line 1347, main.scss */
 #offices-slider-control #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -1171,7 +1312,7 @@ input::-moz-placeholder {
   width: 80%;
   z-index: 1;
 }
-/* line 1240, main.scss */
+/* line 1358, main.scss */
 #offices-slider-control span {
   margin: 0px 25px;
   font-family: 'satelliteregular', Arial;
@@ -1185,16 +1326,16 @@ input::-moz-placeholder {
 
 /* --- Maps
 ------------------------------ */
-/* line 1258, main.scss */
+/* line 1376, main.scss */
 .kineticjs-content {
   background: #e2e2e2;
 }
-/* line 1261, main.scss */
+/* line 1379, main.scss */
 .kineticjs-content canvas {
   z-index: 2;
 }
 
-/* line 1266, main.scss */
+/* line 1384, main.scss */
 .generic-popup {
   width: auto;
   height: auto;
@@ -1222,7 +1363,7 @@ input::-moz-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 );
   /* IE6-9 */
 }
-/* line 1289, main.scss */
+/* line 1407, main.scss */
 .generic-popup .inner {
   width: auto;
   height: auto;
@@ -1233,7 +1374,7 @@ input::-moz-placeholder {
   font-family: 'robotolight', Arial;
   line-height: 18px;
 }
-/* line 1301, main.scss */
+/* line 1419, main.scss */
 .generic-popup .inner.loading {
   margin-bottom: -50px;
   min-height: 55px;
@@ -1241,7 +1382,7 @@ input::-moz-placeholder {
   padding-top: 40px;
   width: 252px;
 }
-/* line 1310, main.scss */
+/* line 1428, main.scss */
 .generic-popup .close {
   position: absolute;
   top: -13px;
@@ -1252,15 +1393,15 @@ input::-moz-placeholder {
   cursor: pointer;
   z-index: 1;
 }
-/* line 1320, main.scss */
+/* line 1438, main.scss */
 .generic-popup .close:hover {
   background-position: 0px -26px;
 }
-/* line 1325, main.scss */
+/* line 1443, main.scss */
 .generic-popup.centered {
   text-align: center;
 }
-/* line 1329, main.scss */
+/* line 1447, main.scss */
 .generic-popup .notch {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
@@ -1272,7 +1413,7 @@ input::-moz-placeholder {
   position: absolute;
   width: 0;
 }
-/* line 1341, main.scss */
+/* line 1459, main.scss */
 .generic-popup .notch:after {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -1284,7 +1425,7 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 1353, main.scss */
+/* line 1471, main.scss */
 .generic-popup .notch:before {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -1296,7 +1437,7 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 1367, main.scss */
+/* line 1485, main.scss */
 .generic-popup.notch-top .notch {
   bottom: auto;
   top: -10px;
@@ -1306,7 +1447,7 @@ input::-moz-placeholder {
   border-right: 14px solid transparent;
   border-top: none;
 }
-/* line 1377, main.scss */
+/* line 1495, main.scss */
 .generic-popup.notch-top .notch:after {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -1318,7 +1459,7 @@ input::-moz-placeholder {
   width: 21px;
   z-index: -1;
 }
-/* line 1389, main.scss */
+/* line 1507, main.scss */
 .generic-popup.notch-top .notch:before {
   box-shadow: 1px 4px 3px 1px rgba(0, 0, 0, 0.4);
   content: "";
@@ -1331,13 +1472,13 @@ input::-moz-placeholder {
   z-index: -1;
 }
 
-/* line 1403, main.scss */
+/* line 1521, main.scss */
 #create-zone-popup {
   box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.5);
   right: 31px;
   top: 40px;
 }
-/* line 1408, main.scss */
+/* line 1526, main.scss */
 #create-zone-popup .inner {
   font-size: 12px;
   line-height: normal;
@@ -1346,7 +1487,7 @@ input::-moz-placeholder {
 
 /* --- Slider
 -------------------------- */
-/* line 1418, main.scss */
+/* line 1536, main.scss */
 .lean-slider-next {
   width: 0;
   height: 0;
@@ -1359,7 +1500,7 @@ input::-moz-placeholder {
   margin-top: 25px;
 }
 
-/* line 1432, main.scss */
+/* line 1550, main.scss */
 .lean-slider-next:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -1371,7 +1512,7 @@ input::-moz-placeholder {
   width: 10px;
 }
 
-/* line 1443, main.scss */
+/* line 1561, main.scss */
 .lean-slider-prev {
   width: 0;
   height: 0;
@@ -1384,7 +1525,7 @@ input::-moz-placeholder {
   margin-top: 25px;
 }
 
-/* line 1457, main.scss */
+/* line 1575, main.scss */
 .lean-slider-prev:after {
   box-shadow: 4px 1px 2px -2px rgba(0, 0, 0, 0.5);
   content: "";
@@ -1396,25 +1537,25 @@ input::-moz-placeholder {
   width: 10px;
 }
 
-/* line 1468, main.scss */
+/* line 1586, main.scss */
 .lean-slider {
   position: relative;
   *zoom: 1;
 }
 
-/* line 1473, main.scss */
+/* line 1591, main.scss */
 .lean-slider:before,
 .lean-slider:after {
   content: " ";
   display: table;
 }
 
-/* line 1477, main.scss */
+/* line 1595, main.scss */
 .lean-slider:after {
   clear: both;
 }
 
-/* line 1481, main.scss */
+/* line 1599, main.scss */
 .lean-slider-slide {
   float: left;
   width: 80%;
@@ -1428,13 +1569,13 @@ input::-moz-placeholder {
   transition: opacity 0.6s linear;
 }
 
-/* line 1494, main.scss */
+/* line 1612, main.scss */
 .lean-slider-slide.current {
   opacity: 1;
   visibility: visible;
 }
 
-/* line 1499, main.scss */
+/* line 1617, main.scss */
 .lean-slider-next, .lean-slider-prev {
   text-indent: -9999px;
   border-bottom: 10px solid transparent;
@@ -1444,7 +1585,7 @@ input::-moz-placeholder {
   margin-top: -9px;
 }
 
-/* line 1508, main.scss */
+/* line 1626, main.scss */
 .lean-slider-control-nav {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
   border-radius: 4px;
@@ -1457,36 +1598,36 @@ input::-moz-placeholder {
   font-size: 23px;
   line-height: 1px;
 }
-/* line 1520, main.scss */
+/* line 1638, main.scss */
 .lean-slider-control-nav.active {
   background: white;
 }
-/* line 1524, main.scss */
+/* line 1642, main.scss */
 .lean-slider-control-nav:hover {
   background: #0096b6;
 }
 
-/* line 1529, main.scss */
+/* line 1647, main.scss */
 .lean-slider-next {
   right: 6px;
   border-left: 10px solid #eee;
 }
-/* line 1533, main.scss */
+/* line 1651, main.scss */
 .lean-slider-next:hover {
   border-left: 10px solid #f9f9f9;
 }
 
-/* line 1537, main.scss */
+/* line 1655, main.scss */
 .lean-slider-prev {
   left: 6px;
   border-right: 10px solid #eee;
 }
-/* line 1541, main.scss */
+/* line 1659, main.scss */
 .lean-slider-prev:hover {
   border-right: 10px solid #f9f9f9;
 }
 
-/* line 1546, main.scss */
+/* line 1664, main.scss */
 #slider-dot-nav {
   left: 50%;
   margin: 10px 0 0;
@@ -1498,7 +1639,7 @@ input::-moz-placeholder {
 
 /* --- Corner Result Hits
 -------------------------- */
-/* line 1558, main.scss */
+/* line 1676, main.scss */
 .corner-results {
   bottom: 22px;
   display: block;
@@ -1508,7 +1649,7 @@ input::-moz-placeholder {
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
-/* line 1568, main.scss */
+/* line 1686, main.scss */
 .corner-results div {
   display: block;
   font-family: 'robotolight',Arial;
@@ -1523,7 +1664,7 @@ input::-moz-placeholder {
   transform-style: preserve-3d;
   display: none;
 }
-/* line 1587, main.scss */
+/* line 1705, main.scss */
 .corner-results div.zones {
   padding: 5px 19px 2px 0;
   text-align: right;
@@ -1531,7 +1672,7 @@ input::-moz-placeholder {
   background-size: 19px 18px !important;
   margin: 49px 0 0;
 }
-/* line 1595, main.scss */
+/* line 1713, main.scss */
 .corner-results div.users {
   padding: 7px 13px 0 0;
   text-align: right;
@@ -1539,7 +1680,7 @@ input::-moz-placeholder {
   background-size: 12px 18px !important;
   margin: 60px 5px 0 0;
 }
-/* line 1603, main.scss */
+/* line 1721, main.scss */
 .corner-results div.rooms {
   padding: 7px 16px 0 0;
   text-align: right;
@@ -1547,7 +1688,7 @@ input::-moz-placeholder {
   background-size: 14px 19px !important;
   margin: 53px 10px 0 0;
 }
-/* line 1611, main.scss */
+/* line 1729, main.scss */
 .corner-results div.warrooms {
   padding: 7px 17px 0 0;
   text-align: right;
@@ -1556,7 +1697,7 @@ input::-moz-placeholder {
   margin: 40px 12px 0 0;
 }
 
-/* line 1621, main.scss */
+/* line 1739, main.scss */
 .showthisfloor .corner-results {
   display: none;
 }
@@ -1565,7 +1706,7 @@ input::-moz-placeholder {
 ===================================================
 ===================================================
 --- */
-/* line 1642, main.scss */
+/* line 1760, main.scss */
 .ms-wrapper {
   position: relative;
   margin: 20px auto 0;
@@ -1574,7 +1715,7 @@ input::-moz-placeholder {
   overflow: hidden;
 }
 
-/* line 1650, main.scss */
+/* line 1768, main.scss */
 .ms-perspective {
   position: relative;
   margin: 0px auto;
@@ -1588,7 +1729,7 @@ input::-moz-placeholder {
   perspective-origin: 50% 0%;
 }
 
-/* line 1663, main.scss */
+/* line 1781, main.scss */
 .ms-device {
   position: absolute;
   width: 100%;
@@ -1598,7 +1739,7 @@ input::-moz-placeholder {
   transition: transform 0.7s ease-in-out;
 }
 
-/* line 1675, main.scss */
+/* line 1793, main.scss */
 .ms-device,
 .ms-object,
 .ms-object > div,
@@ -1609,14 +1750,14 @@ input::-moz-placeholder {
 }
 
 /* Screens */
-/* line 1682, main.scss */
+/* line 1800, main.scss */
 .ms-screens .floorplan {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* line 1688, main.scss */
+/* line 1806, main.scss */
 .ms-screens > .floorplan {
   position: absolute;
   width: 100%;
@@ -1636,7 +1777,7 @@ input::-moz-placeholder {
   transform: translateZ(16px);
 }
 
-/* line 1709, main.scss */
+/* line 1827, main.scss */
 .floorplan h1 {
   position: absolute;
   right: 10px;
@@ -1647,12 +1788,12 @@ input::-moz-placeholder {
   text-shadow: 1px 1px 0px #000,2px 2px 1px #000;
 }
 
-/* line 1719, main.scss */
+/* line 1837, main.scss */
 .floorplan.showthisfloor, .floorplan.flyup, .floorplan.flydown {
   box-shadow: none;
 }
 
-/* line 1723, main.scss */
+/* line 1841, main.scss */
 .ms-screens > .floorplan::after {
   content: '';
   position: absolute;
@@ -1667,7 +1808,7 @@ input::-moz-placeholder {
   transition: opacity 0.3s;
 }
 
-/* line 1737, main.scss */
+/* line 1855, main.scss */
 .ms-label {
   border: 2px solid #00bce4;
   color: #fff;
@@ -1687,17 +1828,17 @@ input::-moz-placeholder {
   transition: opacity 0.7s, transform 0.7s;
 }
 
-/* line 1758, main.scss */
+/* line 1876, main.scss */
 .ms-screens > .floorplan:hover .ms-label, .floorplan.showthisfloor .ms-label {
   background: #00bce4;
 }
 
-/* line 1762, main.scss */
+/* line 1880, main.scss */
 .floorplan.showthisfloor .ms-label {
   top: 0;
 }
 
-/* line 1766, main.scss */
+/* line 1884, main.scss */
 .ms-label::after {
   right: 100%;
   border: solid transparent;
@@ -1713,7 +1854,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 1782, main.scss */
+/* line 1900, main.scss */
 .ms-label::after,
 .ms-label::before {
   right: 100%;
@@ -1725,7 +1866,7 @@ input::-moz-placeholder {
   pointer-events: none;
 }
 
-/* line 1792, main.scss */
+/* line 1910, main.scss */
 .ms-label::after {
   border-color: transparent;
   border-right-color: #616163;
@@ -1734,7 +1875,7 @@ input::-moz-placeholder {
   margin-top: -8px;
 }
 
-/* line 1800, main.scss */
+/* line 1918, main.scss */
 .ms-label::before {
   border-color: transparent;
   border-right-color: #00bce4;
@@ -1743,17 +1884,17 @@ input::-moz-placeholder {
   margin-top: -10px;
 }
 
-/* line 1808, main.scss */
+/* line 1926, main.scss */
 .ms-screens > .floorplan:hover .ms-label::before, .floorplan.showthisfloor .ms-label::before {
   border-right-color: #00bce4;
 }
 
-/* line 1812, main.scss */
+/* line 1930, main.scss */
 .ms-screens > .floorplan:hover .ms-label::after, .floorplan.showthisfloor .ms-label::after {
   border-right-color: #00bce4;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-1 {
   -webkit-transform: translateZ(90px);
   -moz-transform: translateZ(90px);
@@ -1764,7 +1905,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-2 {
   -webkit-transform: translateZ(165px);
   -moz-transform: translateZ(165px);
@@ -1775,7 +1916,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-3 {
   -webkit-transform: translateZ(240px);
   -moz-transform: translateZ(240px);
@@ -1786,7 +1927,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-4 {
   -webkit-transform: translateZ(315px);
   -moz-transform: translateZ(315px);
@@ -1797,7 +1938,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-5 {
   -webkit-transform: translateZ(390px);
   -moz-transform: translateZ(390px);
@@ -1808,7 +1949,7 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1818, main.scss */
+/* line 1936, main.scss */
 .ms-view-layers .ms-screens .ms-screen-6 {
   -webkit-transform: translateZ(465px);
   -moz-transform: translateZ(465px);
@@ -1819,12 +1960,12 @@ input::-moz-placeholder {
   opacity: 0.9;
 }
 
-/* line 1829, main.scss */
+/* line 1947, main.scss */
 .ms-view-layers .ms-screens > .floorplan:not(.showthisfloor):hover::after {
   opacity: 1;
 }
 
-/* line 1833, main.scss */
+/* line 1951, main.scss */
 .ms-view-layers .ms-label {
   opacity: 1;
   -webkit-transform: rotateX(-90deg);
@@ -1832,56 +1973,56 @@ input::-moz-placeholder {
   transform: rotateX(-90deg);
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-1 .ms-label {
   -webkit-transition-delay: 1.1s;
   -moz-transition-delay: 1.1s;
   transition-delay: 1.1s;
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-2 .ms-label {
   -webkit-transition-delay: 1s;
   -moz-transition-delay: 1s;
   transition-delay: 1s;
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-3 .ms-label {
   -webkit-transition-delay: 0.9s;
   -moz-transition-delay: 0.9s;
   transition-delay: 0.9s;
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-4 .ms-label {
   -webkit-transition-delay: 0.8s;
   -moz-transition-delay: 0.8s;
   transition-delay: 0.8s;
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-5 .ms-label {
   -webkit-transition-delay: 0.7s;
   -moz-transition-delay: 0.7s;
   transition-delay: 0.7s;
 }
 
-/* line 1841, main.scss */
+/* line 1959, main.scss */
 .ms-view-layers .ms-screen-6 .ms-label {
   -webkit-transition-delay: 0.6s;
   -moz-transition-delay: 0.6s;
   transition-delay: 0.6s;
 }
 
-/* line 1849, main.scss */
+/* line 1967, main.scss */
 .ms-effect-3.ms-view-layers .ms-device {
   -webkit-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-235px) translateY(-200px) translateX(-300px);
   -moz-transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-235px) translateY(-200px) translateX(-300px);
   transform: rotateY(-40deg) rotateX(87deg) translateZ(-15px) translateZ(-235px) translateY(-200px) translateX(-300px);
 }
 
-/* line 1855, main.scss */
+/* line 1973, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .ms-device {
   -webkit-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
   -moz-transform: rotateY(0deg) rotateX(0deg) translateZ(0) translateZ(0);
@@ -1891,7 +2032,7 @@ input::-moz-placeholder {
   	transform: rotateY(-30deg) rotateX(90deg) translateZ(0);*/
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1902,7 +2043,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1913,7 +2054,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1924,14 +2065,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1942,7 +2083,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1953,7 +2094,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -1964,14 +2105,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -1982,7 +2123,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -1993,7 +2134,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -2004,14 +2145,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -2022,7 +2163,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -2033,7 +2174,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -2044,14 +2185,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -2062,7 +2203,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -2073,7 +2214,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -2084,14 +2225,14 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1865, main.scss */
+/* line 1983, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flyup {
   -webkit-transform: translateZ(1700px);
   -moz-transform: translateZ(1700px);
@@ -2102,7 +2243,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1875, main.scss */
+/* line 1993, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.flydown {
   -webkit-transform: translateZ(-700px);
   -moz-transform: translateZ(-700px);
@@ -2113,7 +2254,7 @@ input::-moz-placeholder {
   opacity: 0;
 }
 
-/* line 1885, main.scss */
+/* line 2003, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
@@ -2124,39 +2265,39 @@ input::-moz-placeholder {
   opacity: 1;
 }
 
-/* line 1895, main.scss */
+/* line 2013, main.scss */
 .ms-effect-3.ms-view-layers.showingfloor .floorplan.showthisfloor .ms-label {
   -webkit-transform: rotateX(0deg) translateX(-106px);
   -moz-transform: rotateX(0deg) translateX(-106px);
   transform: rotateX(0deg) translateX(-106px);
 }
 
-/* line 1904, main.scss */
+/* line 2022, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-1 {
   background: url(../images/floorplan-eleven.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1909, main.scss */
+/* line 2027, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-2 {
   background: url(../images/floorplan-twelve.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1914, main.scss */
+/* line 2032, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-3 {
   background: url(../images/floorplan-thirteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1919, main.scss */
+/* line 2037, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-4 {
   background: url(../images/floorplan-fourteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1924, main.scss */
+/* line 2042, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-5 {
   background: url(../images/floorplan-fifteen.png) no-repeat center center #e2e2e2;
   background-size: contain;
 }
-/* line 1929, main.scss */
+/* line 2047, main.scss */
 .ms-effect-3 .ms-screens .ms-screen-6 {
   background: url(../images/floorplan-seventeen.png) no-repeat center center #e2e2e2;
   background-size: contain;
@@ -2171,13 +2312,13 @@ Styles for the html/body for special modal where we want 3d effects
 Note that we need a container wrapping all content on the page for the 
 perspective effects (not including the modals and the overlay).
 */
-/* line 1947, main.scss */
+/* line 2065, main.scss */
 .md-trigger {
   position: relative;
   z-index: 300;
 }
 
-/* line 1952, main.scss */
+/* line 2070, main.scss */
 .md-modal {
   position: fixed;
   top: 50%;
@@ -2214,25 +2355,25 @@ perspective effects (not including the modals and the overlay).
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00bce4', endColorstr='#0096b6',GradientType=0 );
   /* IE6-9 */
 }
-/* line 1982, main.scss */
+/* line 2100, main.scss */
 .md-modal.user .md-bg {
   background: url("../images/icon-watermark-person.png") no-repeat scroll top right rgba(0, 0, 0, 0);
   min-height: 80px;
   background-size: 108px 101px;
 }
-/* line 1988, main.scss */
+/* line 2106, main.scss */
 .md-modal.desk .md-bg {
   background: url("../images/icon-watermark-desk.png") no-repeat scroll top right rgba(0, 0, 0, 0);
   min-height: 80px;
   background-size: 96px 101px;
 }
-/* line 1994, main.scss */
+/* line 2112, main.scss */
 .md-modal.room .md-bg {
   background: url("../images/icon-watermark-room.png") no-repeat scroll top right rgba(0, 0, 0, 0);
   min-height: 80px;
   background-size: 98px 101px;
 }
-/* line 2000, main.scss */
+/* line 2118, main.scss */
 .md-modal .md-content {
   color: #fff;
   position: relative;
@@ -2243,29 +2384,29 @@ perspective effects (not including the modals and the overlay).
   font-family: 'robotolight', Arial;
   line-height: 18px;
 }
-/* line 2018, main.scss */
+/* line 2136, main.scss */
 .md-modal .md-content > div {
   padding: 15px;
 }
-/* line 2022, main.scss */
+/* line 2140, main.scss */
 .md-modal .md-content .btns-container {
   padding-top: 0px;
 }
-/* line 2025, main.scss */
+/* line 2143, main.scss */
 .md-modal .md-content .btns-container .error-wrapper {
   position: relative;
 }
-/* line 2028, main.scss */
+/* line 2146, main.scss */
 .md-modal .md-content .btns-container .error-wrapper .error-text {
   font-size: 10px;
   position: absolute;
   top: 33px;
 }
-/* line 2037, main.scss */
+/* line 2155, main.scss */
 .md-modal .md-content .md-bg .btns-container {
   margin-top: 10px;
 }
-/* line 2043, main.scss */
+/* line 2161, main.scss */
 .md-modal .md-content .seat-info #saveSeatZone {
   margin-left: 5px;
   display: none;
@@ -2273,17 +2414,17 @@ perspective effects (not including the modals and the overlay).
   font-size: 13px;
   cursor: pointer;
 }
-/* line 2053, main.scss */
+/* line 2171, main.scss */
 .md-modal .md-content .member .seat-info {
   padding-top: 15px;
 }
-/* line 2059, main.scss */
+/* line 2177, main.scss */
 .md-modal .war-name {
   float: left;
   height: 30px;
   margin-right: 10px;
 }
-/* line 2065, main.scss */
+/* line 2183, main.scss */
 .md-modal .close {
   position: absolute;
   top: -13px;
@@ -2294,22 +2435,22 @@ perspective effects (not including the modals and the overlay).
   cursor: pointer;
   z-index: 1;
 }
-/* line 2075, main.scss */
+/* line 2193, main.scss */
 .md-modal .close:hover {
   background-position: 0px -26px;
 }
-/* line 2080, main.scss */
+/* line 2198, main.scss */
 .md-modal .name {
   font-size: 23px;
   color: #252525;
   font-family: 'robotolight', Arial;
   margin: 3px 0px 8px;
 }
-/* line 2087, main.scss */
+/* line 2205, main.scss */
 .md-modal a {
   color: inherit;
 }
-/* line 2090, main.scss */
+/* line 2208, main.scss */
 .md-modal a.btn {
   text-decoration: none;
   border: 1px solid #FFF;
@@ -2318,11 +2459,11 @@ perspective effects (not including the modals and the overlay).
   margin-right: 10px;
   cursor: pointer;
 }
-/* line 2098, main.scss */
+/* line 2216, main.scss */
 .md-modal a.btn:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-/* line 2104, main.scss */
+/* line 2222, main.scss */
 .md-modal #members-slider {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2) inset;
@@ -2332,7 +2473,7 @@ perspective effects (not including the modals and the overlay).
   position: relative;
   display: none;
 }
-/* line 2115, main.scss */
+/* line 2233, main.scss */
 .md-modal #members-slider .members .member {
   background: url(../images/icon-person.png) no-repeat left center;
   background-size: 56px 51px;
@@ -2344,7 +2485,7 @@ perspective effects (not including the modals and the overlay).
   font-size: 11px;
   line-height: 14px;
 }
-/* line 2122, main.scss */
+/* line 2240, main.scss */
 .md-modal #members-slider .members .member .name {
   color: #252525;
   font-family: 'robotoregular', Arial;
@@ -2352,12 +2493,12 @@ perspective effects (not including the modals and the overlay).
   margin: 0 0 5px 0;
 }
 
-/* line 2138, main.scss */
+/* line 2256, main.scss */
 .md-show {
   visibility: visible;
 }
 
-/* line 2142, main.scss */
+/* line 2260, main.scss */
 .md-overlay {
   position: fixed;
   width: 100%;
@@ -2374,13 +2515,13 @@ perspective effects (not including the modals and the overlay).
   transition: all 0.3s;
 }
 
-/* line 2158, main.scss */
+/* line 2276, main.scss */
 .md-show ~ .md-overlay {
   opacity: 1;
   visibility: visible;
 }
 
-/* line 2163, main.scss */
+/* line 2281, main.scss */
 .md-effect-1 .md-content {
   -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7);
@@ -2392,7 +2533,7 @@ perspective effects (not including the modals and the overlay).
   transition: all 0.3s;
 }
 
-/* line 2174, main.scss */
+/* line 2292, main.scss */
 .md-show.md-effect-1 .md-content {
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
@@ -2401,7 +2542,7 @@ perspective effects (not including the modals and the overlay).
   opacity: 1;
 }
 
-/* line 2183, main.scss */
+/* line 2301, main.scss */
 .admin #tabs {
   background: none repeat scroll 0 0 #e2e2e2;
   margin: 20px auto 0;
@@ -2410,12 +2551,12 @@ perspective effects (not including the modals and the overlay).
   z-index: 2;
   overflow: hidden;
 }
-/* line 2191, main.scss */
+/* line 2309, main.scss */
 .admin #tabs form {
   position: relative;
   z-index: 3;
 }
-/* line 2197, main.scss */
+/* line 2315, main.scss */
 .admin #tabs #zones .watermark {
   background: url("../images/icon-watermark-zone.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2425,7 +2566,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 459px;
 }
-/* line 2209, main.scss */
+/* line 2327, main.scss */
 .admin #tabs #seats .watermark {
   background: url("../images/icon-watermark-desk.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2435,7 +2576,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 361px;
 }
-/* line 2221, main.scss */
+/* line 2339, main.scss */
 .admin #tabs #reports .watermark {
   background: url("../images/icon-watermark-reports.png") no-repeat scroll 0 0/contain rgba(0, 0, 0, 0);
   height: 370px;
@@ -2445,7 +2586,7 @@ perspective effects (not including the modals and the overlay).
   top: -8px;
   width: 367px;
 }
-/* line 2232, main.scss */
+/* line 2350, main.scss */
 .admin #tabs h2 {
   font-family: 'satelliteregular', Arial;
   font-size: 25px;
@@ -2465,28 +2606,28 @@ perspective effects (not including the modals and the overlay).
   background: linear-gradient(to bottom, #1fbce2 0%, #1db2d7 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1fbce2', endColorstr='#1db2d7',GradientType=0 );
 }
-/* line 2255, main.scss */
+/* line 2373, main.scss */
 .admin #tabs .tab {
   display: none;
   position: relative;
 }
-/* line 2258, main.scss */
+/* line 2376, main.scss */
 .admin #tabs .tab.active {
   display: block;
 }
-/* line 2263, main.scss */
+/* line 2381, main.scss */
 .admin #tabs .hidden-content {
   display: none;
 }
-/* line 2265, main.scss */
+/* line 2383, main.scss */
 .admin #tabs .hidden-content.active {
   display: block;
 }
-/* line 2271, main.scss */
+/* line 2389, main.scss */
 .admin .loading-icon {
   display: none;
 }
-/* line 2275, main.scss */
+/* line 2393, main.scss */
 .admin .tabs-navigation {
   height: 135px;
   width: 90%;
@@ -2494,7 +2635,7 @@ perspective effects (not including the modals and the overlay).
   position: relative;
   overflow: hidden;
 }
-/* line 2282, main.scss */
+/* line 2400, main.scss */
 .admin .tabs-navigation #falloff-shadow {
   border-radius: 24000px;
   box-shadow: 0 5px 50px 5px black, 0 5px 10px 5px black;
@@ -2505,14 +2646,14 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   z-index: 1;
 }
-/* line 2293, main.scss */
+/* line 2411, main.scss */
 .admin .tabs-navigation ul {
   margin: 0;
   text-align: center;
   position: relative;
   z-index: 2;
 }
-/* line 2299, main.scss */
+/* line 2417, main.scss */
 .admin .tabs-navigation ul li {
   display: inline-block;
   text-align: center;
@@ -2523,7 +2664,7 @@ perspective effects (not including the modals and the overlay).
   text-shadow: 0 2px 2px #000;
   text-transform: uppercase;
 }
-/* line 2310, main.scss */
+/* line 2428, main.scss */
 .admin .tabs-navigation ul li a {
   padding: 12px 0px 0px 0px;
   text-decoration: none;
@@ -2532,7 +2673,7 @@ perspective effects (not including the modals and the overlay).
   width: 100%;
   height: 135px;
 }
-/* line 2318, main.scss */
+/* line 2436, main.scss */
 .admin .tabs-navigation ul li a:hover {
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjE1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
@@ -2543,29 +2684,29 @@ perspective effects (not including the modals and the overlay).
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#26ffffff', endColorstr='#00ffffff',GradientType=0 );
 }
-/* line 2330, main.scss */
+/* line 2448, main.scss */
 .admin .tabs-navigation ul li a.active {
   background: url(../images/admin-tabs-active-effect.png) no-repeat top center;
   background-size: 100% auto;
 }
-/* line 2336, main.scss */
+/* line 2454, main.scss */
 .admin .tabs-navigation ul li a.active .icon.seats {
   background: url("../images/icon-desk.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2340, main.scss */
+/* line 2458, main.scss */
 .admin .tabs-navigation ul li a.active .icon.zones {
   background: url("../images/icon-zone.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2344, main.scss */
+/* line 2462, main.scss */
 .admin .tabs-navigation ul li a.active .icon.reports {
   background: url("../images/icon-reports.png") no-repeat scroll center top/contain transparent;
 }
-/* line 2351, main.scss */
+/* line 2469, main.scss */
 .admin .tabs-navigation ul li.divide {
   width: 4px;
   height: 105px;
 }
-/* line 2355, main.scss */
+/* line 2473, main.scss */
 .admin .tabs-navigation ul li.divide div {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px black inset;
@@ -2573,46 +2714,46 @@ perspective effects (not including the modals and the overlay).
   margin-top: 18px;
   width: 4px;
 }
-/* line 2364, main.scss */
+/* line 2482, main.scss */
 .admin .tabs-navigation ul li .admin-zone-text {
   margin-left: -22px;
 }
-/* line 2368, main.scss */
+/* line 2486, main.scss */
 .admin .tabs-navigation ul li .icon {
   display: block;
   margin: 0 auto;
 }
-/* line 2372, main.scss */
+/* line 2490, main.scss */
 .admin .tabs-navigation ul li .icon.seats {
   background: url("../images/icon-desk-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 93px;
 }
-/* line 2377, main.scss */
+/* line 2495, main.scss */
 .admin .tabs-navigation ul li .icon.seats.active {
   background: url("../images/icon-desk.png") no-repeat scroll top center transparent;
 }
-/* line 2382, main.scss */
+/* line 2500, main.scss */
 .admin .tabs-navigation ul li .icon.zones {
   background: url("../images/icon-zone-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 116px;
 }
-/* line 2387, main.scss */
+/* line 2505, main.scss */
 .admin .tabs-navigation ul li .icon.zones.active {
   background: url("../images/icon-zone.png") no-repeat scroll top center transparent;
 }
-/* line 2392, main.scss */
+/* line 2510, main.scss */
 .admin .tabs-navigation ul li .icon.reports {
   background: url("../images/icon-reports-white.png") no-repeat scroll center top/contain transparent;
   height: 95px;
   width: 94px;
 }
-/* line 2397, main.scss */
+/* line 2515, main.scss */
 .admin .tabs-navigation ul li .icon.reports.active {
   background: url("../images/icon-reports.png") no-repeat scroll top center transparent;
 }
-/* line 2406, main.scss */
+/* line 2524, main.scss */
 .admin .modal {
   display: none;
   background: yellow;
@@ -2622,36 +2763,36 @@ perspective effects (not including the modals and the overlay).
   position: absolute;
   z-index: 9999;
 }
-/* line 2414, main.scss */
+/* line 2532, main.scss */
 .admin .modal.active {
   display: block;
 }
-/* line 2418, main.scss */
+/* line 2536, main.scss */
 .admin .validation {
   display: inline-block;
   width: 20px;
   height: 20px;
   background: transparent;
 }
-/* line 2423, main.scss */
+/* line 2541, main.scss */
 .admin .validation.valid {
   background: green;
 }
-/* line 2426, main.scss */
+/* line 2544, main.scss */
 .admin .validation.error {
   background: red;
 }
 
-/* line 2435, main.scss */
+/* line 2553, main.scss */
 .ui-helper-hidden-accessible {
   display: none;
 }
 
-/* line 2438, main.scss */
+/* line 2556, main.scss */
 .ui-autocomplete {
   z-index: 1000;
 }
-/* line 2440, main.scss */
+/* line 2558, main.scss */
 .ui-autocomplete li:hover {
   color: blue;
 }
@@ -2660,37 +2801,37 @@ perspective effects (not including the modals and the overlay).
 	Browser Specific
 	=================================================================== */
 @-moz-document url-prefix() {
-  /* line 2451, main.scss */
+  /* line 2569, main.scss */
   .main {
     box-shadow: inset 0 0 2000px 0 rgba(0, 0, 0, 0.5);
   }
 
-  /* line 2455, main.scss */
+  /* line 2573, main.scss */
   .md-overlay {
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
 }
 
-/* line 2462, main.scss */
+/* line 2580, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2464, main.scss */
+/* line 2582, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2467, main.scss */
+/* line 2585, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2470, main.scss */
+/* line 2588, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2475, main.scss */
+/* line 2593, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;
