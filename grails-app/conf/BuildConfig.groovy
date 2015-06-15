@@ -44,18 +44,18 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-build ":tomcat:7.0.54"
+
+		build ":tomcat:7.0.54"
 
         compile ":scaffolding:2.1.1"
-        
-compile ":cache:1.1.8"
-compile ":codenarc:0.23"
-compile ":jslint:0.6"
-compile ":quartz:1.0.2"
-compile ":quartz-monitor:1.0"
-compile ':spring-security-core:2.0-RC4'
-compile ':spring-security-ldap:2.0-RC2'
-compile ':csv:0.3.1'
+        compile ":cache:1.1.8"
+		compile ":codenarc:0.23"
+		compile ":jslint:0.6"
+		compile ":quartz:1.0.2"
+		compile ":quartz-monitor:1.0"
+		compile ':spring-security-core:2.0-RC4'
+		compile ':spring-security-ldap:2.0-RC2'
+		compile ':csv:0.3.1'
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.19"
