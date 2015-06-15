@@ -26,6 +26,7 @@ OneMap.login = {
                 $('.username').parent().append('<div class="error-text">' + 'Invalid email format' + '</div>');
             } else {
                 //all good
+                $('.login-dot').addClass('loading');
                 $.ajax({
                     url: OneMap.login.submitURL,
                     type: 'POST',

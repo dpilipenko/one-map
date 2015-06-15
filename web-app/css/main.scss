@@ -65,7 +65,6 @@
   font-family: 'robotothin', Arial;
 }
 
-
 /* Colors
 --------------------- */
 $blue: #00bce4;
@@ -761,6 +760,105 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 /* --- Login
 ------------------------------ */
 
+$offset: 1482;
+$duration: 2.4s;
+
+.spinner {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .login-dot.loading & {
+  	-webkit-animation: rotator $duration linear infinite;
+  	        animation: rotator $duration linear infinite;
+
+  	.path {
+  		-webkit-animation:
+    dash $duration ease-in-out infinite, 
+    colors ($duration*4) ease-in-out infinite;
+  		        animation:
+    dash $duration ease-in-out infinite, 
+    colors ($duration*4) ease-in-out infinite;
+  	}
+  }
+}
+
+@-webkit-keyframes rotator {
+  0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(270deg); transform: rotate(270deg); }
+}
+
+@keyframes rotator {
+  0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(270deg); transform: rotate(270deg); }
+}
+
+.path {
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  -webkit-transform-origin: 248px 248px;
+      -ms-transform-origin: 248px 248px;
+          transform-origin: 248px 248px;
+  
+}
+
+@-webkit-keyframes colors {
+	0% { stroke: #73e7ff; }
+	25% { stroke: #c7f5ff; }
+	75% { stroke: #00d3ff; }
+  100% { stroke: #8fcdda; }
+}
+
+@keyframes colors {
+	0% { stroke: #73e7ff; }
+	25% { stroke: #c7f5ff; }
+	75% { stroke: #00d3ff; }
+  100% { stroke: #8fcdda; }
+}
+
+@-webkit-keyframes dash {
+ 0% { stroke-dashoffset: $offset; }
+ 50% {
+   stroke-dashoffset: $offset/4;
+   -webkit-transform:rotate(135deg);
+           transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: $offset;
+   -webkit-transform:rotate(450deg);
+           transform:rotate(450deg);
+ }
+}
+
+@keyframes dash {
+ 0% { stroke-dashoffset: $offset; }
+ 50% {
+   stroke-dashoffset: $offset/4;
+   -webkit-transform:rotate(135deg);
+           transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: $offset;
+   -webkit-transform:rotate(450deg);
+           transform:rotate(450deg);
+ }
+}
+
+// @keyframes pulsate {
+//     0% {
+//       transform:scale(0.7);
+//       opacity: 0.0;
+//     }
+//     50% {
+//       opacity:1;
+//     }
+//     100% {
+//       transform:scale(1.5);
+//       opacity:0;
+//     }
+// }
+
 .login-dot {
 	-webkit-transition: opacity 0.4s, margin-top 0.8s; 
 	-moz-transition: opacity 0.4s, margin-top 0.8s; 
@@ -781,6 +879,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', e
 	-webkit-box-shadow: 0 0 13px 0 rgba(0,0,0,0.20);
 	box-shadow: 0 0 13px 0 rgba(0,0,0,0.20);
 
+	// &.loading {
+	// 	.inner:before {
+	// 		border:3px solid #fff;
+	// 	    border-radius:50%;
+	// 	    height:100%;
+	// 	    left:50%;
+	// 	    margin:-237px 0 0 -237px;
+	// 	    opacity:0;
+	// 	    position:absolute;
+	// 	    top:50%;
+	// 	    width:100%;
+	// 	    content: "";
+	// 	    z-index: -1;
+
+	// 	    animation: pulsate 1s ease-out;
+	// 	    animation-iteration-count:1;
+	// 	}
+	// }
+
 	.inner {
 		background: rgb(0,180,218); /* Old browsers */
 background: -moz-linear-gradient(top,  rgba(0,180,218,1) 0%, rgba(0,147,179,1) 100%); /* FF3.6+ */
@@ -796,6 +913,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b4da', end
 		width: 470px;
 		height: 470px;
 		padding: 0px;
+		position: relative;
 	}
 
 	.login-form {

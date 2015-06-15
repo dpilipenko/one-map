@@ -124,15 +124,18 @@
 			</div>
 
 		    <div class="login-dot">
+			    <svg class="spinner" width="496px" height="496px" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg">
+				   <circle class="path" fill="none" stroke-width="13" stroke-linecap="round" cx="248" cy="248" r="242"></circle>
+				</svg>
 	            <div class="inner">
 	              	<div class="login-form">
 		                <div class="login-title">
 		                  ONE MAP
 		                </div>
 		                <label for="username">Username</label>
-		                <input class="username" type="text" />
+		                <input class="username" type="text" placeholder="lion login username" />
 		                <label for="password">Password</label>
-		                <input class="password" type="password" />
+		                <input class="password" type="password" placeholder="lion login password" />
 		                <button type="submit" class="submit-login">SUBMIT</button>
 	              	</div>
 	              	<div class="browser-compatability">
