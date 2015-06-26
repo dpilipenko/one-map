@@ -702,7 +702,7 @@ class BootStrap {
 			new Room(name: "Billy Joel", number: "1243", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1243", zone: freeZone, x:244, y:471, polygon: "M250.68,430.8 229.2,426.48 214.56,463.2 225.72,511.56 229.32,510.72 230.16,514.56 272.04,504.6 272.76,500.28 257.88,442.44 260.28,434.4z").save(flush: true);
 		}
 		if (Room.findByAssignedSeatId("1239") == null) {
-			new Room(name: "Van Halen", number: "1239", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1239", zone: freeZone, x:491, y:422, polygon: "M454.68,456 442.32,399 505.2,384.12 539.4,435.96 537.24,437.4 539.4,440.64 459,460.56 458.34,457.808 455.64,458.16z").save(flush: true);
+			new Room(name: "Van Halen", number: "1239", phone: "216.896.8992", office: cloffice, floor: "12", assignedSeatId: "1239", zone: freeZone, x:491, y:422, polygon: "M454.68,456 442.32,399 505.2,384.12 539.4,435.96 537.24,437.4 539.4,440.64 459,460.56 458.34,457.808 455.64,458.16z").save(flush: true);
 		}
 		if (Room.findByAssignedSeatId("1237") == null) {
 			new Room(name: "Run DMC", number: "1237", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1237", zone: freeZone, x:459, y:345, polygon: "M428.04,344.64 430.92,358.68 447.72,356.16 455.521,367.92 489.36,360 483.84,351.6 481.33,353.25 478.561,348.36 480.72,346.92 464.88,322.8z").save(flush: true);
@@ -752,7 +752,7 @@ class BootStrap {
 		if (Desk.findByAssignedSeatId("1317T") == null) {
 			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317T", zone: freeZone, x:197, y:196, polygon: "M190.945,198.659l10.208,5.254c0,0,3.984-7.354,0.447-12.508c-3.535-5.151-10.951-4.061-10.951-4.061L190.945,198.659z").save(flush: true);
 		}
-		if (Desk.findByAssignedSeatId("1221317U8") == null) {
+		if (Desk.findByAssignedSeatId("1317U") == null) {
 			new Desk(office: cloffice, floor: "13", assignedSeatId: "1317U", zone: freeZone, x:191, y:205, polygon: "M181.311,204.455l9.634-5.796l10.208,5.254c0,0-5.124,7.061-9.84,6.983C186.594,210.819,181.311,204.455,181.311,204.455z").save(flush: true);
 		}
 		if (Desk.findByAssignedSeatId("1317X") == null) {
@@ -1057,6 +1057,21 @@ class BootStrap {
 		}
 		if (Desk.findByAssignedSeatId("1335") == null) {
 			new Desk(office: cloffice, floor: "13", assignedSeatId: "1335", zone: freeZone, x:444, y:322, polygon: "M421.92,314.56 429.48,341.2 437.28,338.56 465.48,321.28 454.92,305.2 452.494,306.58 450.84,303.64 424.68,309.88 425.76,313.721z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1319") == null) {
+			new Room(name: 'Queen', number: '1319', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1319", zone: freeZone, x:224, y:33, polygon: "M183.24,8.8 183.24,58.84 262.08,58.84 262.08,54.28 265.32,54.28 265.32,10.84 261.84,10.5 262.08,6.64 217.92,6.64 217.92,11.32 210.96,11 210.96,8.8z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1329") == null) {
+			new Room(name: 'Elton John', number: '1329', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1329", zone: freeZone, x:243, y:318, polygon: "M234.84,351.4 219.96,285.52 237.6,285.52 237.6,282.04 262.32,282.04 262.32,285.52 265.32,285.52 265.32,340.84 262.92,340.66 262.92,344.56 258.72,345.64 259.92,350.32 244.328,353.341 243,349.499z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1343") == null) {
+			new Room(name: 'James Taylor', number: '1343', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1343", zone: freeZone, x:245, y:470, polygon: "M261.547,433.853 252.023,430.134 230.52,425.8 215.76,462.64 227.04,511 230.52,510.16 231.48,513.88 273.36,504.04 272.88,500.98 259.354,441.34z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1334") == null) {
+			new Room(name: 'Earth Wind & Fire', number: '1334', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1334", zone: freeZone, x:491, y:422, polygon: "M441.84,398.8 456.84,457.6 459.6,456.88 460.32,460 504.12,449.68 503.4,446.56 511.32,444.76 512.04,447.76 540.6,440.08 538.44,436.84 540.6,435.4 515.4,396.64 513.24,398.02 510,393.52 512.16,392.08 506.52,383.56z").save(flush: true);
+		}
+		if (Desk.findByAssignedSeatId("1336") == null) {
+			new Room(name: 'Jimi Hendrix', number: '1336', phone: '000.000.0000', office: cloffice, floor: "13", assignedSeatId: "1336", zone: freeZone, x:460, y:345, polygon: "M428.76,343.6 433.5,359.44 449.04,355.48 456.72,367.36 490.56,359.32 485.04,351.04 482.279,352.24 479.88,347.68 482.04,346.36 466.48,322.009 438.684,340.249z").save(flush: true);
 		}
 	}
 	
