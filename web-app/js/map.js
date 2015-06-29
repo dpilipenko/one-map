@@ -635,7 +635,7 @@ var OneMap = {
                 case "room":
                     OneMap.hotspots.modalElement.removeClass('desk').addClass('room');
                     if (object.project !== undefined) { // WAR room
-                        var content = $('#room-template').html().format(object.name, object.number, object.phone, "Project:&nbsp;" + object.project);
+                        var content = $('#room-template').html().format(object.name, object.number, (object.phone) ? object.phone : "", "Project:&nbsp;" + object.project);
                         innerDiv.html(content);
 
                         if (object.members.length > 0) {
@@ -662,7 +662,7 @@ var OneMap = {
 
                         }
                     } else { // conference room
-                        var content = $('#room-template').html().format(object.name, object.number, object.phone, '');
+                        var content = $('#room-template').html().format(object.name, object.number, (object.phone) ? object.phone : "", '');
                         innerDiv.html(content);
                         if(OneMap.userIsAdmin){
                             OneMap.hotspots.modalElement.find('.btns-container').html('<a class="btn createWAR">CONVERT TO WARROOM</a>');
