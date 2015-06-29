@@ -364,7 +364,13 @@ class OneMapController {
 		}
 		for (Desk desk : deskResults) {
 			JSONObject deskObject = new JSONObject()
-			printDeskHotspot(desk, deskObject, springSecurityService.principal)
+			Object user = springSecurityService.principal
+			if (user instanceof User) {
+				printDeskHotspot(desk, deskObject, user)
+			} else {
+				printDeskHotspot(desk, deskObject, null)
+			}
+			
 			deskObject.put("hotspotId", 'h'+desk.id)
 			searchResults.add(deskObject)
 		}
