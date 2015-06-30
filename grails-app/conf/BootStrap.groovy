@@ -53,9 +53,6 @@ class BootStrap {
 		if (Room.findByAssignedSeatId("1141") == null) {
 			new Room(name: "Beastie Boys", number: "1141", phone: "216.896.8988", office: cloffice, floor: "11", assignedSeatId: "1141", zone: freeZone, x: 241, y: 470, polygon: "M209.16,461.36l13.08,54.066l51.3-12.067l-14.46-62.039l2.76-8.641l-9.66-3.239c0,0-20.6-5.111-21.9-4.2L215.4,459.8L209.16,461.36z").save(flush: true);
 		}
-		if (Desk.findByAssignedSeatId("1139") == null) {
-			new Desk(office: cloffice, floor: "11", assignedSeatId: "1139", zone: freeZone, x: 33, y: 29, polygon: "M318.12,452.72 327.12,490.76 274.08,503.359 261.36,450.56 274.44,447.44 285.24,445.16 287.838,454.939 294.72,453.56z").save(flush: true);
-		}
 		if (Desk.findByAssignedSeatId("1121") == null) {
 			new Desk(office: cloffice, floor: "11", assignedSeatId: "1121", zone: freeZone, x: 244, y: 142, polygon: "M222,115.28 265.2,114.68 265.2,169.16 222,169.16 226.13,143.72z").save(flush: true);
 		}
