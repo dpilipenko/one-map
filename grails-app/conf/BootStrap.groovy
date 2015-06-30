@@ -1076,6 +1076,9 @@ class BootStrap {
 		if (Room.findByAssignedSeatId("1458") == null) {
 			new Room(name: "The Grateful Dead", number: "1458", phone: "216.325.6035", office: cloffice, floor: "14", assignedSeatId: "1458", zone: freeZone, x:244, y:470, polygon: "M229.618,426.077l-14.734,36.836l4.954,21.148l-4.7,1.08l6.478,27.311l8.129-2.032l0.889,3.811l42.489-10.161l-14.798-61.986l2.848-8.639c0,0-13.654-5.16-15.841-5.716C241.699,426.806,229.618,426.077,229.618,426.077z").save(flush: true);
 		}
+		if (Room.findByAssignedSeatId("1431") == null) {
+			new Room(name: "1431", number: "1431", phone: "000.000.0000", office: cloffice, floor: "14", assignedSeatId: "1431", zone: freeZone, x:242, y:199, polygon: "M220.092,171.143 261.247,171.779 261.247,174.954 264.549,174.954 264.549,221.825 261.375,221.825 261.375,226.525 221.362,226.525 225.681,199.088z").save(flush: true);
+		}
 		if (Room.findByAssignedSeatId("1433") == null) {
 			new Room(name: "James Brown", number: "1433", phone: "216.325.5628", office: cloffice, floor: "14", assignedSeatId: "1433", zone: freeZone, x:231, y:309, polygon: "M216.027,282.162 255.15,282.162 255.15,286.86 264.549,286.86 264.549,336.272 206.628,326.619 197.863,325.221 197.418,286.605 216.408,286.86z").save(flush: true);
 		}
@@ -1096,9 +1099,6 @@ class BootStrap {
 		}
 		if (Desk.findByAssignedSeatId("1414") == null) {
 			new Desk(office: cloffice, floor: "14", assignedSeatId: "1414", zone: freeZone, x:71, y:207, polygon: "M59.79,187.402 83.289,187.529 83.289,226.736 59.282,227.097z").save(flush: true);
-		}
-		if (Desk.findByAssignedSeatId("1431") == null) {
-			new Desk(office: cloffice, floor: "14", assignedSeatId: "1431", zone: freeZone, x:242, y:199, polygon: "M220.092,171.143 261.247,171.779 261.247,174.954 264.549,174.954 264.549,221.825 261.375,221.825 261.375,226.525 221.362,226.525 225.681,199.088z").save(flush: true);
 		}
 		if (Desk.findByAssignedSeatId("1432") == null) {
 			new Desk(office: cloffice, floor: "14", assignedSeatId: "1432", zone: freeZone, x:243, y:241, polygon: "M221.362,227.669 260.739,227.669 261.375,232.368 264.549,232.368 264.296,253.327 226.062,253.835z").save(flush: true);
