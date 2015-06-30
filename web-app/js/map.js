@@ -1225,9 +1225,15 @@ var OneMap = {
                         pinWidth = 31;
                         pinImage = OneMap.search.pinImages.warroom;
                     } else {
-                        pinHeight = 36;
-                        pinWidth = 28;
-                        pinImage = OneMap.search.pinImages.room;
+                        if(OneMap.search.mapPins[floorNumber].user && ($.inArray(hotspot.attrs.id, OneMap.search.mapPins[floorNumber].user > -1))){
+                            pinHeight = 40;
+                            pinWidth = 31;
+                            pinImage = OneMap.search.pinImages.warroom;
+                        } else {
+                            pinHeight = 36;
+                            pinWidth = 28;
+                            pinImage = OneMap.search.pinImages.room;
+                        }
                     }
                     break;
                 case 'desk':
