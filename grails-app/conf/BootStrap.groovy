@@ -1343,6 +1343,15 @@ class BootStrap {
 		if (Room.findByAssignedSeatId("1501") == null) {
 			new Room(name: "Billie Holiday", number: "1501", phone: "216.325.6032", office: cloffice, floor: "15", assignedSeatId: "1501", zone: freeZone, x:219, y:490, polygon: "M240.08,461.88 247.568,460.188 258.32,508.56 207.4,520.32 205.48,517.56 202.96,518.88 179.44,476.339 182.42,474.5 181.272,473.367 200.36,469.08 201.68,472.92 211.94,472.26 212.48,473.517 217.48,472.173 216.76,467.04z").save(flush: true);
 		}
+		if (Room.findByAssignedSeatId("1540") == null) {
+			new Room(name: "1540", number: "1540", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1540", zone: freeZone, x:452, y:330, polygon: "M435.16,354.72 424.72,310.56 450.88,304.44 452.56,307.8 454.96,306 480.16,344.16z").save(flush: true);
+		}
+		if (Room.findByAssignedSeatId("1544") == null) {
+			new Room(name: "1544", number: "1544", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1544", zone: freeZone, x:513, y:416, polygon: "M490.48,410.52 485.32,389.28 506.56,384.24 540.64,436.08 538.48,437.52 540.64,440.76 536.44,442.68 512.08,448.56 511.061,445.141 508.48,446.16 499.48,410.16 490.84,412.44z").save(flush: true);
+		}
+		if (Room.findByAssignedSeatId("1546") == null) {
+			new Room(name: "1546", number: "1546", phone: "000.000.0000", office: cloffice, floor: "15", assignedSeatId: "1546", zone: freeZone, x:464, y:439, polygon: "M447.16,419.4 456.28,458.4 459.52,457.68 460.24,460.68 481.72,455.64 472.84,417.72 458.92,417.6 450.52,418.08z").save(flush: true);
+		}
 		if (Desk.findByAssignedSeatId("1552") == null) {
 			new Desk(office: cloffice, floor: "15", assignedSeatId: "1552", zone: freeZone, x:310, y:476, polygon: "M292.48,456.176 301.36,494.88 303.52,494.4 304.24,497.52 326.8,492.24 317.92,454.2 305.321,454.179 295.84,454.8z").save(flush: true);
 		}
@@ -1358,17 +1367,8 @@ class BootStrap {
 		if (Desk.findByAssignedSeatId("1548") == null) {
 			new Desk(office: cloffice, floor: "15", assignedSeatId: "1548", zone: freeZone, x:413, y:451, polygon: "M395.32,430.92 405.64,470.4 407.92,469.8 408.64,472.92 430.12,467.88 421.12,429.96 409.36,429.84z").save(flush: true);
 		}
-		if (Desk.findByAssignedSeatId("1546") == null) {
-			new Desk(office: cloffice, floor: "15", assignedSeatId: "1546", zone: freeZone, x:464, y:439, polygon: "M447.16,419.4 456.28,458.4 459.52,457.68 460.24,460.68 481.72,455.64 472.84,417.72 458.92,417.6 450.52,418.08z").save(flush: true);
-		}
 		if (Desk.findByAssignedSeatId("1545") == null) {
 			new Desk(office: cloffice, floor: "15", assignedSeatId: "1545", zone: freeZone, x:491, y:433, polygon: "M474.28,417.48 482.8,455.16 504.16,450.36 503.44,447.36 507.28,446.4 499.12,411.6 483.04,414.24z").save(flush: true);
-		}
-		if (Desk.findByAssignedSeatId("1544") == null) {
-			new Desk(office: cloffice, floor: "15", assignedSeatId: "1544", zone: freeZone, x:513, y:416, polygon: "M490.48,410.52 485.32,389.28 506.56,384.24 540.64,436.08 538.48,437.52 540.64,440.76 536.44,442.68 512.08,448.56 511.061,445.141 508.48,446.16 499.48,410.16 490.84,412.44z").save(flush: true);
-		}
-		if (Desk.findByAssignedSeatId("1540") == null) {
-			new Desk(office: cloffice, floor: "15", assignedSeatId: "1540", zone: freeZone, x:452, y:330, polygon: "M435.16,354.72 424.72,310.56 450.88,304.44 452.56,307.8 454.96,306 480.16,344.16z").save(flush: true);
 		}
 		if (Desk.findByAssignedSeatId("1525") == null) {
 			new Desk(office: cloffice, floor: "15", assignedSeatId: "1525", zone: freeZone, x:244, y:20, polygon: "M222.16,7.32 222.16,31.68 265.48,31.68 265.48,11.52 261.817,11.5 262.24,7.32z").save(flush: true);
