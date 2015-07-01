@@ -148,13 +148,13 @@
       </div>
 
       <div class="zoom-btns">
-        <a href="#" id="plus" class="zoom"></a>
-        <a href="#" id="minus" class="zoom disabled"></a>
+        <a href="#" id="plus" class="zoom">+</a>
+        <a href="#" id="minus" class="zoom disabled">&ndash;</a>
         <a href="#" id="backto3d">3D</a>
       </div>
 
         <!-- <div id="popup" class="desk">
-        <a href="#" class="close"></a>
+        <a href="#" class="close">x</a>
 
         <div class="inner">
           <div class="name">Dave Fagan</div>

@@ -22,7 +22,7 @@
 
 <g:if test="${view != 'admin'}">
 <div class="md-modal md-effect-1" id="modal-1">
-  <a class="md-close close"></a>
+  <a class="md-close close">x</a>
   <div class="md-content">
   
   </div>
