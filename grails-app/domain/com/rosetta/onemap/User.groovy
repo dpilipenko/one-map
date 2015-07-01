@@ -17,15 +17,19 @@ class User extends org.springframework.security.core.userdetails.User {
 	boolean passwordExpired
 	Date dateCreated
 	Date lastUpdated
+	
+	String fullName
 
 	static constraints = {
 		username blank:false
 		emailAddress blank:false, email:true
 		firstName blank:false
 		lastName blank:false
+		fullName blank:true
 	}
 
 	static mapping = {
+		fullName formula: "concat(first_name, ' ', last_name)"
 	}
 	
 	public User() { 

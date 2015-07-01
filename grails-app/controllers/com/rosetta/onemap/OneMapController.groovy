@@ -3,7 +3,6 @@ package com.rosetta.onemap
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
 
-
 import grails.converters.JSON
 
 import grails.plugin.springsecurity.SpringSecurityUtils
@@ -413,6 +412,7 @@ class OneMapController {
 				ilike('username', '%'+searchTerm+'%')
 				ilike('firstName', '%'+searchTerm+'%')
 				ilike('lastName', '%'+searchTerm+'%')
+				ilike('fullName', '%'+searchTerm+'%')
 			}
 		}
 		for(User user : userResults) {
