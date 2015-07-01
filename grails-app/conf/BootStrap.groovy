@@ -1,7 +1,6 @@
 import com.rosetta.onemap.Office
 import com.rosetta.onemap.Role
 import com.rosetta.onemap.User
-import com.rosetta.onemap.UserRole
 import com.rosetta.onemap.Zone
 import com.rosetta.onemap.pintypes.Desk
 import com.rosetta.onemap.pintypes.Room
@@ -687,10 +686,10 @@ class BootStrap {
 			new Desk(office: cloffice, floor: "12", assignedSeatId: "1236", zone: freeZone, x:443, y:323, polygon: "M424.32,314.597 423.36,310.561 449.64,304.2 451.561,307.258 454.2,307.013 464.28,322.18 434.085,339.925 427.92,341.138 420.96,316.309z").save(flush: true);
 		}
 		if (Room.findByAssignedSeatId("1227") == null) {
-			new Room(name: "1227", number: "1227", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1227", zone: freeZone, x:242, y:200, polygon: "M220.92,172.32 225.24,199.68 219.72,227.039 261,227.04 261.24,222.36 264.12,222.36 264.12,175.56 261.08,175.5 260.88,172.32z").save(flush: true);
+			new Room(name: "1227", number: "1227", phone: "", office: cloffice, floor: "12", assignedSeatId: "1227", zone: freeZone, x:242, y:200, polygon: "M220.92,172.32 225.24,199.68 219.72,227.039 261,227.04 261.24,222.36 264.12,222.36 264.12,175.56 261.08,175.5 260.88,172.32z").save(flush: true);
 		}
 		if (Room.findByAssignedSeatId("1228") == null) {
-			new Room(name: "1228", number: "1228", phone: "000.000.0000", office: cloffice, floor: "12", assignedSeatId: "1228", zone: freeZone, x:242, y:255, polygon: "M220.92,228.24 225.24,255.6 220.2,281.76 261.12,281.52 261.24,278.04 264.12,278.04 264.12,232.92 260.64,233.16 261,228.24z").save(flush: true);
+			new Room(name: "1228", number: "1228", phone: "", office: cloffice, floor: "12", assignedSeatId: "1228", zone: freeZone, x:242, y:255, polygon: "M220.92,228.24 225.24,255.6 220.2,281.76 261.12,281.52 261.24,278.04 264.12,278.04 264.12,232.92 260.64,233.16 261,228.24z").save(flush: true);
 		}
 		if (Room.findByAssignedSeatId("1231") == null) {
 			new Room(name: "U2", number: "1231", phone: "216.325.5715", office: cloffice, floor: "12", assignedSeatId: "1231", zone: freeZone, x:231, y:310, polygon: "M197.88,326.28 197.76,287.28 215.64,287.28 215.64,282.72 254.76,282.72 254.76,287.28 264.12,287.28 264.12,337.32z").save(flush: true);
