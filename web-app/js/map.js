@@ -642,6 +642,15 @@ var OneMap = {
                             $('.btns-container').html('<a class="btn viewWARmembers">VIEW MEMBERS</a>');
                         }
 
+                        var idArray = [];
+                        for(var u = 0; u < object.members.length; u++){
+                            idArray.push(object.members[u].userID);
+                        }
+
+                        if(OneMap.isLoggedIn && ($.inArray(OneMap.login.userID, idArray) == -1)){
+                            $('.btns-container').append('<a class="btn claimHotspot addme">ADD ME</a>');
+                        }
+
                         //TODO: figure out if the 'add me' button should be added - <a class="btn claimHotspot addme">ADD ME</a>
 
                         var content = '';
