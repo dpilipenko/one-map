@@ -19,6 +19,7 @@ class Room extends Hotspot {
 	Zone zone
 	
 	static hasMany = [users: User]
+	List users
 	
     static constraints = {
     	name blank: false
