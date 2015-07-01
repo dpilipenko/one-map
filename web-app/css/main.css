@@ -2886,27 +2886,32 @@ perspective effects (not including the modals and the overlay).
     box-shadow: 0 0 3000px 150px rgba(0, 0, 0, 0.4) inset;
     background: none;
   }
+
+  /* line 2687, main.scss */
+  #plus, #minus {
+    line-height: 24px !important;
+  }
 }
 
-/* line 2689, main.scss */
+/* line 2693, main.scss */
 html.ie .login-dot {
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.3);
 }
-/* line 2691, main.scss */
+/* line 2695, main.scss */
 html.ie .login-dot .login-form {
   display: none;
 }
-/* line 2694, main.scss */
+/* line 2698, main.scss */
 html.ie .login-dot .inner {
   filter: none;
 }
-/* line 2697, main.scss */
+/* line 2701, main.scss */
 html.ie .login-dot .browser-compatability {
   display: block;
   position: relative;
   top: 156px;
 }
-/* line 2702, main.scss */
+/* line 2706, main.scss */
 html.ie .login-dot .browser-compatability .upgrade-browser-message {
   color: #fff;
   font-family: 'robotolight',Arial;
